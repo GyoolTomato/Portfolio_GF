@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 0
+    path: 
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Combat.unity
+    guid: 04a89b917c47c46e0ab8b5aee8b81bac
+  - enabled: 1
+    path: Assets/Scenes/Dormitory.unity
+    guid: 355e4dbbcd95e4f7baf026487726c63c
+  - enabled: 1
+    path: Assets/Scenes/Formation.unity
+    guid: babab34afa66e4e41b04c6ac5bd84ca4
+  - enabled: 1
+    path: Assets/Scenes/Research.unity
+    guid: 21f110408b4104c068eb16ea92b31d52
+  - enabled: 1
+    path: Assets/Scenes/Restore.unity
+    guid: 4edc5bcb958814219abf18c1ee7f2ab7
+  - enabled: 1
+    path: Assets/Scenes/Login.unity
+    guid: c6abb43b7dada4bff83a850360ad136d
+  - enabled: 1
+    path: Assets/Scenes/Battle.unity
+    guid: 84234694a3b7242cf8566ecdb6435f2a
+  - enabled: 1
+    path: Assets/Scenes/Factory.unity
+    guid: 9d99e6606a7ff4cc1a3b25df80e96c6e
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: 9f102ff4a0df842cc96e0e5635cf0d7a
+  - enabled: 1
+    path: Assets/Scenes/StageField.unity
+    guid: dff1986d7ebdd47d79ff2e7c4e209f07
+  - enabled: 1
+    path: Assets/Scenes/SelectStage.unity
+    guid: 2bdc745ca5b284b55895b3fc97e7c7b9
+  m_configObjects: {}
