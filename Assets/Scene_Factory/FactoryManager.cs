@@ -30,7 +30,7 @@ namespace Assets.Scene_Factory
         // Update is called once per frame
         void Update()
         {
-
+            
         }
     }
 }

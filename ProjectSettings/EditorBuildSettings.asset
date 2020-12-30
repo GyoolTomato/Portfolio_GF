@@ -7,7 +7,13 @@ EditorBuildSettings:
   m_Scenes:
   - enabled: 0
     path: 
-    guid: 2cda990e2423bbf4892e6590ba056729
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/Login.unity
+    guid: c6abb43b7dada4bff83a850360ad136d
+  - enabled: 1
+    path: Assets/Scenes/Lobby.unity
+    guid: 9f102ff4a0df842cc96e0e5635cf0d7a
   - enabled: 1
     path: Assets/Scenes/Combat.unity
     guid: 04a89b917c47c46e0ab8b5aee8b81bac
@@ -24,17 +30,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Restore.unity
     guid: 4edc5bcb958814219abf18c1ee7f2ab7
   - enabled: 1
-    path: Assets/Scenes/Login.unity
-    guid: c6abb43b7dada4bff83a850360ad136d
-  - enabled: 1
     path: Assets/Scenes/Battle.unity
     guid: 84234694a3b7242cf8566ecdb6435f2a
   - enabled: 1
     path: Assets/Scenes/Factory.unity
     guid: 9d99e6606a7ff4cc1a3b25df80e96c6e
-  - enabled: 1
-    path: Assets/Scenes/Lobby.unity
-    guid: 9f102ff4a0df842cc96e0e5635cf0d7a
   - enabled: 1
     path: Assets/Scenes/StageField.unity
     guid: dff1986d7ebdd47d79ff2e7c4e209f07
