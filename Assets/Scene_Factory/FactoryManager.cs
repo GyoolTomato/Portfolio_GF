@@ -7,7 +7,7 @@ namespace Assets.Scene_Factory
 {
     public class FactoryManager : MonoBehaviour
     {
-        private GameManager m_gameManager;
+        private Assets.GameManager.GameManager m_gameManager;
         private GameObject m_canvas;
 
         private MenuController m_menuController;
@@ -20,7 +20,7 @@ namespace Assets.Scene_Factory
         // Start is called before the first frame update
         void Start()
         {
-            m_gameManager = GameObject.Find("GameManager").gameObject.GetComponent<GameManager>();
+            m_gameManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.GameManager.GameManager>();
             m_canvas = GameObject.Find("Canvas");
 
             m_menuController = new MenuController();
