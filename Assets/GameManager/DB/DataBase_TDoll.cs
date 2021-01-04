@@ -5,7 +5,7 @@ namespace Assets.GameManager.DB
 {
     public class DataBase_TDoll
     {
-        public int UniqueNumber { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         public int Star { get; set; }

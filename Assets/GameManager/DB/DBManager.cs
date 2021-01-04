@@ -270,7 +270,7 @@ namespace Assets.GameManager.DB
             {
                 query = string.Empty;
                 query = "Insert Into T-Doll(UniqueNumber, Level, DummyLink, EquipmentOwnerShipNumber0, EquipmentOwnerShipNumber1, EquipmentOwnerShipNumber2) VALUES("
-                    + item.UniqueNumber.ToString()
+                    + item.Id.ToString()
                     + "1"
                     + "1"
                     + "0"
@@ -300,7 +300,7 @@ namespace Assets.GameManager.DB
             {
                 query = string.Empty;
                query = "Insert Into T-Doll(UniqueNumber, Level, LimitedPower) VALUES("
-                    + item.UniqueNumber.ToString()
+                    + item.Id.ToString()
                     + "1"
                     + "50.0"
                     + ")";
