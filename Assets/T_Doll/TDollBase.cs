@@ -14,7 +14,54 @@ public class TDollBase : MonoBehaviour
     }
 
     protected Animator m_animator;
-protected Assets.GameManager.DB.DataBase_TDoll m_status;
+    protected E_State m_nowState;
+    protected Assets.GameManager.DB.DataBase_TDoll m_status;
+
+    protected virtual void Awake()
+    {
+
+    }
+
+    protected virtual void Start()
+    {
+        m_animator = this.GetComponent<Animator>();
+        ChangeState(E_State.Idle);
+    }
+
+    protected virtual void Update()
+    {
+        Debug.Log(m_nowState);
+    }
+
+    protected virtual void Initialize(Assets.GameManager.DB.DataBase_TDoll status)
+    {
+        m_status = status;
+    }
+
+    protected virtual void ChangeState(E_State state)
+    {
+        m_nowState = state;
+        switch (m_nowState)
+        {
+            case E_State.Idle:
+                State_Idle();
+                break;
+            case E_State.Work:
+                State_Work();
+                break;
+            case E_State.Run:
+                State_Run();
+                break;
+            case E_State.Attack:
+                State_Attack();
+                break;
+            case E_State.Die:
+                State_Die();
+                break;
+            default:
+                break;
+        }
+    }
 
     protected virtual void State_Idle()
     {
@@ -62,6 +109,19 @@ protected Assets.GameManager.DB.DataBase_TDoll m_status;
         {
             m_animator.SetBool("isDie", true);
             m_animator.SetBool("isIdle", false);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (this.transform.tag.Equals(collision.transform.tag))
+        {
+            m_status.Hp--;
+
+            if (m_status.Hp <= 0)
+            {
+                ChangeState(E_State.Die);
+            }
         }
     }
 }
