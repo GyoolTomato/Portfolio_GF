@@ -128,17 +128,13 @@ namespace Assets.GameManager.DB
             if (Application.platform == RuntimePlatform.Android)
             {
                 filePath = Path.Combine(Application.persistentDataPath, DBName_User);
-                if (!File.Exists(filePath))
-                {
-                    var unityWebRequest = UnityWebRequest.Get("jar:file//" + Application.dataPath + "!/assets/User.db");
-                    unityWebRequest.downloadedBytes.ToString();
-                    yield return unityWebRequest.SendWebRequest().isDone;
-                    File.WriteAllBytes(filePath, unityWebRequest.downloadHandler.data);
-                }
-                else
-                {
-                    Debug.Log("Find DB");
-                }
+                if (File.Exists(filePath))
+                    File.Delete(filePath);
+
+                var unityWebRequest = UnityWebRequest.Get("jar:file//" + Application.dataPath + "!/assets/User.db");
+                unityWebRequest.downloadedBytes.ToString();
+                yield return unityWebRequest.SendWebRequest().isDone;
+                File.WriteAllBytes(filePath, unityWebRequest.downloadHandler.data);
             }
             else if (Application.platform == RuntimePlatform.IPhonePlayer)
             {
@@ -147,21 +143,17 @@ namespace Assets.GameManager.DB
             else
             {
                 filePath = Path.Combine(Application.dataPath, DBName_User);
-                if (!File.Exists(filePath))
-                {
-                    File.Copy(Path.Combine(Application.streamingAssetsPath, DBName_User), filePath);
-                }
-                else
-                {
-                    Debug.Log("Find DB");
-                }
+                if (File.Exists(filePath))
+                    File.Delete(filePath);
+                    
+                File.Copy(Path.Combine(Application.streamingAssetsPath, DBName_User), filePath);
             }
         }
 
-        public List<DataBase_TDoll> DataBaseRead_TDoll(string query)
+        public List<IndexDataBase_TDoll> ReadIndexDataBase_TDoll(string query)
         {
-            var result = new List<DataBase_TDoll>();
-            var tempData = new DataBase_TDoll();
+            var result = new List<IndexDataBase_TDoll>();
+            var tempData = new IndexDataBase_TDoll();
 
             var dbConnection = new SQLiteConnection(DBFilePath_Index);
             dbConnection.Open();
@@ -171,8 +163,8 @@ namespace Assets.GameManager.DB
 
             while (dataReader.Read())
             {
-                tempData = new DataBase_TDoll();
-                tempData.Id = dataReader.GetInt32(0);
+                tempData = new IndexDataBase_TDoll();
+                tempData.DataCode = dataReader.GetInt32(0);
                 tempData.Name = dataReader.GetString(1);
                 tempData.Type = dataReader.GetString(2);
                 tempData.Star = dataReader.GetInt32(3);
@@ -199,10 +191,10 @@ namespace Assets.GameManager.DB
             return result;
         }
 
-        private List<DataBase_Equipment> DataBaseRead_Equipment(string query)
+        public List<IndexDataBase_Equipment> ReadIndexDataBase_Equipment(string query)
         {
-            var result = new List<DataBase_Equipment>();
-            var tempData = new DataBase_Equipment();
+            var result = new List<IndexDataBase_Equipment>();
+            var tempData = new IndexDataBase_Equipment();
 
             var dbConnection = new SQLiteConnection(DBFilePath_Index);
             dbConnection.Open();
@@ -212,8 +204,8 @@ namespace Assets.GameManager.DB
 
             while (dataReader.Read())
             {
-                tempData = new DataBase_Equipment();
-                tempData.Id = dataReader.GetInt32(0);
+                tempData = new IndexDataBase_Equipment();
+                tempData.DataCode = dataReader.GetInt32(0);
                 tempData.Name = dataReader.GetString(1);
                 tempData.Type = dataReader.GetString(2);
                 tempData.Star = dataReader.GetInt32(3);
@@ -235,10 +227,10 @@ namespace Assets.GameManager.DB
             return result;
         }
 
-        public List<DataBase_UserTDoll> DataBaseRead_UserTDoll(string query)
+        public List<UserDataBase_TDoll> ReadUserDataBase_TDoll(string query)
         {
-            var result = new List<DataBase_UserTDoll>();
-            var tempData = new DataBase_UserTDoll();
+            var result = new List<UserDataBase_TDoll>();
+            var tempData = new UserDataBase_TDoll();
 
             var dbConnection = new SQLiteConnection(DBFilePath_User);
             dbConnection.Open();
@@ -248,14 +240,14 @@ namespace Assets.GameManager.DB
 
             while (dataReader.Read())
             {
-                tempData = new DataBase_UserTDoll();
-                tempData.OwnerShipNumber = dataReader.GetInt32(0);
-                tempData.Id = dataReader.GetInt32(1);
+                tempData = new UserDataBase_TDoll();
+                tempData.OwnershipCode = dataReader.GetInt32(0);
+                tempData.DataCode = dataReader.GetInt32(1);
                 tempData.Level = dataReader.GetInt32(2);
                 tempData.DummyLink = dataReader.GetInt32(3);
-                tempData.EquipmentOwnerShipNumber0 = dataReader.GetInt32(4);
-                tempData.EquipmentOwnerShipNumber1 = dataReader.GetInt32(5);
-                tempData.EquipmentOwnerShipNumber2 = dataReader.GetInt32(6);
+                tempData.EquipmentOwnershipNumber0 = dataReader.GetInt32(4);
+                tempData.EquipmentOwnershipNumber1 = dataReader.GetInt32(5);
+                tempData.EquipmentOwnershipNumber2 = dataReader.GetInt32(6);
                 result.Add(tempData);
             }
 
@@ -269,10 +261,10 @@ namespace Assets.GameManager.DB
             return result;
         }
 
-        private List<DataBase_UserEquipment> DataBaseRead_UserEquipment(string query)
+        public List<UserDataBase_Equipment> ReadUserDataBase_Equipment(string query)
         {
-            var result = new List<DataBase_UserEquipment>();
-            var tempData = new DataBase_UserEquipment();
+            var result = new List<UserDataBase_Equipment>();
+            var tempData = new UserDataBase_Equipment();
 
             var dbConnection = new SQLiteConnection(DBFilePath_User);
             dbConnection.Open();
@@ -282,9 +274,9 @@ namespace Assets.GameManager.DB
 
             while (dataReader.Read())
             {
-                tempData = new DataBase_UserEquipment();
-                tempData.OwnerShipNumber = dataReader.GetInt32(0);
-                tempData.Id = dataReader.GetInt32(1);
+                tempData = new UserDataBase_Equipment();
+                tempData.OwnershipCode = dataReader.GetInt32(0);
+                tempData.DataCode = dataReader.GetInt32(1);
                 tempData.Level = dataReader.GetInt32(2);
                 tempData.LimitedPower = dataReader.GetFloat(3);
                 result.Add(tempData);
@@ -300,37 +292,7 @@ namespace Assets.GameManager.DB
             return result;
         }
 
-        public void InsertUserDataBase(List<DataBase_UserTDoll> data)
-        {
-            var query = string.Empty;
-
-            var dbConnection = new SQLiteConnection(DBFilePath_User);
-            dbConnection.Open();
-            var dbCommand = dbConnection.CreateCommand();
-
-            foreach (var item in data)
-        {
-                query = string.Empty;
-                query = "Insert Into T-Doll(Id, Level, DummyLink, EquipmentOwnerShipNumber0, EquipmentOwnerShipNumber1, EquipmentOwnerShipNumber2) VALUES("
-                    + item.Id.ToString()
-                    + item.Level.ToString()
-                    + item.DummyLink.ToString()
-                    + item.EquipmentOwnerShipNumber0.ToString()
-                    + item.EquipmentOwnerShipNumber1.ToString()
-                    + item.EquipmentOwnerShipNumber2.ToString()
-                    + ")";
-
-                dbCommand.CommandText = query;
-                dbCommand.ExecuteNonQuery();
-            }
-
-            dbCommand.Dispose();
-            dbCommand = null;
-            dbConnection.Close();
-            dbConnection = null;
-        }
-
-        public void InsertUserDataBase(List<DataBase_UserEquipment> data)
+        public void InsertUserDataBase(List<UserDataBase_TDoll> data)
         {
             var query = string.Empty;
 
@@ -341,10 +303,13 @@ namespace Assets.GameManager.DB
             foreach (var item in data)
             {
                 query = string.Empty;
-               query = "Insert Into T-Doll(Id, Level, LimitedPower) VALUES("
-                    + item.Id.ToString()
+                query = "Insert Into T-Doll(Id, Level, DummyLink, EquipmentOwnerShipNumber0, EquipmentOwnerShipNumber1, EquipmentOwnerShipNumber2) VALUES("
+                    + item.DataCode.ToString()
                     + item.Level.ToString()
-                    + item.LimitedPower.ToString()
+                    + item.DummyLink.ToString()
+                    + item.EquipmentOwnershipNumber0.ToString()
+                    + item.EquipmentOwnershipNumber1.ToString()
+                    + item.EquipmentOwnershipNumber2.ToString()
                     + ")";
 
                 dbCommand.CommandText = query;
@@ -356,5 +321,133 @@ namespace Assets.GameManager.DB
             dbConnection.Close();
             dbConnection = null;
         }
+
+        public void InsertUserDataBase(List<UserDataBase_Equipment> data)
+        {
+            var query = string.Empty;
+
+            var dbConnection = new SQLiteConnection(DBFilePath_User);
+            dbConnection.Open();
+            var dbCommand = dbConnection.CreateCommand();
+
+            foreach (var item in data)
+            {
+                query = string.Empty;
+                query = "INSERT INTO T-Doll VALUES ("
+                     + item.DataCode.ToString()
+                     + item.Level.ToString()
+                     + item.LimitedPower.ToString()
+                     + ")";
+
+                dbCommand.CommandText = query;
+                dbCommand.ExecuteNonQuery();
+            }
+
+            dbCommand.Dispose();
+            dbCommand = null;
+            dbConnection.Close();
+            dbConnection = null;
+        }
+
+        public void DeleteUserDataBase(List<UserDataBase_TDoll> data)
+        {
+            var query = string.Empty;
+
+            var dbConnection = new SQLiteConnection(DBFilePath_User);
+            dbConnection.Open();
+            var dbCommand = dbConnection.CreateCommand();
+
+            foreach (var item in data)
+            {
+                query = string.Empty;
+                query = "DELETE FROM TDoll WHERE OwnershipCode = "
+                     + item.OwnershipCode.ToString();
+
+                dbCommand.CommandText = query;
+                dbCommand.ExecuteNonQuery();
+            }
+
+            dbCommand.Dispose();
+            dbCommand = null;
+            dbConnection.Close();
+            dbConnection = null;
+        }
+
+        public void DeleteUserDataBase(List<UserDataBase_Equipment> data)
+        {
+            var query = string.Empty;
+
+            var dbConnection = new SQLiteConnection(DBFilePath_User);
+            dbConnection.Open();
+            var dbCommand = dbConnection.CreateCommand();
+
+            foreach (var item in data)
+            {
+                query = string.Empty;
+                query = "DELETE FROM Equipment WHERE OwnershipCode = "
+                     + item.OwnershipCode.ToString();
+
+                dbCommand.CommandText = query;
+                dbCommand.ExecuteNonQuery();
+            }
+
+            dbCommand.Dispose();
+            dbCommand = null;
+            dbConnection.Close();
+            dbConnection = null;
+        }
+
+        public void UpdateUserDataBase(UserDataBase_TDoll data)
+        {
+            var query = string.Empty;
+
+            var dbConnection = new SQLiteConnection(DBFilePath_User);
+            dbConnection.Open();
+            var dbCommand = dbConnection.CreateCommand();
+
+            query = string.Empty;
+            query = "UPDATE TDoll SET"
+                + "Level=" + data.Level
+                + "DummyLink=" + data.DummyLink
+                + "EquipmentOwnershipNumber0=" + data.EquipmentOwnershipNumber0
+                + "EquipmentOwnershipNumber1=" + data.EquipmentOwnershipNumber1
+                + "EquipmentOwnershipNumber2=" + data.EquipmentOwnershipNumber2
+                + " WHERE OwnershipCode = "
+                + data.OwnershipCode.ToString();
+
+            dbCommand.CommandText = query;
+            dbCommand.ExecuteNonQuery();
+
+            dbCommand.Dispose();
+            dbCommand = null;
+            dbConnection.Close();
+            dbConnection = null;
+        }
+
+        public void UpdateUserDataBase(UserDataBase_Equipment data)
+        {
+            var query = string.Empty;
+
+            var dbConnection = new SQLiteConnection(DBFilePath_User);
+            dbConnection.Open();
+            var dbCommand = dbConnection.CreateCommand();
+
+            query = string.Empty;
+            query = "UPDATE Equipment SET "
+                + "Level=" + data.Level
+                + ", LimitedPower=" + data.LimitedPower
+                + " WHERE OwnershipCode = "
+                + data.OwnershipCode.ToString();
+
+            dbCommand.CommandText = query;
+            dbCommand.ExecuteNonQuery();
+
+            dbCommand.Dispose();
+            dbCommand = null;
+            dbConnection.Close();
+            dbConnection = null;
+        }
+
+
     }
 }

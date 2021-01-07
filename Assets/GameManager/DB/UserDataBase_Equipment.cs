@@ -3,10 +3,10 @@ using UnityEngine;
 
 namespace Assets.GameManager.DB
 {
-    public class DataBase_UserEquipment
+    public class UserDataBase_Equipment
     {
-        public int OwnerShipNumber { get; set; }
-        public int Id { get; set; }        
+        public int OwnershipCode { get; set; }
+        public int DataCode { get; set; }        
         public int Level { get; set; }
         public float LimitedPower { get; set; }
     }

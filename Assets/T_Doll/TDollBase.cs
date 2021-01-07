@@ -15,7 +15,7 @@ public class TDollBase : MonoBehaviour
 
     protected Animator m_animator;
     protected E_State m_nowState;
-    protected Assets.GameManager.DB.DataBase_TDoll m_status;
+    protected Assets.GameManager.DB.IndexDataBase_TDoll m_status;
 
     protected virtual void Awake()
     {
@@ -33,7 +33,7 @@ public class TDollBase : MonoBehaviour
         Debug.Log(m_nowState);
     }
 
-    protected virtual void Initialize(Assets.GameManager.DB.DataBase_TDoll status)
+    protected virtual void Initialize(Assets.GameManager.DB.IndexDataBase_TDoll status)
     {
         m_status = status;
     }

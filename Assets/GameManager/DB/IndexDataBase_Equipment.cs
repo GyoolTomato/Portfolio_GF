@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Assets.GameManager.DB
 {
-    public class DataBase_Equipment
+    public class IndexDataBase_Equipment
     {
-        public int Id { get; set; }
+        public int DataCode { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         public int Star { get; set; }
