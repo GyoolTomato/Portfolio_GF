@@ -8,10 +8,10 @@ public class WorkResourceSlot : MonoBehaviour
     private int m_value;
     private bool m_isValueUp;
     private bool m_isValueDown;
-    public Image m_image;
-    public Text m_valueMonitor;
-    public Button m_valueUp;
-    public Button m_valueDown;
+    private Image m_image;
+    private Text m_valueMonitor;
+    private Button m_valueUp;
+    private Button m_valueDown;
 
     public WorkResourceSlot()
     {
@@ -25,6 +25,11 @@ public class WorkResourceSlot : MonoBehaviour
 
     private void Start()
     {
+        m_image = GameObject.Find("Image").GetComponent<Image>();
+        m_valueMonitor = GameObject.Find("ValueMonitor").GetComponent<Text>();
+        m_valueUp = GameObject.Find("ValueUp").GetComponent<Button>();
+        m_valueDown = GameObject.Find("ValueDown").GetComponent<Button>();
+
         m_value = 0;
         ApplyValueInMonitor();
 
@@ -98,5 +103,13 @@ public class WorkResourceSlot : MonoBehaviour
     private void ValueDown_Stanby()
     {
         m_isValueDown = true;
+    }
+
+    public int Value
+    {
+        get
+        {
+            return m_value;
+        }
     }
 }
