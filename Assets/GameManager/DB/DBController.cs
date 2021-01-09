@@ -8,18 +8,14 @@ using UnityEngine.Networking;
 
 namespace Assets.GameManager.DB
 {
-    public class DBManager : MonoBehaviour
+    public class DBController
     {
-        // Start is called before the first frame update
-        void Start()
-        {
-            StartCoroutine(DBCreate_Index());
-        }
+        private GameManager m_gameManager;
 
-        // Update is called once per frame
-        void Update()
+        public void Initailize(GameManager gameManager)
         {
-
+            m_gameManager = gameManager;
+            m_gameManager.StartCoroutine(DBCreate_Index());
         }
 
         private string DBName_Index
@@ -118,7 +114,7 @@ namespace Assets.GameManager.DB
                 }
             }
 
-            StartCoroutine(DBCreate_User());
+            m_gameManager.StartCoroutine(DBCreate_User());
         }
 
         private IEnumerator DBCreate_User()

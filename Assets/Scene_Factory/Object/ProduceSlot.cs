@@ -26,15 +26,37 @@ public class ProduceSlot : MonoBehaviour
 
     private void Order()
     {
-        if (m_manPower.Value > 400)
+        if (m_manPower.Value >= 400 &&
+            m_bullet.Value >= 400 &&
+            m_food.Value >= 400 &&
+            m_militarySupplies.Value >= 200)
         {
 
         }
+        else if (m_manPower.Value >= 100 &&
+            m_bullet.Value >= 400 &&
+            m_food.Value >= 400 &&
+            m_militarySupplies.Value >= 200)
+        {
+
+        }
+        else if (m_manPower.Value >= 400 &&
+            m_bullet.Value >= 100 &&
+            m_food.Value >= 400 &&
+            m_militarySupplies.Value >= 200)
+        {
+
+        }
+        else if (m_manPower.Value >= 400 &&
+            m_bullet.Value >= 400 &&
+            m_food.Value >= 100 &&
+            m_militarySupplies.Value >= 200)
+        {
+
+        }        
         else
         {
 
         }
-    }
-
-    //private void MakeProduction(int manPower, int bullet, )
+    }    
 }
