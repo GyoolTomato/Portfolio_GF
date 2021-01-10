@@ -3,60 +3,49 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ProduceSlot : MonoBehaviour
+namespace Assets.Scene_Factory.Object
 {
-    private Button m_order;
-    public WorkResourceSlot m_manPower;
-    public WorkResourceSlot m_bullet;
-    public WorkResourceSlot m_food;
-    public WorkResourceSlot m_militarySupplies;
-
-    // Start is called before the first frame update
-    private void Start()
+    public class ProduceSlot : MonoBehaviour
     {
-        m_order = GameObject.Find("Order").GetComponent<Button>();
-        m_order.onClick.AddListener(Order);
+        private FactoryManager m_factoryManager;
+
+        private Button m_order;
+        private WorkResourceSlot m_manPower;
+        private WorkResourceSlot m_bullet;
+        private WorkResourceSlot m_food;
+        private WorkResourceSlot m_militarySupplies;        
+
+        // Start is called before the first frame update
+        private void Start()
+        {
+            m_factoryManager = GameObject.Find("Manager").GetComponent<FactoryManager>();
+
+            var manufacturingCompany = GameObject.Find("ManufacturingCompany");
+            m_order = manufacturingCompany.transform.Find("Order").GetComponent<Button>();
+            m_order.onClick.AddListener(Order);
+            m_manPower = manufacturingCompany.transform.Find("WorkResourceSlot_ManPower").GetComponent<WorkResourceSlot>();
+            m_bullet = manufacturingCompany.transform.Find("WorkResourceSlot_Bullet").GetComponent<WorkResourceSlot>();
+            m_food = manufacturingCompany.transform.Find("WorkResourceSlot_Food").GetComponent<WorkResourceSlot>();
+            m_militarySupplies = manufacturingCompany.transform.Find("WorkResourceSlot_MilitarySupplies").GetComponent<WorkResourceSlot>();
+        }
+
+        // Update is called once per frame
+        private void Update()
+        {
+
+        }
+
+        private void Order()
+        {
+            if (transform.tag.Equals("TDoll"))
+            {
+                m_factoryManager.ProduceTDollController.OrderReceive(m_manPower.Value, m_bullet.Value, m_food.Value, m_militarySupplies.Value);
+            }
+            else if (transform.tag.Equals("Equipment"))
+            {
+                m_factoryManager.ProduceEquipmentController.OrderReceive(m_manPower.Value, m_bullet.Value, m_food.Value, m_militarySupplies.Value);
+            }
+        }
     }
-
-    // Update is called once per frame
-    private void Update()
-    {
-        
-    }
-
-    private void Order()
-    {
-        if (m_manPower.Value >= 400 &&
-            m_bullet.Value >= 400 &&
-            m_food.Value >= 400 &&
-            m_militarySupplies.Value >= 200)
-        {
-
-        }
-        else if (m_manPower.Value >= 100 &&
-            m_bullet.Value >= 400 &&
-            m_food.Value >= 400 &&
-            m_militarySupplies.Value >= 200)
-        {
-
-        }
-        else if (m_manPower.Value >= 400 &&
-            m_bullet.Value >= 100 &&
-            m_food.Value >= 400 &&
-            m_militarySupplies.Value >= 200)
-        {
-
-        }
-        else if (m_manPower.Value >= 400 &&
-            m_bullet.Value >= 400 &&
-            m_food.Value >= 100 &&
-            m_militarySupplies.Value >= 200)
-        {
-
-        }        
-        else
-        {
-
-        }
-    }    
 }
+    

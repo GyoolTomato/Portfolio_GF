@@ -6,6 +6,8 @@ TagManager:
   tags:
   - User
   - Enemy
+  - TDoll
+  - Equipment
   layers:
   - Default
   - TransparentFX

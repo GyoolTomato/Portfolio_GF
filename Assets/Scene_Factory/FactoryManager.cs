@@ -13,6 +13,8 @@ namespace Assets.Scene_Factory
         private GameObject m_canvas;
 
         private MenuController m_menuController;
+        private ProduceTDollController m_produceTDollController;
+        private ProduceEquipmentController m_produceEquipmentController;
 
         private void Awake()
         {
@@ -29,12 +31,32 @@ namespace Assets.Scene_Factory
 
             m_menuController = new MenuController();
             m_menuController.Initialize(m_gameManager, m_canvas);
+            m_produceTDollController = new ProduceTDollController();
+            m_produceTDollController.Initialize();
+            m_produceEquipmentController = new ProduceEquipmentController();
+            m_produceEquipmentController.Initialize();
         }
 
         // Update is called once per frame
         void Update()
         {
-            
+
+        }
+
+        public ProduceTDollController ProduceTDollController
+        {
+            get
+            {
+                return m_produceTDollController;
+            }
+        }
+
+        public ProduceEquipmentController ProduceEquipmentController
+        {
+            get
+            {
+                return m_produceEquipmentController;
+            }
         }
     }
 }
