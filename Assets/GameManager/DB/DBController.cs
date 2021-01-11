@@ -289,32 +289,32 @@ namespace Assets.GameManager.DB
 
         public void InsertUserDataBase(List<UserDataBase_TDoll> data)
         {
-            //var query = string.Empty;
+            var query = string.Empty;
 
-            //var dbConnection = new SQLiteConnection(DBFilePath_User);
-            //dbConnection.Open();
-            //var dbCommand = dbConnection.CreateCommand();
+            var dbConnection = new SQLiteConnection(DBFilePath_User);
+            dbConnection.Open();
+            var dbCommand = dbConnection.CreateCommand();
 
-            //foreach (var item in data)
-            //{
-            //    query = string.Empty;
-            //    query = "Insert Into T-Doll(Id, Level, DummyLink, EquipmentOwnerShipNumber0, EquipmentOwnerShipNumber1, EquipmentOwnerShipNumber2) VALUES("
-            //        + item.DataCode.ToString()
-            //        + item.Level.ToString()
-            //        + item.DummyLink.ToString()
-            //        + item.EquipmentOwnershipNumber0.ToString()
-            //        + item.EquipmentOwnershipNumber1.ToString()
-            //        + item.EquipmentOwnershipNumber2.ToString()
-            //        + ")";
+            foreach (var item in data)
+            {
+                query = string.Empty;
+                query = "Insert Into TDoll(DataCode, Level, DummyLink, EquipmentOwnerShipNumber0, EquipmentOwnerShipNumber1, EquipmentOwnerShipNumber2) VALUES("
+                    + item.DataCode.ToString() + ", "
+                    + item.Level.ToString() + ", "
+                    + item.DummyLink.ToString() + ", "
+                    + item.EquipmentOwnershipNumber0.ToString() + ", "
+                    + item.EquipmentOwnershipNumber1.ToString() + ", "
+                    + item.EquipmentOwnershipNumber2.ToString()
+                    + ")";
 
-            //    dbCommand.CommandText = query;
-            //    dbCommand.ExecuteNonQuery();
-            //}
+                dbCommand.CommandText = query;
+                dbCommand.ExecuteNonQuery();
+            }
 
-            //dbCommand.Dispose();
-            //dbCommand = null;
-            //dbConnection.Close();
-            //dbConnection = null;
+            dbCommand.Dispose();
+            dbCommand = null;
+            dbConnection.Close();
+            dbConnection = null;
         }
 
         public void InsertUserDataBase(List<UserDataBase_Equipment> data)
@@ -328,7 +328,7 @@ namespace Assets.GameManager.DB
             foreach (var item in data)
             {
                 query = string.Empty;
-                query = "INSERT INTO T-Doll VALUES ("
+                query = "INSERT INTO TDoll VALUES ("
                      + item.DataCode.ToString()
                      + item.Level.ToString()
                      + item.LimitedPower.ToString()
