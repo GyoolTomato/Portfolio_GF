@@ -8,8 +8,8 @@ namespace Assets.GameManager
     {
         private WorkResourceManager m_workResourceManager;
         private DB.DBController m_dBController;
-        private IndexDBController m_indexDBController;
-        private UserDBController m_userDBController;
+        private DBController_Index m_dBControllerIndex;
+        private DBController_User m_dBControllerUser;
 
         private void Awake()
         {
@@ -21,11 +21,11 @@ namespace Assets.GameManager
             m_dBController = new DB.DBController();
             m_dBController.Initailize(this);
 
-            m_indexDBController = new IndexDBController();
-            m_indexDBController.Initialize(m_dBController);
+            m_dBControllerIndex = new DBController_Index();
+            m_dBControllerIndex.Initialize(m_dBController);
 
-            m_userDBController = new UserDBController();
-            m_userDBController.Initialize(m_dBController);
+            m_dBControllerUser = new DBController_User();
+            m_dBControllerUser.Initialize(m_dBController);
         }
 
         // Start is called before the first frame update
@@ -48,19 +48,19 @@ namespace Assets.GameManager
             }
         }
 
-        public IndexDBController IndexDBController
+        public DBController_Index DBControllerIndex
         {
             get
             {
-                return m_indexDBController;
+                return m_dBControllerIndex;
             }
         }
 
-        public UserDBController UserDBController
+        public DBController_User DBControllerUser
         {
             get
             {
-                return m_userDBController;
+                return m_dBControllerUser;
             }
         }
     }

@@ -20,7 +20,7 @@ namespace Assets.Scene_Factory.Object
         {
             m_factoryManager = GameObject.Find("Manager").GetComponent<FactoryManager>();
 
-            var manufacturingCompany = GameObject.Find("ManufacturingCompany");
+            var manufacturingCompany = this.transform.Find("ManufacturingCompany");
             m_order = manufacturingCompany.transform.Find("Order").GetComponent<Button>();
             m_order.onClick.AddListener(Order);
             m_manPower = manufacturingCompany.transform.Find("WorkResourceSlot_ManPower").GetComponent<WorkResourceSlot>();

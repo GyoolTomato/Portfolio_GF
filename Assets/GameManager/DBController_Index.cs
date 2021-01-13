@@ -6,7 +6,7 @@ using Assets.GameManager.DB;
 
 namespace Assets.GameManager
 {
-    public class IndexDBController
+    public class DBController_Index
     {
         public enum E_TDoll
         {
@@ -24,7 +24,7 @@ namespace Assets.GameManager
 
         private DBController m_dBController;
 
-        public IndexDBController()
+        public DBController_Index()
         {
         }
 

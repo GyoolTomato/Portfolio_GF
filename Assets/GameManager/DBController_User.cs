@@ -5,7 +5,7 @@ using Assets.GameManager.DB;
 
 namespace Assets.GameManager
 {
-    public class UserDBController
+    public class DBController_User
     {
         private DBController m_dBController;
         private List<UserDataBase_TDoll> m_userTDoll;
@@ -47,18 +47,31 @@ namespace Assets.GameManager
             }
         }
 
-        public void AddOwnership(UserDataBase_TDoll data)
-        {
+        public void AddOwnership(IndexDataBase_TDoll data)
+        {            
+            var conversionData = new UserDataBase_TDoll();
+            conversionData.DataCode = data.DataCode;
+            conversionData.Level = 1;
+            conversionData.DummyLink = 1;
+            conversionData.EquipmentOwnershipNumber0 = 0;
+            conversionData.EquipmentOwnershipNumber1 = 0;
+            conversionData.EquipmentOwnershipNumber2 = 0;
+
             var tempData = new List<UserDataBase_TDoll>();
-            tempData.Add(data);
+            tempData.Add(conversionData);
 
             m_dBController.InsertUserDataBase(tempData);
         }
 
-        public void AddOwnership(UserDataBase_Equipment data)
+        public void AddOwnership(IndexDataBase_Equipment data)
         {
+            var conversionData = new UserDataBase_Equipment();
+            conversionData.DataCode = data.DataCode;
+            conversionData.Level = 1;
+            conversionData.LimitedPower = 50.0f;            
+
             var tempData = new List<UserDataBase_Equipment>();
-            tempData.Add(data);
+            tempData.Add(conversionData);
 
             m_dBController.InsertUserDataBase(tempData);
         }
