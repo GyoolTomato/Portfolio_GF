@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Assets.Scene_Dormitory.Controller
 {
-    public class ViewProt_EquipmentsController
+    public class ViewPort_EquipmentsController
     {
-        public ViewProt_EquipmentsController()
+        public ViewPort_EquipmentsController()
         {
         }
     }

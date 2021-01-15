@@ -9,8 +9,7 @@ namespace Assets.Scene_Dormitory
         private Assets.GameManager.GameManager m_gameManager;
         private GameObject m_canvas;
 
-        private MenuController m_menuController;
-        private ViewportController m_viewportController;
+        private MenuController m_menuController;        
 
         public DormitoryManager()
         {
