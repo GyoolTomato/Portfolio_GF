@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Assets.Scene_Dormitory.Controller;
 
 namespace Assets.Scene_Dormitory
 {
@@ -8,7 +9,8 @@ namespace Assets.Scene_Dormitory
         private Assets.GameManager.GameManager m_gameManager;
         private GameObject m_canvas;
 
-        private Controller.MenuController m_menuController;
+        private MenuController m_menuController;
+        private ViewportController m_viewportController;
 
         public DormitoryManager()
         {
@@ -27,6 +29,7 @@ namespace Assets.Scene_Dormitory
 
             m_menuController = new Controller.MenuController();
             m_menuController.Initialize(m_gameManager, m_canvas);
+
         }
 
         private void Update()
