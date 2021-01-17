@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.GameManager.DB
+namespace Assets.Project.DB
 {
     public static class QuerySupport
     {

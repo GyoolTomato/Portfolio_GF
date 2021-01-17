@@ -7,7 +7,7 @@ namespace Assets.Scene_Lobby.Controller
 {
     public class UserMonitorController
     {
-        private Assets.GameManager.GameManager m_gameManager;
+        private Assets.Project.GameManager m_gameManager;
         private GameObject m_workResourceInformation;
 
         private WorkResourceMonitor m_manPower;
@@ -25,7 +25,7 @@ namespace Assets.Scene_Lobby.Controller
             m_militarySupplies = null;
         }
 
-        public void Initialize(Assets.GameManager.GameManager gameManager, GameObject canvas)
+        public void Initialize(Assets.Project.GameManager gameManager, GameObject canvas)
         {
             m_gameManager = gameManager;
 

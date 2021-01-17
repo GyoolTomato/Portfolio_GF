@@ -6,13 +6,13 @@ namespace Assets.Scene_Factory.Controller
 {
     public class ProduceTDollController
     {
-        private Assets.GameManager.GameManager m_gameManager;
+        private Assets.Project.GameManager m_gameManager;
 
         public ProduceTDollController()
         {
         }
 
-        public void Initialize(Assets.GameManager.GameManager gameManager)
+        public void Initialize(Assets.Project.GameManager gameManager)
         {
             m_gameManager = gameManager;
         }
@@ -24,7 +24,7 @@ namespace Assets.Scene_Factory.Controller
                 food > 400 &&
                 militarySupplies > 200)
             {
-                var tDollList = m_gameManager.DBControllerIndex.TDolls(GameManager.DBController_Index.E_TDoll.All);
+                var tDollList = m_gameManager.DBControllerIndex.TDolls(Project.DBController_Index.E_TDoll.All);
                 var selectNumber = UnityEngine.Random.Range(0, tDollList.Count);
                                 
                 m_gameManager.DBControllerUser.AddOwnership(tDollList[selectNumber]);

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Assets.GameManager.DB
+namespace Assets.Project.DB
 {
     public class UserDataBase_TDoll
     {

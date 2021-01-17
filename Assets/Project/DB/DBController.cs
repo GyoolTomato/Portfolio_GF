@@ -6,7 +6,7 @@ using System.Data;
 using System.IO;
 using UnityEngine.Networking;
 
-namespace Assets.GameManager.DB
+namespace Assets.Project.DB
 {
     public class DBController
     {

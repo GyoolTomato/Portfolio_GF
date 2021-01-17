@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.GameManager
+namespace Assets.Project
 {
     public class GameManager : MonoBehaviour
     {
