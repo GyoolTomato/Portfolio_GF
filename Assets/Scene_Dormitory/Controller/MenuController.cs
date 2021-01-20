@@ -41,7 +41,7 @@ namespace Assets.Scene_Dormitory.Controller
 
             var menu = canvas.transform.Find("Menu");
             m_buttonTDoll = menu.Find("TDoll").GetComponent<Button>();
-            m_buttonTDoll = menu.Find("Equipments").GetComponent<Button>();
+            m_buttonEquipments = menu.Find("Equipments").GetComponent<Button>();
 
             var menuView = canvas.transform.Find("MenuView");
             m_viewTDoll = menuView.Find("TDoll").gameObject;

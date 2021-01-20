@@ -10,9 +10,17 @@ namespace Assets.Project
         private DB.DBController m_dBController;
         private DBController_Index m_dBControllerIndex;
         private DBController_User m_dBControllerUser;
+        private static GameManager m_instance;
 
         private void Awake()
         {
+            if (m_instance != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            m_instance = this;
             DontDestroyOnLoad(gameObject);
 
             m_workResourceManager = new WorkResourceManager();

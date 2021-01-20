@@ -28,6 +28,7 @@ namespace Assets.Project
                 startMemeber0.DataCode = 4;
                 startMemeber0.Level = 1;
                 startMemeber0.DummyLink = 1;
+                startMemeber0.Platoon = 0;
                 startMemeber0.EquipmentOwnershipNumber0 = 0;
                 startMemeber0.EquipmentOwnershipNumber1 = 0;
                 startMemeber0.EquipmentOwnershipNumber2 = 0;
@@ -35,6 +36,7 @@ namespace Assets.Project
                 startMemeber1.DataCode = 7;
                 startMemeber1.Level = 1;
                 startMemeber1.DummyLink = 1;
+                startMemeber1.Platoon = 0;
                 startMemeber1.EquipmentOwnershipNumber0 = 0;
                 startMemeber1.EquipmentOwnershipNumber1 = 0;
                 startMemeber1.EquipmentOwnershipNumber2 = 0;
@@ -44,6 +46,26 @@ namespace Assets.Project
                 startPack.Add(startMemeber1);
 
                 m_dBController.InsertUserDataBase(startPack);
+            }
+        }
+
+        public List<UserDataBase_TDoll> UserTDoll
+        {
+            get
+            {
+                var result = new List<UserDataBase_TDoll>();
+                result = m_dBController.ReadUserDataBase_TDoll(QuerySupport.SelectTDoll_All);
+                return result;
+            }
+        }
+
+        public List<UserDataBase_Equipment> UserEquipments
+        {
+            get
+            {
+                var result = new List<UserDataBase_Equipment>();
+                result = m_dBController.ReadUserDataBase_Equipment(QuerySupport.SelectEquipment_All);
+                return result;
             }
         }
 
@@ -104,6 +126,18 @@ namespace Assets.Project
                 result = true;
 
             return result;
+        }
+
+        public DBController_Index ConvertIndexDB
+        {
+            get
+            {
+                var result = new DBController_Index();
+
+                
+
+                return result;
+            }
         }
     }
 }

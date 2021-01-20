@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Project.Object
+namespace Assets.TDoll
 {
     public class TDollBase : MonoBehaviour
     {

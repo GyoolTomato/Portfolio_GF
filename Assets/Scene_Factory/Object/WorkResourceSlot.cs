@@ -5,13 +5,15 @@ using UnityEngine.EventSystems;
 
 public class WorkResourceSlot : MonoBehaviour
 {
-    private int m_value;
-    private bool m_isValueUp;
-    private bool m_isValueDown;
     private Image m_image;
     private Text m_valueMonitor;
     private Button m_valueUp;
     private Button m_valueDown;
+
+    private int m_minValue;
+    private int m_value;    
+    private bool m_isValueUp;
+    private bool m_isValueDown;
 
     public WorkResourceSlot()
     {
@@ -25,12 +27,13 @@ public class WorkResourceSlot : MonoBehaviour
 
     private void Start()
     {
-        m_image = GameObject.Find("Image").GetComponent<Image>();
-        m_valueMonitor = GameObject.Find("ValueMonitor").GetComponent<Text>();
-        m_valueUp = GameObject.Find("ValueUp").GetComponent<Button>();
-        m_valueDown = GameObject.Find("ValueDown").GetComponent<Button>();
+        m_image = transform.Find("Image").GetComponent<Image>();
+        m_valueMonitor = transform.Find("ValueMonitor").GetComponent<Text>();
+        m_valueUp = transform.Find("ValueUp").GetComponent<Button>();
+        m_valueDown = transform.Find("ValueDown").GetComponent<Button>();
 
-        m_value = 0;
+        m_minValue = 100;
+        m_value = m_minValue;        
         ApplyValueInMonitor();
 
         m_valueUp.onClick.AddListener(ValueUp);        
@@ -61,7 +64,7 @@ public class WorkResourceSlot : MonoBehaviour
 
     private void ValueDown()
     {
-        if (m_value > 0)
+        if (m_value > m_minValue)
         {
             m_value -= 100;
             ApplyValueInMonitor();

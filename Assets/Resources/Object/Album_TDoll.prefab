@@ -596,7 +596,7 @@ GameObject:
   - component: {fileID: 5004416938202268178}
   - component: {fileID: 3472830202356455592}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -686,7 +686,7 @@ GameObject:
   - component: {fileID: 5004416938218671893}
   - component: {fileID: 5004416938218671894}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Star
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -912,8 +912,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5004416938444538827}
+  - component: {fileID: -4319400357408056722}
   m_Layer: 5
-  m_Name: Album
+  m_Name: Album_TDoll
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -941,6 +942,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 300, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &-4319400357408056722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5004416938444538804}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bab8c458d804b4a3f90bc86022919af6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5004416938520471168
 GameObject:
   m_ObjectHideFlags: 0

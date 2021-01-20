@@ -11,6 +11,8 @@ namespace Assets.Project.DB
     public class DBController
     {
         private GameManager m_gameManager;
+        private string m_dBFilePath_Index;
+        private string m_dBFilePath_User;
 
         public void Initailize(GameManager gameManager)
         {
@@ -53,7 +55,7 @@ namespace Assets.Project.DB
                     path = "URI=file:" + Path.Combine(Application.dataPath, DBName_Index);
                 }
 
-                return path;
+                return m_dBFilePath_Index;
             }
         }
 
@@ -75,7 +77,7 @@ namespace Assets.Project.DB
                     path = "URI=file:" + Path.Combine(Application.dataPath, DBName_User);
                 }
 
-                return path;
+                return m_dBFilePath_User;
             }
         }
 
@@ -86,6 +88,37 @@ namespace Assets.Project.DB
             if (Application.platform == RuntimePlatform.Android)
             {
                 filePath = Path.Combine(Application.persistentDataPath, DBName_Index);
+                if (File.Exists(filePath))
+                    File.Delete(filePath);
+
+                var unityWebRequest = UnityWebRequest.Get("jar:file//" + Application.dataPath + "!/assets/User.db");
+                unityWebRequest.downloadedBytes.ToString();
+                yield return unityWebRequest.SendWebRequest().isDone;
+                File.WriteAllBytes(filePath, unityWebRequest.downloadHandler.data);
+            }
+            else if (Application.platform == RuntimePlatform.IPhonePlayer)
+            {
+
+            }
+            else
+            {
+                filePath = Path.Combine(Application.dataPath, DBName_Index);
+                if (File.Exists(filePath))
+                    File.Delete(filePath);
+
+                File.Copy(Path.Combine(Application.streamingAssetsPath, DBName_Index), filePath);
+            }
+
+            m_dBFilePath_Index = filePath;
+        }
+
+        private IEnumerator DBCreate_User()
+        {
+            Debug.Log("Insert DB Create");
+            var filePath = string.Empty;
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                filePath = Path.Combine(Application.persistentDataPath, DBName_User);
                 if (!File.Exists(filePath))
                 {
                     var unityWebRequest = UnityWebRequest.Get("jar:file//" + Application.dataPath + "!/assets/Index.db");
@@ -104,45 +137,18 @@ namespace Assets.Project.DB
             }
             else
             {
-                filePath = Path.Combine(Application.dataPath, DBName_Index);
+                filePath = Path.Combine(Application.dataPath, DBName_User);
                 if (!File.Exists(filePath))
                 {
-                    File.Copy(Path.Combine(Application.streamingAssetsPath, DBName_Index), filePath);
+                    File.Copy(Path.Combine(Application.streamingAssetsPath, DBName_User), filePath);
                 }
                 else
                 {
                     Debug.Log("Find DB");
                 }
-            }            
-        }
-
-        private IEnumerator DBCreate_User()
-        {
-            Debug.Log("Insert DB Create");
-            var filePath = string.Empty;
-            if (Application.platform == RuntimePlatform.Android)
-            {
-                filePath = Path.Combine(Application.persistentDataPath, DBName_User);
-                if (File.Exists(filePath))
-                    File.Delete(filePath);
-
-                var unityWebRequest = UnityWebRequest.Get("jar:file//" + Application.dataPath + "!/assets/User.db");
-                unityWebRequest.downloadedBytes.ToString();
-                yield return unityWebRequest.SendWebRequest().isDone;
-                File.WriteAllBytes(filePath, unityWebRequest.downloadHandler.data);
             }
-            else if (Application.platform == RuntimePlatform.IPhonePlayer)
-            {
 
-            }
-            else
-            {
-                filePath = Path.Combine(Application.dataPath, DBName_User);
-                if (File.Exists(filePath))
-                    File.Delete(filePath);
-                    
-                File.Copy(Path.Combine(Application.streamingAssetsPath, DBName_User), filePath);
-            }
+            m_dBFilePath_User = filePath;
         }
 
         public List<IndexDataBase_TDoll> ReadIndexDataBase_TDoll(string query)
@@ -240,9 +246,10 @@ namespace Assets.Project.DB
                 tempData.DataCode = dataReader.GetInt32(1);
                 tempData.Level = dataReader.GetInt32(2);
                 tempData.DummyLink = dataReader.GetInt32(3);
-                tempData.EquipmentOwnershipNumber0 = dataReader.GetInt32(4);
-                tempData.EquipmentOwnershipNumber1 = dataReader.GetInt32(5);
-                tempData.EquipmentOwnershipNumber2 = dataReader.GetInt32(6);
+                tempData.Platoon = dataReader.GetInt32(4);
+                tempData.EquipmentOwnershipNumber0 = dataReader.GetInt32(5);
+                tempData.EquipmentOwnershipNumber1 = dataReader.GetInt32(6);
+                tempData.EquipmentOwnershipNumber2 = dataReader.GetInt32(7);
                 result.Add(tempData);
             }
 
@@ -298,10 +305,11 @@ namespace Assets.Project.DB
             foreach (var item in data)
             {
                 query = string.Empty;
-                query = "Insert Into TDoll(DataCode, Level, DummyLink, EquipmentOwnerShipNumber0, EquipmentOwnerShipNumber1, EquipmentOwnerShipNumber2) VALUES("
+                query = "Insert Into TDoll(DataCode, Level, DummyLink, Platoon, EquipmentOwnerShipNumber0, EquipmentOwnerShipNumber1, EquipmentOwnerShipNumber2) VALUES("
                     + item.DataCode.ToString() + ", "
                     + item.Level.ToString() + ", "
                     + item.DummyLink.ToString() + ", "
+                    + item.Platoon.ToString() + ", "
                     + item.EquipmentOwnershipNumber0.ToString() + ", "
                     + item.EquipmentOwnershipNumber1.ToString() + ", "
                     + item.EquipmentOwnershipNumber2.ToString()

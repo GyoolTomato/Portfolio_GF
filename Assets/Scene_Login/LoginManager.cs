@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.Android;
 
 public class LoginManager : MonoBehaviour
 {
@@ -19,7 +20,11 @@ public class LoginManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Permission.RequestUserPermission(Permission.ExternalStorageRead);
         
+        if (Application.platform == RuntimePlatform.Android)
+        {
+        }
     }
 
     // Update is called once per frame
@@ -31,5 +36,12 @@ public class LoginManager : MonoBehaviour
     void AccountVerification()
     {
         SceneManager.LoadScene("Lobby");
+    }
+
+    IEnumerator PermissionCheck()
+    {
+        
+        Permission.RequestUserPermission(Permission.ExternalStorageWrite);
+        yield return null;
     }
 }

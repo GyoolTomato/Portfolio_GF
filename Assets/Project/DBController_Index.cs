@@ -33,7 +33,7 @@ namespace Assets.Project
             m_dBController = dBController;
         }
 
-        public List<IndexDataBase_TDoll> TDolls(E_TDoll tDoll)
+        public List<IndexDataBase_TDoll> TDoll(E_TDoll tDoll)
         {
             var result = new List<IndexDataBase_TDoll>();
 
@@ -58,9 +58,27 @@ namespace Assets.Project
             return result;
         }
 
-        public List<IndexDataBase_Equipment> Equipments()
+        public IndexDataBase_TDoll TDoll(int dataCode)
+        {
+            var result = new IndexDataBase_TDoll();
+
+            result = m_dBController.ReadIndexDataBase_TDoll(QuerySupport.SelectTDoll_DataCode(dataCode))[0];
+
+            return result;
+        }
+
+        public List<IndexDataBase_Equipment> Equipment()
         {
             var result = new List<IndexDataBase_Equipment>();
+
+            return result;
+        }
+
+        public IndexDataBase_Equipment Equipment(int dataCode)
+        {
+            var result = new IndexDataBase_Equipment();
+
+            result = m_dBController.ReadIndexDataBase_Equipment(QuerySupport.SelectEquipment_DataCode(dataCode))[0];
 
             return result;
         }

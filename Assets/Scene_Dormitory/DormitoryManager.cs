@@ -9,7 +9,9 @@ namespace Assets.Scene_Dormitory
         private Assets.Project.GameManager m_gameManager;
         private GameObject m_canvas;
 
-        private MenuController m_menuController;        
+        private MenuController m_menuController;
+        private ViewPort_TDollController m_viewPort_TDollController;
+        private ViewPort_EquipmentsController m_viewPort_EquipmentsController;
 
         public DormitoryManager()
         {
@@ -28,7 +30,11 @@ namespace Assets.Scene_Dormitory
 
             m_menuController = new Controller.MenuController();
             m_menuController.Initialize(m_gameManager, m_canvas);
+            m_viewPort_TDollController = new ViewPort_TDollController();
+            m_viewPort_TDollController.Initialize(m_gameManager);
+            m_viewPort_EquipmentsController = new ViewPort_EquipmentsController();
 
+            m_viewPort_TDollController.Load();
         }
 
         private void Update()
