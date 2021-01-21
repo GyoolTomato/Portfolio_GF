@@ -20,7 +20,7 @@ namespace Assets.Scene_Dormitory
 
         private void Awake()
         {
-
+            
         }
 
         private void Start()

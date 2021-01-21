@@ -17,7 +17,7 @@ namespace Assets.Project
             m_userTDoll = new List<UserDataBase_TDoll>();
             m_userEquipment = new List<UserDataBase_Equipment>();
 
-            SupplyStartPack();
+            //SupplyStartPack();
         }
 
         private void SupplyStartPack()

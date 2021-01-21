@@ -23,5 +23,4 @@
     <uses-feature android:name="android.hardware.touchscreen.multitouch.distinct" android:required="false" />
     <meta-data android:name="unityplayer.SkipPermissionsDialog" android:value="false" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 </manifest>

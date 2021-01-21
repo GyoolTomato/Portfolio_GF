@@ -17,7 +17,7 @@ namespace Assets.Scene_Lobby
         private AdController m_adController;      
 
         private void Awake()
-        {
+        { 
             m_gameManager = null;
             m_canvas = null;
 
