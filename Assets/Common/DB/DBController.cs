@@ -292,11 +292,12 @@ public void Initailize(GameManager gameManager)
                 tempData.Name = dataReader.GetString(1);
                 tempData.Type = dataReader.GetString(2);
                 tempData.Star = dataReader.GetInt32(3);
-                tempData.FirePower = dataReader.GetInt32(4);
-                tempData.Focus = dataReader.GetInt32(5);
-                tempData.Armor = dataReader.GetInt32(6);
-                tempData.Avoidance = dataReader.GetInt32(7);
-                tempData.ManufacturingTime = dataReader.GetFloat(8);
+                tempData.UserCode = dataReader.GetInt32(4);
+                tempData.FirePower = dataReader.GetInt32(5);
+                tempData.Focus = dataReader.GetInt32(6);
+                tempData.Armor = dataReader.GetInt32(7);
+                tempData.Critical = dataReader.GetInt32(8);
+                tempData.ManufacturingTime = dataReader.GetFloat(9);
                 result.Add(tempData);
             }
 
