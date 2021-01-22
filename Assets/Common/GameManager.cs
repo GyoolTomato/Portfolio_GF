@@ -6,11 +6,12 @@ namespace Assets.Common
 {
     public class GameManager : MonoBehaviour
     {
-        private WorkResourceManager m_workResourceManager;
-        private DB.DBController m_dBController;
-        private DBController_Index m_dBControllerIndex;
-        private DBController_User m_dBControllerUser;
         private static GameManager m_instance;
+
+        private WorkResourceManager m_workResourceManager;
+        private DB.Game.GameDBManager m_gameDBManager;
+        private DB.Index.IndexDBManager m_indexDBManager;
+        private DB.User.UserDBManager m_userDBManager;    
 
         private void Awake()
         {
@@ -25,15 +26,12 @@ namespace Assets.Common
 
             m_workResourceManager = new WorkResourceManager();
             m_workResourceManager.Initialize();
-
-            m_dBController = new DB.DBController();
-            m_dBController.Initailize(this);
-
-            m_dBControllerIndex = new DBController_Index();
-            m_dBControllerIndex.Initialize(m_dBController);
-
-            m_dBControllerUser = new DBController_User();
-            m_dBControllerUser.Initialize(m_dBController);
+            m_gameDBManager = new DB.Game.GameDBManager();
+            m_gameDBManager.Initailize(this);
+            m_indexDBManager = new DB.Index.IndexDBManager();
+            m_indexDBManager.Initailize(this);
+            m_userDBManager = new DB.User.UserDBManager();
+            m_userDBManager.Initailize(this);
         }
 
         // Start is called before the first frame update
@@ -56,19 +54,19 @@ namespace Assets.Common
             }
         }
 
-        public DBController_Index DBControllerIndex
+        public DB.Index.DBController_Index DBControllerIndex
         {
             get
             {
-                return m_dBControllerIndex;
+                return m_indexDBManager.DBController;
             }
         }
 
-        public DBController_User DBControllerUser
+        public DB.User.DBController_User DBControllerUser
         {
             get
             {
-                return m_dBControllerUser;
+                return m_userDBManager.DBController;
             }
         }
     }

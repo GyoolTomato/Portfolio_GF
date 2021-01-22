@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Assets.Common.DB
+namespace Assets.Common.DB.User
 {
     public class UserDataBase_Equipment
     {

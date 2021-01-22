@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-namespace Assets.Common.DB
+namespace Assets.Common.DB.Index
 {
     public class IndexDataBase_TDoll
     {

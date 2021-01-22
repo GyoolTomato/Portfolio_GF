@@ -8,8 +8,6 @@ namespace Assets.Scene_Factory
     public class FactoryManager : MonoBehaviour
     {
         private Assets.Common.GameManager m_gameManager;
-        private Common.DBController_Index m_dBControllerIndex;
-        private Common.DBController_User m_dBControllerUser;
         private GameObject m_canvas;
 
         private MenuController m_menuController;
@@ -25,8 +23,6 @@ namespace Assets.Scene_Factory
         void Start()
         {
             m_gameManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Common.GameManager>();
-            m_dBControllerIndex = m_gameManager.DBControllerIndex;
-            m_dBControllerUser = m_gameManager.DBControllerUser;
             m_canvas = GameObject.Find("Canvas");
 
             m_menuController = new MenuController();

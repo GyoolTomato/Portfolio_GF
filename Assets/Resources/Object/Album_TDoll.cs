@@ -52,7 +52,7 @@ public class Album_TDoll : MonoBehaviour
 
     }
 
-    public void SetValue(Assets.Common.DB.IndexDataBase_TDoll dBData, int level, int dummyLink, int platoonNumber)
+    public void SetValue(Assets.Common.DB.Index.IndexDataBase_TDoll dBData, int level, int dummyLink, int platoonNumber)
     {
         ApplyDataCode(dBData);
         ApplyLevel(level);
@@ -60,7 +60,7 @@ public class Album_TDoll : MonoBehaviour
         ApplyPlatoonNumber(platoonNumber);
     }
 
-    private void ApplyDataCode(Assets.Common.DB.IndexDataBase_TDoll dBData)
+    private void ApplyDataCode(Assets.Common.DB.Index.IndexDataBase_TDoll dBData)
     {
         //m_typeImage.sprite = m_imageController.LoadSprite(dBData.Type);
 

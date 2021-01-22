@@ -2047,7 +2047,7 @@ GameObject:
   - component: {fileID: 1702064987}
   - component: {fileID: 1702064986}
   m_Layer: 5
-  m_Name: Equipments
+  m_Name: Equipment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2400,7 +2400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1865580088}
   m_Layer: 5
-  m_Name: Equipments
+  m_Name: "Equipment\uF746"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

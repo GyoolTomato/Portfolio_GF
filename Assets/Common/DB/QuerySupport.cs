@@ -28,7 +28,7 @@ namespace Assets.Common.DB
             return result;
         }
 
-        public static string SelectMountedCheck(UserDataBase_Equipment data)
+        public static string SelectMountedCheck(User.UserDataBase_Equipment data)
         {
             var result = string.Empty;
 

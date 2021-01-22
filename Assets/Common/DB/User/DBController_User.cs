@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Common.DB;
+using Assets.Common.DB.User;
 
-namespace Assets.Common
+namespace Assets.Common.DB.User
 {
     public class DBController_User
     {
-        private DBController m_dBController;
+        private UserDBManager m_dBManager;
         private List<UserDataBase_TDoll> m_userTDoll;
         private List<UserDataBase_Equipment> m_userEquipment;
 
-        public void Initialize(DBController dBController)
+        public void Initialize(UserDBManager dBManager)
         {
-            m_dBController = dBController;
+            m_dBManager = dBManager;
             m_userTDoll = new List<UserDataBase_TDoll>();
             m_userEquipment = new List<UserDataBase_Equipment>();
 
@@ -22,7 +23,7 @@ namespace Assets.Common
 
         private void SupplyStartPack()
         {
-            if (m_dBController.ReadUserDataBase_TDoll(QuerySupport.SelectTDoll_All).Count == 0)
+            if (m_dBManager.ReadUserDataBase_TDoll(QuerySupport.SelectTDoll_All).Count == 0)
             {
                 var startMemeber0 = new UserDataBase_TDoll();
                 startMemeber0.DataCode = 4;
@@ -45,7 +46,7 @@ namespace Assets.Common
                 startPack.Add(startMemeber0);
                 startPack.Add(startMemeber1);
 
-                m_dBController.InsertUserDataBase(startPack);
+                m_dBManager.InsertUserDataBase(startPack);
             }
         }
 
@@ -54,7 +55,7 @@ namespace Assets.Common
             get
             {
                 var result = new List<UserDataBase_TDoll>();
-                result = m_dBController.ReadUserDataBase_TDoll(QuerySupport.SelectTDoll_All);
+                result = m_dBManager.ReadUserDataBase_TDoll(QuerySupport.SelectTDoll_All);
                 return result;
             }
         }
@@ -64,12 +65,12 @@ namespace Assets.Common
             get
             {
                 var result = new List<UserDataBase_Equipment>();
-                result = m_dBController.ReadUserDataBase_Equipment(QuerySupport.SelectEquipment_All);
+                result = m_dBManager.ReadUserDataBase_Equipment(QuerySupport.SelectEquipment_All);
                 return result;
             }
         }
 
-        public void AddOwnership(IndexDataBase_TDoll data)
+        public void AddOwnership(DB.Index.IndexDataBase_TDoll data)
         {            
             var conversionData = new UserDataBase_TDoll();
             conversionData.DataCode = data.DataCode;
@@ -82,10 +83,10 @@ namespace Assets.Common
             var tempData = new List<UserDataBase_TDoll>();
             tempData.Add(conversionData);
 
-            m_dBController.InsertUserDataBase(tempData);
+            m_dBManager.InsertUserDataBase(tempData);
         }
 
-        public void AddOwnership(IndexDataBase_Equipment data)
+        public void AddOwnership(DB.Index.IndexDataBase_Equipment data)
         {
             var conversionData = new UserDataBase_Equipment();
             conversionData.DataCode = data.DataCode;
@@ -95,49 +96,37 @@ namespace Assets.Common
             var tempData = new List<UserDataBase_Equipment>();
             tempData.Add(conversionData);
 
-            m_dBController.InsertUserDataBase(tempData);
+            m_dBManager.InsertUserDataBase(tempData);
         }
 
         public void ReleaseOwnership(List<UserDataBase_TDoll> data)
         {
-            m_dBController.DeleteUserDataBase(data);
+            m_dBManager.DeleteUserDataBase(data);
         }
 
         public void ReleaseOwnership(List<UserDataBase_Equipment> data)
         {
-            m_dBController.DeleteUserDataBase(data);
+            m_dBManager.DeleteUserDataBase(data);
         }
 
         public void UpdateOwnership(UserDataBase_TDoll data)
         {
-            m_dBController.UpdateUserDataBase(data);
+            m_dBManager.UpdateUserDataBase(data);
         }
 
         public void UpdateOwnership(UserDataBase_Equipment data)
         {
-            m_dBController.UpdateUserDataBase(data);
+            m_dBManager.UpdateUserDataBase(data);
         }
 
         public bool IsMounted(UserDataBase_Equipment data)
         {
             var result = false;
 
-            if (m_dBController.ReadUserDataBase_TDoll(QuerySupport.SelectMountedCheck(data)).Count > 0)
+            if (m_dBManager.ReadUserDataBase_TDoll(QuerySupport.SelectMountedCheck(data)).Count > 0)
                 result = true;
 
             return result;
-        }
-
-        public DBController_Index ConvertIndexDB
-        {
-            get
-            {
-                var result = new DBController_Index();
-
-                
-
-                return result;
-            }
         }
     }
 }
