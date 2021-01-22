@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Common.Interface;
 
-namespace Assets.Project
+namespace Assets.Common
 {
     public class WorkResourceManager
     {

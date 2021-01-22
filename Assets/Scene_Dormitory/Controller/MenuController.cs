@@ -11,7 +11,7 @@ namespace Assets.Scene_Dormitory.Controller
         private ViewPort_TDollController m_viewPort_TDollController;
         private ViewPort_EquipmentsController m_viewPort_EquipmentsController;
 
-        private Assets.Project.GameManager m_gameManager;
+        private Assets.Common.GameManager m_gameManager;
 
         private Button m_buttonBack;
         private Button m_buttonTDoll;
@@ -32,7 +32,7 @@ namespace Assets.Scene_Dormitory.Controller
             m_viewEquipments = null;
         }
 
-        public void Initialize(Assets.Project.GameManager gameManager, GameObject canvas)
+        public void Initialize(Assets.Common.GameManager gameManager, GameObject canvas)
         {
             m_gameManager = gameManager;
 

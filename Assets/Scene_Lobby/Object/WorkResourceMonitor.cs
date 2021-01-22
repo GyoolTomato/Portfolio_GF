@@ -36,7 +36,7 @@ namespace Assets.Scene_Lobby.Object
 
         }
 
-        public void ApplyData(WorkResource in_WorkResourceInformation)
+        public void ApplyData(Assets.Common.Interface.WorkResource in_WorkResourceInformation)
         {
             var titleText = m_title.GetComponent<Text>();
             var amountText = m_amount.GetComponent<Text>();

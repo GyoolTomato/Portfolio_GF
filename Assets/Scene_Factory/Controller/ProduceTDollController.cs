@@ -11,13 +11,13 @@ namespace Assets.Scene_Factory.Controller
         private Object.ProduceSlot m_produceSlot_0;
         private Object.ProduceSlot m_produceSlot_1;
 
-        private Assets.Project.GameManager m_gameManager;        
+        private Assets.Common.GameManager m_gameManager;        
 
         public ProduceTDollController()
         {
         }
 
-        public void Initialize(Assets.Project.GameManager gameManager)
+        public void Initialize(Assets.Common.GameManager gameManager)
         {
             var canvas = GameObject.Find("Canvas");
             var menuView = canvas.transform.Find("MenuView");
@@ -32,7 +32,7 @@ namespace Assets.Scene_Factory.Controller
 
         public void OrderReceive(int manPower, int bullet, int food, int militarySupplies)
         {
-            var tDollList = new List<Project.DB.IndexDataBase_TDoll>();
+            var tDollList = new List<Common.DB.IndexDataBase_TDoll>();
             var selectNumber = 0;
 
             if (manPower >= 400 &&
@@ -40,7 +40,7 @@ namespace Assets.Scene_Factory.Controller
                 food >= 400 &&
                 militarySupplies >= 200)
             {
-                tDollList = m_gameManager.DBControllerIndex.TDoll(Project.DBController_Index.E_TDoll.All);
+                tDollList = m_gameManager.DBControllerIndex.TDoll(Common.DBController_Index.E_TDoll.All);
                 selectNumber = UnityEngine.Random.Range(0, tDollList.Count);
                                 
                 m_gameManager.DBControllerUser.AddOwnership(tDollList[selectNumber]);
@@ -52,7 +52,7 @@ namespace Assets.Scene_Factory.Controller
                 food >= 400 &&
                 militarySupplies >= 200)
             {
-                tDollList = m_gameManager.DBControllerIndex.TDoll(Project.DBController_Index.E_TDoll.Archer);
+                tDollList = m_gameManager.DBControllerIndex.TDoll(Common.DBController_Index.E_TDoll.Archer);
                 selectNumber = UnityEngine.Random.Range(0, tDollList.Count);
 
                 m_gameManager.DBControllerUser.AddOwnership(tDollList[selectNumber]);
@@ -64,7 +64,7 @@ namespace Assets.Scene_Factory.Controller
                 food >= 400 &&
                 militarySupplies >= 200)
             {
-                tDollList = m_gameManager.DBControllerIndex.TDoll(Project.DBController_Index.E_TDoll.Knight);
+                tDollList = m_gameManager.DBControllerIndex.TDoll(Common.DBController_Index.E_TDoll.Knight);
                 selectNumber = UnityEngine.Random.Range(0, tDollList.Count);
 
                 m_gameManager.DBControllerUser.AddOwnership(tDollList[selectNumber]);
@@ -76,7 +76,7 @@ namespace Assets.Scene_Factory.Controller
                 food >= 100 &&
                 militarySupplies >= 200)
             {
-                tDollList = m_gameManager.DBControllerIndex.TDoll(Project.DBController_Index.E_TDoll.Magician);
+                tDollList = m_gameManager.DBControllerIndex.TDoll(Common.DBController_Index.E_TDoll.Magician);
                 selectNumber = UnityEngine.Random.Range(0, tDollList.Count);
 
                 m_gameManager.DBControllerUser.AddOwnership(tDollList[selectNumber]);
@@ -85,7 +85,7 @@ namespace Assets.Scene_Factory.Controller
             }
             else
             {
-                tDollList = m_gameManager.DBControllerIndex.TDoll(Project.DBController_Index.E_TDoll.All);
+                tDollList = m_gameManager.DBControllerIndex.TDoll(Common.DBController_Index.E_TDoll.All);
                 selectNumber = UnityEngine.Random.Range(0, tDollList.Count);
 
                 m_gameManager.DBControllerUser.AddOwnership(tDollList[selectNumber]);

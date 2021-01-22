@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Project.DB;
+using Assets.Common.DB;
 
-namespace Assets.Project
+namespace Assets.Common
 {
     public class DBController_User
     {

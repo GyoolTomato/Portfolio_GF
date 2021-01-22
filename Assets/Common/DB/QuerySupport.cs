@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.Project.DB
+namespace Assets.Common.DB
 {
     public static class QuerySupport
     {

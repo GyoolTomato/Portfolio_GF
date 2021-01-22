@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Project
+namespace Assets.Common
 {
     public class ImageController
     {

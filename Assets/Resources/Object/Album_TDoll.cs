@@ -14,7 +14,7 @@ public class Album_TDoll : MonoBehaviour
     private GameObject m_platoon;
     private Text m_platoonNumber;
 
-    private Assets.Project.ImageController m_imageController;
+    private Assets.Common.ImageController m_imageController;
 
     private void Awake()
     {
@@ -32,7 +32,7 @@ public class Album_TDoll : MonoBehaviour
 
         m_platoonNumber = m_platoon.transform.Find("Platoon").GetComponent<Text>();
 
-        m_imageController = new Assets.Project.ImageController();
+        m_imageController = new Assets.Common.ImageController();
     }
 
     // Start is called before the first frame update
@@ -52,7 +52,7 @@ public class Album_TDoll : MonoBehaviour
 
     }
 
-    public void SetValue(Assets.Project.DB.IndexDataBase_TDoll dBData, int level, int dummyLink, int platoonNumber)
+    public void SetValue(Assets.Common.DB.IndexDataBase_TDoll dBData, int level, int dummyLink, int platoonNumber)
     {
         ApplyDataCode(dBData);
         ApplyLevel(level);
@@ -60,7 +60,7 @@ public class Album_TDoll : MonoBehaviour
         ApplyPlatoonNumber(platoonNumber);
     }
 
-    private void ApplyDataCode(Assets.Project.DB.IndexDataBase_TDoll dBData)
+    private void ApplyDataCode(Assets.Common.DB.IndexDataBase_TDoll dBData)
     {
         //m_typeImage.sprite = m_imageController.LoadSprite(dBData.Type);
 

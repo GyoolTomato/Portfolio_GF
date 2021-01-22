@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Assets.Project.DB;
+using Assets.Common.DB;
 
-namespace Assets.Project
+namespace Assets.Common
 {
     public class DBController_Index
     {

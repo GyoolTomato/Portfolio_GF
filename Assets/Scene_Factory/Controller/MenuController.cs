@@ -8,7 +8,7 @@ namespace Assets.Scene_Factory.Controller
 {
     public class MenuController
     {
-        private Assets.Project.GameManager m_gameManager;
+        private Assets.Common.GameManager m_gameManager;
 
         private Button m_buttonBack;
         private Button m_buttonProduceTDoll;
@@ -41,7 +41,7 @@ namespace Assets.Scene_Factory.Controller
             m_viewProduceEquipment = null;
         }
 
-        public void Initialize(Assets.Project.GameManager gameManager, GameObject canvas)
+        public void Initialize(Assets.Common.GameManager gameManager, GameObject canvas)
         {
             m_gameManager = gameManager;
 

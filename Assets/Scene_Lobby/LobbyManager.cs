@@ -8,7 +8,7 @@ namespace Assets.Scene_Lobby
 {
     public class LobbyManager : MonoBehaviour
     {
-        private Assets.Project.GameManager m_gameManager;
+        private Assets.Common.GameManager m_gameManager;
         private GameObject m_canvas;
 
         private BackgroundController m_backgroundController;
@@ -30,7 +30,7 @@ namespace Assets.Scene_Lobby
         // Start is called before the first frame update
         void Start()
         {
-            m_gameManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Project.GameManager>();
+            m_gameManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Common.GameManager>();
             m_canvas = GameObject.Find("Canvas");
 
             m_backgroundController = new BackgroundController();

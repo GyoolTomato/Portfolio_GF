@@ -8,7 +8,7 @@ using System.Data;
 using System.IO;
 using UnityEngine.Networking;
 
-namespace Assets.Project.DB
+namespace Assets.Common.DB
 {
     public class DBController
     {
@@ -78,6 +78,8 @@ public void Initailize(GameManager gameManager)
                 yield return unityWebRequest.SendWebRequest().isDone;
                 File.WriteAllBytes(filePath, unityWebRequest.downloadHandler.data);
 
+                Debug.Log("*sourceFile : " + sourceFilePath);
+                Debug.Log("*sourceFile2 : " + "jar:file//" + Application.dataPath + "!/assets/Index.db");
                 Debug.Log("Create Index DB");
                 Debug.Log("*Size : " + File.ReadAllBytes(filePath).Length);
                 Debug.Log("*Download Size : " + unityWebRequest.downloadHandler.data.Length);

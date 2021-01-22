@@ -17,7 +17,7 @@ namespace Assets.TDoll
 
         protected Animator m_animator;
         protected E_State m_nowState;
-        protected Assets.Project.DB.IndexDataBase_TDoll m_status;
+        protected Assets.Common.DB.IndexDataBase_TDoll m_status;
 
         protected virtual void Awake()
         {
@@ -35,7 +35,7 @@ namespace Assets.TDoll
             Debug.Log(m_nowState);
         }
 
-        protected virtual void Initialize(Assets.Project.DB.IndexDataBase_TDoll status)
+        protected virtual void Initialize(Assets.Common.DB.IndexDataBase_TDoll status)
         {
             m_status = status;
         }
