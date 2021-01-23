@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Assets.Common.DB
+namespace Assets.Common.DB.Index
 {
-    public static class QuerySupport
+    public static class QuerySupport_Index
     {
         public static string SelectTDoll_All = "SELECT * FROM TDoll";
         public static string SelectTDoll_Magician = "SELECT * FROM TDoll where Type = \'Magician\'";
@@ -26,18 +26,6 @@ namespace Assets.Common.DB
             result = "SELECT * FROM Equipment where DataCode = " + dataCode.ToString();
 
             return result;
-        }
-
-        public static string SelectMountedCheck(User.UserDataBase_Equipment data)
-        {
-            var result = string.Empty;
-
-            result = "SELECT * FROM TDoll WHERE"
-                + " EquipmentOwnershipNumber0=" + data.OwnershipCode
-                + " EquipmentOwnershipNumber1=" + data.OwnershipCode
-                + " EquipmentOwnershipNumber2=" + data.OwnershipCode;                
-
-            return result;
-        }
+        }        
     }
 }

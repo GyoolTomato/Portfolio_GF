@@ -8,13 +8,16 @@ namespace Assets.Common
 {
     public class WorkResourceManager
     {
+        private GameManager m_gameManager;
         private WorkResource m_manPower;
         private WorkResource m_bullet;
         private WorkResource m_food;
         private WorkResource m_militarySupplies;
 
-        public void Initialize()
+        public void Initialize(GameManager gameManager)
         {
+            m_gameManager = gameManager;
+
             m_manPower = new WorkResource();
             m_manPower.Title = "인력";
             m_manPower.Amount = 0;
@@ -38,14 +41,58 @@ namespace Assets.Common
             m_militarySupplies.Amount = 0;
             m_militarySupplies.ChargingVolume_Time = 3.0f;
             m_militarySupplies.ChargingVolume_Amount = 1;
+
+            m_gameManager.StartCoroutine(ManPowerCharger());
+            m_gameManager.StartCoroutine(BulletCharger());
+            m_gameManager.StartCoroutine(FoodCharger());
+            m_gameManager.StartCoroutine(MilitarySuppliesCharger());
         }
 
-        public void ApplySaveAmount()
+        private void ApplySaveAmount()
         {
+            
+
             m_manPower.Amount = 0;
             m_bullet.Amount = 0;
             m_food.Amount = 0;
-            m_militarySupplies.Amount = 0;
+            m_militarySupplies.Amount = 0;            
+        }
+
+        IEnumerator ManPowerCharger()
+        {
+            while (true)
+            {
+                m_manPower.Amount += m_manPower.ChargingVolume_Amount;
+                ApplySaveAmount();
+                yield return new WaitForSeconds(m_manPower.ChargingVolume_Time);
+            }            
+        }
+        IEnumerator BulletCharger()
+        {
+            while (true)
+            {
+                m_bullet.Amount += m_bullet.ChargingVolume_Amount;
+                ApplySaveAmount();
+                yield return new WaitForSeconds(m_bullet.ChargingVolume_Time);
+            }
+        }
+        IEnumerator FoodCharger()
+        {
+            while (true)
+            {
+                m_food.Amount += m_food.ChargingVolume_Amount;
+                ApplySaveAmount();
+                yield return new WaitForSeconds(m_food.ChargingVolume_Time);
+            }
+        }
+        IEnumerator MilitarySuppliesCharger()
+        {
+            while (true)
+            {
+                m_militarySupplies.Amount += m_militarySupplies.ChargingVolume_Amount;
+                ApplySaveAmount();
+                yield return new WaitForSeconds(m_militarySupplies.ChargingVolume_Time);
+            }
         }
 
         public WorkResource ManPower

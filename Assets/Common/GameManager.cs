@@ -25,7 +25,7 @@ namespace Assets.Common
             DontDestroyOnLoad(gameObject);
 
             m_workResourceManager = new WorkResourceManager();
-            m_workResourceManager.Initialize();
+            m_workResourceManager.Initialize(this);
             m_gameDBManager = new DB.Game.GameDBManager();
             m_gameDBManager.Initailize(this);
             m_indexDBManager = new DB.Index.IndexDBManager();
@@ -37,7 +37,7 @@ namespace Assets.Common
         // Start is called before the first frame update
         void Start()
         {
-            m_workResourceManager.ApplySaveAmount();
+            
         }
 
         // Update is called once per frame

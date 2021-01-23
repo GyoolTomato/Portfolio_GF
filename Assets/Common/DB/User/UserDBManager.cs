@@ -5,11 +5,20 @@ using Mono.Data.Sqlite;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.Networking;
+using Assets.Common.DB.Common;
 
 namespace Assets.Common.DB.User
 {
     public class UserDBManager
     {
+        public enum E_Table
+        {
+            TDoll,
+            Equipment,
+            WorkResource,
+            End,
+        }
+
         private GameManager m_gameManager;
         private DBController_User m_dBController;
         private string m_dBFilePath;
@@ -88,13 +97,15 @@ namespace Assets.Common.DB.User
             m_dBFilePath = filePath;
         }
 
-        public List<UserDataBase_TDoll> ReadUserDataBase_TDoll(string query)
+        public ArrayList ReadDataBase(E_Table table, string query)
         {
-            var result = new List<UserDataBase_TDoll>();
+            var result = new ArrayList();
 
             try
             {
-                var tempData = new UserDataBase_TDoll();
+                var tempData_TDoll = new UserDataBase_TDoll();
+                var tempData_Equipment = new UserDataBase_Equipment();
+                var tempData_WorkResource = new CommonDataBase_WorkResource();
 
                 var dbConnection = new SqliteConnection(ReadDBFilePath);
                 dbConnection.Open();
@@ -104,16 +115,38 @@ namespace Assets.Common.DB.User
 
                 while (dataReader.Read())
                 {
-                    tempData = new UserDataBase_TDoll();
-                    tempData.OwnershipCode = dataReader.GetInt32(0);
-                    tempData.DataCode = dataReader.GetInt32(1);
-                    tempData.Level = dataReader.GetInt32(2);
-                    tempData.DummyLink = dataReader.GetInt32(3);
-                    tempData.Platoon = dataReader.GetInt32(4);
-                    tempData.EquipmentOwnershipNumber0 = dataReader.GetInt32(5);
-                    tempData.EquipmentOwnershipNumber1 = dataReader.GetInt32(6);
-                    tempData.EquipmentOwnershipNumber2 = dataReader.GetInt32(7);
-                    result.Add(tempData);
+                    switch (table)
+                    {
+                        case E_Table.TDoll:
+                            tempData_TDoll = new UserDataBase_TDoll();
+                            tempData_TDoll.OwnershipCode = dataReader.GetInt32(0);
+                            tempData_TDoll.DataCode = dataReader.GetInt32(1);
+                            tempData_TDoll.Level = dataReader.GetInt32(2);
+                            tempData_TDoll.DummyLink = dataReader.GetInt32(3);
+                            tempData_TDoll.Platoon = dataReader.GetInt32(4);
+                            tempData_TDoll.EquipmentOwnershipNumber0 = dataReader.GetInt32(5);
+                            tempData_TDoll.EquipmentOwnershipNumber1 = dataReader.GetInt32(6);
+                            tempData_TDoll.EquipmentOwnershipNumber2 = dataReader.GetInt32(7);
+                            result.Add(tempData_TDoll);
+                            break;
+                        case E_Table.Equipment:
+                            tempData_Equipment = new UserDataBase_Equipment();
+                            tempData_Equipment.OwnershipCode = dataReader.GetInt32(0);
+                            tempData_Equipment.DataCode = dataReader.GetInt32(1);
+                            tempData_Equipment.Level = dataReader.GetInt32(2);
+                            tempData_Equipment.LimitedPower = dataReader.GetFloat(3);
+                            result.Add(tempData_Equipment);
+                            break;
+                        case E_Table.WorkResource:
+                            tempData_WorkResource = new CommonDataBase_WorkResource();
+                            tempData_WorkResource.Index = dataReader.GetInt32(0);
+                            tempData_WorkResource.Name = dataReader.GetString(1);
+                            tempData_WorkResource.Value = dataReader.GetInt32(2);
+                            result.Add(tempData_WorkResource);
+                            break;
+                        default:
+                            break;
+                    }
                 }
 
                 dataReader.Dispose();
@@ -123,11 +156,11 @@ namespace Assets.Common.DB.User
                 dbConnection.Close();
                 dbConnection = null;
 
-                Debug.Log("ReadUserDataBase_TDoll Success");
+                Debug.Log("ReadUserDataBase Success");
             }
             catch (System.Exception e)
             {
-                Debug.Log("ReadUserDataBase_TDoll Fail");
+                Debug.Log("ReadUserDataBase Fail");
                 Debug.Log("*Exception : " + e.ToString());
                 Debug.Log("*URL : " + ReadDBFilePath);
                 Debug.Log("*Path : " + m_dBFilePath);
@@ -141,79 +174,17 @@ namespace Assets.Common.DB.User
             return result;
         }
 
-        public List<UserDataBase_Equipment> ReadUserDataBase_Equipment(string query)
-        {
-            var result = new List<UserDataBase_Equipment>();
-
-            try
-            {
-                var tempData = new UserDataBase_Equipment();
-
-                var dbConnection = new SqliteConnection(ReadDBFilePath);
-                dbConnection.Open();
-                var dbCommand = dbConnection.CreateCommand();
-                dbCommand.CommandText = query;
-                var dataReader = dbCommand.ExecuteReader();
-
-                while (dataReader.Read())
-                {
-                    tempData = new UserDataBase_Equipment();
-                    tempData.OwnershipCode = dataReader.GetInt32(0);
-                    tempData.DataCode = dataReader.GetInt32(1);
-                    tempData.Level = dataReader.GetInt32(2);
-                    tempData.LimitedPower = dataReader.GetFloat(3);
-                    result.Add(tempData);
-                }
-
-                dataReader.Dispose();
-                dataReader = null;
-                dbCommand.Dispose();
-                dbCommand = null;
-                dbConnection.Close();
-                dbConnection = null;
-
-                Debug.Log("ReadUserDataBase_Equipment Success");
-            }
-            catch (System.Exception e)
-            {
-                Debug.Log("ReadUserDataBase_Equipment Fail");
-                Debug.Log("*Exception : " + e.ToString());
-                Debug.Log("*URL : " + ReadDBFilePath);
-                Debug.Log("*Path : " + m_dBFilePath);
-                Debug.Log("*Exist : " + File.Exists(m_dBFilePath).ToString());
-                if (File.Exists(m_dBFilePath))
-                {
-                    Debug.Log("*Size : " + File.ReadAllBytes(m_dBFilePath).Length);
-                }
-            }
-
-            return result;
-        }
-
-        public void InsertUserDataBase(List<UserDataBase_TDoll> data)
+        public void SQL(List<string> query)
         {
             try
             {
-                var query = string.Empty;
-
                 var dbConnection = new SqliteConnection(ReadDBFilePath);
                 dbConnection.Open();
                 var dbCommand = dbConnection.CreateCommand();
 
-                foreach (var item in data)
+                foreach (var item in query)
                 {
-                    query = string.Empty;
-                    query = "Insert Into TDoll(DataCode, Level, DummyLink, Platoon, EquipmentOwnerShipNumber0, EquipmentOwnerShipNumber1, EquipmentOwnerShipNumber2) VALUES("
-                        + item.DataCode.ToString() + ", "
-                        + item.Level.ToString() + ", "
-                        + item.DummyLink.ToString() + ", "
-                        + item.Platoon.ToString() + ", "
-                        + item.EquipmentOwnershipNumber0.ToString() + ", "
-                        + item.EquipmentOwnershipNumber1.ToString() + ", "
-                        + item.EquipmentOwnershipNumber2.ToString()
-                        + ")";
-
-                    dbCommand.CommandText = query;
+                    dbCommand.CommandText = item;
                     dbCommand.ExecuteNonQuery();
                 }
 
@@ -222,11 +193,11 @@ namespace Assets.Common.DB.User
                 dbConnection.Close();
                 dbConnection = null;
 
-                Debug.Log("InsertUserDataBase Success");
+                Debug.Log("DeleteDataBase Success");
             }
             catch (System.Exception e)
             {
-                Debug.Log("InsertUserDataBase Fail");
+                Debug.Log("DeleteDataBase Fail");
                 Debug.Log("*Exception : " + e.ToString());
                 Debug.Log("*URL : " + ReadDBFilePath);
                 Debug.Log("*Path : " + m_dBFilePath);
@@ -238,151 +209,13 @@ namespace Assets.Common.DB.User
             }
         }
 
-        public void InsertUserDataBase(List<UserDataBase_Equipment> data)
+        public void SQL(string query)
         {
             try
             {
-                var query = string.Empty;
-
                 var dbConnection = new SqliteConnection(ReadDBFilePath);
                 dbConnection.Open();
                 var dbCommand = dbConnection.CreateCommand();
-
-                foreach (var item in data)
-                {
-                    query = string.Empty;
-                    query = "INSERT INTO TDoll VALUES ("
-                         + item.DataCode.ToString()
-                         + item.Level.ToString()
-                         + item.LimitedPower.ToString()
-                         + ")";
-
-                    dbCommand.CommandText = query;
-                    dbCommand.ExecuteNonQuery();
-                }
-
-                dbCommand.Dispose();
-                dbCommand = null;
-                dbConnection.Close();
-                dbConnection = null;
-
-                Debug.Log("InsertUserDataBase Success");
-            }
-            catch (System.Exception e)
-            {
-                Debug.Log("InsertUserDataBase Fail");
-                Debug.Log("*Exception : " + e.ToString());
-                Debug.Log("*URL : " + ReadDBFilePath);
-                Debug.Log("*Path : " + m_dBFilePath);
-                Debug.Log("*Exist : " + File.Exists(m_dBFilePath).ToString());
-                if (File.Exists(m_dBFilePath))
-                {
-                    Debug.Log("*Size : " + File.ReadAllBytes(m_dBFilePath).Length);
-                }
-            }
-        }
-
-        public void DeleteUserDataBase(List<UserDataBase_TDoll> data)
-        {
-            try
-            {
-                var query = string.Empty;
-
-                var dbConnection = new SqliteConnection(ReadDBFilePath);
-                dbConnection.Open();
-                var dbCommand = dbConnection.CreateCommand();
-
-                foreach (var item in data)
-                {
-                    query = string.Empty;
-                    query = "DELETE FROM TDoll WHERE OwnershipCode = "
-                         + item.OwnershipCode.ToString();
-
-                    dbCommand.CommandText = query;
-                    dbCommand.ExecuteNonQuery();
-                }
-
-                dbCommand.Dispose();
-                dbCommand = null;
-                dbConnection.Close();
-                dbConnection = null;
-
-                Debug.Log("DeleteUserDataBase Success");
-            }
-            catch (System.Exception e)
-            {
-                Debug.Log("DeleteUserDataBase Fail");
-                Debug.Log("*Exception : " + e.ToString());
-                Debug.Log("*URL : " + ReadDBFilePath);
-                Debug.Log("*Path : " + m_dBFilePath);
-                Debug.Log("*Exist : " + File.Exists(m_dBFilePath).ToString());
-                if (File.Exists(m_dBFilePath))
-                {
-                    Debug.Log("*Size : " + File.ReadAllBytes(m_dBFilePath).Length);
-                }
-            }
-        }
-
-        public void DeleteUserDataBase(List<UserDataBase_Equipment> data)
-        {
-            try
-            {
-                var query = string.Empty;
-
-                var dbConnection = new SqliteConnection(ReadDBFilePath);
-                dbConnection.Open();
-                var dbCommand = dbConnection.CreateCommand();
-
-                foreach (var item in data)
-                {
-                    query = string.Empty;
-                    query = "DELETE FROM Equipment WHERE OwnershipCode = "
-                         + item.OwnershipCode.ToString();
-
-                    dbCommand.CommandText = query;
-                    dbCommand.ExecuteNonQuery();
-                }
-
-                dbCommand.Dispose();
-                dbCommand = null;
-                dbConnection.Close();
-                dbConnection = null;
-
-                Debug.Log("DeleteUserDataBase Success");
-            }
-            catch (System.Exception e)
-            {
-                Debug.Log("DeleteUserDataBase Fail");
-                Debug.Log("*Exception : " + e.ToString());
-                Debug.Log("*URL : " + ReadDBFilePath);
-                Debug.Log("*Path : " + m_dBFilePath);
-                Debug.Log("*Exist : " + File.Exists(m_dBFilePath).ToString());
-                if (File.Exists(m_dBFilePath))
-                {
-                    Debug.Log("*Size : " + File.ReadAllBytes(m_dBFilePath).Length);
-                }
-            }
-        }
-
-        public void UpdateUserDataBase(UserDataBase_TDoll data)
-        {
-            try
-            {
-                var query = string.Empty;
-
-                var dbConnection = new SqliteConnection(ReadDBFilePath);
-                dbConnection.Open();
-                var dbCommand = dbConnection.CreateCommand();
-
-                query = string.Empty;
-                query = "UPDATE TDoll SET"
-                    + "Level=" + data.Level
-                    + "DummyLink=" + data.DummyLink
-                    + "EquipmentOwnershipNumber0=" + data.EquipmentOwnershipNumber0
-                    + "EquipmentOwnershipNumber1=" + data.EquipmentOwnershipNumber1
-                    + "EquipmentOwnershipNumber2=" + data.EquipmentOwnershipNumber2
-                    + " WHERE OwnershipCode = "
-                    + data.OwnershipCode.ToString();
 
                 dbCommand.CommandText = query;
                 dbCommand.ExecuteNonQuery();
@@ -392,52 +225,11 @@ namespace Assets.Common.DB.User
                 dbConnection.Close();
                 dbConnection = null;
 
-                Debug.Log("UpdateUserDataBase Success");
+                Debug.Log("UpdateDataBase Success");
             }
             catch (System.Exception e)
             {
-                Debug.Log("UpdateUserDataBase Fail");
-                Debug.Log("*Exception : " + e.ToString());
-                Debug.Log("*URL : " + ReadDBFilePath);
-                Debug.Log("*Path : " + m_dBFilePath);
-                Debug.Log("*Exist : " + File.Exists(m_dBFilePath).ToString());
-                if (File.Exists(m_dBFilePath))
-                {
-                    Debug.Log("*Size : " + File.ReadAllBytes(m_dBFilePath).Length);
-                }
-            }
-        }
-
-        public void UpdateUserDataBase(UserDataBase_Equipment data)
-        {
-            try
-            {
-                var query = string.Empty;
-
-                var dbConnection = new SqliteConnection(ReadDBFilePath);
-                dbConnection.Open();
-                var dbCommand = dbConnection.CreateCommand();
-
-                query = string.Empty;
-                query = "UPDATE Equipment SET "
-                    + "Level=" + data.Level
-                    + ", LimitedPower=" + data.LimitedPower
-                    + " WHERE OwnershipCode = "
-                    + data.OwnershipCode.ToString();
-
-                dbCommand.CommandText = query;
-                dbCommand.ExecuteNonQuery();
-
-                dbCommand.Dispose();
-                dbCommand = null;
-                dbConnection.Close();
-                dbConnection = null;
-
-                Debug.Log("UpdateUserDataBase Success");
-            }
-            catch (System.Exception e)
-            {
-                Debug.Log("UpdateUserDataBase Fail");
+                Debug.Log("UpdateDataBase Fail");
                 Debug.Log("*Exception : " + e.ToString());
                 Debug.Log("*URL : " + ReadDBFilePath);
                 Debug.Log("*Path : " + m_dBFilePath);

@@ -41,16 +41,16 @@ namespace Assets.Common.DB.Index
             switch (tDoll)
             {
                 case E_TDoll.All:
-                    result = m_dBManager.ReadIndexDataBase_TDoll(QuerySupport.SelectTDoll_All);
+                    result = m_dBManager.ReadIndexDataBase_TDoll(QuerySupport_Index.SelectTDoll_All);
                     break;
                 case E_TDoll.Magician:
-                    result = m_dBManager.ReadIndexDataBase_TDoll(QuerySupport.SelectTDoll_Magician);
+                    result = m_dBManager.ReadIndexDataBase_TDoll(QuerySupport_Index.SelectTDoll_Magician);
                     break;
                 case E_TDoll.Archer:
-                    result = m_dBManager.ReadIndexDataBase_TDoll(QuerySupport.SelectTDoll_Archer);
+                    result = m_dBManager.ReadIndexDataBase_TDoll(QuerySupport_Index.SelectTDoll_Archer);
                     break;
                 case E_TDoll.Knight:
-                    result = m_dBManager.ReadIndexDataBase_TDoll(QuerySupport.SelectTDoll_Knight);
+                    result = m_dBManager.ReadIndexDataBase_TDoll(QuerySupport_Index.SelectTDoll_Knight);
                     break;
                 default:
                     break;
@@ -63,7 +63,7 @@ namespace Assets.Common.DB.Index
         {
             var result = new IndexDataBase_TDoll();
 
-            result = m_dBManager.ReadIndexDataBase_TDoll(QuerySupport.SelectTDoll_DataCode(dataCode))[0];
+            result = m_dBManager.ReadIndexDataBase_TDoll(QuerySupport_Index.SelectTDoll_DataCode(dataCode))[0];
 
             return result;
         }
@@ -79,7 +79,7 @@ namespace Assets.Common.DB.Index
         {
             var result = new IndexDataBase_Equipment();
 
-            result = m_dBManager.ReadIndexDataBase_Equipment(QuerySupport.SelectEquipment_DataCode(dataCode))[0];
+            result = m_dBManager.ReadIndexDataBase_Equipment(QuerySupport_Index.SelectEquipment_DataCode(dataCode))[0];
 
             return result;
         }
