@@ -40,7 +40,9 @@ namespace Assets.Scene_Lobby
             m_menuController = new MenuController();
             m_menuController.Initialize(m_gameManager, m_canvas);
             m_adController = new AdController();
-            m_adController.Initialize(m_gameManager, m_canvas);         
+            m_adController.Initialize(m_gameManager, m_canvas);
+
+            m_gameManager.WorkResource.StartCollectWorkResource();
         }
 
         // Update is called once per frame

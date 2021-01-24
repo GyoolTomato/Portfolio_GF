@@ -156,7 +156,12 @@ namespace Assets.Common.DB.User
 
         public void ApplyWorkResource(Assets.Common.Interface.WorkResource workResource)
         {
-            //m_dBManager.; ;
+            var temp = new CommonDataBase_WorkResource();
+
+            temp.Name = workResource.DBName;
+            temp.Value = workResource.Amount;
+
+            m_dBManager.SQL(QuerySupport_User.UpdateWorkResource(temp));
         }
     }
 }

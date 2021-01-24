@@ -130,8 +130,8 @@ namespace Assets.Common.DB.User
 
             result = "UPDATE WorkResource SET "
                       + "Amount=" + data.Value
-                      + " WHERE Name = "
-                      + data.Name;
+                      + " WHERE Name = \'"
+                      + data.Name + "\'";
 
             return result;
         }

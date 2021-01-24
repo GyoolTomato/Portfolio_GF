@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,24 +37,31 @@ namespace Assets.Common.DB.Index
 
         public List<IndexDataBase_TDoll> TDoll(E_TDoll tDoll)
         {
-            var result = new List<IndexDataBase_TDoll>();
+            var temp = new ArrayList();
 
             switch (tDoll)
             {
                 case E_TDoll.All:
-                    result = m_dBManager.ReadIndexDataBase_TDoll(QuerySupport_Index.SelectTDoll_All);
+                    temp = m_dBManager.ReadDataBase(IndexDBManager.E_Table.TDoll, QuerySupport_Index.SelectTDoll_All);
                     break;
                 case E_TDoll.Magician:
-                    result = m_dBManager.ReadIndexDataBase_TDoll(QuerySupport_Index.SelectTDoll_Magician);
+                    temp = m_dBManager.ReadDataBase(IndexDBManager.E_Table.TDoll, QuerySupport_Index.SelectTDoll_Magician);
                     break;
                 case E_TDoll.Archer:
-                    result = m_dBManager.ReadIndexDataBase_TDoll(QuerySupport_Index.SelectTDoll_Archer);
+                    temp = m_dBManager.ReadDataBase(IndexDBManager.E_Table.TDoll, QuerySupport_Index.SelectTDoll_Archer);
                     break;
                 case E_TDoll.Knight:
-                    result = m_dBManager.ReadIndexDataBase_TDoll(QuerySupport_Index.SelectTDoll_Knight);
+                    temp = m_dBManager.ReadDataBase(IndexDBManager.E_Table.TDoll, QuerySupport_Index.SelectTDoll_Knight);
                     break;
                 default:
                     break;
+            }
+
+            var result = new List<IndexDataBase_TDoll>();
+
+            foreach (var item in temp)
+            {
+                result.Add(item as IndexDataBase_TDoll);
             }
 
             return result;
@@ -63,7 +71,7 @@ namespace Assets.Common.DB.Index
         {
             var result = new IndexDataBase_TDoll();
 
-            result = m_dBManager.ReadIndexDataBase_TDoll(QuerySupport_Index.SelectTDoll_DataCode(dataCode))[0];
+            result = m_dBManager.ReadDataBase(IndexDBManager.E_Table.TDoll, QuerySupport_Index.SelectTDoll_DataCode(dataCode))[0] as IndexDataBase_TDoll;
 
             return result;
         }
@@ -79,7 +87,7 @@ namespace Assets.Common.DB.Index
         {
             var result = new IndexDataBase_Equipment();
 
-            result = m_dBManager.ReadIndexDataBase_Equipment(QuerySupport_Index.SelectEquipment_DataCode(dataCode))[0];
+            result = m_dBManager.ReadDataBase(IndexDBManager.E_Table.Equipment, QuerySupport_Index.SelectTDoll_DataCode(dataCode))[0] as IndexDataBase_Equipment;
 
             return result;
         }

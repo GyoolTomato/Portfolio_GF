@@ -156,11 +156,11 @@ namespace Assets.Common.DB.User
                 dbConnection.Close();
                 dbConnection = null;
 
-                Debug.Log("ReadUserDataBase Success");
+                Debug.Log("ReadDataBase Success");
             }
             catch (System.Exception e)
             {
-                Debug.Log("ReadUserDataBase Fail");
+                Debug.Log("ReadDataBase Fail");
                 Debug.Log("*Exception : " + e.ToString());
                 Debug.Log("*URL : " + ReadDBFilePath);
                 Debug.Log("*Path : " + m_dBFilePath);
@@ -193,11 +193,11 @@ namespace Assets.Common.DB.User
                 dbConnection.Close();
                 dbConnection = null;
 
-                Debug.Log("DeleteDataBase Success");
+                Debug.Log("SQL Success");
             }
             catch (System.Exception e)
             {
-                Debug.Log("DeleteDataBase Fail");
+                Debug.Log("SQL Fail");
                 Debug.Log("*Exception : " + e.ToString());
                 Debug.Log("*URL : " + ReadDBFilePath);
                 Debug.Log("*Path : " + m_dBFilePath);
@@ -225,11 +225,11 @@ namespace Assets.Common.DB.User
                 dbConnection.Close();
                 dbConnection = null;
 
-                Debug.Log("UpdateDataBase Success");
+                Debug.Log("SQL Success");
             }
             catch (System.Exception e)
             {
-                Debug.Log("UpdateDataBase Fail");
+                Debug.Log("SQL Fail");
                 Debug.Log("*Exception : " + e.ToString());
                 Debug.Log("*URL : " + ReadDBFilePath);
                 Debug.Log("*Path : " + m_dBFilePath);
