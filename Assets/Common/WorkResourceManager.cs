@@ -25,28 +25,28 @@ namespace Assets.Common
             m_manPower.DBName = "ManPower";
             m_manPower.Amount = 0;
             m_manPower.ChargingVolume_Time = 3.0f;
-            m_manPower.ChargingVolume_Amount = 3;
+            m_manPower.ChargingVolume_Amount = 120;
 
             m_bullet = new WorkResource();
             m_bullet.Title = "탄약";
             m_bullet.DBName = "Bullet";
             m_bullet.Amount = 0;
             m_bullet.ChargingVolume_Time = 3.0f;
-            m_bullet.ChargingVolume_Amount = 3;
+            m_bullet.ChargingVolume_Amount = 120;
 
             m_food = new WorkResource();
             m_food.Title = "식량";
             m_food.DBName = "Food";
             m_food.Amount = 0;
             m_food.ChargingVolume_Time = 3.0f;
-            m_food.ChargingVolume_Amount = 3;
+            m_food.ChargingVolume_Amount = 120;
 
             m_militarySupplies = new WorkResource();
             m_militarySupplies.Title = "부품";
             m_militarySupplies.DBName = "MilitarySupplies";
             m_militarySupplies.Amount = 0;
             m_militarySupplies.ChargingVolume_Time = 3.0f;
-            m_militarySupplies.ChargingVolume_Amount = 1;            
+            m_militarySupplies.ChargingVolume_Amount = 40;            
         }
 
         public void StartCollectWorkResource()
@@ -67,7 +67,8 @@ namespace Assets.Common
             {
                 if (item.Name == "ManPower")
                 {
-                    m_manPower.Amount = item.Value;                    
+                    m_manPower.Amount = item.Value;
+                    Debug.Log("DB MaPower : " + item.Value);
                 }
                 else if (item.Name == "Bullet")
                 {
@@ -88,6 +89,7 @@ namespace Assets.Common
         {
             while (true)
             {
+                Debug.Log("MaPower : " + m_manPower.Amount);
                 ReadUserWorkResource();
                 yield return new WaitForSeconds(m_manPower.ChargingVolume_Time);                
                 m_manPower.Amount += m_manPower.ChargingVolume_Amount;
