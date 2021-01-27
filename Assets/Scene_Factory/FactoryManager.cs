@@ -10,7 +10,9 @@ namespace Assets.Scene_Factory
         private Assets.Common.GameManager m_gameManager;
         private GameObject m_canvas;
 
-        private MenuController m_menuController;
+        //private UserMonitorController m_userMonitorController;
+        private Assets.Common.Object.Title m_title;
+        private MenuController m_menuController;        
         private ProduceTDollController m_produceTDollController;
         private ProduceEquipmentController m_produceEquipmentController;
 
@@ -25,6 +27,10 @@ namespace Assets.Scene_Factory
             m_gameManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Common.GameManager>();
             m_canvas = GameObject.Find("Canvas");
 
+            //m_userMonitorController = new UserMonitorController();
+            //m_userMonitorController.Initialize(m_gameManager, m_canvas);
+            m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Common.Object.Title>();
+            m_title.Initialize(m_gameManager, "공장");
             m_menuController = new MenuController();
             m_menuController.Initialize(m_gameManager, m_canvas);
             m_produceTDollController = new ProduceTDollController();
@@ -36,7 +42,7 @@ namespace Assets.Scene_Factory
         // Update is called once per frame
         void Update()
         {
-
+            //m_userMonitorController.ApplyData();
         }
 
         public ProduceTDollController ProduceTDollController

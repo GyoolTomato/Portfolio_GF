@@ -3,13 +3,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using Assets.Common.Object;
 
-namespace Assets.Scene_Lobby.Controller
+namespace Assets.Scene_Factory.Controller
 {
     public class UserMonitorController
     {
         private Assets.Common.GameManager m_gameManager;
+        private Text m_name;
         private GameObject m_workResourceInformation;
-
         private WorkResourceMonitor m_manPower;
         private WorkResourceMonitor m_bullet;
         private WorkResourceMonitor m_food;
@@ -29,8 +29,9 @@ namespace Assets.Scene_Lobby.Controller
         {
             m_gameManager = gameManager;
 
-            var userMonitor = canvas.transform.Find("UserMonitor");
-            m_workResourceInformation = userMonitor.Find("WorkResourceInformation").gameObject;
+            var title = canvas.transform.Find("Title");
+            m_name = title.Find("Name").GetComponent<Text>();
+            m_workResourceInformation = title.Find("WorkResourceInformation").gameObject;
             m_manPower = m_workResourceInformation.transform.Find("ManPower").GetComponent<WorkResourceMonitor>();
             m_bullet = m_workResourceInformation.transform.Find("Bullet").GetComponent<WorkResourceMonitor>();
             m_food = m_workResourceInformation.transform.Find("Food").GetComponent<WorkResourceMonitor>();

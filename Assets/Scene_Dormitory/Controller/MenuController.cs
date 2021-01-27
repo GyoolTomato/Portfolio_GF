@@ -13,7 +13,6 @@ namespace Assets.Scene_Dormitory.Controller
 
         private Assets.Common.GameManager m_gameManager;
 
-        private Button m_buttonBack;
         private Button m_buttonTDoll;
         private Button m_buttonEquipments;
 
@@ -24,7 +23,6 @@ namespace Assets.Scene_Dormitory.Controller
         {
             m_gameManager = null;
 
-            m_buttonBack = null;
             m_buttonTDoll = null;
             m_buttonEquipments = null;
 
@@ -37,7 +35,6 @@ namespace Assets.Scene_Dormitory.Controller
             m_gameManager = gameManager;
 
             var title = canvas.transform.Find("Title");
-            m_buttonBack = title.Find("Back").GetComponent<Button>();
 
             var menu = canvas.transform.Find("Menu");
             m_buttonTDoll = menu.Find("TDoll").GetComponent<Button>();
@@ -53,14 +50,8 @@ namespace Assets.Scene_Dormitory.Controller
 
         private void ApplyAction()
         {
-            m_buttonBack.onClick.AddListener(Handle_Back);
             m_buttonTDoll.onClick.AddListener(Handle_TDollClick);
             m_buttonEquipments.onClick.AddListener(Handle_EquipmentsClick);
-        }
-
-        private void Handle_Back()
-        {
-            SceneManager.LoadScene("Lobby");
         }
 
         private void Handle_TDollClick()

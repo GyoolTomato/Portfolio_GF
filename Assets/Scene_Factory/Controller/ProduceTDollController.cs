@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEditor.Timeline.Actions;
 
 namespace Assets.Scene_Factory.Controller
 {
@@ -10,6 +11,7 @@ namespace Assets.Scene_Factory.Controller
     {
         private Object.ProduceSlot m_produceSlot_0;
         private Object.ProduceSlot m_produceSlot_1;
+        private GameObject m_messagePanel;
 
         private Assets.Common.GameManager m_gameManager;        
 
@@ -23,15 +25,34 @@ namespace Assets.Scene_Factory.Controller
             var menuView = canvas.transform.Find("MenuView");
             var produceTDoll = menuView.Find("ProduceTDoll");
             m_produceSlot_0 = produceTDoll.transform.Find("ProduceSlot_0").GetComponent<Object.ProduceSlot>();
-            m_produceSlot_0.SetOrder(OrderReceive);
+            m_produceSlot_0.SetOrder(OrderReceive, Complete);
             m_produceSlot_1 = produceTDoll.transform.Find("ProduceSlot_1").GetComponent<Object.ProduceSlot>();
-            m_produceSlot_1.SetOrder(OrderReceive);
+            m_produceSlot_1.SetOrder(OrderReceive, Complete);
+            m_messagePanel = canvas.transform.Find("MessagePanel").gameObject;
             
             m_gameManager = gameManager;
         }
 
-        public void OrderReceive(int manPower, int bullet, int food, int militarySupplies)
+        public bool Complete()
         {
+
+
+            return true;
+        }
+
+        public bool OrderReceive(int manPower, int bullet, int food, int militarySupplies)
+        {
+            if (m_gameManager.WorkResource.WorkResourceConsumption(manPower, bullet, food, militarySupplies))
+            {
+                m_messagePanel.SetActive(false);                
+            }
+            else
+            {
+                m_messagePanel.SetActive(true);
+                m_gameManager.StartCoroutine(OffMessagePanel());
+                return false;
+            }
+
             var tDollList = new List<Common.DB.Index.IndexDataBase_TDoll>();
             var selectNumber = 0;
 
@@ -92,8 +113,14 @@ namespace Assets.Scene_Factory.Controller
 
                 Debug.Log("Order : " + selectNumber.ToString());
             }
+
+            return true;
         }
 
-        
+        private IEnumerator OffMessagePanel()
+        {
+            yield return new WaitForSeconds(2.0f);
+            m_messagePanel.SetActive(false);
+        }
     }
 }

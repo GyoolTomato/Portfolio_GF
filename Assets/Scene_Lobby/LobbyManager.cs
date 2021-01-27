@@ -48,7 +48,7 @@ namespace Assets.Scene_Lobby
         // Update is called once per frame
         void Update()
         {
-            m_userMonitorController.ApplyData();
+            m_userMonitorController.ApplyData();            
         }
     }
 }

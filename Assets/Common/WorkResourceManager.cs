@@ -127,6 +127,35 @@ namespace Assets.Common
             }
         }
 
+        public bool WorkResourceConsumption(int manPower, int bullet, int food, int militarySupplies)
+        {
+            var result = false;
+
+            if (m_manPower.Amount >= manPower &&
+                m_bullet.Amount >= bullet &&
+                m_food.Amount >= food &&
+                m_militarySupplies.Amount >= militarySupplies)
+            {
+                m_manPower.Amount -= manPower;
+                m_bullet.Amount -= bullet;
+                m_food.Amount -= food;
+                m_militarySupplies.Amount -= militarySupplies;
+                m_gameManager.DBControllerUser.ApplyWorkResource(m_manPower);
+                m_gameManager.DBControllerUser.ApplyWorkResource(m_bullet);
+                m_gameManager.DBControllerUser.ApplyWorkResource(m_food);
+                m_gameManager.DBControllerUser.ApplyWorkResource(m_militarySupplies);
+
+                ReadUserWorkResource();
+                result = true;
+            }
+            else
+            {
+                Debug.Log("WorkResourceConsu Lack of WorkResource");
+            }
+
+            return result;
+        }
+
         public WorkResource ManPower
         {
             get

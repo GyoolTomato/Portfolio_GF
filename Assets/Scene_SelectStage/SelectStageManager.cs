@@ -2,9 +2,9 @@
 using UnityEngine;
 using Assets.Scene_Dormitory.Controller;
 
-namespace Assets.Scene_Dormitory
+namespace Assets.Scene_SelectStage
 {
-    public class DormitoryManager : MonoBehaviour
+    public class SelectStageManager : MonoBehaviour
     {
         private Assets.Common.GameManager m_gameManager;
         private GameObject m_canvas;
@@ -14,14 +14,14 @@ namespace Assets.Scene_Dormitory
         private ViewPort_TDollController m_viewPort_TDollController;
         private ViewPort_EquipmentsController m_viewPort_EquipmentsController;
 
-        public DormitoryManager()
+        public SelectStageManager()
         {
 
         }
 
         private void Awake()
         {
-            
+
         }
 
         private void Start()
@@ -30,9 +30,9 @@ namespace Assets.Scene_Dormitory
             m_canvas = GameObject.Find("Canvas");
 
             m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Common.Object.Title>();
-            m_title.Initialize(m_gameManager, "숙소");
-            m_menuController = new Controller.MenuController();
-            m_menuController.Initialize(m_gameManager, m_canvas);
+            m_title.Initialize(m_gameManager, "스테이지 선택");
+            //m_menuController = new Controller.MenuController();
+            //m_menuController.Initialize(m_gameManager, m_canvas);
             m_viewPort_TDollController = new ViewPort_TDollController();
             m_viewPort_TDollController.Initialize(m_gameManager);
             m_viewPort_EquipmentsController = new ViewPort_EquipmentsController();

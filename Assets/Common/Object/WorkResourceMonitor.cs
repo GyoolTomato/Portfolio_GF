@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scene_Lobby.Object
+namespace Assets.Common.Object
 {
     public class WorkResourceMonitor : MonoBehaviour
     {
@@ -46,7 +46,7 @@ namespace Assets.Scene_Lobby.Object
             titleText.text = in_WorkResourceInformation.Title;
             amountText.text = in_WorkResourceInformation.Amount.ToString();
             chargingVolume_AmountText.text = "+" + in_WorkResourceInformation.ChargingVolume_Amount.ToString();
-            chargingVolume_TimeText.text = "/" + in_WorkResourceInformation.ChargingVolume_Time.ToString() + "MIN";
+            chargingVolume_TimeText.text = "/" + in_WorkResourceInformation.ChargingVolume_Time.ToString() + "SEC";
         }
     }
 }
