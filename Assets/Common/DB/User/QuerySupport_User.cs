@@ -149,5 +149,21 @@ namespace Assets.Common.DB.User
 
             return result;
         }
+
+        public static string UpdateProduceTDoll(UserDataBase_Produce data)
+        {
+            var result = string.Empty;
+
+            result = "UPDATE ProduceTDoll SET "                    
+                    + ", CompleteTime=" + data.CompleteTime
+                    + ", DataCode=" + data.DataCode
+                    + " WHERE Slot = "
+                    + data.Slot.ToString()
+                    + " and "
+                    + "Active = "
+                    + true;
+
+            return result;
+        }
     }
 }
