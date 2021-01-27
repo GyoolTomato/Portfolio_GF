@@ -135,5 +135,19 @@ namespace Assets.Common.DB.User
 
             return result;
         }
+
+        public static string InsertProduceTDoll(UserDataBase_Produce data)
+        {
+            var result = string.Empty;
+
+            result = "INSERT INTO ProduceTDoll(Slot, Active, CompleteTime, DataCode) VALUES ("
+                + data.Slot
+                + data.Active
+                + data.CompleteTime
+                + data.DataCode
+                + ")";
+
+            return result;
+        }
     }
 }
