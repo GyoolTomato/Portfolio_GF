@@ -95,6 +95,36 @@ namespace Assets.Common.DB.User
             }
         }
 
+        public List<UserDataBase_Produce> UserProduceTDoll
+        {
+            get
+            {
+                var result = new List<UserDataBase_Produce>();
+
+                foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Produce, QuerySupport_User.SelectProduceTDoll))
+                {
+                    result.Add(item as UserDataBase_Produce);
+                }
+
+                return result;
+            }
+        }
+
+        public List<UserDataBase_Produce> UserProduceEquipment
+        {
+            get
+            {
+                var result = new List<UserDataBase_Produce>();
+
+                foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Produce, QuerySupport_User.SelectProduceEquipment))
+                {
+                    result.Add(item as UserDataBase_Produce);
+                }
+
+                return result;
+            }
+        }
+
         public void AddOwnership(DB.Index.IndexDataBase_TDoll data)
         {            
             var conversionData = new UserDataBase_TDoll();
@@ -162,6 +192,16 @@ namespace Assets.Common.DB.User
             temp.Value = workResource.Amount;
 
             m_dBManager.SQL(QuerySupport_User.UpdateWorkResource(temp));
+        }
+
+        public void UpdateProduceTDoll(UserDataBase_Produce data)
+        {
+            m_dBManager.SQL(QuerySupport_User.UpdateProduceTDoll(data));
+        }
+
+        public void UpdateProduceEquipment(UserDataBase_Produce data)
+        {
+            m_dBManager.SQL(QuerySupport_User.UpdateProduceEquipment(data));
         }
     }
 }

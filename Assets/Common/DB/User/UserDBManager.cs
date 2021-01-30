@@ -16,6 +16,7 @@ namespace Assets.Common.DB.User
             TDoll,
             Equipment,
             WorkResource,
+            Produce,
             End,
         }
 
@@ -106,6 +107,7 @@ namespace Assets.Common.DB.User
                 var tempData_TDoll = new UserDataBase_TDoll();
                 var tempData_Equipment = new UserDataBase_Equipment();
                 var tempData_WorkResource = new CommonDataBase_WorkResource();
+                var tempData_Produce = new UserDataBase_Produce();
 
                 var dbConnection = new SqliteConnection(ReadDBFilePath);
                 dbConnection.Open();
@@ -143,6 +145,15 @@ namespace Assets.Common.DB.User
                             tempData_WorkResource.Name = dataReader.GetString(1);
                             tempData_WorkResource.Value = dataReader.GetInt32(2);
                             result.Add(tempData_WorkResource);
+                            break;
+                        case E_Table.Produce:
+                            tempData_Produce = new UserDataBase_Produce();
+                            tempData_Produce.Index = dataReader.GetInt32(0);
+                            tempData_Produce.Slot = dataReader.GetInt32(1);
+                            tempData_Produce.Active = dataReader.GetString(2);
+                            tempData_Produce.CompleteTime = dataReader.GetString(3);
+                            tempData_Produce.DataCode = dataReader.GetInt32(4);
+                            result.Add(tempData_Produce);
                             break;
                         default:
                             break;

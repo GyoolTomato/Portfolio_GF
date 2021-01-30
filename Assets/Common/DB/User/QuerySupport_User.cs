@@ -8,6 +8,9 @@ namespace Assets.Common.DB.User
         public static string SelectTDoll_All = "SELECT * FROM TDoll";
         public static string SelectEquipment_All = "SELECT * FROM Equipment";
         public static string SelectWorkResource_All = "SELECT * FROM WorkResource";
+        public static string SelectProduceTDoll = "SELECT * FROM ProduceTDoll";
+        public static string SelectProduceEquipment = "SELECT * FROM ProduceEquipment";
+
 
         public static string SelectMountedCheck(UserDataBase_Equipment data)
         {
@@ -155,7 +158,37 @@ namespace Assets.Common.DB.User
             var result = string.Empty;
 
             result = "UPDATE ProduceTDoll SET "                    
-                    + ", CompleteTime=" + data.CompleteTime
+                    + "CompleteTime = \'" + data.CompleteTime + "\'"
+                    + ", DataCode=" + data.DataCode
+                    + " WHERE Slot = "
+                    + data.Slot.ToString()
+                    + " and "
+                    + "Active = \'"
+                    + true + "\'";
+
+            return result;
+        }
+
+        public static string InsertProduceEquipment(UserDataBase_Produce data)
+        {
+            var result = string.Empty;
+
+            result = "INSERT INTO ProduceEquipment(Slot, Active, CompleteTime, DataCode) VALUES ("
+                + data.Slot
+                + data.Active
+                + data.CompleteTime
+                + data.DataCode
+                + ")";
+
+            return result;
+        }
+
+        public static string UpdateProduceEquipment(UserDataBase_Produce data)
+        {
+            var result = string.Empty;
+
+            result = "UPDATE ProduceEquipment SET "
+                    + "CompleteTime=" + data.CompleteTime
                     + ", DataCode=" + data.DataCode
                     + " WHERE Slot = "
                     + data.Slot.ToString()

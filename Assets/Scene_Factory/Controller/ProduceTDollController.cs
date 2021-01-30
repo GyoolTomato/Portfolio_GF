@@ -9,11 +9,10 @@ namespace Assets.Scene_Factory.Controller
 {
     public class ProduceTDollController
     {
-        private Object.ProduceSlot m_produceSlot_0;
-        private Object.ProduceSlot m_produceSlot_1;
-        private GameObject m_messagePanel;
+        private Assets.Common.GameManager m_gameManager;
 
-        private Assets.Common.GameManager m_gameManager;        
+        private List<Object.ProduceSlot> m_list_ProduceSlot;
+        private GameObject m_messagePanel;              
 
         public ProduceTDollController()
         {
@@ -21,30 +20,29 @@ namespace Assets.Scene_Factory.Controller
 
         public void Initialize(Assets.Common.GameManager gameManager)
         {
+            m_gameManager = gameManager;            
+
             var canvas = GameObject.Find("Canvas");
             var menuView = canvas.transform.Find("MenuView");
             var produceTDoll = menuView.Find("ProduceTDoll");
-            m_produceSlot_0 = produceTDoll.transform.Find("ProduceSlot_0").GetComponent<Object.ProduceSlot>();
-            m_produceSlot_0.SetOrder(OrderReceive, Complete);
-            m_produceSlot_1 = produceTDoll.transform.Find("ProduceSlot_1").GetComponent<Object.ProduceSlot>();
-            m_produceSlot_1.SetOrder(OrderReceive, Complete);
+            m_list_ProduceSlot = new List<Object.ProduceSlot>();
+            m_list_ProduceSlot.Add(produceTDoll.transform.Find("ProduceSlot_0").GetComponent<Object.ProduceSlot>());
+            m_list_ProduceSlot.Add(produceTDoll.transform.Find("ProduceSlot_1").GetComponent<Object.ProduceSlot>());
+            var produceDBIndex = 0;
+            foreach (var item in m_list_ProduceSlot)
+            {
+                item.Initialize(m_gameManager.DBControllerUser.UserProduceTDoll[produceDBIndex], OrderReceive, Complete);
+                produceDBIndex++;
+            }
+
             m_messagePanel = canvas.transform.Find("MessagePanel").gameObject;
-            
-            m_gameManager = gameManager;
         }
 
-        public bool Complete()
-        {
-
-
-            return true;
-        }
-
-        public bool OrderReceive(int manPower, int bullet, int food, int militarySupplies)
+        public bool OrderReceive(Common.DB.User.UserDataBase_Produce produceData, int manPower, int bullet, int food, int militarySupplies)
         {
             if (m_gameManager.WorkResource.WorkResourceConsumption(manPower, bullet, food, militarySupplies))
             {
-                m_messagePanel.SetActive(false);                
+                m_messagePanel.SetActive(false);
             }
             else
             {
@@ -61,10 +59,7 @@ namespace Assets.Scene_Factory.Controller
                 food >= 400 &&
                 militarySupplies >= 200)
             {
-                tDollList = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.DBController_Index.E_TDoll.All);
-                selectNumber = UnityEngine.Random.Range(0, tDollList.Count);
-                                
-                m_gameManager.DBControllerUser.AddOwnership(tDollList[selectNumber]);
+                tDollList = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.DBController_Index.E_TDoll.All);             
 
                 Debug.Log("Order : " + selectNumber.ToString());
             }
@@ -74,9 +69,6 @@ namespace Assets.Scene_Factory.Controller
                 militarySupplies >= 200)
             {
                 tDollList = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.DBController_Index.E_TDoll.Archer);
-                selectNumber = UnityEngine.Random.Range(0, tDollList.Count);
-
-                m_gameManager.DBControllerUser.AddOwnership(tDollList[selectNumber]);
 
                 Debug.Log("Order : " + selectNumber.ToString());
             }
@@ -86,9 +78,6 @@ namespace Assets.Scene_Factory.Controller
                 militarySupplies >= 200)
             {
                 tDollList = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.DBController_Index.E_TDoll.Knight);
-                selectNumber = UnityEngine.Random.Range(0, tDollList.Count);
-
-                m_gameManager.DBControllerUser.AddOwnership(tDollList[selectNumber]);
 
                 Debug.Log("Order : " + selectNumber.ToString());
             }
@@ -97,22 +86,54 @@ namespace Assets.Scene_Factory.Controller
                 food >= 100 &&
                 militarySupplies >= 200)
             {
-                tDollList = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.DBController_Index.E_TDoll.Magician);
-                selectNumber = UnityEngine.Random.Range(0, tDollList.Count);
-
-                m_gameManager.DBControllerUser.AddOwnership(tDollList[selectNumber]);
+                tDollList = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.DBController_Index.E_TDoll.Magician);       
 
                 Debug.Log("Order : " + selectNumber.ToString());
             }
             else
             {
-                tDollList = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.DBController_Index.E_TDoll.All);
-                selectNumber = UnityEngine.Random.Range(0, tDollList.Count);
-
-                m_gameManager.DBControllerUser.AddOwnership(tDollList[selectNumber]);
+                tDollList = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.DBController_Index.E_TDoll.All);                               
 
                 Debug.Log("Order : " + selectNumber.ToString());
             }
+
+            selectNumber = UnityEngine.Random.Range(0, tDollList.Count);            
+
+            var tempTDollList = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.DBController_Index.E_TDoll.All);
+            var tempTDoll = new Common.DB.Index.IndexDataBase_TDoll();
+            foreach (var item in tempTDollList)
+            {
+                if (item.DataCode == tDollList[selectNumber].DataCode)
+                {
+                    tempTDoll = item;
+                    break;
+                }
+            }
+            produceData.DataCode = tempTDoll.DataCode;
+            produceData.CompleteTime = DateTime.Now.AddSeconds(tempTDoll.ManufacturingTime).ToString();
+
+            m_gameManager.DBControllerUser.UpdateProduceTDoll(produceData);
+
+            return true;
+        }
+
+        public bool Complete(Common.DB.User.UserDataBase_Produce produceData)
+        {
+            var tempTDollList = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.DBController_Index.E_TDoll.All);
+            var tempTDoll = new Common.DB.Index.IndexDataBase_TDoll();
+            foreach (var item in tempTDollList)
+            {
+                if (item.DataCode == produceData.DataCode)
+                {
+                    tempTDoll = item;
+                    break;
+                }
+            }
+            produceData.DataCode = 0;
+            produceData.CompleteTime = string.Empty;
+
+            m_gameManager.DBControllerUser.AddOwnership(tempTDoll);
+            m_gameManager.DBControllerUser.UpdateProduceTDoll(produceData);
 
             return true;
         }
