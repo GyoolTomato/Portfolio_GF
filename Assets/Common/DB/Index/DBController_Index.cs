@@ -21,6 +21,10 @@ namespace Assets.Common.DB.Index
 
         public enum E_Equipment
         {
+            All,
+            Weapon,
+            Armor,
+            Tool,
             End,
         }
 
@@ -38,6 +42,7 @@ namespace Assets.Common.DB.Index
         public List<IndexDataBase_TDoll> TDoll(E_TDoll tDoll)
         {
             var temp = new ArrayList();
+            var result = new List<IndexDataBase_TDoll>();
 
             switch (tDoll)
             {
@@ -57,8 +62,6 @@ namespace Assets.Common.DB.Index
                     break;
             }
 
-            var result = new List<IndexDataBase_TDoll>();
-
             foreach (var item in temp)
             {
                 result.Add(item as IndexDataBase_TDoll);
@@ -76,9 +79,33 @@ namespace Assets.Common.DB.Index
             return result;
         }
 
-        public List<IndexDataBase_Equipment> Equipment()
+        public List<IndexDataBase_Equipment> Equipment(E_Equipment equipment)
         {
+            var temp = new ArrayList();
             var result = new List<IndexDataBase_Equipment>();
+
+            switch (equipment)
+            {
+                case E_Equipment.All:
+                    temp = m_dBManager.ReadDataBase(IndexDBManager.E_Table.Equipment, QuerySupport_Index.SelectEquipment_All);
+                    break;
+                case E_Equipment.Weapon:
+                    temp = m_dBManager.ReadDataBase(IndexDBManager.E_Table.Equipment, QuerySupport_Index.SelectEquipment_Weapon);
+                    break;
+                case E_Equipment.Armor:
+                    temp = m_dBManager.ReadDataBase(IndexDBManager.E_Table.Equipment, QuerySupport_Index.SelectEquipment_Armor);
+                    break;
+                case E_Equipment.Tool:
+                    temp = m_dBManager.ReadDataBase(IndexDBManager.E_Table.Equipment, QuerySupport_Index.SelectEquipment_Tool);
+                    break;
+                default:
+                    break;
+            }
+
+            foreach (var item in temp)
+            {
+                result.Add(item as IndexDataBase_Equipment);
+            }
 
             return result;
         }

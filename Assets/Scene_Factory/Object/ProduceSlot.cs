@@ -15,8 +15,8 @@ namespace Assets.Scene_Factory.Object
             End,
         }
 
-        public delegate bool CompleteListener(Common.DB.User.UserDataBase_Produce produceData);
-        public delegate bool OrderListener(Common.DB.User.UserDataBase_Produce produceData, int manPower, int bullet, int food, int militarySupplies);
+        public delegate void CompleteListener(Common.DB.User.UserDataBase_Produce produceData);
+        public delegate void OrderListener(Common.DB.User.UserDataBase_Produce produceData, int manPower, int bullet, int food, int militarySupplies, out bool result);
 
         private E_State m_state;
         private OrderListener m_order;
@@ -127,8 +127,10 @@ namespace Assets.Scene_Factory.Object
         private void Handle_Order()
         {
             var orderData = new object();
+            var result = false;
+            m_order(m_userDataBase_Produce, m_manPower.Value, m_bullet.Value, m_food.Value, m_militarySupplies.Value, out result);
 
-            if (m_order(m_userDataBase_Produce, m_manPower.Value, m_bullet.Value, m_food.Value, m_militarySupplies.Value))
+            if (result)
             {
                 ChangeState(E_State.Working);
             }

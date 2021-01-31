@@ -34,9 +34,9 @@ namespace Assets.Scene_Factory
             m_menuController = new MenuController();
             m_menuController.Initialize(m_gameManager, m_canvas);
             m_produceTDollController = new ProduceTDollController();
-            m_produceTDollController.Initialize(m_gameManager);
+            m_produceTDollController.Initialize(m_gameManager, "ProduceTDoll");
             m_produceEquipmentController = new ProduceEquipmentController();
-            m_produceEquipmentController.Initialize();
+            m_produceEquipmentController.Initialize(m_gameManager, "ProduceEquipment");
         }
 
         // Update is called once per frame

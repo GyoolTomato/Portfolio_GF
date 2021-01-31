@@ -146,7 +146,7 @@ namespace Assets.Common.DB.User
             var conversionData = new UserDataBase_Equipment();
             conversionData.DataCode = data.DataCode;
             conversionData.Level = 1;
-            conversionData.LimitedPower = 50.0f;            
+            conversionData.LimitedPower = Random.Range(10, 101);           
 
             var tempData = new List<UserDataBase_Equipment>();
             tempData.Add(conversionData);
@@ -202,6 +202,11 @@ namespace Assets.Common.DB.User
         public void UpdateProduceEquipment(UserDataBase_Produce data)
         {
             m_dBManager.SQL(QuerySupport_User.UpdateProduceEquipment(data));
+        }
+
+        public void UpdateItemAmount(UserDataBase_Item data)
+        {
+            m_dBManager.SQL(QuerySupport_User.UpdateItem(data));
         }
     }
 }

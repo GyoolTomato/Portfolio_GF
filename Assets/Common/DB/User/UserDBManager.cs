@@ -17,6 +17,7 @@ namespace Assets.Common.DB.User
             Equipment,
             WorkResource,
             Produce,
+            Item,
             End,
         }
 
@@ -108,6 +109,7 @@ namespace Assets.Common.DB.User
                 var tempData_Equipment = new UserDataBase_Equipment();
                 var tempData_WorkResource = new CommonDataBase_WorkResource();
                 var tempData_Produce = new UserDataBase_Produce();
+                var tempData_Item = new UserDataBase_Item();
 
                 var dbConnection = new SqliteConnection(ReadDBFilePath);
                 dbConnection.Open();
@@ -154,6 +156,13 @@ namespace Assets.Common.DB.User
                             tempData_Produce.CompleteTime = dataReader.GetString(3);
                             tempData_Produce.DataCode = dataReader.GetInt32(4);
                             result.Add(tempData_Produce);
+                            break;
+                        case E_Table.Item:
+                            tempData_Item = new UserDataBase_Item();
+                            tempData_Item.Index = dataReader.GetInt32(0);
+                            tempData_Item.Name = dataReader.GetString(1);
+                            tempData_Item.Amount = dataReader.GetInt32(2);
+                            result.Add(tempData_Item);
                             break;
                         default:
                             break;

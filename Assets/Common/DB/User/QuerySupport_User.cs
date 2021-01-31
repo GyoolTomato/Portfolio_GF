@@ -10,6 +10,7 @@ namespace Assets.Common.DB.User
         public static string SelectWorkResource_All = "SELECT * FROM WorkResource";
         public static string SelectProduceTDoll = "SELECT * FROM ProduceTDoll";
         public static string SelectProduceEquipment = "SELECT * FROM ProduceEquipment";
+        public static string SelectItem = "SELECT * FROM Item";
 
 
         public static string SelectMountedCheck(UserDataBase_Equipment data)
@@ -55,9 +56,9 @@ namespace Assets.Common.DB.User
             foreach (var item in data)
             {
                 temp = string.Empty;
-                temp = "INSERT INTO TDoll VALUES ("
-                         + item.DataCode.ToString()
-                         + item.Level.ToString()
+                temp = "INSERT INTO Equipment(DataCode, Level, LimitedPower) VALUES("
+                         + item.DataCode.ToString() + ", "
+                         + item.Level.ToString() + ", "
                          + item.LimitedPower.ToString()
                          + ")";
 
@@ -188,13 +189,25 @@ namespace Assets.Common.DB.User
             var result = string.Empty;
 
             result = "UPDATE ProduceEquipment SET "
-                    + "CompleteTime=" + data.CompleteTime
+                    + "CompleteTime = \'" + data.CompleteTime + "\'"
                     + ", DataCode=" + data.DataCode
                     + " WHERE Slot = "
                     + data.Slot.ToString()
                     + " and "
-                    + "Active = "
-                    + true;
+                    + "Active = \'"
+                    + true + "\'";
+
+            return result;
+        }
+
+        public static string UpdateItem(UserDataBase_Item data)
+        {
+            var result = string.Empty;
+
+            result = "UPDATE Item SET "
+                    + "Amount = " + data.Amount
+                    + " WHERE Name = \'"
+                    + data.Name + "\'";
 
             return result;
         }
