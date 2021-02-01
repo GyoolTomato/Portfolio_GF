@@ -4,7 +4,7 @@ using UnityEngine;
 using Assets.Common.DB;
 using Assets.Common.DB.Common;
 
-namespace Assets.Common.DB.User
+namespace Assets.Common.DB.User.Manager
 {
     public class DBController_User
     {

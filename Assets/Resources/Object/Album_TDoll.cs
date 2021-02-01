@@ -15,6 +15,7 @@ public class Album_TDoll : MonoBehaviour
     private Text m_platoonNumber;
 
     private Assets.Common.ImageController m_imageController;
+    private int m_ownershipCode;
 
     private void Awake()
     {
@@ -47,17 +48,18 @@ public class Album_TDoll : MonoBehaviour
         
     }
 
-    public void Initialize()
-    {
-
-    }
-
-    public void SetValue(Assets.Common.DB.Index.IndexDataBase_TDoll dBData, int level, int dummyLink, int platoonNumber)
+    public void Initialize(Assets.Common.DB.Index.IndexDataBase_TDoll dBData, int ownershipCode, int level, int dummyLink, int platoonNumber)
     {
         ApplyDataCode(dBData);
+        m_ownershipCode = ownershipCode;
         ApplyLevel(level);
         ApplyDummyLink(dummyLink);
         ApplyPlatoonNumber(platoonNumber);
+    }
+
+    public int OwnershipCode()
+    {
+        return m_ownershipCode;
     }
 
     private void ApplyDataCode(Assets.Common.DB.Index.IndexDataBase_TDoll dBData)

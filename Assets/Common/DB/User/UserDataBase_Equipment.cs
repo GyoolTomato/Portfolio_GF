@@ -8,6 +8,6 @@ namespace Assets.Common.DB.User
         public int OwnershipCode { get; set; }
         public int DataCode { get; set; }        
         public int Level { get; set; }
-        public float LimitedPower { get; set; }
+        public int LimitedPower { get; set; }
     }
 }

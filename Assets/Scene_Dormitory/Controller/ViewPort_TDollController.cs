@@ -5,28 +5,28 @@ using Assets.Common;
 
 namespace Assets.Scene_Dormitory.Controller
 {
-    public class ViewPort_TDollController
+    public class ViewPort_TDollController : DormitoryBase
     {        
-        GameObject m_viewPortContent;
-        GameObject m_album;
+        //GameObject m_viewPortContent;
+        //GameObject m_album;
 
-        GameManager m_gameManager;
+        //GameManager m_gameManager;
 
         public ViewPort_TDollController()
         {
         }
 
-        public void Initialize(GameManager gameManager)
-        {
-            m_gameManager = gameManager;
-            var canvas = GameObject.Find("Canvas");
-            var menuView = canvas.transform.Find("MenuView");
-            var tDoll = menuView.Find("TDoll");
-            var scrollView = tDoll.Find("ScrollView");
-            var viewPort = scrollView.Find("Viewport");
-            m_viewPortContent = viewPort.Find("Content").gameObject;
-            m_album = Resources.Load<GameObject>("Object/Album_TDoll");                
-        }
+        //public void Initialize(GameManager gameManager)
+        //{
+        //    m_gameManager = gameManager;
+        //    var canvas = GameObject.Find("Canvas");
+        //    var menuView = canvas.transform.Find("MenuView");
+        //    var tDoll = menuView.Find("TDoll");
+        //    var scrollView = tDoll.Find("ScrollView");
+        //    var viewPort = scrollView.Find("Viewport");
+        //    m_viewPortContent = viewPort.Find("Content").gameObject;
+        //    m_album = Resources.Load<GameObject>("Object/Album_TDoll");                
+        //}
 
         public void Load()
         {
@@ -36,7 +36,7 @@ namespace Assets.Scene_Dormitory.Controller
                 result.transform.parent = m_viewPortContent.transform;
 
                 var albumScript = result.GetComponent<Album_TDoll>();
-                albumScript.SetValue(m_gameManager.DBControllerIndex.TDoll(item.DataCode), item.Level, item.DummyLink, item.Platoon);
+                albumScript.Initialize(m_gameManager.DBControllerIndex.TDoll(item.DataCode), item.OwnershipCode, item.Level, item.DummyLink, item.Platoon);
             }
         }
     }

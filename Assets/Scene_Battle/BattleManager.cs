@@ -31,11 +31,7 @@ namespace Assets.Scene_Battle
 
             m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Common.Object.Title>();
             m_title.Initialize(m_gameManager, "전투");
-            //m_menuController = new Controller.MenuController();
-            //m_menuController.Initialize(m_gameManager, m_canvas);
-            m_viewPort_TDollController = new ViewPort_TDollController();
-            m_viewPort_TDollController.Initialize(m_gameManager);
-            m_viewPort_EquipmentsController = new ViewPort_EquipmentsController();
+
 
             m_viewPort_TDollController.Load();
         }

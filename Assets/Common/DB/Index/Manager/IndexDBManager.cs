@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.Networking;
 
-namespace Assets.Common.DB.Index
+namespace Assets.Common.DB.Index.Manager
 {
     public class IndexDBManager
     {

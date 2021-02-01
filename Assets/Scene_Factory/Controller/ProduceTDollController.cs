@@ -24,7 +24,7 @@ namespace Assets.Scene_Factory.Controller
                 food >= 400 &&
                 militarySupplies >= 200)
             {
-                list = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.DBController_Index.E_TDoll.All);
+                list = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.Manager.DBController_Index.E_TDoll.All);
 
                 Debug.Log("Order : " + selectNumber.ToString());
             }
@@ -33,7 +33,7 @@ namespace Assets.Scene_Factory.Controller
                     food >= 400 &&
                     militarySupplies >= 200)
             {
-                list = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.DBController_Index.E_TDoll.Archer);
+                list = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.Manager.DBController_Index.E_TDoll.Archer);
 
                 Debug.Log("Order : " + selectNumber.ToString());
             }
@@ -42,7 +42,7 @@ namespace Assets.Scene_Factory.Controller
                 food >= 400 &&
                 militarySupplies >= 200)
             {
-                list = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.DBController_Index.E_TDoll.Knight);
+                list = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.Manager.DBController_Index.E_TDoll.Knight);
 
                 Debug.Log("Order : " + selectNumber.ToString());
             }
@@ -51,20 +51,20 @@ namespace Assets.Scene_Factory.Controller
                 food >= 100 &&
                 militarySupplies >= 200)
             {
-                list = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.DBController_Index.E_TDoll.Magician);
+                list = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.Manager.DBController_Index.E_TDoll.Magician);
 
                 Debug.Log("Order : " + selectNumber.ToString());
             }
             else
             {
-                list = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.DBController_Index.E_TDoll.All);
+                list = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.Manager.DBController_Index.E_TDoll.All);
 
                 Debug.Log("Order : " + selectNumber.ToString());
             }
 
             selectNumber = UnityEngine.Random.Range(0, list.Count);
 
-            var tempList = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.DBController_Index.E_TDoll.All);
+            var tempList = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.Manager.DBController_Index.E_TDoll.All);
             var temp = new Common.DB.Index.IndexDataBase_TDoll();
             foreach (var item in tempList)
             {
@@ -84,7 +84,7 @@ namespace Assets.Scene_Factory.Controller
         {
             base.Complete(produceData);
 
-            var tempList = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.DBController_Index.E_TDoll.All);
+            var tempList = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.Manager.DBController_Index.E_TDoll.All);
             var temp = new Common.DB.Index.IndexDataBase_TDoll();
             foreach (var item in tempList)
             {

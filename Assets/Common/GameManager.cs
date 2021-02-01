@@ -10,8 +10,8 @@ namespace Assets.Common
 
         private WorkResourceManager m_workResourceManager;
         private DB.Game.GameDBManager m_gameDBManager;
-        private DB.Index.IndexDBManager m_indexDBManager;
-        private DB.User.UserDBManager m_userDBManager;    
+        private DB.Index.Manager.IndexDBManager m_indexDBManager;
+        private DB.User.Manager.UserDBManager m_userDBManager;    
 
         private void Awake()
         {
@@ -28,9 +28,9 @@ namespace Assets.Common
             m_workResourceManager.Initialize(this);
             m_gameDBManager = new DB.Game.GameDBManager();
             m_gameDBManager.Initailize(this);
-            m_indexDBManager = new DB.Index.IndexDBManager();
+            m_indexDBManager = new DB.Index.Manager.IndexDBManager();
             m_indexDBManager.Initailize(this);
-            m_userDBManager = new DB.User.UserDBManager();
+            m_userDBManager = new DB.User.Manager.UserDBManager();
             m_userDBManager.Initailize(this);
         }
 
@@ -54,7 +54,7 @@ namespace Assets.Common
             }
         }
 
-        public DB.Index.DBController_Index DBControllerIndex
+        public DB.Index.Manager.DBController_Index DBControllerIndex
         {
             get
             {
@@ -62,7 +62,7 @@ namespace Assets.Common
             }
         }
 
-        public DB.User.DBController_User DBControllerUser
+        public DB.User.Manager.DBController_User DBControllerUser
         {
             get
             {

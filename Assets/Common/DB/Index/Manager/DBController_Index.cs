@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using Assets.Common.DB;
 using Assets.Common.DB.Index;
 
-namespace Assets.Common.DB.Index
+namespace Assets.Common.DB.Index.Manager
 {
     public class DBController_Index
     {
@@ -114,7 +114,7 @@ namespace Assets.Common.DB.Index
         {
             var result = new IndexDataBase_Equipment();
 
-            result = m_dBManager.ReadDataBase(IndexDBManager.E_Table.Equipment, QuerySupport_Index.SelectTDoll_DataCode(dataCode))[0] as IndexDataBase_Equipment;
+            result = m_dBManager.ReadDataBase(IndexDBManager.E_Table.Equipment, QuerySupport_Index.SelectEquipment_DataCode(dataCode))[0] as IndexDataBase_Equipment;
 
             return result;
         }

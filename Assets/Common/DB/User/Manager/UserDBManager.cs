@@ -7,7 +7,7 @@ using UnityEngine.Android;
 using UnityEngine.Networking;
 using Assets.Common.DB.Common;
 
-namespace Assets.Common.DB.User
+namespace Assets.Common.DB.User.Manager
 {
     public class UserDBManager
     {
@@ -138,7 +138,7 @@ namespace Assets.Common.DB.User
                             tempData_Equipment.OwnershipCode = dataReader.GetInt32(0);
                             tempData_Equipment.DataCode = dataReader.GetInt32(1);
                             tempData_Equipment.Level = dataReader.GetInt32(2);
-                            tempData_Equipment.LimitedPower = dataReader.GetFloat(3);
+                            tempData_Equipment.LimitedPower = dataReader.GetInt32(3);
                             result.Add(tempData_Equipment);
                             break;
                         case E_Table.WorkResource:

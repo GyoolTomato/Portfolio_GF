@@ -23,7 +23,7 @@ namespace Assets.Scene_Factory.Controller
                 food >= 200 &&
                 militarySupplies >= 100)
             {
-                list = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.DBController_Index.E_Equipment.All);
+                list = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.Manager.DBController_Index.E_Equipment.All);
 
                 Debug.Log("Order : " + selectNumber.ToString());
             }
@@ -32,7 +32,7 @@ namespace Assets.Scene_Factory.Controller
                 food >= 200 &&
                 militarySupplies >= 100)
             {
-                list = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.DBController_Index.E_Equipment.Weapon);
+                list = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.Manager.DBController_Index.E_Equipment.Weapon);
 
                 Debug.Log("Order : " + selectNumber.ToString());
             }
@@ -41,7 +41,7 @@ namespace Assets.Scene_Factory.Controller
                 food >= 200 &&
                 militarySupplies >= 100)
             {
-                list = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.DBController_Index.E_Equipment.Armor);
+                list = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.Manager.DBController_Index.E_Equipment.Armor);
 
                 Debug.Log("Order : " + selectNumber.ToString());
             }
@@ -50,20 +50,20 @@ namespace Assets.Scene_Factory.Controller
                 food >= 100 &&
                 militarySupplies >= 100)
             {
-                list = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.DBController_Index.E_Equipment.Tool);
+                list = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.Manager.DBController_Index.E_Equipment.Tool);
 
                 Debug.Log("Order : " + selectNumber.ToString());
             }
             else
             {
-                list = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.DBController_Index.E_Equipment.All);
+                list = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.Manager.DBController_Index.E_Equipment.All);
 
                 Debug.Log("Order : " + selectNumber.ToString());
             }
 
             selectNumber = UnityEngine.Random.Range(0, list.Count);
 
-            var tempList = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.DBController_Index.E_Equipment.All);
+            var tempList = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.Manager.DBController_Index.E_Equipment.All);
             var temp = new Common.DB.Index.IndexDataBase_Equipment();
             foreach (var item in tempList)
             {
@@ -83,7 +83,7 @@ namespace Assets.Scene_Factory.Controller
         {
             base.Complete(produceData);
 
-            var tempList = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.DBController_Index.E_Equipment.All);
+            var tempList = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.Manager.DBController_Index.E_Equipment.All);
             var temp = new Common.DB.Index.IndexDataBase_Equipment();
             foreach (var item in tempList)
             {

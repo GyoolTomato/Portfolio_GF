@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.Common.DB.Index
+namespace Assets.Common.DB.Index.Manager
 {
     public static class QuerySupport_Index
     {

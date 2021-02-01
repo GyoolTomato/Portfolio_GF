@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Assets.Common.DB.User
+namespace Assets.Common.DB.User.Manager
 {
     public static class QuerySupport_User
     {
