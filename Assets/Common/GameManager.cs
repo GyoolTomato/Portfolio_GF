@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Common.Controller;
 
 namespace Assets.Common
 {
@@ -8,7 +9,7 @@ namespace Assets.Common
     {
         private static GameManager m_instance;
 
-        private WorkResourceManager m_workResourceManager;
+        private ResourceContorller m_resourceContorller;
         private DB.Game.GameDBManager m_gameDBManager;
         private DB.Index.Manager.IndexDBManager m_indexDBManager;
         private DB.User.Manager.UserDBManager m_userDBManager;    
@@ -24,8 +25,8 @@ namespace Assets.Common
             m_instance = this;
             DontDestroyOnLoad(gameObject);
 
-            m_workResourceManager = new WorkResourceManager();
-            m_workResourceManager.Initialize(this);
+            m_resourceContorller = new ResourceContorller();
+            m_resourceContorller.Initialize(this, m_userDBManager);
             m_gameDBManager = new DB.Game.GameDBManager();
             m_gameDBManager.Initailize(this);
             m_indexDBManager = new DB.Index.Manager.IndexDBManager();
@@ -46,11 +47,11 @@ namespace Assets.Common
 
         }
 
-        public WorkResourceManager WorkResource
+        public ResourceContorller ResourceContorller
         {
             get
             {
-                return m_workResourceManager;
+                return m_resourceContorller;
             }
         }
 

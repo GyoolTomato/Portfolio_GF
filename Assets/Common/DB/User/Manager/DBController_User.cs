@@ -9,14 +9,10 @@ namespace Assets.Common.DB.User.Manager
     public class DBController_User
     {
         private UserDBManager m_dBManager;
-        private List<UserDataBase_TDoll> m_userTDoll;
-        private List<UserDataBase_Equipment> m_userEquipment;
 
         public void Initialize(UserDBManager dBManager)
         {
             m_dBManager = dBManager;
-            m_userTDoll = new List<UserDataBase_TDoll>();
-            m_userEquipment = new List<UserDataBase_Equipment>();
 
             //SupplyStartPack();
         }
@@ -80,15 +76,15 @@ namespace Assets.Common.DB.User.Manager
             }
         }
 
-        public List<CommonDataBase_WorkResource> UserWorkResource
+        public List<CommonDataBase_Resource> UserResource
         {
             get
             {
-                var result = new List<CommonDataBase_WorkResource>();
+                var result = new List<CommonDataBase_Resource>();
 
-                foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.WorkResource, QuerySupport_User.SelectWorkResource_All))
+                foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport_User.SelectWorkResource_All))
                 {
-                    result.Add(item as CommonDataBase_WorkResource);
+                    result.Add(item as CommonDataBase_Resource);
                 }
 
                 return result;
@@ -184,14 +180,14 @@ namespace Assets.Common.DB.User.Manager
             return result;
         }
 
-        public void ApplyWorkResource(Assets.Common.Interface.WorkResource workResource)
+        public void UpdateResource(Assets.Common.Interface.WorkResource workResource)
         {
-            var temp = new CommonDataBase_WorkResource();
+            var temp = new CommonDataBase_Resource();
 
             temp.Name = workResource.DBName;
             temp.Value = workResource.Amount;
 
-            m_dBManager.SQL(QuerySupport_User.UpdateWorkResource(temp));
+            m_dBManager.SQL(QuerySupport_User.UpdateResource(temp));
         }
 
         public void UpdateProduceTDoll(UserDataBase_Produce data)

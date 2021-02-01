@@ -2,7 +2,7 @@
 
 namespace Assets.Common.DB.Common
 {
-    public class CommonDataBase_WorkResource
+    public class CommonDataBase_Resource
     {
         public int Index { get; set; }
         public string Name { get; set; }

@@ -39,10 +39,10 @@ namespace Assets.Scene_Lobby.Controller
 
         public void ApplyData()
         {
-            m_manPower.ApplyData(m_gameManager.WorkResource.ManPower);
-            m_bullet.ApplyData(m_gameManager.WorkResource.Bullet);
-            m_food.ApplyData(m_gameManager.WorkResource.Food);
-            m_militarySupplies.ApplyData(m_gameManager.WorkResource.MilitarySupplies);
+            m_manPower.ApplyData(m_gameManager.ResourceContorller.ManPower());
+            m_bullet.ApplyData(m_gameManager.ResourceContorller.Bullet());
+            m_food.ApplyData(m_gameManager.ResourceContorller.Food());
+            m_militarySupplies.ApplyData(m_gameManager.ResourceContorller.MilitarySupplies());
         }
     }
 }

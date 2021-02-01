@@ -38,7 +38,7 @@ namespace Assets.Scene_Factory.Base
 
         protected virtual void OrderReceive(Common.DB.User.UserDataBase_Produce produceData, int manPower, int bullet, int food, int militarySupplies, out bool result)
         {
-            if (m_gameManager.WorkResource.WorkResourceConsumption(manPower, bullet, food, militarySupplies))
+            if (m_gameManager.ResourceContorller.WorkResourceConsumption(manPower, bullet, food, militarySupplies))
             {
                 m_messagePanel.SetActive(false);
                 result = true;

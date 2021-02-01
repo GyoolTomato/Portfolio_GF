@@ -12,6 +12,10 @@ namespace Assets.Common.DB.User.Manager
         public static string SelectProduceEquipment = "SELECT * FROM ProduceEquipment";
         public static string SelectItem = "SELECT * FROM Item";
 
+        public static string SelectResourcePassTicket = "SELECT * FROM WorkResource WHERE PassTicket";
+        public static string SelectResourceTDollTicket = "SELECT * FROM WorkResource WHERE TDollTicket";
+        public static string SelectResourceEquipmentTicket = "SELECT * FROM WorkResource WHERE EquipmentTicket";
+
 
         public static string SelectMountedCheck(UserDataBase_Equipment data)
         {
@@ -128,11 +132,11 @@ namespace Assets.Common.DB.User.Manager
 
             return result;
         }
-        public static string UpdateWorkResource(Common.CommonDataBase_WorkResource data)
+        public static string UpdateResource(Common.CommonDataBase_Resource data)
         {
             var result = string.Empty;
 
-            result = "UPDATE WorkResource SET "
+            result = "UPDATE Resource SET "
                       + "Amount=" + data.Value
                       + " WHERE Name = \'"
                       + data.Name + "\'";
@@ -211,5 +215,6 @@ namespace Assets.Common.DB.User.Manager
 
             return result;
         }
+               
     }
 }

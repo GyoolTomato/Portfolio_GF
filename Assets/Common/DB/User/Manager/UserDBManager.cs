@@ -15,9 +15,8 @@ namespace Assets.Common.DB.User.Manager
         {
             TDoll,
             Equipment,
-            WorkResource,
+            Resource,
             Produce,
-            Item,
             End,
         }
 
@@ -107,9 +106,8 @@ namespace Assets.Common.DB.User.Manager
             {
                 var tempData_TDoll = new UserDataBase_TDoll();
                 var tempData_Equipment = new UserDataBase_Equipment();
-                var tempData_WorkResource = new CommonDataBase_WorkResource();
+                var tempData_Resource = new CommonDataBase_Resource();
                 var tempData_Produce = new UserDataBase_Produce();
-                var tempData_Item = new UserDataBase_Item();
 
                 var dbConnection = new SqliteConnection(ReadDBFilePath);
                 dbConnection.Open();
@@ -141,12 +139,12 @@ namespace Assets.Common.DB.User.Manager
                             tempData_Equipment.LimitedPower = dataReader.GetInt32(3);
                             result.Add(tempData_Equipment);
                             break;
-                        case E_Table.WorkResource:
-                            tempData_WorkResource = new CommonDataBase_WorkResource();
-                            tempData_WorkResource.Index = dataReader.GetInt32(0);
-                            tempData_WorkResource.Name = dataReader.GetString(1);
-                            tempData_WorkResource.Value = dataReader.GetInt32(2);
-                            result.Add(tempData_WorkResource);
+                        case E_Table.Resource:
+                            tempData_Resource = new CommonDataBase_Resource();
+                            tempData_Resource.Index = dataReader.GetInt32(0);
+                            tempData_Resource.Name = dataReader.GetString(1);
+                            tempData_Resource.Value = dataReader.GetInt32(2);
+                            result.Add(tempData_Resource);
                             break;
                         case E_Table.Produce:
                             tempData_Produce = new UserDataBase_Produce();
@@ -156,13 +154,6 @@ namespace Assets.Common.DB.User.Manager
                             tempData_Produce.CompleteTime = dataReader.GetString(3);
                             tempData_Produce.DataCode = dataReader.GetInt32(4);
                             result.Add(tempData_Produce);
-                            break;
-                        case E_Table.Item:
-                            tempData_Item = new UserDataBase_Item();
-                            tempData_Item.Index = dataReader.GetInt32(0);
-                            tempData_Item.Name = dataReader.GetString(1);
-                            tempData_Item.Amount = dataReader.GetInt32(2);
-                            result.Add(tempData_Item);
                             break;
                         default:
                             break;

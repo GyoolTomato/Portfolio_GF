@@ -12,9 +12,9 @@ public class Album_Equipment : MonoBehaviour
     private Text m_level;
     private Text m_name;
     private Text m_subName;
-    private Text m_hp;
+    private Text m_firePower;
+    private Text m_focus;
     private Text m_armor;
-    private Text m_power;
     private Text m_critical;
 
     private Assets.Common.ImageController m_imageController;
@@ -37,9 +37,9 @@ public class Album_Equipment : MonoBehaviour
         m_name = name.Find("Title").GetComponent<Text>();
         m_subName = name.Find("Sub").GetComponent<Text>();
         var spec = informationBottom.Find("Spec");
-        m_hp = spec.Find("Hp").Find("Value").GetComponent<Text>();
+        m_firePower = spec.Find("FirePower").Find("Value").GetComponent<Text>();
+        m_focus = spec.Find("Focus").Find("Value").GetComponent<Text>();
         m_armor = spec.Find("Armor").Find("Value").GetComponent<Text>();
-        m_power = spec.Find("Power").Find("Value").GetComponent<Text>();
         m_critical = spec.Find("Critical").Find("Value").GetComponent<Text>();
     }
 
@@ -80,6 +80,11 @@ public class Album_Equipment : MonoBehaviour
         //m_character.sprite = m_imageController.LoadSprite(dBData.DataCode);
         m_name.text = dBData.Name;
         m_subName.text = dBData.Type;
+
+        m_firePower.text = dBData.FirePower.ToString();
+        m_focus.text = dBData.Focus.ToString();
+        m_armor.text = dBData.Armor.ToString();
+        m_critical.text = dBData.Critical.ToString();
     }
 
     private void ApplyLimitedPower(int limitedPower)
