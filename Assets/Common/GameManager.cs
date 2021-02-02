@@ -24,15 +24,15 @@ namespace Assets.Common
 
             m_instance = this;
             DontDestroyOnLoad(gameObject);
-
-            m_resourceContorller = new ResourceContorller();
-            m_resourceContorller.Initialize(this, m_userDBManager);
+            
             m_gameDBManager = new DB.Game.GameDBManager();
             m_gameDBManager.Initailize(this);
             m_indexDBManager = new DB.Index.Manager.IndexDBManager();
             m_indexDBManager.Initailize(this);
             m_userDBManager = new DB.User.Manager.UserDBManager();
             m_userDBManager.Initailize(this);
+            m_resourceContorller = new ResourceContorller();
+            m_resourceContorller.Initialize(this, m_userDBManager);
         }
 
         // Start is called before the first frame update
@@ -69,6 +69,11 @@ namespace Assets.Common
             {
                 return m_userDBManager.DBController;
             }
+        }
+
+        public DB.User.Manager.UserDBManager UserDBManager()
+        {
+            return m_userDBManager;
         }
     }
 }

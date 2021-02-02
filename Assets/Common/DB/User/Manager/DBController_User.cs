@@ -82,7 +82,7 @@ namespace Assets.Common.DB.User.Manager
             {
                 var result = new List<CommonDataBase_Resource>();
 
-                foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport_User.SelectWorkResource_All))
+                foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport_User.SelectResource_All))
                 {
                     result.Add(item as CommonDataBase_Resource);
                 }

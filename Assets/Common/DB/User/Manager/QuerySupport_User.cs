@@ -7,14 +7,14 @@ namespace Assets.Common.DB.User.Manager
     {
         public static string SelectTDoll_All = "SELECT * FROM TDoll";
         public static string SelectEquipment_All = "SELECT * FROM Equipment";
-        public static string SelectWorkResource_All = "SELECT * FROM WorkResource";
+        public static string SelectResource_All = "SELECT * FROM Resource";
         public static string SelectProduceTDoll = "SELECT * FROM ProduceTDoll";
         public static string SelectProduceEquipment = "SELECT * FROM ProduceEquipment";
         public static string SelectItem = "SELECT * FROM Item";
 
-        public static string SelectResourcePassTicket = "SELECT * FROM WorkResource WHERE PassTicket";
-        public static string SelectResourceTDollTicket = "SELECT * FROM WorkResource WHERE TDollTicket";
-        public static string SelectResourceEquipmentTicket = "SELECT * FROM WorkResource WHERE EquipmentTicket";
+        public static string SelectResourcePassTicket = "SELECT * FROM Resource WHERE Name = 'PassTicket'";
+        public static string SelectResourceTDollTicket = "SELECT * FROM Resource WHERE Name = 'TDollTicket'";
+        public static string SelectResourceEquipmentTicket = "SELECT * FROM Resource WHERE Name = 'EquipmentTicket'";
 
 
         public static string SelectMountedCheck(UserDataBase_Equipment data)

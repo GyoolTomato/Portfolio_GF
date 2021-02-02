@@ -7,7 +7,15 @@ namespace Assets.Scene_Factory.Base
 {
     public class ProduceBase
     {
+        public enum E_Type
+        {
+            TDoll,
+            Equipment,
+            End,
+        }
+
         protected Assets.Common.GameManager m_gameManager;
+        protected TicketResourceController m_ticketResourceController;
 
         private List<Object.ProduceSlot> m_produceSlotList;
         private GameObject m_messagePanel;
@@ -16,9 +24,10 @@ namespace Assets.Scene_Factory.Base
         {
         }
 
-        public void Initialize(Assets.Common.GameManager gameManager, string menuName)
+        public void Initialize(Assets.Common.GameManager gameManager, TicketResourceController ticketResourceController, string menuName)
         {
             m_gameManager = gameManager;
+            m_ticketResourceController = ticketResourceController;
 
             var canvas = GameObject.Find("Canvas");
             var menuView = canvas.transform.Find("MenuView");
@@ -41,6 +50,7 @@ namespace Assets.Scene_Factory.Base
             if (m_gameManager.ResourceContorller.WorkResourceConsumption(manPower, bullet, food, militarySupplies))
             {
                 m_messagePanel.SetActive(false);
+                m_ticketResourceController.RefreshAmount();
                 result = true;
             }
             else
