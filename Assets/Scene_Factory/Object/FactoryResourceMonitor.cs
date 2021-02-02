@@ -24,13 +24,10 @@ public class FactoryResourceMonitor : MonoBehaviour
         
     }
 
-    public void InitValue(Image image, string title)
+    public void ApplyData(Assets.Common.Interface.OthersResource othersResource)
     {
-        m_title.text = title;        
-    }
-
-    public void RefreshAmount(int amount)
-    {
-        m_amount.text = amount.ToString();
+        m_image = othersResource.Image;
+        m_title.text = othersResource.Title;
+        m_amount.text = othersResource.Amount.ToString();
     }
 }

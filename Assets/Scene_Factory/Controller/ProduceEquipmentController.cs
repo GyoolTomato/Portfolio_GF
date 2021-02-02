@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Common;
 using Assets.Common.DB.User;
 using UnityEngine;
 
@@ -11,72 +12,90 @@ namespace Assets.Scene_Factory.Controller
         {
         }
 
+        public override void Initialize(GameManager gameManager, TicketResourceController ticketResourceController, string menuName)
+        {
+            base.Initialize(gameManager, ticketResourceController, menuName);
+            var produceDBIndex = 0;
+            foreach (var item in m_produceSlotList)
+            {
+                item.Initialize(m_gameManager.DBControllerUser.UserProduceEquipment[produceDBIndex], OrderReceive, Complete);
+                produceDBIndex++;
+            }
+        }
+
         protected override void OrderReceive(UserDataBase_Produce produceData, int manPower, int bullet, int food, int militarySupplies, out bool result)
         {
-            base.OrderReceive(produceData, manPower, bullet, food, militarySupplies, out result);
-
-            var list = new List<Common.DB.Index.IndexDataBase_Equipment>();
-            var selectNumber = 0;
-
-            if (manPower >= 200 &&
-                bullet >= 200 &&
-                food >= 200 &&
-                militarySupplies >= 100)
+            if (m_gameManager.ResourceContorller.EquipmentTicket().Amount >= 0)
             {
-                list = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.Manager.DBController_Index.E_Equipment.All);
+                m_gameManager.ResourceContorller.OthersResourceAmountCal(Common.Controller.ResourceContorller.E_OthersResourceType.EquipmentTicket, -1);
+                m_ticketResourceController.UpdateValue();
+                base.OrderReceive(produceData, manPower, bullet, food, militarySupplies, out result);
 
-                Debug.Log("Order : " + selectNumber.ToString());
-            }
-            else if (manPower >= 100 &&
-                bullet >= 200 &&
-                food >= 200 &&
-                militarySupplies >= 100)
-            {
-                list = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.Manager.DBController_Index.E_Equipment.Weapon);
+                var list = new List<Common.DB.Index.IndexDataBase_Equipment>();
+                var selectNumber = 0;
 
-                Debug.Log("Order : " + selectNumber.ToString());
-            }
-            else if (manPower >= 200 &&
-                bullet >= 100 &&
-                food >= 200 &&
-                militarySupplies >= 100)
-            {
-                list = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.Manager.DBController_Index.E_Equipment.Armor);
+                if (manPower >= 200 &&
+                    bullet >= 200 &&
+                    food >= 200 &&
+                    militarySupplies >= 100)
+                {
+                    list = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.Manager.DBController_Index.E_Equipment.All);
 
-                Debug.Log("Order : " + selectNumber.ToString());
-            }
-            else if (manPower >= 200 &&
-                bullet >= 200 &&
-                food >= 100 &&
-                militarySupplies >= 100)
-            {
-                list = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.Manager.DBController_Index.E_Equipment.Tool);
+                    Debug.Log("Order : " + selectNumber.ToString());
+                }
+                else if (manPower >= 100 &&
+                    bullet >= 200 &&
+                    food >= 200 &&
+                    militarySupplies >= 100)
+                {
+                    list = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.Manager.DBController_Index.E_Equipment.Weapon);
 
-                Debug.Log("Order : " + selectNumber.ToString());
+                    Debug.Log("Order : " + selectNumber.ToString());
+                }
+                else if (manPower >= 200 &&
+                    bullet >= 100 &&
+                    food >= 200 &&
+                    militarySupplies >= 100)
+                {
+                    list = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.Manager.DBController_Index.E_Equipment.Armor);
+
+                    Debug.Log("Order : " + selectNumber.ToString());
+                }
+                else if (manPower >= 200 &&
+                    bullet >= 200 &&
+                    food >= 100 &&
+                    militarySupplies >= 100)
+                {
+                    list = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.Manager.DBController_Index.E_Equipment.Tool);
+
+                    Debug.Log("Order : " + selectNumber.ToString());
+                }
+                else
+                {
+                    list = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.Manager.DBController_Index.E_Equipment.All);
+
+                    Debug.Log("Order : " + selectNumber.ToString());
+                }
+
+                selectNumber = UnityEngine.Random.Range(0, list.Count);
+
+                var tempList = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.Manager.DBController_Index.E_Equipment.All);
+                var temp = new Common.DB.Index.IndexDataBase_Equipment();
+                foreach (var item in tempList)
+                {
+                    if (item.DataCode == list[selectNumber].DataCode)
+                    {
+                        temp = item;
+                        break;
+                    }
+                }
+                produceData.DataCode = temp.DataCode;
+                produceData.CompleteTime = DateTime.Now.AddSeconds(temp.ManufacturingTime).ToString();
+
+                m_gameManager.DBControllerUser.UpdateProduceEquipment(produceData);
             }
             else
-            {
-                list = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.Manager.DBController_Index.E_Equipment.All);
-
-                Debug.Log("Order : " + selectNumber.ToString());
-            }
-
-            selectNumber = UnityEngine.Random.Range(0, list.Count);
-
-            var tempList = m_gameManager.DBControllerIndex.Equipment(Common.DB.Index.Manager.DBController_Index.E_Equipment.All);
-            var temp = new Common.DB.Index.IndexDataBase_Equipment();
-            foreach (var item in tempList)
-            {
-                if (item.DataCode == list[selectNumber].DataCode)
-                {
-                    temp = item;
-                    break;
-                }
-            }
-            produceData.DataCode = temp.DataCode;
-            produceData.CompleteTime = DateTime.Now.AddSeconds(temp.ManufacturingTime).ToString();
-
-            m_gameManager.DBControllerUser.UpdateProduceEquipment(produceData);
+                result = false;
         }
 
         protected override void Complete(UserDataBase_Produce produceData)

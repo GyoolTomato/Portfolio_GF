@@ -22,21 +22,14 @@ public class TicketResourceController
         m_tDollTicket = factoryResourceInformation.Find("TDollTicket").GetComponent<FactoryResourceMonitor>();
         m_equipmentTicket = factoryResourceInformation.Find("EquipmentTicket").GetComponent<FactoryResourceMonitor>();
 
-        InitValue();
-        RefreshAmount();
+        UpdateValue();
     }
 
-    private void InitValue()
+    public void UpdateValue()
     {
-        m_passTicket.InitValue(null, "쾌속 제조권");
-        m_tDollTicket.InitValue(null, "인형 제조권");
-        m_equipmentTicket.InitValue(null, "장비 제조권");
-    }
-
-    public void RefreshAmount()
-    {
-        m_passTicket.RefreshAmount(m_gameManager.ResourceContorller.PassTicketAmount());
-        m_tDollTicket.RefreshAmount(m_gameManager.ResourceContorller.TDollTicketAmount());
-        m_equipmentTicket.RefreshAmount(m_gameManager.ResourceContorller.EquipmentTicketAmount());
+        m_gameManager.ResourceContorller.ReadOthersResource();
+        m_passTicket.ApplyData(m_gameManager.ResourceContorller.PassTicket());
+        m_tDollTicket.ApplyData(m_gameManager.ResourceContorller.TDollTicket());
+        m_equipmentTicket.ApplyData(m_gameManager.ResourceContorller.EquipmentTicket());
     }
 }

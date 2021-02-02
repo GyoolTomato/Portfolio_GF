@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Common;
 using Assets.Common.DB.User;
 using UnityEngine;
 
@@ -12,72 +13,90 @@ namespace Assets.Scene_Factory.Controller
         {
         }
 
+        public override void Initialize(GameManager gameManager, TicketResourceController ticketResourceController, string menuName)
+        {
+            base.Initialize(gameManager, ticketResourceController, menuName);
+            var produceDBIndex = 0;
+            foreach (var item in m_produceSlotList)
+            {
+                item.Initialize(m_gameManager.DBControllerUser.UserProduceTDoll[produceDBIndex], OrderReceive, Complete);
+                produceDBIndex++;
+            }
+        }
+
         protected override void OrderReceive(UserDataBase_Produce produceData, int manPower, int bullet, int food, int militarySupplies, out bool result)
         {
-            base.OrderReceive(produceData, manPower, bullet, food, militarySupplies, out result);
-
-            var list = new List<Common.DB.Index.IndexDataBase_TDoll>();
-            var selectNumber = 0;
-
-            if (manPower >= 400 &&
-                bullet >= 400 &&
-                food >= 400 &&
-                militarySupplies >= 200)
+            if (m_gameManager.ResourceContorller.TDollTicket().Amount >= 0)
             {
-                list = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.Manager.DBController_Index.E_TDoll.All);
+                m_gameManager.ResourceContorller.OthersResourceAmountCal(Common.Controller.ResourceContorller.E_OthersResourceType.TDollTicket, -1);
+                m_ticketResourceController.UpdateValue();
+                base.OrderReceive(produceData, manPower, bullet, food, militarySupplies, out result);
 
-                Debug.Log("Order : " + selectNumber.ToString());
-            }
+                var list = new List<Common.DB.Index.IndexDataBase_TDoll>();
+                var selectNumber = 0;
+
+                if (manPower >= 400 &&
+                    bullet >= 400 &&
+                    food >= 400 &&
+                    militarySupplies >= 200)
+                {
+                    list = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.Manager.DBController_Index.E_TDoll.All);
+
+                    Debug.Log("Order : " + selectNumber.ToString());
+                }
                 else if (manPower >= 100 &&
                     bullet >= 400 &&
                     food >= 400 &&
                     militarySupplies >= 200)
-            {
-                list = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.Manager.DBController_Index.E_TDoll.Archer);
+                {
+                    list = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.Manager.DBController_Index.E_TDoll.Archer);
 
-                Debug.Log("Order : " + selectNumber.ToString());
-            }
-            else if (manPower >= 400 &&
-                bullet >= 100 &&
-                food >= 400 &&
-                militarySupplies >= 200)
-            {
-                list = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.Manager.DBController_Index.E_TDoll.Knight);
+                    Debug.Log("Order : " + selectNumber.ToString());
+                }
+                else if (manPower >= 400 &&
+                    bullet >= 100 &&
+                    food >= 400 &&
+                    militarySupplies >= 200)
+                {
+                    list = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.Manager.DBController_Index.E_TDoll.Knight);
 
-                Debug.Log("Order : " + selectNumber.ToString());
-            }
-            else if (manPower >= 400 &&
-                bullet >= 400 &&
-                food >= 100 &&
-                militarySupplies >= 200)
-            {
-                list = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.Manager.DBController_Index.E_TDoll.Magician);
+                    Debug.Log("Order : " + selectNumber.ToString());
+                }
+                else if (manPower >= 400 &&
+                    bullet >= 400 &&
+                    food >= 100 &&
+                    militarySupplies >= 200)
+                {
+                    list = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.Manager.DBController_Index.E_TDoll.Magician);
 
-                Debug.Log("Order : " + selectNumber.ToString());
+                    Debug.Log("Order : " + selectNumber.ToString());
+                }
+                else
+                {
+                    list = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.Manager.DBController_Index.E_TDoll.All);
+
+                    Debug.Log("Order : " + selectNumber.ToString());
+                }
+
+                selectNumber = UnityEngine.Random.Range(0, list.Count);
+
+                var tempList = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.Manager.DBController_Index.E_TDoll.All);
+                var temp = new Common.DB.Index.IndexDataBase_TDoll();
+                foreach (var item in tempList)
+                {
+                    if (item.DataCode == list[selectNumber].DataCode)
+                    {
+                        temp = item;
+                        break;
+                    }
+                }
+                produceData.DataCode = temp.DataCode;
+                produceData.CompleteTime = DateTime.Now.AddSeconds(temp.ManufacturingTime).ToString();
+
+                m_gameManager.DBControllerUser.UpdateProduceTDoll(produceData);
             }
             else
-            {
-                list = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.Manager.DBController_Index.E_TDoll.All);
-
-                Debug.Log("Order : " + selectNumber.ToString());
-            }
-
-            selectNumber = UnityEngine.Random.Range(0, list.Count);
-
-            var tempList = m_gameManager.DBControllerIndex.TDoll(Common.DB.Index.Manager.DBController_Index.E_TDoll.All);
-            var temp = new Common.DB.Index.IndexDataBase_TDoll();
-            foreach (var item in tempList)
-            {
-                if (item.DataCode == list[selectNumber].DataCode)
-                {
-                    temp = item;
-                    break;
-                }
-            }
-            produceData.DataCode = temp.DataCode;
-            produceData.CompleteTime = DateTime.Now.AddSeconds(temp.ManufacturingTime).ToString();
-
-            m_gameManager.DBControllerUser.UpdateProduceTDoll(produceData);
+                result = false;
         }
 
         protected override void Complete(UserDataBase_Produce produceData)

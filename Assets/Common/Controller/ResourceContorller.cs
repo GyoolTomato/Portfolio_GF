@@ -12,6 +12,14 @@ namespace Assets.Common.Controller
 {
     public class ResourceContorller
     {
+        public enum E_OthersResourceType
+        {
+            PassTicket,
+            TDollTicket,
+            EquipmentTicket,
+            End,
+        }
+
         private GameManager m_gameManager;
         private UserDBManager m_userDBManager;
 
@@ -20,6 +28,10 @@ namespace Assets.Common.Controller
         private WorkResource m_bullet;
         private WorkResource m_food;
         private WorkResource m_militarySupplies;
+
+        private OthersResource m_passTicket;
+        private OthersResource m_tDollTicket;
+        private OthersResource m_equipmentTicket;
 
         public ResourceContorller()
         {
@@ -58,18 +70,18 @@ namespace Assets.Common.Controller
             m_militarySupplies.Amount = 0;
             m_militarySupplies.ChargingVolume_Time = 3.0f;
             m_militarySupplies.ChargingVolume_Amount = 40;
-        }
 
-        public void StartCollectWorkResource()
-        {
-            if (!m_collecting)
-            {
-                m_gameManager.StartCoroutine(ManPowerCharger());
-                m_gameManager.StartCoroutine(BulletCharger());
-                m_gameManager.StartCoroutine(FoodCharger());
-                m_gameManager.StartCoroutine(MilitarySuppliesCharger());
-                m_collecting = true;
-            }
+            m_passTicket = new OthersResource();
+            m_passTicket.Title = "쾌속 제조권";
+            m_passTicket.Amount = 0;
+
+            m_tDollTicket = new OthersResource();
+            m_tDollTicket.Title = "인형 제조권";
+            m_tDollTicket.Amount = 0;
+
+            m_equipmentTicket = new OthersResource();
+            m_equipmentTicket.Title = "장비 제조권";
+            m_equipmentTicket.Amount = 0;
         }
 
         private void ReadUserWorkResource()
@@ -95,6 +107,36 @@ namespace Assets.Common.Controller
                 }
             }
         }
+
+        public void ReadOthersResource()
+        {
+            var tempList = new ArrayList();
+            var temp = new CommonDataBase_Resource();
+
+            tempList = m_userDBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport_User.SelectResourcePassTicket);
+            temp = tempList[0] as CommonDataBase_Resource;
+            m_passTicket.Amount = temp.Value;
+
+            tempList = m_userDBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport_User.SelectResourceTDollTicket);
+            temp = tempList[0] as CommonDataBase_Resource;
+            m_tDollTicket.Amount = temp.Value;
+
+            tempList = m_userDBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport_User.SelectResourceEquipmentTicket);
+            temp = tempList[0] as CommonDataBase_Resource;
+            m_equipmentTicket.Amount = temp.Value;
+        }
+
+        public void StartCollectWorkResource()
+        {
+            if (!m_collecting)
+            {
+                m_gameManager.StartCoroutine(ManPowerCharger());
+                m_gameManager.StartCoroutine(BulletCharger());
+                m_gameManager.StartCoroutine(FoodCharger());
+                m_gameManager.StartCoroutine(MilitarySuppliesCharger());
+                m_collecting = true;
+            }
+        }        
 
         IEnumerator ManPowerCharger()
         {
@@ -167,6 +209,47 @@ namespace Assets.Common.Controller
             return result;
         }
 
+        public bool OthersResourceAmountCal(E_OthersResourceType type, int amount)
+        {
+            var tempList = new ArrayList();
+            var temp = new CommonDataBase_Resource();
+
+            try
+            {
+                switch (type)
+                {
+                    case E_OthersResourceType.PassTicket:
+                        tempList = m_userDBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport_User.SelectResourcePassTicket);
+                        break;
+                    case E_OthersResourceType.TDollTicket:
+                        tempList = m_userDBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport_User.SelectResourceTDollTicket);
+                        break;
+                    case E_OthersResourceType.EquipmentTicket:
+                        tempList = m_userDBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport_User.SelectResourceEquipmentTicket);
+                        break;
+                    default:
+                        break;
+                }
+                temp = tempList[0] as CommonDataBase_Resource;
+
+                if (temp.Value + amount >= 0)
+                {
+                    temp.Value += amount;
+
+                    m_userDBManager.SQL(QuerySupport_User.UpdateResource(temp));
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public WorkResource ManPower()
         {
             return m_manPower;
@@ -187,45 +270,60 @@ namespace Assets.Common.Controller
             return m_militarySupplies;
         }
 
-        public int PassTicketAmount()
+        public OthersResource PassTicket()
         {
-            var result = 0;
-
-            var tempList = m_userDBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport_User.SelectResourcePassTicket);
-            var temp = tempList[0] as CommonDataBase_Resource;
-
-            result = temp.Value;
-
-            return result;
+            return m_passTicket;
         }
 
-        public int TDollTicketAmount()
+        public OthersResource TDollTicket()
         {
-            var result = 0;
-
-            var tempList = m_userDBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport_User.SelectResourceTDollTicket);
-            var temp = tempList[0] as CommonDataBase_Resource;
-
-            result = temp.Value;
-
-            return result;
+            return m_tDollTicket;
         }
 
-        public int EquipmentTicketAmount()
+        public OthersResource EquipmentTicket()
         {
-            var result = 0;
-
-            var tempList = m_userDBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport_User.SelectResourceEquipmentTicket);
-            var temp = tempList[0] as CommonDataBase_Resource;
-
-            result = temp.Value;
-
-            return result;
+            return m_equipmentTicket;
         }
 
-        public void UpdateResourceAmount(CommonDataBase_Resource commonDataBase_Resource)
-        {
-            m_userDBManager.SQL(QuerySupport_User.UpdateResource(commonDataBase_Resource));
-        }
+        //public int PassTicketAmount()
+        //{
+        //    var result = 0;
+
+        //    var tempList = m_userDBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport_User.SelectResourcePassTicket);
+        //    var temp = tempList[0] as CommonDataBase_Resource;
+
+        //    result = temp.Value;
+
+        //    return result;
+        //}
+
+        //public int TDollTicketAmount()
+        //{
+        //    var result = 0;
+
+        //    var tempList = m_userDBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport_User.SelectResourceTDollTicket);
+        //    var temp = tempList[0] as CommonDataBase_Resource;
+
+        //    result = temp.Value;
+
+        //    return result;
+        //}
+
+        //public int EquipmentTicketAmount()
+        //{
+        //    var result = 0;
+
+        //    var tempList = m_userDBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport_User.SelectResourceEquipmentTicket);
+        //    var temp = tempList[0] as CommonDataBase_Resource;
+
+        //    result = temp.Value;
+
+        //    return result;
+        //}
+
+        //public void UpdateResourceAmount(CommonDataBase_Resource commonDataBase_Resource)
+        //{
+        //    m_userDBManager.SQL(QuerySupport_User.UpdateResource(commonDataBase_Resource));
+        //}
     }
 }

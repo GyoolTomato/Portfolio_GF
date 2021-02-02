@@ -7,24 +7,17 @@ namespace Assets.Scene_Factory.Base
 {
     public class ProduceBase
     {
-        public enum E_Type
-        {
-            TDoll,
-            Equipment,
-            End,
-        }
-
         protected Assets.Common.GameManager m_gameManager;
         protected TicketResourceController m_ticketResourceController;
 
-        private List<Object.ProduceSlot> m_produceSlotList;
-        private GameObject m_messagePanel;
+        protected List<Object.ProduceSlot> m_produceSlotList;
+        protected GameObject m_messagePanel;
 
         public ProduceBase()
         {
         }
 
-        public void Initialize(Assets.Common.GameManager gameManager, TicketResourceController ticketResourceController, string menuName)
+        public virtual void Initialize(Assets.Common.GameManager gameManager, TicketResourceController ticketResourceController, string menuName)
         {
             m_gameManager = gameManager;
             m_ticketResourceController = ticketResourceController;
@@ -34,14 +27,7 @@ namespace Assets.Scene_Factory.Base
             var produceTDoll = menuView.Find(menuName);
             m_produceSlotList = new List<Object.ProduceSlot>();
             m_produceSlotList.Add(produceTDoll.transform.Find("ProduceSlot_0").GetComponent<Object.ProduceSlot>());
-            m_produceSlotList.Add(produceTDoll.transform.Find("ProduceSlot_1").GetComponent<Object.ProduceSlot>());
-            var produceDBIndex = 0;
-            foreach (var item in m_produceSlotList)
-            {
-                item.Initialize(m_gameManager.DBControllerUser.UserProduceTDoll[produceDBIndex], OrderReceive, Complete);
-                produceDBIndex++;
-            }
-
+            m_produceSlotList.Add(produceTDoll.transform.Find("ProduceSlot_1").GetComponent<Object.ProduceSlot>());          
             m_messagePanel = canvas.transform.Find("MessagePanel").gameObject;
         }
 
@@ -49,8 +35,7 @@ namespace Assets.Scene_Factory.Base
         {
             if (m_gameManager.ResourceContorller.WorkResourceConsumption(manPower, bullet, food, militarySupplies))
             {
-                m_messagePanel.SetActive(false);
-                m_ticketResourceController.RefreshAmount();
+                m_messagePanel.SetActive(false);                
                 result = true;
             }
             else
