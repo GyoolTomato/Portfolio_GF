@@ -5,18 +5,23 @@ namespace Assets.Common.DB.User.Manager
 {
     public static class QuerySupport_User
     {
-        public static string SelectTDoll_All = "SELECT * FROM TDoll";
-        public static string SelectEquipment_All = "SELECT * FROM Equipment";
-        public static string SelectResource_All = "SELECT * FROM Resource";
-        public static string SelectProduceTDoll = "SELECT * FROM ProduceTDoll";
-        public static string SelectProduceEquipment = "SELECT * FROM ProduceEquipment";
-        public static string SelectItem = "SELECT * FROM Item";
-
-        public static string SelectResourcePassTicket = "SELECT * FROM Resource WHERE Name = 'PassTicket'";
-        public static string SelectResourceTDollTicket = "SELECT * FROM Resource WHERE Name = 'TDollTicket'";
-        public static string SelectResourceEquipmentTicket = "SELECT * FROM Resource WHERE Name = 'EquipmentTicket'";
-
-
+        public static readonly string SelectTDoll_All = "SELECT * FROM TDoll";
+        public static string SelectTDoll(int ownershipCode)
+        {
+            return "SELECT * FROM TDoll WHERE OwnershipCode = " + ownershipCode;
+        }
+        public static readonly string SelectEquipment_All = "SELECT * FROM Equipment";
+        public static string SelectEquipment(int ownershipCode)
+        {
+            return "SELECT * FROM Equipment WHERE OwnershipCode = " + ownershipCode;
+        }
+        public static readonly string SelectResource_All = "SELECT * FROM Resource";
+        public static readonly string SelectProduceTDoll = "SELECT * FROM ProduceTDoll";
+        public static readonly string SelectProduceEquipment = "SELECT * FROM ProduceEquipment";        
+        public static readonly string SelectItem = "SELECT * FROM Item";
+        public static readonly string SelectResourcePassTicket = "SELECT * FROM Resource WHERE Name = 'PassTicket'";
+        public static readonly string SelectResourceTDollTicket = "SELECT * FROM Resource WHERE Name = 'TDollTicket'";
+        public static readonly string SelectResourceEquipmentTicket = "SELECT * FROM Resource WHERE Name = 'EquipmentTicket'";
         public static string SelectMountedCheck(UserDataBase_Equipment data)
         {
             var result = string.Empty;
@@ -68,6 +73,32 @@ namespace Assets.Common.DB.User.Manager
 
                 result.Add(temp);
             }
+
+            return result;
+        }
+        public static string InsertProduceTDoll(UserDataBase_Produce data)
+        {
+            var result = string.Empty;
+
+            result = "INSERT INTO ProduceTDoll(Slot, Active, CompleteTime, DataCode) VALUES ("
+                + data.Slot
+                + data.Active
+                + data.CompleteTime
+                + data.DataCode
+                + ")";
+
+            return result;
+        }
+        public static string InsertProduceEquipment(UserDataBase_Produce data)
+        {
+            var result = string.Empty;
+
+            result = "INSERT INTO ProduceEquipment(Slot, Active, CompleteTime, DataCode) VALUES ("
+                + data.Slot
+                + data.Active
+                + data.CompleteTime
+                + data.DataCode
+                + ")";
 
             return result;
         }
@@ -142,22 +173,7 @@ namespace Assets.Common.DB.User.Manager
                       + data.Name + "\'";
 
             return result;
-        }
-
-        public static string InsertProduceTDoll(UserDataBase_Produce data)
-        {
-            var result = string.Empty;
-
-            result = "INSERT INTO ProduceTDoll(Slot, Active, CompleteTime, DataCode) VALUES ("
-                + data.Slot
-                + data.Active
-                + data.CompleteTime
-                + data.DataCode
-                + ")";
-
-            return result;
-        }
-
+        }       
         public static string UpdateProduceTDoll(UserDataBase_Produce data)
         {
             var result = string.Empty;
@@ -173,21 +189,6 @@ namespace Assets.Common.DB.User.Manager
 
             return result;
         }
-
-        public static string InsertProduceEquipment(UserDataBase_Produce data)
-        {
-            var result = string.Empty;
-
-            result = "INSERT INTO ProduceEquipment(Slot, Active, CompleteTime, DataCode) VALUES ("
-                + data.Slot
-                + data.Active
-                + data.CompleteTime
-                + data.DataCode
-                + ")";
-
-            return result;
-        }
-
         public static string UpdateProduceEquipment(UserDataBase_Produce data)
         {
             var result = string.Empty;
@@ -203,7 +204,6 @@ namespace Assets.Common.DB.User.Manager
 
             return result;
         }
-
         public static string UpdateItem(UserDataBase_Item data)
         {
             var result = string.Empty;

@@ -21,7 +21,6 @@ namespace Assets.Common.DB.User.Manager
         }
 
         private GameManager m_gameManager;
-        private DBController_User m_dBController;
         private string m_dBFilePath;
 
         public UserDBManager()
@@ -33,8 +32,6 @@ namespace Assets.Common.DB.User.Manager
         {
             m_gameManager = gameManager;
             m_gameManager.StartCoroutine(DBCreate());
-            m_dBController = new DBController_User();
-            m_dBController.Initialize(this);
         }
 
         private string DBName
@@ -249,14 +246,6 @@ namespace Assets.Common.DB.User.Manager
                 {
                     Debug.Log("*Size : " + File.ReadAllBytes(m_dBFilePath).Length);
                 }
-            }
-        }
-
-        public DBController_User DBController
-        {
-            get
-            {
-                return m_dBController;
             }
         }
     }

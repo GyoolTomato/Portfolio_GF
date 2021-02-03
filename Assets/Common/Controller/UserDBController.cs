@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Common.DB;
 using Assets.Common.DB.Common;
+using Assets.Common.DB.User;
+using Assets.Common.DB.User.Manager;
 
-namespace Assets.Common.DB.User.Manager
+namespace Assets.Common.Controller
 {
-    public class DBController_User
+    public class UserDBController
     {
         private UserDBManager m_dBManager;
 
@@ -46,83 +48,85 @@ namespace Assets.Common.DB.User.Manager
             }
         }
 
-        public List<UserDataBase_TDoll> UserTDoll
+        public List<UserDataBase_TDoll> UserTDoll()
         {
-            get
-            {
-                var result = new List<UserDataBase_TDoll>();
+            var result = new List<UserDataBase_TDoll>();
 
-                foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.TDoll, QuerySupport_User.SelectTDoll_All))
-                {
-                    result.Add(item as UserDataBase_TDoll);
-                }
-                
-                return result;
+            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.TDoll, QuerySupport_User.SelectTDoll_All))
+            {
+                result.Add(item as UserDataBase_TDoll);
             }
+
+            return result;
         }
 
-        public List<UserDataBase_Equipment> UserEquipments
+        public List<UserDataBase_Equipment> UserEquipments()
         {
-            get
-            {
-                var result = new List<UserDataBase_Equipment>();
+            var result = new List<UserDataBase_Equipment>();
 
-                foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Equipment, QuerySupport_User.SelectEquipment_All))
-                {
-                    result.Add(item as UserDataBase_Equipment);
-                }
-                
-                return result;
+            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Equipment, QuerySupport_User.SelectEquipment_All))
+            {
+                result.Add(item as UserDataBase_Equipment);
             }
+
+            return result;
         }
 
-        public List<CommonDataBase_Resource> UserResource
+        public UserDataBase_Equipment UserEquipment(int ownershipCode)
         {
-            get
+            var result = new UserDataBase_Equipment();
+
+            try
             {
-                var result = new List<CommonDataBase_Resource>();
-
-                foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport_User.SelectResource_All))
-                {
-                    result.Add(item as CommonDataBase_Resource);
-                }
-
-                return result;
+                var temp = m_dBManager.ReadDataBase(UserDBManager.E_Table.Equipment, QuerySupport_User.SelectEquipment(ownershipCode));
+                result = temp[0] as UserDataBase_Equipment;
             }
+            catch
+            {
+
+            }
+
+            return result;
         }
 
-        public List<UserDataBase_Produce> UserProduceTDoll
+        public List<CommonDataBase_Resource> UserResource()
         {
-            get
+            var result = new List<CommonDataBase_Resource>();
+
+            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport_User.SelectResource_All))
             {
-                var result = new List<UserDataBase_Produce>();
-
-                foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Produce, QuerySupport_User.SelectProduceTDoll))
-                {
-                    result.Add(item as UserDataBase_Produce);
-                }
-
-                return result;
+                result.Add(item as CommonDataBase_Resource);
             }
+
+            return result;
         }
 
-        public List<UserDataBase_Produce> UserProduceEquipment
+        public List<UserDataBase_Produce> UserProduceTDoll()
         {
-            get
+            var result = new List<UserDataBase_Produce>();
+
+            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Produce, QuerySupport_User.SelectProduceTDoll))
             {
-                var result = new List<UserDataBase_Produce>();
-
-                foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Produce, QuerySupport_User.SelectProduceEquipment))
-                {
-                    result.Add(item as UserDataBase_Produce);
-                }
-
-                return result;
+                result.Add(item as UserDataBase_Produce);
             }
+
+            return result;
+        }
+
+        public List<UserDataBase_Produce> UserProduceEquipment()
+        {
+            var result = new List<UserDataBase_Produce>();
+
+            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Produce, QuerySupport_User.SelectProduceEquipment))
+            {
+                result.Add(item as UserDataBase_Produce);
+            }
+
+            return result;
         }
 
         public void AddOwnership(DB.Index.IndexDataBase_TDoll data)
-        {            
+        {
             var conversionData = new UserDataBase_TDoll();
             conversionData.DataCode = data.DataCode;
             conversionData.Level = 1;
@@ -170,17 +174,7 @@ namespace Assets.Common.DB.User.Manager
             m_dBManager.SQL(QuerySupport_User.UpdateEquipment(data));
         }
 
-        public bool IsMounted(UserDataBase_Equipment data)
-        {
-            var result = false;
-
-            if (m_dBManager.ReadDataBase(UserDBManager.E_Table.TDoll, QuerySupport_User.SelectMountedCheck(data)).Count > 0)
-                result = true;
-
-            return result;
-        }
-
-        public void UpdateResource(Assets.Common.Interface.WorkResource workResource)
+        public void UpdateResource(Interface.WorkResource workResource)
         {
             var temp = new CommonDataBase_Resource();
 
@@ -203,6 +197,16 @@ namespace Assets.Common.DB.User.Manager
         public void UpdateItemAmount(UserDataBase_Item data)
         {
             m_dBManager.SQL(QuerySupport_User.UpdateItem(data));
+        }
+
+        public bool IsMounted(UserDataBase_Equipment data)
+        {
+            var result = false;
+
+            if (m_dBManager.ReadDataBase(UserDBManager.E_Table.TDoll, QuerySupport_User.SelectMountedCheck(data)).Count > 0)
+                result = true;
+
+            return result;
         }
     }
 }

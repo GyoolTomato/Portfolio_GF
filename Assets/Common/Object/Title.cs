@@ -58,10 +58,10 @@ namespace Assets.Common.Object
 
         private void ApplyWorkResourceData()
         {
-            m_manPower.ApplyData(m_gameManager.ResourceContorller.ManPower());
-            m_bullet.ApplyData(m_gameManager.ResourceContorller.Bullet());
-            m_food.ApplyData(m_gameManager.ResourceContorller.Food());
-            m_militarySupplies.ApplyData(m_gameManager.ResourceContorller.MilitarySupplies());
+            m_manPower.ApplyData(m_gameManager.ResourceContorller().ManPower());
+            m_bullet.ApplyData(m_gameManager.ResourceContorller().Bullet());
+            m_food.ApplyData(m_gameManager.ResourceContorller().Food());
+            m_militarySupplies.ApplyData(m_gameManager.ResourceContorller().MilitarySupplies());
         }
 
         private void Handle_Back()

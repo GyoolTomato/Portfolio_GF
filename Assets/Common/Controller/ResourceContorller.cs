@@ -86,7 +86,7 @@ namespace Assets.Common.Controller
 
         private void ReadUserWorkResource()
         {
-            foreach (var item in m_gameManager.DBControllerUser.UserResource)
+            foreach (var item in m_gameManager.UserDBController().UserResource())
             {
                 if (item.Name == "ManPower")
                 {
@@ -146,7 +146,7 @@ namespace Assets.Common.Controller
                 ReadUserWorkResource();
                 yield return new WaitForSeconds(m_manPower.ChargingVolume_Time);
                 m_manPower.Amount += m_manPower.ChargingVolume_Amount;
-                m_gameManager.DBControllerUser.UpdateResource(m_manPower);
+                m_gameManager.UserDBController().UpdateResource(m_manPower);
             }
         }
         IEnumerator BulletCharger()
@@ -156,7 +156,7 @@ namespace Assets.Common.Controller
                 ReadUserWorkResource();
                 yield return new WaitForSeconds(m_bullet.ChargingVolume_Time);
                 m_bullet.Amount += m_bullet.ChargingVolume_Amount;
-                m_gameManager.DBControllerUser.UpdateResource(m_bullet);
+                m_gameManager.UserDBController().UpdateResource(m_bullet);
             }
         }
         IEnumerator FoodCharger()
@@ -166,7 +166,7 @@ namespace Assets.Common.Controller
                 ReadUserWorkResource();
                 yield return new WaitForSeconds(m_food.ChargingVolume_Time);
                 m_food.Amount += m_food.ChargingVolume_Amount;
-                m_gameManager.DBControllerUser.UpdateResource(m_food);
+                m_gameManager.UserDBController().UpdateResource(m_food);
             }
         }
         IEnumerator MilitarySuppliesCharger()
@@ -176,7 +176,7 @@ namespace Assets.Common.Controller
                 ReadUserWorkResource();
                 yield return new WaitForSeconds(m_militarySupplies.ChargingVolume_Time);
                 m_militarySupplies.Amount += m_militarySupplies.ChargingVolume_Amount;
-                m_gameManager.DBControllerUser.UpdateResource(m_militarySupplies);
+                m_gameManager.UserDBController().UpdateResource(m_militarySupplies);
             }
         }
 
@@ -193,10 +193,10 @@ namespace Assets.Common.Controller
                 m_bullet.Amount -= bullet;
                 m_food.Amount -= food;
                 m_militarySupplies.Amount -= militarySupplies;
-                m_gameManager.DBControllerUser.UpdateResource(m_manPower);
-                m_gameManager.DBControllerUser.UpdateResource(m_bullet);
-                m_gameManager.DBControllerUser.UpdateResource(m_food);
-                m_gameManager.DBControllerUser.UpdateResource(m_militarySupplies);
+                m_gameManager.UserDBController().UpdateResource(m_manPower);
+                m_gameManager.UserDBController().UpdateResource(m_bullet);
+                m_gameManager.UserDBController().UpdateResource(m_food);
+                m_gameManager.UserDBController().UpdateResource(m_militarySupplies);
 
                 ReadUserWorkResource();
                 result = true;
@@ -283,47 +283,6 @@ namespace Assets.Common.Controller
         public OthersResource EquipmentTicket()
         {
             return m_equipmentTicket;
-        }
-
-        //public int PassTicketAmount()
-        //{
-        //    var result = 0;
-
-        //    var tempList = m_userDBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport_User.SelectResourcePassTicket);
-        //    var temp = tempList[0] as CommonDataBase_Resource;
-
-        //    result = temp.Value;
-
-        //    return result;
-        //}
-
-        //public int TDollTicketAmount()
-        //{
-        //    var result = 0;
-
-        //    var tempList = m_userDBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport_User.SelectResourceTDollTicket);
-        //    var temp = tempList[0] as CommonDataBase_Resource;
-
-        //    result = temp.Value;
-
-        //    return result;
-        //}
-
-        //public int EquipmentTicketAmount()
-        //{
-        //    var result = 0;
-
-        //    var tempList = m_userDBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport_User.SelectResourceEquipmentTicket);
-        //    var temp = tempList[0] as CommonDataBase_Resource;
-
-        //    result = temp.Value;
-
-        //    return result;
-        //}
-
-        //public void UpdateResourceAmount(CommonDataBase_Resource commonDataBase_Resource)
-        //{
-        //    m_userDBManager.SQL(QuerySupport_User.UpdateResource(commonDataBase_Resource));
-        //}
+        }        
     }
 }

@@ -8,11 +8,14 @@ namespace Assets.Common
     public class GameManager : MonoBehaviour
     {
         private static GameManager m_instance;
-
-        private ResourceContorller m_resourceContorller;
+        
         private DB.Game.GameDBManager m_gameDBManager;
         private DB.Index.Manager.IndexDBManager m_indexDBManager;
-        private DB.User.Manager.UserDBManager m_userDBManager;    
+        private DB.User.Manager.UserDBManager m_userDBManager;
+
+        private ResourceContorller m_resourceContorller;
+        private IndexDBController m_indexDBController;
+        private UserDBController m_userDBController;
 
         private void Awake()
         {
@@ -31,8 +34,13 @@ namespace Assets.Common
             m_indexDBManager.Initailize(this);
             m_userDBManager = new DB.User.Manager.UserDBManager();
             m_userDBManager.Initailize(this);
+           
             m_resourceContorller = new ResourceContorller();
             m_resourceContorller.Initialize(this, m_userDBManager);
+            m_indexDBController = new IndexDBController();
+            m_indexDBController.Initialize(m_indexDBManager);
+            m_userDBController = new UserDBController();
+            m_userDBController.Initialize(m_userDBManager);
         }
 
         // Start is called before the first frame update
@@ -47,33 +55,19 @@ namespace Assets.Common
 
         }
 
-        public ResourceContorller ResourceContorller
+        public ResourceContorller ResourceContorller()
         {
-            get
-            {
-                return m_resourceContorller;
-            }
+            return m_resourceContorller;
         }
 
-        public DB.Index.Manager.DBController_Index DBControllerIndex
+        public IndexDBController IndexDBController()
         {
-            get
-            {
-                return m_indexDBManager.DBController;
-            }
+            return m_indexDBController;
         }
 
-        public DB.User.Manager.DBController_User DBControllerUser
+        public UserDBController UserDBController()
         {
-            get
-            {
-                return m_userDBManager.DBController;
-            }
-        }
-
-        public DB.User.Manager.UserDBManager UserDBManager()
-        {
-            return m_userDBManager;
+            return m_userDBController;
         }
     }
 }

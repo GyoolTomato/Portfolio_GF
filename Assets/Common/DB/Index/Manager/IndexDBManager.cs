@@ -18,7 +18,6 @@ namespace Assets.Common.DB.Index.Manager
         }
 
         private GameManager m_gameManager;
-        private DBController_Index m_dBController;
         private string m_dBFilePath;
 
         public IndexDBManager()
@@ -29,8 +28,6 @@ namespace Assets.Common.DB.Index.Manager
         {
             m_gameManager = gameManager;
             m_gameManager.StartCoroutine(DBCreate());
-            m_dBController = new DBController_Index();
-            m_dBController.Initialize(this);
         }
 
         private string DBName
@@ -162,13 +159,5 @@ namespace Assets.Common.DB.Index.Manager
 
             return result;
         }        
-
-        public DBController_Index DBController
-        {
-            get
-            {
-                return m_dBController;
-            }
-        }
     }
 }

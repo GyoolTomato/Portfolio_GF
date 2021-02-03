@@ -5,10 +5,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using Assets.Common.DB;
 using Assets.Common.DB.Index;
+using Assets.Common.DB.Index.Manager;
 
-namespace Assets.Common.DB.Index.Manager
+namespace Assets.Common.Controller
 {
-    public class DBController_Index
+    public class IndexDBController
     {
         public enum E_TDoll
         {
@@ -30,7 +31,7 @@ namespace Assets.Common.DB.Index.Manager
 
         private IndexDBManager m_dBManager;
 
-        public DBController_Index()
+        public IndexDBController()
         {
         }
 
@@ -69,7 +70,6 @@ namespace Assets.Common.DB.Index.Manager
 
             return result;
         }
-
         public IndexDataBase_TDoll TDoll(int dataCode)
         {
             var result = new IndexDataBase_TDoll();
@@ -109,7 +109,6 @@ namespace Assets.Common.DB.Index.Manager
 
             return result;
         }
-
         public IndexDataBase_Equipment Equipment(int dataCode)
         {
             var result = new IndexDataBase_Equipment();

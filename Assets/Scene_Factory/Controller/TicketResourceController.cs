@@ -27,9 +27,9 @@ public class TicketResourceController
 
     public void UpdateValue()
     {
-        m_gameManager.ResourceContorller.ReadOthersResource();
-        m_passTicket.ApplyData(m_gameManager.ResourceContorller.PassTicket());
-        m_tDollTicket.ApplyData(m_gameManager.ResourceContorller.TDollTicket());
-        m_equipmentTicket.ApplyData(m_gameManager.ResourceContorller.EquipmentTicket());
+        m_gameManager.ResourceContorller().ReadOthersResource();
+        m_passTicket.ApplyData(m_gameManager.ResourceContorller().PassTicket());
+        m_tDollTicket.ApplyData(m_gameManager.ResourceContorller().TDollTicket());
+        m_equipmentTicket.ApplyData(m_gameManager.ResourceContorller().EquipmentTicket());
     }
 }
