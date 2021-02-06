@@ -33,6 +33,7 @@ namespace Assets.Common.DB.User.Manager
 
             return result;
         }
+        public static readonly string SelectFormation = "SELECT * FROM Formation";
 
         public static List<string> InsertTDoll(List<UserDataBase_TDoll> data)
         {

@@ -32,7 +32,7 @@ namespace Assets.Scene_Dormitory
             m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Common.Object.Title>();
             m_title.Initialize(m_gameManager, "숙소");
             m_menuController = new Controller.MenuController();
-            m_menuController.Initialize(m_gameManager, m_canvas);
+            m_menuController.Initialize(m_canvas);
             m_viewPort_TDollController = new ViewPort_TDollController();
             m_viewPort_TDollController.Initialize(m_gameManager, "TDoll", "Album_TDoll");
             m_viewPort_EquipmentsController = new ViewPort_EquipmentsController();

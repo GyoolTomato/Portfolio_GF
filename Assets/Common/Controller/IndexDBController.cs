@@ -73,8 +73,16 @@ namespace Assets.Common.Controller
         public IndexDataBase_TDoll TDoll(int dataCode)
         {
             var result = new IndexDataBase_TDoll();
+            var temp = m_dBManager.ReadDataBase(IndexDBManager.E_Table.TDoll, QuerySupport_Index.SelectTDoll_DataCode(dataCode));
 
-            result = m_dBManager.ReadDataBase(IndexDBManager.E_Table.TDoll, QuerySupport_Index.SelectTDoll_DataCode(dataCode))[0] as IndexDataBase_TDoll;
+            if (temp.Count > 0)
+            {
+                result = temp[0] as IndexDataBase_TDoll;
+            }
+            else
+            {
+                result = null;
+            }
 
             return result;
         }

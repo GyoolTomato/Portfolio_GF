@@ -28,14 +28,14 @@ namespace Assets.Common
 
         public Sprite LoadSprite(int dataCode)
         {
-            var result = Resources.Load("aaa") as Sprite;
+            var result = UnityEngine.Resources.Load("aaa") as Sprite;
 
             return result;
         }
 
         public Sprite LoadSprite(string type)
         {
-            var result = Resources.Load("aaa") as Sprite;
+            var result = UnityEngine.Resources.Load("aaa") as Sprite;
 
             return result;
         }

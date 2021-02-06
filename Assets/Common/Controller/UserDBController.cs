@@ -59,6 +59,22 @@ namespace Assets.Common.Controller
 
             return result;
         }
+        public UserDataBase_TDoll UserTDoll(int ownershipCode)
+        {
+            var result = new UserDataBase_TDoll();
+            var temp = m_dBManager.ReadDataBase(UserDBManager.E_Table.TDoll, QuerySupport_User.SelectTDoll(ownershipCode));
+
+            if (temp.Count > 0)
+            {
+                result = temp[0] as UserDataBase_TDoll;
+            }
+            else
+            {
+                result = null;
+            }
+
+            return result;
+        }
 
         public List<UserDataBase_Equipment> UserEquipments()
         {
@@ -75,15 +91,15 @@ namespace Assets.Common.Controller
         public UserDataBase_Equipment UserEquipment(int ownershipCode)
         {
             var result = new UserDataBase_Equipment();
+            var temp = m_dBManager.ReadDataBase(UserDBManager.E_Table.Equipment, QuerySupport_User.SelectEquipment(ownershipCode));
 
-            try
+            if (temp.Count > 0)
             {
-                var temp = m_dBManager.ReadDataBase(UserDBManager.E_Table.Equipment, QuerySupport_User.SelectEquipment(ownershipCode));
                 result = temp[0] as UserDataBase_Equipment;
             }
-            catch
+            else
             {
-
+                result = null;
             }
 
             return result;
@@ -120,6 +136,17 @@ namespace Assets.Common.Controller
             foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Produce, QuerySupport_User.SelectProduceEquipment))
             {
                 result.Add(item as UserDataBase_Produce);
+            }
+
+            return result;
+        }
+        public List<UserDataBase_Formation> UserFormation()
+        {
+            var result = new List<UserDataBase_Formation>();
+
+            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Formation, QuerySupport_User.SelectFormation))
+            {
+                result.Add(item as UserDataBase_Formation);
             }
 
             return result;

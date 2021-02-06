@@ -12,7 +12,7 @@ namespace Assets.Common.View
         private void Awake()
         {
             m_uICamera = GameObject.Find("UI Camera").GetComponent<Camera>();
-            m_letterBox = Resources.Load<Camera>("Object/LetterBox Camera");
+            m_letterBox = UnityEngine.Resources.Load<Camera>("Object/LetterBox Camera");
         }
 
         // Start is called before the first frame update
@@ -32,8 +32,6 @@ namespace Assets.Common.View
             var mainCamera = Camera.main;
             var letterBox_left = Instantiate(m_letterBox);
             var letterBox_Right = Instantiate(m_letterBox);
-
-
 
             letterBox_left.transform.parent = mainCamera.transform;
             letterBox_left.transform.parent = mainCamera.transform;

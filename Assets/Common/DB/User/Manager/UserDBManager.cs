@@ -17,6 +17,7 @@ namespace Assets.Common.DB.User.Manager
             Equipment,
             Resource,
             Produce,
+            Formation,
             End,
         }
 
@@ -105,6 +106,7 @@ namespace Assets.Common.DB.User.Manager
                 var tempData_Equipment = new UserDataBase_Equipment();
                 var tempData_Resource = new CommonDataBase_Resource();
                 var tempData_Produce = new UserDataBase_Produce();
+                var tempData_Formation = new UserDataBase_Formation();
 
                 var dbConnection = new SqliteConnection(ReadDBFilePath);
                 dbConnection.Open();
@@ -151,6 +153,19 @@ namespace Assets.Common.DB.User.Manager
                             tempData_Produce.CompleteTime = dataReader.GetString(3);
                             tempData_Produce.DataCode = dataReader.GetInt32(4);
                             result.Add(tempData_Produce);
+                            break;
+                        case E_Table.Formation:
+                            tempData_Formation = new UserDataBase_Formation();
+                            tempData_Formation.Number = dataReader.GetInt32(0);
+                            tempData_Formation.Platoon1 = dataReader.GetInt32(1);
+                            tempData_Formation.Platoon2 = dataReader.GetInt32(2);
+                            tempData_Formation.Platoon3 = dataReader.GetInt32(3);
+                            tempData_Formation.Platoon4 = dataReader.GetInt32(4);                            
+                            tempData_Formation.Position1 = dataReader.GetInt32(5);
+                            tempData_Formation.Position2 = dataReader.GetInt32(6);
+                            tempData_Formation.Position3 = dataReader.GetInt32(7);
+                            tempData_Formation.Position4 = dataReader.GetInt32(8);                            
+                            result.Add(tempData_Formation);
                             break;
                         default:
                             break;
