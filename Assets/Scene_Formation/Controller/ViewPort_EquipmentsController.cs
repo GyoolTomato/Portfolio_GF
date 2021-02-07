@@ -1,9 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Scene_Dormitory.Controller
+namespace Assets.Scene_Formation.Controller
 {
-    public class ViewPort_EquipmentsController : Base.DormitoryBase
+    public class ViewPort_EquipmentsController : Base.SelectPlatoonBase
     {
         public ViewPort_EquipmentsController()
         {

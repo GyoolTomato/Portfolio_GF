@@ -3,9 +3,9 @@ using UnityEngine;
 using UnityEditor;
 using Assets.Common;
 
-namespace Assets.Scene_Dormitory.Controller
+namespace Assets.Scene_Formation.Controller
 {
-    public class ViewPort_TDollController : Base.DormitoryBase
+    public class ViewPort_TDollController : Base.SelectPlatoonBase
     {        
         public ViewPort_TDollController()
         {

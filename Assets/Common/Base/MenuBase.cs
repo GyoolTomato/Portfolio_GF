@@ -6,7 +6,7 @@ namespace Assets.Common.Base
 {
     public class MenuBase
     {
-        //private Assets.Common.GameManager m_gameManager;
+        protected GameObject m_menuView;
 
         protected GameObject m_buttonObject1;        
         protected GameObject m_buttonObject2;        
@@ -120,6 +120,8 @@ namespace Assets.Common.Base
 
         protected virtual void Handle_ButtonClick1()
         {
+            m_menuView.SetActive(true);
+
             if (m_view1 != null)
                 m_view1.SetActive(true);
             if (m_view2 != null)
@@ -132,10 +134,13 @@ namespace Assets.Common.Base
                 m_view5.SetActive(false);
 
             ChangeColor(m_buttonText1, m_buttonImage1);
+            SceneChangeEvent();
         }
 
         protected virtual void Handle_ButtonClick2()
         {
+            m_menuView.SetActive(true);
+
             if (m_view1 != null)
                 m_view1.SetActive(false);
             if (m_view2 != null)
@@ -148,10 +153,13 @@ namespace Assets.Common.Base
                 m_view5.SetActive(false);
 
             ChangeColor(m_buttonText2, m_buttonImage2);
+            SceneChangeEvent();
         }
 
         protected virtual void Handle_ButtonClick3()
         {
+            m_menuView.SetActive(true);
+
             if (m_view1 != null)
                 m_view1.SetActive(false);
             if (m_view2 != null)
@@ -164,10 +172,13 @@ namespace Assets.Common.Base
                 m_view5.SetActive(false);
 
             ChangeColor(m_buttonText3, m_buttonImage3);
+            SceneChangeEvent();
         }
 
         protected virtual void Handle_ButtonClick4()
         {
+            m_menuView.SetActive(true);
+
             if (m_view1 != null)
                 m_view1.SetActive(false);
             if (m_view2 != null)
@@ -180,10 +191,13 @@ namespace Assets.Common.Base
                 m_view5.SetActive(false);
 
             ChangeColor(m_buttonText4, m_buttonImage4);
+            SceneChangeEvent();
         }
 
         protected virtual void Handle_ButtonClick5()
         {
+            m_menuView.SetActive(true);
+
             if (m_view1 != null)
                 m_view1.SetActive(false);
             if (m_view2 != null)
@@ -196,6 +210,7 @@ namespace Assets.Common.Base
                 m_view5.SetActive(true);
 
             ChangeColor(m_buttonText5, m_buttonImage5);
+            SceneChangeEvent();
         }
 
         private void ChangeColor(Text buttonText, Image buttonImage)
@@ -226,6 +241,11 @@ namespace Assets.Common.Base
                 buttonText.color = Color.black;
             if (buttonImage != null)
                 buttonImage.color = CustomColor.Gold;
+        }
+
+        protected virtual void SceneChangeEvent()
+        {
+            
         }
     }
 }

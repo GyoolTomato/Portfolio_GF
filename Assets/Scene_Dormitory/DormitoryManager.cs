@@ -34,9 +34,9 @@ namespace Assets.Scene_Dormitory
             m_menuController = new Controller.MenuController();
             m_menuController.Initialize(m_canvas);
             m_viewPort_TDollController = new ViewPort_TDollController();
-            m_viewPort_TDollController.Initialize(m_gameManager, "TDoll", "Album_TDoll");
+            m_viewPort_TDollController.Initialize("TDoll", "Album_TDoll");
             m_viewPort_EquipmentsController = new ViewPort_EquipmentsController();
-            m_viewPort_EquipmentsController.Initialize(m_gameManager, "Equipment", "Album_Equipment");
+            m_viewPort_EquipmentsController.Initialize("Equipment", "Album_Equipment");
 
             m_viewPort_TDollController.Load();
             m_viewPort_EquipmentsController.Load();

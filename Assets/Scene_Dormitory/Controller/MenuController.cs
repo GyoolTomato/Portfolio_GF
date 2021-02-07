@@ -19,9 +19,9 @@ namespace Assets.Scene_Dormitory.Controller
             m_buttonObject1 = menu.Find("TDoll").gameObject;
             m_buttonObject2 = menu.Find("Equipment").gameObject;
 
-            var menuView = canvas.transform.Find("MenuView");
-            m_view1 = menuView.Find("TDoll").gameObject;
-            m_view2 = menuView.Find("Equipment").gameObject;
+            m_menuView = canvas.transform.Find("MenuView").gameObject;
+            m_view1 = m_menuView.transform.Find("TDoll").gameObject;
+            m_view2 = m_menuView.transform.Find("Equipment").gameObject;
 
             base.Initialize(canvas);
         }

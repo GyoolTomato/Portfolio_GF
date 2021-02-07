@@ -160,11 +160,7 @@ namespace Assets.Common.DB.User.Manager
                             tempData_Formation.Platoon1 = dataReader.GetInt32(1);
                             tempData_Formation.Platoon2 = dataReader.GetInt32(2);
                             tempData_Formation.Platoon3 = dataReader.GetInt32(3);
-                            tempData_Formation.Platoon4 = dataReader.GetInt32(4);                            
-                            tempData_Formation.Position1 = dataReader.GetInt32(5);
-                            tempData_Formation.Position2 = dataReader.GetInt32(6);
-                            tempData_Formation.Position3 = dataReader.GetInt32(7);
-                            tempData_Formation.Position4 = dataReader.GetInt32(8);                            
+                            tempData_Formation.Platoon4 = dataReader.GetInt32(4);                                                  
                             result.Add(tempData_Formation);
                             break;
                         default:

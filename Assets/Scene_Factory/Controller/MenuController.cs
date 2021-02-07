@@ -22,12 +22,12 @@ namespace Assets.Scene_Factory.Controller
             m_buttonObject4 = menu.Find("TDollRetire").gameObject;
             m_buttonObject5 = menu.Find("ProduceEquipment").gameObject;
 
-            var menuView = canvas.transform.Find("MenuView");
-            m_view1 = menuView.Find("ProduceTDoll").gameObject;
-            m_view2 = menuView.Find("DummyLinkNAnalyze").gameObject;
-            m_view3 = menuView.Find("EnhanceNDevelop").gameObject;
-            m_view4 = menuView.Find("TDollRetire").gameObject;
-            m_view5 = menuView.Find("ProduceEquipment").gameObject;
+            m_menuView = canvas.transform.Find("MenuView").gameObject;
+            m_view1 = m_menuView.transform.Find("ProduceTDoll").gameObject;
+            m_view2 = m_menuView.transform.Find("DummyLinkNAnalyze").gameObject;
+            m_view3 = m_menuView.transform.Find("EnhanceNDevelop").gameObject;
+            m_view4 = m_menuView.transform.Find("TDollRetire").gameObject;
+            m_view5 = m_menuView.transform.Find("ProduceEquipment").gameObject;
 
             base.Initialize(canvas);
         }
