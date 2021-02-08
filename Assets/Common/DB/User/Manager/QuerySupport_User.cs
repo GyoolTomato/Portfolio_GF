@@ -216,6 +216,18 @@ namespace Assets.Common.DB.User.Manager
 
             return result;
         }
-               
+         public static string UpdateFormation(UserDataBase_Formation data)
+        {
+            var result = string.Empty;
+
+            result = "Update Formation SET "
+                + "Platoon1 = " + data.Platoon1
+                + ", Platoon2 = " + data.Platoon2
+                + ", Platoon3 = " + data.Platoon3
+                + ", Platoon4 = " + data.Platoon4
+                + " WHERE Number = " + data.Number;
+
+            return result;
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace Assets.Scene_Formation.Controller
         private Assets.Common.GameManager m_gameManager;
         private GameObject m_canvas;
 
-        private Assets.Common.Object.Title m_title;
+        private Assets.Resources.Object.Title m_title;
         private MenuController m_menuController;
         private PlatoonController m_platoonController;
 
@@ -26,7 +26,7 @@ namespace Assets.Scene_Formation.Controller
             m_gameManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Common.GameManager>();
             m_canvas = GameObject.Find("Canvas");
 
-            m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Common.Object.Title>();
+            m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Resources.Object.Title>();
             m_title.Initialize(m_gameManager, "편성");
             m_menuController = new MenuController();
             m_menuController.Initialize(m_canvas);

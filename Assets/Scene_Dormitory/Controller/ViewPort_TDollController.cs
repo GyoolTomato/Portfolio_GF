@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEditor;
-using Assets.Common;
+using Assets.Resources.Object;
 
 namespace Assets.Scene_Dormitory.Controller
 {
@@ -19,7 +19,7 @@ namespace Assets.Scene_Dormitory.Controller
                 result.transform.parent = m_viewPortContent.transform;
 
                 var albumScript = result.GetComponent<Album_TDoll>();
-                albumScript.Initialize(m_gameManager.IndexDBController().TDoll(item.DataCode), item.OwnershipCode, item.Level, item.DummyLink, item.Platoon);
+                albumScript.Initialize(item);
             }
         }
     }

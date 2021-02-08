@@ -226,6 +226,11 @@ namespace Assets.Common.Controller
             m_dBManager.SQL(QuerySupport_User.UpdateItem(data));
         }
 
+        public void UpdateFormation(UserDataBase_Formation data)
+        {
+            m_dBManager.SQL(QuerySupport_User.UpdateFormation(data));
+        }
+
         public bool IsMounted(UserDataBase_Equipment data)
         {
             var result = false;

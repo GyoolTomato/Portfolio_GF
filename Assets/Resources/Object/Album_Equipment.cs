@@ -7,6 +7,11 @@ namespace Assets.Resources.Object
 {
     public class Album_Equipment : MonoBehaviour
     {
+        public delegate void ClickEvent();
+
+        private ClickEvent m_clickEvent;
+
+        private Button m_button;
         private Image m_character;
         private Image m_typeImage;
         private Text m_star;
@@ -24,6 +29,8 @@ namespace Assets.Resources.Object
 
         private void Awake()
         {
+            m_button = this.GetComponent<Button>();
+            m_button.onClick.AddListener(Handle_ClickEvent);
             m_character = transform.Find("Character").GetComponent<Image>();
 
             var informationTop = transform.Find("InformationTop");
@@ -57,12 +64,13 @@ namespace Assets.Resources.Object
 
         }
 
-        public void Initialize(Assets.Common.DB.Index.IndexDataBase_Equipment dBData, int ownershipCode, int level, int limitedPower)
+        public void Initialize(Assets.Common.DB.Index.IndexDataBase_Equipment dBData, int ownershipCode, int level, int limitedPower, ClickEvent clickEvent = null)
         {
             ApplyDataCode(dBData);
             m_ownershipCode = ownershipCode;
             ApplyLimitedPower(limitedPower);
             ApplyLevel(level);
+            m_clickEvent = clickEvent;
         }
 
         public int OwnershipCode()
@@ -97,6 +105,12 @@ namespace Assets.Resources.Object
         private void ApplyLevel(int level)
         {
             m_level.text = "LV." + level.ToString();
+        }
+
+        private void Handle_ClickEvent()
+        {
+            if (m_clickEvent != null)
+                m_clickEvent();
         }
     }
 }
