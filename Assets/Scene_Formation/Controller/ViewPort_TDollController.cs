@@ -24,6 +24,7 @@ namespace Assets.Scene_Formation.Controller
                 GameObject.Destroy(item);
             }
 
+            m_list = new List<GameObject>();
             foreach (var item in m_gameManager.UserDBController().UserTDoll())
             {
                 var result = GameObject.Instantiate(m_album, Vector3.zero, Quaternion.identity);
@@ -49,6 +50,35 @@ namespace Assets.Scene_Formation.Controller
 
             foreach (var item in tempList)
             {
+                if (item.Platoon1 == ownershipCode)
+                {
+                    temp = item;
+                    temp.Platoon1 = 0;
+                    m_gameManager.UserDBController().UpdateFormation(temp);
+                }
+                else if (item.Platoon2 == ownershipCode)
+                {
+                    temp = item;
+                    temp.Platoon2 = 0;
+                    m_gameManager.UserDBController().UpdateFormation(temp);
+                }
+                else if (item.Platoon3 == ownershipCode)
+                {
+                    temp = item;
+                    temp.Platoon3 = 0;
+                    m_gameManager.UserDBController().UpdateFormation(temp);
+                }
+                else if (item.Platoon4 == ownershipCode)
+                {
+                    temp = item;
+                    temp.Platoon4 = 0;
+                    m_gameManager.UserDBController().UpdateFormation(temp);
+                }
+            }
+
+            temp = new Common.DB.User.UserDataBase_Formation();
+            foreach (var item in tempList)
+            {
                 if (item.Number == m_platoonNumber)
                 {
                     temp = item;
@@ -72,6 +102,7 @@ namespace Assets.Scene_Formation.Controller
                     }
                     m_gameManager.UserDBController().UpdateFormation(temp);
                     m_platoonController.CloseDormitory();
+                    break;
                 }
             }            
         }

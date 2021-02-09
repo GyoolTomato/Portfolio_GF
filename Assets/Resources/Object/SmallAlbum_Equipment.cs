@@ -6,11 +6,12 @@ namespace Assets.Resources.Object
 {
     public class SmallAlbum_Equipment : MonoBehaviour
     {
+        public delegate void SelectEquipment(int tDollOwnershipCode, int sequence);
+
         private Assets.Common.GameManager m_gameManager;
-        private BigAlbum_TDoll.Handle_SelectPlatoon m_selectEquipment;
-        private int m_platoonNumber;
+        private SelectEquipment m_selectEquipment;
+        private int m_tDollOwnershipCode;
         private int m_sequence;        
-        private int m_equipmentSequence;
 
         private Button m_button;
         private Image m_image;
@@ -31,13 +32,10 @@ namespace Assets.Resources.Object
 
         }
 
-        public void Initialize(int platoonNumber, int sequence, int equipmentSequence, BigAlbum_TDoll.Handle_SelectPlatoon selectPlatoon)
+        public void Initialize(SelectEquipment selectEquipment)
         {
             m_gameManager = GameObject.Find("GameManager").GetComponent<Assets.Common.GameManager>();
-            m_selectEquipment = selectPlatoon;
-            m_platoonNumber = platoonNumber;
-            m_sequence = sequence;
-            m_equipmentSequence = equipmentSequence;
+            m_selectEquipment = selectEquipment;            
 
             m_button = this.GetComponent<Button>();
             m_button.onClick.AddListener(Handle_SelectEquipment);
@@ -47,10 +45,12 @@ namespace Assets.Resources.Object
             SetCurtain(true);
         }
 
-        public void ApplyValue(int ownershipCode)
+        public void ApplyValue(int tDollOwnershipCode, int sequence, int ownershipCode)
         {            
             try
             {
+                m_tDollOwnershipCode = tDollOwnershipCode;
+                m_sequence = sequence;
                 var data = m_gameManager.UserDBController().UserEquipment(ownershipCode);
 
                 if (data != null)
@@ -69,7 +69,7 @@ namespace Assets.Resources.Object
 
         private void Handle_SelectEquipment()
         {
-            m_selectEquipment(m_platoonNumber, m_sequence, m_equipmentSequence);
+            m_selectEquipment(m_tDollOwnershipCode, m_sequence);
         }
 
         private void SetCurtain(bool set)

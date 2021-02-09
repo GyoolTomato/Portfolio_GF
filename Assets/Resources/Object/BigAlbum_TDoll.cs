@@ -7,12 +7,13 @@ namespace Assets.Resources.Object
 {
     public class BigAlbum_TDoll : MonoBehaviour
     {
-        public delegate void Handle_SelectPlatoon(int platoonNumber, int sequence, int equipmentSequence = 0);
+        public delegate void Handle_SelectPlatoon(int platoonNumber, int sequence);
 
         private Assets.Common.GameManager m_gameManager;
         private Handle_SelectPlatoon m_selectTDoll;
         private int m_platoonNumber;
         private int m_sequence;
+        private int m_ownershipCode;
 
         private Image m_character;
         private Button m_selectButton;
@@ -43,7 +44,7 @@ namespace Assets.Resources.Object
 
         }
 
-        public void Initialize(int platoonNumber, int sequence, Handle_SelectPlatoon selectTDoll, Handle_SelectPlatoon selectEquipment)
+        public void Initialize(int platoonNumber, int sequence, Handle_SelectPlatoon selectTDoll, SmallAlbum_Equipment.SelectEquipment selectEquipment)
         {            
             m_gameManager = GameObject.Find("GameManager").GetComponent<Assets.Common.GameManager>();
             m_selectTDoll = selectTDoll;
@@ -66,22 +67,23 @@ namespace Assets.Resources.Object
             m_level = informationBottom.Find("Level").GetComponent<Text>();
 
             m_equipment1 = transform.Find("Equipment1").GetComponent<SmallAlbum_Equipment>();
-            m_equipment1.Initialize(m_platoonNumber, m_sequence, 1, selectEquipment);
+            m_equipment1.Initialize(selectEquipment);
             m_equipment2 = transform.Find("Equipment2").GetComponent<SmallAlbum_Equipment>();
-            m_equipment2.Initialize(m_platoonNumber, m_sequence, 2, selectEquipment);
+            m_equipment2.Initialize(selectEquipment);
             m_equipment3 = transform.Find("Equipment3").GetComponent<SmallAlbum_Equipment>();
-            m_equipment3.Initialize(m_platoonNumber, m_sequence, 3, selectEquipment);
+            m_equipment3.Initialize(selectEquipment);
 
             m_curtain = transform.Find("Curtain").gameObject;
             m_curtain.GetComponent<Button>().onClick.AddListener(Handle_SelectTDoll);
             SetCurtain(true);
         }
 
-        public void ApplyData(int ownershipNumber)
+        public void ApplyData(int ownershipCode)
         {
             try
             {
-                var userDB = m_gameManager.UserDBController().UserTDoll(ownershipNumber);
+                m_ownershipCode = ownershipCode;
+                var userDB = m_gameManager.UserDBController().UserTDoll(m_ownershipCode);
                 if (userDB != null)
                 {
                     var indexDB = m_gameManager.IndexDBController().TDoll(userDB.DataCode);
@@ -94,9 +96,10 @@ namespace Assets.Resources.Object
 
                     ApplyDummyLink(userDB.DummyLink);
                     ApplyLevel(userDB.Level);
-                    m_equipment1.ApplyValue(userDB.EquipmentOwnershipNumber0);
-                    m_equipment2.ApplyValue(userDB.EquipmentOwnershipNumber1);
-                    m_equipment3.ApplyValue(userDB.EquipmentOwnershipNumber2);
+                    
+                    m_equipment1.ApplyValue(m_ownershipCode, 1, userDB.EquipmentOwnershipNumber0);
+                    m_equipment2.ApplyValue(m_ownershipCode, 2, userDB.EquipmentOwnershipNumber1);
+                    m_equipment3.ApplyValue(m_ownershipCode, 3, userDB.EquipmentOwnershipNumber2);
                     
                     SetCurtain(false);
                 }
@@ -107,7 +110,7 @@ namespace Assets.Resources.Object
             {
                 SetCurtain(true);
             }
-        }
+        }        
 
         private void Handle_SelectTDoll()
         {

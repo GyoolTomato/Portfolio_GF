@@ -7,12 +7,15 @@ namespace Assets.Resources.Object
 {
     public class Album_Equipment : MonoBehaviour
     {
-        public delegate void ClickEvent();
+        public delegate void ClickEvent(int ownershipCode);
 
+        private Common.GameManager m_gameManager;
         private ClickEvent m_clickEvent;
 
         private Button m_button;
         private Image m_character;
+        private GameObject m_mountInformation;
+        private Text m_mountInformationText;
         private Image m_typeImage;
         private Text m_star;
         private Text m_limitedPower;
@@ -29,9 +32,13 @@ namespace Assets.Resources.Object
 
         private void Awake()
         {
+            m_gameManager = GameObject.Find("GameManager").GetComponent<Common.GameManager>();
+
             m_button = this.GetComponent<Button>();
             m_button.onClick.AddListener(Handle_ClickEvent);
             m_character = transform.Find("Character").GetComponent<Image>();
+            m_mountInformation = transform.Find("MountInformation").gameObject;
+            m_mountInformationText = m_mountInformation.transform.Find("Text").GetComponent<Text>();
 
             var informationTop = transform.Find("InformationTop");
             m_typeImage = informationTop.Find("Image").GetComponent<Image>();
@@ -64,12 +71,13 @@ namespace Assets.Resources.Object
 
         }
 
-        public void Initialize(Assets.Common.DB.Index.IndexDataBase_Equipment dBData, int ownershipCode, int level, int limitedPower, ClickEvent clickEvent = null)
+        public void Initialize(Assets.Common.DB.User.UserDataBase_Equipment userData, ClickEvent clickEvent = null)
         {
-            ApplyDataCode(dBData);
-            m_ownershipCode = ownershipCode;
-            ApplyLimitedPower(limitedPower);
-            ApplyLevel(level);
+            m_ownershipCode = userData.OwnershipCode;
+            ApplyDataCode(m_gameManager.IndexDBController().Equipment(userData.DataCode));
+            ApplyMountInformation();            
+            ApplyLimitedPower(userData.LimitedPower);
+            ApplyLevel(userData.Level);
             m_clickEvent = clickEvent;
         }
 
@@ -97,6 +105,25 @@ namespace Assets.Resources.Object
             m_critical.text = dBData.Critical.ToString();
         }
 
+        private void ApplyMountInformation()
+        {
+            m_mountInformation.SetActive(false);
+
+            var tempList = m_gameManager.UserDBController().UserTDoll();
+            foreach (var item in tempList)
+            {
+                if (item.EquipmentOwnershipNumber0 == m_ownershipCode ||
+                    item.EquipmentOwnershipNumber1 == m_ownershipCode ||
+                    item.EquipmentOwnershipNumber2 == m_ownershipCode)
+                {
+                    var temp = m_gameManager.IndexDBController().TDoll(item.DataCode);
+                    m_mountInformationText.text = temp.Name;
+                    m_mountInformation.SetActive(true);
+                    break;
+                }
+            }
+        }
+
         private void ApplyLimitedPower(int limitedPower)
         {
             m_limitedPower.text = limitedPower.ToString() + "%";
@@ -110,7 +137,7 @@ namespace Assets.Resources.Object
         private void Handle_ClickEvent()
         {
             if (m_clickEvent != null)
-                m_clickEvent();
+                m_clickEvent(m_ownershipCode);
         }
     }
 }

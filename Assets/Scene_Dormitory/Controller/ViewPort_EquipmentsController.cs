@@ -17,7 +17,7 @@ namespace Assets.Scene_Dormitory.Controller
                 result.transform.parent = m_viewPortContent.transform;
 
                 var albumScript = result.GetComponent<Assets.Resources.Object.Album_Equipment>();
-                albumScript.Initialize(m_gameManager.IndexDBController().Equipment(item.DataCode), item.OwnershipCode, item.Level, item.LimitedPower);
+                albumScript.Initialize(item);
             }
         }
     }

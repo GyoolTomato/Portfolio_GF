@@ -67,7 +67,7 @@ namespace Assets.Scene_Formation.Controller
             }
         }
 
-        private void OpenTDollList(int platoonNumber, int sequence, int equipmentSequence = 0)
+        private void OpenTDollList(int platoonNumber, int sequence)
         { 
             OpenDormitory();
             m_viewPort_TDollController.OpenValue(platoonNumber, sequence);
@@ -76,9 +76,10 @@ namespace Assets.Scene_Formation.Controller
             
         }
 
-        private void OpenEquipmentList(int platoonNumber, int sequence, int equipmentSequence = 0)
+        private void OpenEquipmentList(int tDollOwnershipCode, int sequence)
         {
             OpenDormitory();
+            m_viewPort_EquipmentsController.OpenValue(tDollOwnershipCode, sequence);
             m_viewPort_TDollController.View().SetActive(false);
             m_viewPort_EquipmentsController.View().SetActive(true);            
         }

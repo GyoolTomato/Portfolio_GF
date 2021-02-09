@@ -152,6 +152,29 @@ namespace Assets.Common.Controller
             return result;
         }
 
+        public int FormationNumber(int ownershipCode)
+        {
+            var result = 0;
+
+            var tempList = m_dBManager.ReadDataBase(UserDBManager.E_Table.Formation, QuerySupport_User.SelectFormation);
+            var temp = new UserDataBase_Formation();
+
+            foreach (var item in tempList)
+            {
+                temp = item as UserDataBase_Formation;
+                if (temp.Platoon1 == ownershipCode ||
+                    temp.Platoon2 == ownershipCode ||
+                    temp.Platoon3 == ownershipCode ||
+                    temp.Platoon4 == ownershipCode)
+                {
+                    result = temp.Number;
+                    break;
+                }
+            }
+
+            return result;
+        }
+
         public void AddOwnership(DB.Index.IndexDataBase_TDoll data)
         {
             var conversionData = new UserDataBase_TDoll();

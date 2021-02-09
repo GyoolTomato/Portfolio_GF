@@ -141,12 +141,12 @@ namespace Assets.Common.DB.User.Manager
         {
             var result = string.Empty;
 
-            result = "UPDATE TDoll SET"
+            result = "UPDATE TDoll SET "
                     + "Level=" + data.Level
-                    + "DummyLink=" + data.DummyLink
-                    + "EquipmentOwnershipNumber0=" + data.EquipmentOwnershipNumber0
-                    + "EquipmentOwnershipNumber1=" + data.EquipmentOwnershipNumber1
-                    + "EquipmentOwnershipNumber2=" + data.EquipmentOwnershipNumber2
+                    + ",DummyLink=" + data.DummyLink
+                    + ",EquipmentOwnershipNumber0=" + data.EquipmentOwnershipNumber0
+                    + ",EquipmentOwnershipNumber1=" + data.EquipmentOwnershipNumber1
+                    + ",EquipmentOwnershipNumber2=" + data.EquipmentOwnershipNumber2
                     + " WHERE OwnershipCode = "
                     + data.OwnershipCode.ToString();
 

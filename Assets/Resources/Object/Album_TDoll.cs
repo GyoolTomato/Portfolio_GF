@@ -62,11 +62,11 @@ namespace Assets.Resources.Object
 
         public void Initialize(Assets.Common.DB.User.UserDataBase_TDoll userData, ClickEvent clickEvent = null)
         {
-            ApplyDataCode(m_gameManager.IndexDBController().TDoll(userData.DataCode));
             m_ownershipCode = userData.OwnershipCode;
+            ApplyDataCode(m_gameManager.IndexDBController().TDoll(userData.DataCode));            
             ApplyLevel(userData.Level);
             ApplyDummyLink(userData.DummyLink);
-            ApplyPlatoonNumber(userData.Platoon);
+            ApplyPlatoonNumber();
             m_clickEvent = clickEvent;
         }
 
@@ -98,16 +98,18 @@ namespace Assets.Resources.Object
             m_dummyLink.text = "x" + dummyLink.ToString();
         }
 
-        private void ApplyPlatoonNumber(int platoonNumber)
+        private void ApplyPlatoonNumber()
         {
-            if (platoonNumber == 0)
+            var tempNumber = m_gameManager.UserDBController().FormationNumber(m_ownershipCode);
+
+            if (tempNumber == 0)
             {
                 m_platoon.SetActive(false);
             }
             else
             {
                 m_platoon.SetActive(true);
-                m_platoonNumber.text = platoonNumber.ToString();
+                m_platoonNumber.text = tempNumber.ToString();
             }
         }
 
