@@ -56,7 +56,7 @@ namespace Assets.Scene_Lobby.Controller
 
         private void Handle_CombatClick()
         {
-            SceneManager.LoadScene("Combat");
+            SceneManager.LoadScene("SelectStage");
         }
 
         private void Handle_ResearchClick()

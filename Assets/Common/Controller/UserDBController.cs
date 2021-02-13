@@ -151,6 +151,17 @@ namespace Assets.Common.Controller
 
             return result;
         }
+        public List<UserDataBase_Stage> Stage()
+        {
+            var result = new List<UserDataBase_Stage>();
+
+            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Stage, QuerySupport_User.SelectStage))
+            {
+                result.Add(item as UserDataBase_Stage);
+            }
+
+            return result;
+        }
 
         public int FormationNumber(int ownershipCode)
         {

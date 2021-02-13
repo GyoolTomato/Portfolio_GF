@@ -18,6 +18,7 @@ namespace Assets.Common.DB.User.Manager
             Resource,
             Produce,
             Formation,
+            Stage,
             End,
         }
 
@@ -107,6 +108,7 @@ namespace Assets.Common.DB.User.Manager
                 var tempData_Resource = new CommonDataBase_Resource();
                 var tempData_Produce = new UserDataBase_Produce();
                 var tempData_Formation = new UserDataBase_Formation();
+                var tempData_Stage = new UserDataBase_Stage();
 
                 var dbConnection = new SqliteConnection(ReadDBFilePath);
                 dbConnection.Open();
@@ -162,6 +164,15 @@ namespace Assets.Common.DB.User.Manager
                             tempData_Formation.Platoon3 = dataReader.GetInt32(3);
                             tempData_Formation.Platoon4 = dataReader.GetInt32(4);                                                  
                             result.Add(tempData_Formation);
+                            break;
+                        case E_Table.Stage:
+                            tempData_Stage = new UserDataBase_Stage();
+                            tempData_Stage.Index = dataReader.GetInt32(0);
+                            tempData_Stage.StageNumber = dataReader.GetInt32(1);
+                            tempData_Stage.InnerNumber = dataReader.GetInt32(2);
+                            tempData_Stage.Name = dataReader.GetString(3);
+                            tempData_Stage.Challenge = dataReader.GetInt32(4);
+                            result.Add(tempData_Stage);
                             break;
                         default:
                             break;
