@@ -1,11 +1,10 @@
 ﻿using System;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Common.Controller
 {
     public class StageSelectController
     {
-        int m_selectedStageID;
-
         public StageSelectController()
         {
         }
@@ -15,16 +14,9 @@ namespace Assets.Common.Controller
 
         }
 
-        public int SelectedStageID
+        public void StageSelect(Assets.Common.DB.User.UserDataBase_Stage data)
         {
-            get
-            {
-                return m_selectedStageID;
-            }
-            set
-            {
-                m_selectedStageID = value;
-            }
+            SceneManager.LoadScene("");
         }
     }
 }
