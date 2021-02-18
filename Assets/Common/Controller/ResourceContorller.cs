@@ -91,7 +91,6 @@ namespace Assets.Common.Controller
                 if (item.Name == "ManPower")
                 {
                     m_manPower.Amount = item.Value;
-                    Debug.Log("DB MaPower : " + item.Value);
                 }
                 else if (item.Name == "Bullet")
                 {
@@ -142,7 +141,6 @@ namespace Assets.Common.Controller
         {
             while (true)
             {
-                Debug.Log("MaPower : " + m_manPower.Amount);
                 ReadUserWorkResource();
                 yield return new WaitForSeconds(m_manPower.ChargingVolume_Time);
                 m_manPower.Amount += m_manPower.ChargingVolume_Amount;

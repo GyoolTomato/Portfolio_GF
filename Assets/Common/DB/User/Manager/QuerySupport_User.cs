@@ -33,7 +33,7 @@ namespace Assets.Common.DB.User.Manager
 
             return result;
         }
-        public static readonly string SelectFormation = "SELECT * FROM Formation";
+        public static readonly string SelectPlatoon = "SELECT * FROM Platoon";
         public static readonly string SelectStage = "SELECT * FROM Stage";
 
         public static List<string> InsertTDoll(List<UserDataBase_TDoll> data)
@@ -217,15 +217,15 @@ namespace Assets.Common.DB.User.Manager
 
             return result;
         }
-         public static string UpdateFormation(UserDataBase_Formation data)
+         public static string UpdatePlatoon(UserDataBase_Platoon data)
         {
             var result = string.Empty;
 
-            result = "Update Formation SET "
-                + "Platoon1 = " + data.Platoon1
-                + ", Platoon2 = " + data.Platoon2
-                + ", Platoon3 = " + data.Platoon3
-                + ", Platoon4 = " + data.Platoon4
+            result = "Update Platoon SET "
+                + "Platoon1 = " + data.Member1
+                + ", Platoon2 = " + data.Member2
+                + ", Platoon3 = " + data.Member3
+                + ", Platoon4 = " + data.Member4
                 + " WHERE Number = " + data.Number;
 
             return result;

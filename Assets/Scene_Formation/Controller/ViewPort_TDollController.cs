@@ -45,38 +45,38 @@ namespace Assets.Scene_Formation.Controller
 
         private void Handle_ClickEvent(int ownershipCode)
         {
-            var temp = new Assets.Common.DB.User.UserDataBase_Formation();
+            var temp = new Assets.Common.DB.User.UserDataBase_Platoon();
             var tempList = m_gameManager.UserDBController().UserFormation();
 
             foreach (var item in tempList)
             {
-                if (item.Platoon1 == ownershipCode)
+                if (item.Member1 == ownershipCode)
                 {
                     temp = item;
-                    temp.Platoon1 = 0;
-                    m_gameManager.UserDBController().UpdateFormation(temp);
+                    temp.Member1 = 0;
+                    m_gameManager.UserDBController().UpdatePlatoon(temp);
                 }
-                else if (item.Platoon2 == ownershipCode)
+                else if (item.Member2 == ownershipCode)
                 {
                     temp = item;
-                    temp.Platoon2 = 0;
-                    m_gameManager.UserDBController().UpdateFormation(temp);
+                    temp.Member2 = 0;
+                    m_gameManager.UserDBController().UpdatePlatoon(temp);
                 }
-                else if (item.Platoon3 == ownershipCode)
+                else if (item.Member3 == ownershipCode)
                 {
                     temp = item;
-                    temp.Platoon3 = 0;
-                    m_gameManager.UserDBController().UpdateFormation(temp);
+                    temp.Member3 = 0;
+                    m_gameManager.UserDBController().UpdatePlatoon(temp);
                 }
-                else if (item.Platoon4 == ownershipCode)
+                else if (item.Member4 == ownershipCode)
                 {
                     temp = item;
-                    temp.Platoon4 = 0;
-                    m_gameManager.UserDBController().UpdateFormation(temp);
+                    temp.Member4 = 0;
+                    m_gameManager.UserDBController().UpdatePlatoon(temp);
                 }
             }
 
-            temp = new Common.DB.User.UserDataBase_Formation();
+            temp = new Common.DB.User.UserDataBase_Platoon();
             foreach (var item in tempList)
             {
                 if (item.Number == m_platoonNumber)
@@ -86,21 +86,21 @@ namespace Assets.Scene_Formation.Controller
                     switch (m_sequence)
                     {
                         case 1:
-                            temp.Platoon1 = ownershipCode;
+                            temp.Member1 = ownershipCode;
                             break;
                         case 2:
-                            temp.Platoon2 = ownershipCode;
+                            temp.Member2 = ownershipCode;
                             break;
                         case 3:
-                            temp.Platoon3 = ownershipCode;
+                            temp.Member3 = ownershipCode;
                             break;
                         case 4:
-                            temp.Platoon4 = ownershipCode;
+                            temp.Member4 = ownershipCode;
                             break;
                         default:
                             break;
                     }
-                    m_gameManager.UserDBController().UpdateFormation(temp);
+                    m_gameManager.UserDBController().UpdatePlatoon(temp);
                     m_platoonController.CloseDormitory();
                     break;
                 }

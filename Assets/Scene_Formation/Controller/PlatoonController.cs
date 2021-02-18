@@ -58,10 +58,10 @@ namespace Assets.Scene_Formation.Controller
                 {
                     if (item.Number == i+1)
                     {
-                        m_list_PlatoonWindow[i].BigAlbum_TDoll1().ApplyData(item.Platoon1);
-                        m_list_PlatoonWindow[i].BigAlbum_TDoll2().ApplyData(item.Platoon2);
-                        m_list_PlatoonWindow[i].BigAlbum_TDoll3().ApplyData(item.Platoon3);
-                        m_list_PlatoonWindow[i].BigAlbum_TDoll4().ApplyData(item.Platoon4);
+                        m_list_PlatoonWindow[i].BigAlbum_TDoll1().ApplyData(item.Member1);
+                        m_list_PlatoonWindow[i].BigAlbum_TDoll2().ApplyData(item.Member2);
+                        m_list_PlatoonWindow[i].BigAlbum_TDoll3().ApplyData(item.Member3);
+                        m_list_PlatoonWindow[i].BigAlbum_TDoll4().ApplyData(item.Member4);
                     }
                 }                
             }

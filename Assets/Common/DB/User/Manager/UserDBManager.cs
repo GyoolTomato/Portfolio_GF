@@ -17,7 +17,7 @@ namespace Assets.Common.DB.User.Manager
             Equipment,
             Resource,
             Produce,
-            Formation,
+            Platoon,
             Stage,
             End,
         }
@@ -107,7 +107,7 @@ namespace Assets.Common.DB.User.Manager
                 var tempData_Equipment = new UserDataBase_Equipment();
                 var tempData_Resource = new CommonDataBase_Resource();
                 var tempData_Produce = new UserDataBase_Produce();
-                var tempData_Formation = new UserDataBase_Formation();
+                var tempData_Platoon = new UserDataBase_Platoon();
                 var tempData_Stage = new UserDataBase_Stage();
 
                 var dbConnection = new SqliteConnection(ReadDBFilePath);
@@ -156,14 +156,14 @@ namespace Assets.Common.DB.User.Manager
                             tempData_Produce.DataCode = dataReader.GetInt32(4);
                             result.Add(tempData_Produce);
                             break;
-                        case E_Table.Formation:
-                            tempData_Formation = new UserDataBase_Formation();
-                            tempData_Formation.Number = dataReader.GetInt32(0);
-                            tempData_Formation.Platoon1 = dataReader.GetInt32(1);
-                            tempData_Formation.Platoon2 = dataReader.GetInt32(2);
-                            tempData_Formation.Platoon3 = dataReader.GetInt32(3);
-                            tempData_Formation.Platoon4 = dataReader.GetInt32(4);                                                  
-                            result.Add(tempData_Formation);
+                        case E_Table.Platoon:
+                            tempData_Platoon = new UserDataBase_Platoon();
+                            tempData_Platoon.Number = dataReader.GetInt32(0);
+                            tempData_Platoon.Member1 = dataReader.GetInt32(1);
+                            tempData_Platoon.Member2 = dataReader.GetInt32(2);
+                            tempData_Platoon.Member3 = dataReader.GetInt32(3);
+                            tempData_Platoon.Member4 = dataReader.GetInt32(4);                                                  
+                            result.Add(tempData_Platoon);
                             break;
                         case E_Table.Stage:
                             tempData_Stage = new UserDataBase_Stage();

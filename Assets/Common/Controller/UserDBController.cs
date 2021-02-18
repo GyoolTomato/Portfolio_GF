@@ -140,13 +140,13 @@ namespace Assets.Common.Controller
 
             return result;
         }
-        public List<UserDataBase_Formation> UserFormation()
+        public List<UserDataBase_Platoon> UserFormation()
         {
-            var result = new List<UserDataBase_Formation>();
+            var result = new List<UserDataBase_Platoon>();
 
-            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Formation, QuerySupport_User.SelectFormation))
+            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Platoon, QuerySupport_User.SelectPlatoon))
             {
-                result.Add(item as UserDataBase_Formation);
+                result.Add(item as UserDataBase_Platoon);
             }
 
             return result;
@@ -167,16 +167,16 @@ namespace Assets.Common.Controller
         {
             var result = 0;
 
-            var tempList = m_dBManager.ReadDataBase(UserDBManager.E_Table.Formation, QuerySupport_User.SelectFormation);
-            var temp = new UserDataBase_Formation();
+            var tempList = m_dBManager.ReadDataBase(UserDBManager.E_Table.Platoon, QuerySupport_User.SelectPlatoon);
+            var temp = new UserDataBase_Platoon();
 
             foreach (var item in tempList)
             {
-                temp = item as UserDataBase_Formation;
-                if (temp.Platoon1 == ownershipCode ||
-                    temp.Platoon2 == ownershipCode ||
-                    temp.Platoon3 == ownershipCode ||
-                    temp.Platoon4 == ownershipCode)
+                temp = item as UserDataBase_Platoon;
+                if (temp.Member1 == ownershipCode ||
+                    temp.Member2 == ownershipCode ||
+                    temp.Member3 == ownershipCode ||
+                    temp.Member4 == ownershipCode)
                 {
                     result = temp.Number;
                     break;
@@ -260,9 +260,9 @@ namespace Assets.Common.Controller
             m_dBManager.SQL(QuerySupport_User.UpdateItem(data));
         }
 
-        public void UpdateFormation(UserDataBase_Formation data)
+        public void UpdatePlatoon(UserDataBase_Platoon data)
         {
-            m_dBManager.SQL(QuerySupport_User.UpdateFormation(data));
+            m_dBManager.SQL(QuerySupport_User.UpdatePlatoon(data));
         }
 
         public bool IsMounted(UserDataBase_Equipment data)
