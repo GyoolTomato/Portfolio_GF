@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Resources.Object
 {
@@ -53,7 +54,7 @@ namespace Assets.Resources.Object
 
         private void Handle_Click()
         {
-            m_gameManager.StageSelectController().StageSelect(m_userDataBase_Stage);            
+            SceneManager.LoadScene("Stage" + m_userDataBase_Stage.StageNumber + "-" + m_userDataBase_Stage.InnerNumber);
         }
     }
 }

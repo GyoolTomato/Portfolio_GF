@@ -8,6 +8,7 @@ namespace Assets.Scene_StageField
     {
         private Assets.Common.GameManager m_gameManager;
         private TouchController m_touchController;
+        private CameraController m_cameraController;        
 
         private GameObject m_canvas;
         private Assets.Resources.Object.Title m_title;
@@ -22,12 +23,12 @@ namespace Assets.Scene_StageField
             m_gameManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Common.GameManager>();
             m_touchController = new TouchController();
             m_touchController.Initialize();
+            m_cameraController = new CameraController();
+            m_cameraController.Initialize();            
 
             m_canvas = GameObject.Find("Canvas");
             m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Resources.Object.Title>();
-            m_title.Initialize(m_gameManager, "스테이지");
-
-            
+            m_title.Initialize(m_gameManager, "스테이지");            
         }
 
         private void Start()
@@ -37,6 +38,7 @@ namespace Assets.Scene_StageField
         private void Update()
         {
             m_touchController.UpdateIsClick();
+            m_cameraController.Update();            
         }
 
         public TouchController GetTouchController()

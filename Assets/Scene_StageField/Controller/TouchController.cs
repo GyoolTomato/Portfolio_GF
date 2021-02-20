@@ -8,7 +8,6 @@ namespace Assets.Scene_StageField.Controller
         private bool m_isClick;
 
         private GameObject m_clickObject;
-        private Camera m_mainCamera;
         private Vector2 m_mouseTouchPos;
 
         public TouchController()
@@ -17,7 +16,6 @@ namespace Assets.Scene_StageField.Controller
 
         public void Initialize()
         {
-            m_mainCamera = GameObject.Find("Main Camera").GetComponent<Camera>();
         }
 
         public void UpdateIsClick()
@@ -39,7 +37,10 @@ namespace Assets.Scene_StageField.Controller
 
             var hit = Physics2D.RaycastAll(m_mouseTouchPos, Vector2.zero, 0.0f);
 
-            m_clickObject = hit[hit.Length - 1].collider.gameObject;
+            if (hit.Length > 0)
+            {
+                m_clickObject = hit[hit.Length - 1].collider.gameObject;
+            }            
         }
 
         public bool IsClick()

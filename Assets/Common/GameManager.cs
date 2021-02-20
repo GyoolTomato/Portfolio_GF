@@ -16,7 +16,6 @@ namespace Assets.Common
         private ResourceContorller m_resourceContorller;
         private IndexDBController m_indexDBController;
         private UserDBController m_userDBController;
-        private StageSelectController m_stageSelectController;
 
         private void Awake()
         {
@@ -42,8 +41,6 @@ namespace Assets.Common
             m_indexDBController.Initialize(m_indexDBManager);
             m_userDBController = new UserDBController();
             m_userDBController.Initialize(m_userDBManager);
-            m_stageSelectController = new StageSelectController();
-            m_stageSelectController.Initialize();
         }
 
         // Start is called before the first frame update
@@ -71,11 +68,6 @@ namespace Assets.Common
         public UserDBController UserDBController()
         {
             return m_userDBController;
-        }
-
-        public StageSelectController StageSelectController()
-        {
-            return m_stageSelectController;
         }
     }
 }
