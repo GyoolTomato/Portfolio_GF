@@ -11,6 +11,7 @@ namespace Assets.Scene_StageField
         private CameraController m_cameraController;
         private PointController m_pointController;
         private PlatoonController m_platoonController;
+        private CharacterController m_characterController;
 
         private GameObject m_canvas;
         private Assets.Resources.Object.Title m_title;
@@ -31,6 +32,8 @@ namespace Assets.Scene_StageField
             m_pointController.Initialize(this);
             m_platoonController = new PlatoonController();
             m_platoonController.Initialize(this);
+            m_characterController = new CharacterController();
+            
 
             m_canvas = GameObject.Find("Canvas");
             m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Resources.Object.Title>();
@@ -45,8 +48,6 @@ namespace Assets.Scene_StageField
         {
             m_touchController.UpdateIsClick();
             m_cameraController.Update();
-
-            Debug.Log("SelectedCharacter : " + m_platoonController.SelectedCharacter);
         }
 
         public TouchController GetTouchController()
@@ -62,6 +63,11 @@ namespace Assets.Scene_StageField
         public PlatoonController GetPlatoonController()
         {
             return m_platoonController;
+        }
+
+        public CharacterController GetCharacterController()
+        {
+            return m_characterController;
         }
     }
 }

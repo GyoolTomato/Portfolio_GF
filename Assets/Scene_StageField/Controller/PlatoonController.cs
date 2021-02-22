@@ -2,13 +2,13 @@
 using UnityEngine;
 using Assets.Resources.StageField;
 
-namespace Assets.Scene_StageField
+namespace Assets.Scene_StageField.Controller
 {
     public class PlatoonController
     {
         private PointController m_pointController;
 
-        private Character m_selectedCharacter;
+        private Player m_selectedPlayer;
 
         public PlatoonController()
         {
@@ -20,15 +20,15 @@ namespace Assets.Scene_StageField
             m_pointController = manager.GetPointController();
         }
 
-        public Character SelectedCharacter
+        public Player SelectedPlayer
         {
             get
             {
-                return m_selectedCharacter;
+                return m_selectedPlayer;
             }
             set
             {
-                m_selectedCharacter = value;
+                m_selectedPlayer = value;
             }
         }
 

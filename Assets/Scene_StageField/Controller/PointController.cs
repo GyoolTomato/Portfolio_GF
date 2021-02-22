@@ -1,7 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scene_StageField
+namespace Assets.Scene_StageField.Controller
 {
     public class PointController
     {
@@ -16,7 +17,7 @@ namespace Assets.Scene_StageField
             m_platoonController = manager.GetPlatoonController();
         }
 
-        public void MoveCharacter()
+        public void MoveCharacter(List<GameObject> linkedPoints)
         {
             
         }
