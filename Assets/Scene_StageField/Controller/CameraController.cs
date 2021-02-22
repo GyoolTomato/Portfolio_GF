@@ -6,7 +6,7 @@ namespace Assets.Scene_StageField.Controller
     public class CameraController
     {
         private StageFieldManager m_stageFieldManager;
-        private Controller.TouchController m_touchController;
+        private TouchController m_touchController;
 
         private GameObject m_map;
         private GameObject m_field;
@@ -27,7 +27,6 @@ namespace Assets.Scene_StageField.Controller
 
         public void Update()
         {
-            Debug.Log("ClickObject : " + m_touchController.GetClickObject());
             if (m_touchController.IsClick() && m_touchController.GetClickObject() == m_field)
             {
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -35,7 +34,6 @@ namespace Assets.Scene_StageField.Controller
                 var move = mousePos - m_beforeMousePosition;
                 var temp = new Vector3(move.x, move.y, 0);
 
-                Debug.Log(m_beforeMousePosition);
                 if (m_beforeMousePosition != Vector2.zero)
                 {
                     Move(temp);

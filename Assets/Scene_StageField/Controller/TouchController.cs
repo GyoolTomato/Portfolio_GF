@@ -29,17 +29,19 @@ namespace Assets.Scene_StageField.Controller
             {
                 m_isClick = false;
             }
+
+            Debug.Log("ClickObject : " + m_clickObject);
         }
 
         private void SetClickObject()
         {
             m_mouseTouchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            var hit = Physics2D.RaycastAll(m_mouseTouchPos, Vector2.zero, 0.0f);
+            var hit = Physics2D.Raycast(m_mouseTouchPos, Vector2.zero, 0.0f);
 
-            if (hit.Length > 0)
+            //if (hit.Length > 0)
             {
-                m_clickObject = hit[hit.Length - 1].collider.gameObject;
+                m_clickObject = hit.collider.gameObject;
             }            
         }
 
