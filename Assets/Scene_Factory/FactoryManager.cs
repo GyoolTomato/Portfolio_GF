@@ -28,7 +28,7 @@ namespace Assets.Scene_Factory
             m_canvas = GameObject.Find("Canvas");
 
             m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Resources.Object.Title>();
-            m_title.Initialize(m_gameManager, "공장");
+            m_title.Initialize(m_gameManager, "공장", BackAction);
             m_menuController = new MenuController();
             m_menuController.Initialize(m_canvas);
             m_ticketResourceController = new TicketResourceController();
@@ -59,6 +59,11 @@ namespace Assets.Scene_Factory
             {
                 return m_produceEquipmentController;
             }
+        }
+
+        private void BackAction()
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Lobby");
         }
     }
 }

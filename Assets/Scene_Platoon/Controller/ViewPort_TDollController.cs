@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEditor;
 using Assets.Resources.Object;
 
-namespace Assets.Scene_Formation.Controller
+namespace Assets.Scene_Platoon.Controller
 {
     public class ViewPort_TDollController : Base.SelectPlatoonBase
     {

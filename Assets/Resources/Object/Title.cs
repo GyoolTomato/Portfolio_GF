@@ -7,7 +7,11 @@ namespace Assets.Resources.Object
 {
     public class Title : MonoBehaviour
     {
+        public delegate void BackAction();
+
         private Assets.Common.GameManager m_gameManager;
+        private BackAction m_backAction;
+
         private Button m_buttonBack;
         private Text m_name;
         private GameObject m_workResourceInformation;
@@ -30,7 +34,7 @@ namespace Assets.Resources.Object
             m_militarySupplies = null;
         }
 
-        public void Initialize(Assets.Common.GameManager gameManager, string name)
+        public void Initialize(Assets.Common.GameManager gameManager, string name, BackAction backAction)
         {
             m_gameManager = gameManager;
 
@@ -40,6 +44,7 @@ namespace Assets.Resources.Object
             m_buttonBack.onClick.AddListener(Handle_Back);
             m_name = title.Find("Name").GetComponent<Text>();
             m_name.text = name;
+            m_backAction = backAction;
             m_workResourceInformation = title.Find("WorkResourceInformation").gameObject;
             m_manPower = m_workResourceInformation.transform.Find("ManPower").GetComponent<WorkResourceMonitor>();
             m_bullet = m_workResourceInformation.transform.Find("Bullet").GetComponent<WorkResourceMonitor>();
@@ -66,7 +71,7 @@ namespace Assets.Resources.Object
 
         private void Handle_Back()
         {
-            SceneManager.LoadScene("Lobby");
+            m_backAction();            
         }
     }
 }

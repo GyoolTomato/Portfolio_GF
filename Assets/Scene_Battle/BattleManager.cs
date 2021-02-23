@@ -30,7 +30,7 @@ namespace Assets.Scene_Battle
             m_canvas = GameObject.Find("Canvas");
 
             m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Resources.Object.Title>();
-            m_title.Initialize(m_gameManager, "전투");
+            m_title.Initialize(m_gameManager, "전투", BackAction);
 
 
             m_viewPort_TDollController.Load();
@@ -39,6 +39,11 @@ namespace Assets.Scene_Battle
         private void Update()
         {
 
+        }
+
+        private void BackAction()
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Lobby");
         }
     }
 }

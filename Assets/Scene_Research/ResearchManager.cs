@@ -24,7 +24,7 @@ public class ResearchManager : MonoBehaviour
         m_canvas = GameObject.Find("Canvas");
 
         m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Resources.Object.Title>();
-        m_title.Initialize(m_gameManager, "연구");
+        m_title.Initialize(m_gameManager, "연구", BackAction);
         //m_menuController = new Controller.MenuController();
         //m_menuController.Initialize(m_gameManager, m_canvas);
     }
@@ -32,5 +32,10 @@ public class ResearchManager : MonoBehaviour
     private void Update()
     {
 
+    }
+
+    private void BackAction()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Lobby");
     }
 }

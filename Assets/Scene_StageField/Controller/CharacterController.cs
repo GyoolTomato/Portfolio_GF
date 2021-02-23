@@ -2,21 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Resources.StageField;
+using Assets.Scene_StageField;
 
-public class CharacterController : MonoBehaviour
+public class CharacterController
 {
     private Player m_selectedPlayerPlatoon;
+    private StageFieldManager m_scene_StageField;
 
-    // Use this for initialization
-    void Start()
+    public void Initialize(StageFieldManager stageFieldManager)
     {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        m_scene_StageField = stageFieldManager;
     }
 
     public void SetSelectedPlayerPlatoon(Player player)
@@ -24,6 +19,8 @@ public class CharacterController : MonoBehaviour
         m_selectedPlayerPlatoon = player;
         Debug.Log("SetSelectedPlayerPlatoon : " + m_selectedPlayerPlatoon);
     }
+
+    
 
     public void Move(OccupationPoint pointToMove)
     {
@@ -37,6 +34,23 @@ public class CharacterController : MonoBehaviour
                     return;
                 }
             }
+        }
+    }
+
+    public void ClickOccupationPoint(OccupationPoint point)
+    {
+        switch (point.GetPointType())
+        {
+            case OccupationPoint.E_PointType.MainPoint:
+                m_scene_StageField.SetSpawnPlatoonActive(true);
+                break;
+            case OccupationPoint.E_PointType.HeliPortPoint:
+                m_scene_StageField.SetSpawnPlatoonActive(true);
+                break;
+            case OccupationPoint.E_PointType.NormalPoint:
+                break;
+            default:
+                break;
         }
     }
 }

@@ -8,6 +8,14 @@ namespace Assets.Resources.StageField
 {
     public class OccupationPoint : MonoBehaviour
     {
+        public enum E_PointType
+        {
+            MainPoint,
+            HeliPortPoint,
+            NormalPoint,
+            End,
+        }
+
         public enum E_Owner
         {
             Player,
@@ -16,10 +24,10 @@ namespace Assets.Resources.StageField
             End,
         }
 
+        public E_PointType m_pointType;
         public E_Owner m_owner;
         private StageFieldManager m_stageFieldManager;
         private TouchController m_touchController;
-        private PointController m_pointController;
         private CharacterController m_characterController;
 
         public List<GameObject> m_linkedPoints;
@@ -37,7 +45,6 @@ namespace Assets.Resources.StageField
         {
             m_stageFieldManager = GameObject.Find("Manager").GetComponent<StageFieldManager>();
             m_touchController = m_stageFieldManager.GetTouchController();
-            m_pointController = m_stageFieldManager.GetPointController();
             m_characterController = m_stageFieldManager.GetCharacterController();
 
             var temp = new GameObject();
@@ -60,11 +67,15 @@ namespace Assets.Resources.StageField
         // Update is called once per frame
         void Update()
         {
-            if (m_touchController.GetClickObject() == gameObject)
-            {
-                CallPlatoon();
-                m_characterController.Move(this);
+            if (m_touchController.IsClick() && m_touchController.GetClickObject() == gameObject)
+            {                
+                m_characterController.ClickOccupationPoint(this);
             }
+        }
+
+        public E_PointType GetPointType()
+        {
+            return m_pointType;
         }
 
         public E_Owner Owner
@@ -100,17 +111,6 @@ namespace Assets.Resources.StageField
                     break;
                 default:
                     break;
-            }
-        }
-
-        private void CallPlatoon()
-        {
-            if (GameObject.Find("Player(Clone)") == null)
-            {
-                var player = Instantiate(m_playerPlatoon, transform.position, Quaternion.identity);
-                player.transform.parent = GameObject.Find("Map").transform;
-                var playerScript = player.GetComponent<Player>();
-                playerScript.SetValue(null, this);
             }
         }
     }

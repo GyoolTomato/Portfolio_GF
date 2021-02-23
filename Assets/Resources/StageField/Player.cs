@@ -10,7 +10,6 @@ namespace Assets.Resources.StageField
     {
         private StageFieldManager m_stageFieldManager;
         private TouchController m_touchController;
-        private PlatoonController m_platoonController;
         private CharacterController m_characterController;
         private UserDataBase_Platoon m_platoonData;
         private OccupationPoint m_stayPoint;
@@ -24,7 +23,6 @@ namespace Assets.Resources.StageField
         {
             m_stageFieldManager = GameObject.Find("Manager").GetComponent<StageFieldManager>();
             m_touchController = m_stageFieldManager.GetTouchController();
-            m_platoonController = m_stageFieldManager.GetPlatoonController();
             m_characterController = m_stageFieldManager.GetCharacterController();
         }
 
@@ -57,7 +55,7 @@ namespace Assets.Resources.StageField
         {
             return m_platoonData;
         }
-
+        
         public OccupationPoint GetStayPoint()
         {
             return m_stayPoint;                      

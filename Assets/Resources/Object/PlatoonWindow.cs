@@ -11,13 +11,18 @@ namespace Assets.Resources.Object
         private BigAlbum_TDoll m_bigAlbum_TDoll3;
         private BigAlbum_TDoll m_bigAlbum_TDoll4;
 
-        // Start is called before the first frame update
-        void Start()
+        private void Awake()
         {
             m_bigAlbum_TDoll1 = transform.Find("BigAlbum_TDoll1").GetComponent<BigAlbum_TDoll>();
             m_bigAlbum_TDoll2 = transform.Find("BigAlbum_TDoll2").GetComponent<BigAlbum_TDoll>();
             m_bigAlbum_TDoll3 = transform.Find("BigAlbum_TDoll3").GetComponent<BigAlbum_TDoll>();
             m_bigAlbum_TDoll4 = transform.Find("BigAlbum_TDoll4").GetComponent<BigAlbum_TDoll>();
+        }
+
+        // Start is called before the first frame update
+        void Start()
+        {
+            
         }
 
         // Update is called once per frame

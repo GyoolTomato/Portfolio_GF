@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Common;
 
-namespace Assets.Scene_Formation.Base
+namespace Assets.Scene_Platoon.Base
 {
     public class SelectPlatoonBase
     {

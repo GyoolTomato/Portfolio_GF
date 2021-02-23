@@ -222,10 +222,10 @@ namespace Assets.Common.DB.User.Manager
             var result = string.Empty;
 
             result = "Update Platoon SET "
-                + "Platoon1 = " + data.Member1
-                + ", Platoon2 = " + data.Member2
-                + ", Platoon3 = " + data.Member3
-                + ", Platoon4 = " + data.Member4
+                + "Member1 = " + data.Member1
+                + ", Member2 = " + data.Member2
+                + ", Member3 = " + data.Member3
+                + ", Member4 = " + data.Member4
                 + " WHERE Number = " + data.Number;
 
             return result;

@@ -27,7 +27,7 @@ namespace Assets.Scene_SelectStage
             m_canvas = GameObject.Find("Canvas");
 
             m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Resources.Object.Title>();
-            m_title.Initialize(m_gameManager, "스테이지 선택");
+            m_title.Initialize(m_gameManager, "스테이지 선택", BackAction);
 
             m_viewPortController = new Controller.ViewPortController();
             m_viewPortController.Initialize();
@@ -37,6 +37,11 @@ namespace Assets.Scene_SelectStage
         private void Update()
         {
 
+        }
+
+        private void BackAction()
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Lobby");
         }
     }
 }

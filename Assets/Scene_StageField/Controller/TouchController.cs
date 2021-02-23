@@ -5,6 +5,7 @@ namespace Assets.Scene_StageField.Controller
 {
     public class TouchController
     {
+        private StageFieldManager m_stageFieldManager;
         private bool m_isClick;
 
         private GameObject m_clickObject;
@@ -14,23 +15,27 @@ namespace Assets.Scene_StageField.Controller
         {
         }
 
-        public void Initialize()
+        public void Initialize(StageFieldManager stageFieldManager)
         {
+            m_stageFieldManager = stageFieldManager;
         }
 
         public void UpdateIsClick()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (!m_stageFieldManager.GetSpawnPlatoonActive())
             {
-                m_isClick = true;                
-                SetClickObject();
-            }
-            else if (Input.GetMouseButtonUp(0))
-            {
-                m_isClick = false;
-            }
+                if (Input.GetMouseButtonDown(0))
+                {
+                    m_isClick = true;
+                    SetClickObject();
+                }
+                else if (Input.GetMouseButtonUp(0))
+                {
+                    m_isClick = false;
+                }
 
-            Debug.Log("ClickObject : " + m_clickObject);
+                Debug.Log("ClickObject : " + m_clickObject);
+            }
         }
 
         private void SetClickObject()
@@ -39,10 +44,7 @@ namespace Assets.Scene_StageField.Controller
 
             var hit = Physics2D.Raycast(m_mouseTouchPos, Vector2.zero, 0.0f);
 
-            //if (hit.Length > 0)
-            {
-                m_clickObject = hit.collider.gameObject;
-            }            
+            m_clickObject = hit.collider.gameObject;
         }
 
         public bool IsClick()

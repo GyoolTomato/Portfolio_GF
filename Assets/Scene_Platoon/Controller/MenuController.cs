@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scene_Formation.Controller
+namespace Assets.Scene_Platoon.Controller
 {
     public class MenuController : Assets.Common.Base.MenuBase
     {

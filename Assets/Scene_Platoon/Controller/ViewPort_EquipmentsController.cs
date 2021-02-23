@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Resources.Object;
 
-namespace Assets.Scene_Formation.Controller
+namespace Assets.Scene_Platoon.Controller
 {
     public class ViewPort_EquipmentsController : Base.SelectPlatoonBase
     {

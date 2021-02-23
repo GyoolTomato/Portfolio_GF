@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Resources.Object;
 
-namespace Assets.Scene_Formation.Controller
+namespace Assets.Scene_Platoon.Controller
 {
     public class PlatoonController
     {
@@ -20,7 +20,7 @@ namespace Assets.Scene_Formation.Controller
         {
         }
 
-        public void Initailize(GameObject canvas)
+        public void Initialize(GameObject canvas)
         {
             m_gameManager = GameObject.Find("GameManager").GetComponent<Assets.Common.GameManager>();
             m_viewPort_TDollController = new ViewPort_TDollController();

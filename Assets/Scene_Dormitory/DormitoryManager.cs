@@ -30,7 +30,7 @@ namespace Assets.Scene_Dormitory
             m_canvas = GameObject.Find("Canvas");
 
             m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Resources.Object.Title>();
-            m_title.Initialize(m_gameManager, "숙소");
+            m_title.Initialize(m_gameManager, "숙소", BackAction);
             m_menuController = new Controller.MenuController();
             m_menuController.Initialize(m_canvas);
             m_viewPort_TDollController = new ViewPort_TDollController();
@@ -45,6 +45,11 @@ namespace Assets.Scene_Dormitory
         private void Update()
         {
 
+        }
+
+        private void BackAction()
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Lobby");
         }
     }
 }
