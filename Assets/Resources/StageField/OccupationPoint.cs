@@ -28,16 +28,15 @@ namespace Assets.Resources.StageField
         public E_Owner m_owner;
         private StageFieldManager m_stageFieldManager;
         private TouchController m_touchController;
-        private CharacterController m_characterController;
+        private PointController m_pointController;
 
         public List<GameObject> m_linkedPoints;
         private GameObject m_lineDrawer;
-        private GameObject m_playerPlatoon;
+        private Player m_onPlayer;
 
         private void Awake()
         {
             m_lineDrawer = UnityEngine.Resources.Load<GameObject>("StageField/LineDrawer");
-            m_playerPlatoon = UnityEngine.Resources.Load<GameObject>("StageField/Player");
         }
 
         // Start is called before the first frame update
@@ -45,7 +44,7 @@ namespace Assets.Resources.StageField
         {
             m_stageFieldManager = GameObject.Find("Manager").GetComponent<StageFieldManager>();
             m_touchController = m_stageFieldManager.GetTouchController();
-            m_characterController = m_stageFieldManager.GetCharacterController();
+            m_pointController = m_stageFieldManager.GetPointController();
 
             var temp = new GameObject();
             var tempScript = new LineDrawer();
@@ -68,8 +67,8 @@ namespace Assets.Resources.StageField
         void Update()
         {
             if (m_touchController.IsClick() && m_touchController.GetClickObject() == gameObject)
-            {                
-                m_characterController.ClickOccupationPoint(this);
+            {
+                m_pointController.ClickOccupationPoint(this);
             }
         }
 
@@ -111,6 +110,18 @@ namespace Assets.Resources.StageField
                     break;
                 default:
                     break;
+            }
+        }
+
+        public Player OnPlayer
+        {
+            get
+            {
+                return m_onPlayer;
+            }
+            set
+            {
+                m_onPlayer = value;
             }
         }
     }

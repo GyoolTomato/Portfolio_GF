@@ -10,6 +10,7 @@ namespace Assets.Scene_StageField
         private TouchController m_touchController;
         private CameraController m_cameraController;
         private CharacterController m_characterController;
+        private PointController m_pointController;
         private SpawnPlatoonController m_spawnPlatoonController;        
 
         private GameObject m_canvas;
@@ -32,6 +33,8 @@ namespace Assets.Scene_StageField
             m_cameraController.Initialize();
             m_characterController = new CharacterController();
             m_characterController.Initialize(this);
+            m_pointController = new PointController();
+            m_pointController.Initialize(this);
             m_spawnPlatoonController = new SpawnPlatoonController();          
 
             m_canvas = GameObject.Find("Canvas");
@@ -45,7 +48,7 @@ namespace Assets.Scene_StageField
         private void Start()
         {
             SetSpawnPlatoonActive(false);
-            m_spawnPlatoonController.Initialize();
+            m_spawnPlatoonController.Initialize(this);
         }
 
         private void Update()
@@ -62,6 +65,11 @@ namespace Assets.Scene_StageField
         public CharacterController GetCharacterController()
         {
             return m_characterController;
+        }
+
+        public PointController GetPointController()
+        {
+            return m_pointController;
         }
 
         private void BackAction()

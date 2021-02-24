@@ -8,49 +8,38 @@ public class CharacterController
 {
     private Player m_selectedPlayerPlatoon;
     private StageFieldManager m_scene_StageField;
+    private OccupationPoint m_selectPoint;
 
     public void Initialize(StageFieldManager stageFieldManager)
     {
         m_scene_StageField = stageFieldManager;
     }
 
-    public void SetSelectedPlayerPlatoon(Player player)
+    public Player SelectedPlayerPlatoon
     {
-        m_selectedPlayerPlatoon = player;
-        Debug.Log("SetSelectedPlayerPlatoon : " + m_selectedPlayerPlatoon);
-    }
-
-    
-
-    public void Move(OccupationPoint pointToMove)
-    {
-        if (m_selectedPlayerPlatoon != null)
+        get
         {
-            foreach (var item in m_selectedPlayerPlatoon.GetStayPoint().LinkedPoints())
-            {
-                if (item == pointToMove.gameObject)
-                {
-                    m_selectedPlayerPlatoon.SetStayPoint(pointToMove);
-                    return;
-                }
-            }
+            return m_selectedPlayerPlatoon;        
+        }
+        set
+        {
+            m_selectedPlayerPlatoon = value;
+            Debug.Log("SetSelectedPlayerPlatoon : " + m_selectedPlayerPlatoon);
         }
     }
 
-    public void ClickOccupationPoint(OccupationPoint point)
-    {
-        switch (point.GetPointType())
-        {
-            case OccupationPoint.E_PointType.MainPoint:
-                m_scene_StageField.SetSpawnPlatoonActive(true);
-                break;
-            case OccupationPoint.E_PointType.HeliPortPoint:
-                m_scene_StageField.SetSpawnPlatoonActive(true);
-                break;
-            case OccupationPoint.E_PointType.NormalPoint:
-                break;
-            default:
-                break;
-        }
-    }
+    //public void Move(OccupationPoint pointToMove)
+    //{
+    //    if (m_selectedPlayerPlatoon != null)
+    //    {
+    //        foreach (var item in pointToMove.LinkedPoints())
+    //        {
+    //            if (item == pointToMove.gameObject)
+    //            {
+    //                pointToMove.OnPlayer = m_selectedPlayerPlatoon;
+    //                return;
+    //            }
+    //        }
+    //    }
+    //}
 }

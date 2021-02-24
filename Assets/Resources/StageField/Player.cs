@@ -11,9 +11,7 @@ namespace Assets.Resources.StageField
         private StageFieldManager m_stageFieldManager;
         private TouchController m_touchController;
         private CharacterController m_characterController;
-        private UserDataBase_Platoon m_platoonData;
-        private OccupationPoint m_stayPoint;
-
+        private int m_platoonNumber;
         private bool m_isMoving;
         private float m_moveDistance;
         private Vector3 m_moveDirection;
@@ -29,21 +27,15 @@ namespace Assets.Resources.StageField
         // Update is called once per frame
         void Update()
         {
-            if (m_touchController.GetClickObject() == gameObject)
+            if (m_touchController.IsClick() && m_touchController.GetClickObject() == gameObject)
             {
-                m_characterController.SetSelectedPlayerPlatoon(this);
-            }
-
-            if (m_isMoving)
-            {
-                MovePoint();
-            }            
+                m_characterController.SelectedPlayerPlatoon = this;
+            }     
         }
 
-        public void SetValue(UserDataBase_Platoon data, OccupationPoint createPoint)
+        public void SetValue(int platoonNumber)
         {
-            m_platoonData = data;
-            m_stayPoint = createPoint;
+            m_platoonNumber = platoonNumber;
         }
 
         public GameObject Object()
@@ -51,41 +43,27 @@ namespace Assets.Resources.StageField
             return gameObject;
         }
 
-        public UserDataBase_Platoon PlatoonData()
+        public int PlatoonNumber()
         {
-            return m_platoonData;
+            return m_platoonNumber;
         }
         
-        public OccupationPoint GetStayPoint()
-        {
-            return m_stayPoint;                      
-        }
 
         public bool IsMoving()
         {
             return m_isMoving;
         }
 
-        public void SetStayPoint(OccupationPoint newPoint)
-        {
-            m_moveDirection = newPoint.gameObject.transform.position - m_stayPoint.gameObject.transform.position;
-            m_moveDirection.Normalize();
-            m_moveDistance = Vector3.Distance(newPoint.gameObject.transform.position, m_stayPoint.gameObject.transform.position);
+        //private void MovePoint()
+        //{           
+        //    gameObject.transform.Translate(m_moveDirection * Time.deltaTime);
 
-            m_stayPoint = newPoint;
-            m_isMoving = true;
-        }
+        //    if (m_moveDistance <= 0)
+        //    {
+        //        gameObject.transform.position = m_stayPoint.transform.position;
+        //        m_isMoving = false;
+        //    }
 
-        private void MovePoint()
-        {           
-            gameObject.transform.Translate(m_moveDirection * Time.deltaTime);
-
-            if (m_moveDistance <= 0)
-            {
-                gameObject.transform.position = m_stayPoint.transform.position;
-                m_isMoving = false;
-            }
-
-        }
+        //}
     }
 }
