@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Resources.StageField;
@@ -9,8 +10,11 @@ namespace Assets.Scene_StageField.Controller
     public class PointController
     {
         private StageFieldManager m_stageFieldManager;
-        private OccupationPoint m_selectBeforePoint;
         private OccupationPoint m_selectPoint;
+
+        private GameObject m_spawnAnswer;
+        private Button m_spawnAnswer_Spawn;
+        private Button m_spawnAnswer_Move;
 
         public PointController()
         {
@@ -19,37 +23,79 @@ namespace Assets.Scene_StageField.Controller
         public void Initialize(StageFieldManager manager)
         {
             m_stageFieldManager = manager;
+
+            var canvas = GameObject.Find("Canvas");
+            m_spawnAnswer = canvas.transform.Find("SpawnAnswer").gameObject;
+            m_spawnAnswer.SetActive(false);
+            m_spawnAnswer_Spawn = m_spawnAnswer.transform.Find("Spawn").GetComponent<Button>();
+            m_spawnAnswer_Spawn.onClick.AddListener(Handle_Spawn);
+            m_spawnAnswer_Move = m_spawnAnswer.transform.Find("Move").GetComponent<Button>();
+            m_spawnAnswer_Move.onClick.AddListener(Handle_Move);
+        }
+
+        public void Update()
+        {
+
         }
 
         public void ClickOccupationPoint(OccupationPoint point)
         {
-            m_selectBeforePoint = m_selectPoint;
             m_selectPoint = point;
-            switch (point.GetPointType())
+            var selectedPlayerPlatoon = m_stageFieldManager.GetCharacterController().SelectedPlayerPlatoon;
+
+            if (m_stageFieldManager.GetBattleFieldController().IsStart())
             {
-                case OccupationPoint.E_PointType.MainPoint:
-                    if (point.Owner == OccupationPoint.E_Owner.Player && point.OnPlayer == null)
-                    {
-                        m_stageFieldManager.SetSpawnPlatoonActive(true);
-                        return;
-                    }
+                if (selectedPlayerPlatoon == OnPlayer(point))
+                    return;
 
-                    Move(point);
-                    break;
-                case OccupationPoint.E_PointType.HeliPortPoint:
-                    if (point.Owner == OccupationPoint.E_Owner.Player && point.OnPlayer == null)
-                    {
-                        m_stageFieldManager.SetSpawnPlatoonActive(true);
-                        return;
-                    }
-
-                    Move(point);
-                    break;
-                case OccupationPoint.E_PointType.NormalPoint:
-                    Move(point);
-                    break;
-                default:
-                    break;
+                switch (m_stageFieldManager.GetBattleFieldController().GetNowTurn())
+                {
+                    case BattleFieldController.E_Turn.Player:
+                        switch (m_selectPoint.GetPointType())
+                        {
+                            case OccupationPoint.E_PointType.MainPoint:
+                                if (selectedPlayerPlatoon == null)
+                                {
+                                    if (m_selectPoint.Owner == OccupationPoint.E_Owner.Player)
+                                        m_stageFieldManager.SetSpawnPlatoonActive(true);
+                                }
+                                else
+                                    m_spawnAnswer.SetActive(true);
+                                break;
+                            case OccupationPoint.E_PointType.HeliPortPoint:
+                                if (selectedPlayerPlatoon == null)
+                                {
+                                    if (m_selectPoint.Owner == OccupationPoint.E_Owner.Player)
+                                        m_stageFieldManager.SetSpawnPlatoonActive(true);
+                                }
+                                else
+                                    m_spawnAnswer.SetActive(true);
+                                break;
+                            case OccupationPoint.E_PointType.NormalPoint:
+                                MovePlayer(selectedPlayerPlatoon, m_selectPoint);
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    default:
+                        break;
+                }
+            }
+            else
+            {
+                switch (m_selectPoint.GetPointType())
+                {
+                    case OccupationPoint.E_PointType.MainPoint:
+                        if (m_selectPoint.Owner == OccupationPoint.E_Owner.Player)
+                        {
+                            m_stageFieldManager.SetSpawnPlatoonActive(true);
+                            return;
+                        }
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
@@ -58,15 +104,37 @@ namespace Assets.Scene_StageField.Controller
             return m_selectPoint;
         }
 
-        public void Move(OccupationPoint pointToMove)
+        public void MovePlayer(Player player, OccupationPoint pointToMove)
         {
-            if (m_stageFieldManager.GetCharacterController().SelectedPlayerPlatoon != null)
+            if (player != null)
             {
-                if (IsLinked(m_selectBeforePoint, pointToMove))
+                if (IsLinked(player.GetStayPoint(), pointToMove))
                 {
-                    pointToMove.OnPlayer = m_stageFieldManager.GetCharacterController().SelectedPlayerPlatoon;
+                    player.MovePoint(pointToMove);
                 }
             }
+        }
+
+        public Player OnPlayer(OccupationPoint point)
+        {
+            var result = new Player();
+
+            var temp = GameObject.FindGameObjectsWithTag("Player");
+
+            foreach (var item in temp)
+            {
+                var playerScript = item.GetComponent<Player>();
+
+                if (playerScript != null)
+                {
+                    if (playerScript.GetStayPoint() == point)
+                    {
+                        return playerScript;
+                    }
+                }
+            }
+
+            return result;
         }
 
         private bool IsLinked(OccupationPoint point0, OccupationPoint point1)
@@ -75,13 +143,28 @@ namespace Assets.Scene_StageField.Controller
 
             foreach (var item in point0.LinkedPoints())
             {
-                if (item == point1)
+                if (item == point1.gameObject)
                 {
                     result = true;
                 }
             }
 
             return result;
+        }
+
+        private void Handle_Spawn()
+        {
+            if (m_selectPoint.Owner == OccupationPoint.E_Owner.Player)            
+                m_stageFieldManager.SetSpawnPlatoonActive(true);                
+            
+            m_spawnAnswer.SetActive(false);
+        }
+
+        private void Handle_Move()
+        {
+            var selectedPlayerPlatoon = m_stageFieldManager.GetCharacterController().SelectedPlayerPlatoon;
+            MovePlayer(selectedPlayerPlatoon, m_selectPoint);
+            m_spawnAnswer.SetActive(false);
         }
     }
 }

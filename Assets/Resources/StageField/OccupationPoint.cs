@@ -32,7 +32,6 @@ namespace Assets.Resources.StageField
 
         public List<GameObject> m_linkedPoints;
         private GameObject m_lineDrawer;
-        private Player m_onPlayer;
 
         private void Awake()
         {
@@ -110,18 +109,6 @@ namespace Assets.Resources.StageField
                     break;
                 default:
                     break;
-            }
-        }
-
-        public Player OnPlayer
-        {
-            get
-            {
-                return m_onPlayer;
-            }
-            set
-            {
-                m_onPlayer = value;
             }
         }
     }

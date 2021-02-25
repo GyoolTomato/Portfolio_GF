@@ -28,6 +28,13 @@ public class CharacterController
         }
     }
 
+    public int NumberOfPlayer()
+    {
+        var temp = GameObject.FindGameObjectsWithTag("Player");
+
+        return temp.Length;
+    }
+
     //public void Move(OccupationPoint pointToMove)
     //{
     //    if (m_selectedPlayerPlatoon != null)

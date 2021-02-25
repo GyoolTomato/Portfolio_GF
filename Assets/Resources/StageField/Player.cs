@@ -15,6 +15,7 @@ namespace Assets.Resources.StageField
         private bool m_isMoving;
         private float m_moveDistance;
         private Vector3 m_moveDirection;
+        private OccupationPoint m_stayPoint;
 
         // Use this for initialization
         void Start()
@@ -30,40 +31,52 @@ namespace Assets.Resources.StageField
             if (m_touchController.IsClick() && m_touchController.GetClickObject() == gameObject)
             {
                 m_characterController.SelectedPlayerPlatoon = this;
-            }     
+            }
+
+            if (m_isMoving)
+            {
+                Move();
+            }
         }
 
-        public void SetValue(int platoonNumber)
+        public void Initialize(int platoonNumber, OccupationPoint spawnPoint)
         {
             m_platoonNumber = platoonNumber;
+            m_stayPoint = spawnPoint;
         }
 
-        public GameObject Object()
-        {
-            return gameObject;
-        }
-
-        public int PlatoonNumber()
+        public int GetPlatoonNumber()
         {
             return m_platoonNumber;
         }
-        
 
-        public bool IsMoving()
+        public OccupationPoint GetStayPoint()
         {
-            return m_isMoving;
+            return m_stayPoint;
         }
 
-        //private void MovePoint()
-        //{           
-        //    gameObject.transform.Translate(m_moveDirection * Time.deltaTime);
+        public void MovePoint(OccupationPoint point)
+        {
+            if (!m_isMoving)
+            {
+                m_stayPoint = point;
+                m_moveDirection = m_stayPoint.transform.localPosition;
+                m_isMoving = true;
+            }            
+        }
 
-        //    if (m_moveDistance <= 0)
-        //    {
-        //        gameObject.transform.position = m_stayPoint.transform.position;
-        //        m_isMoving = false;
-        //    }
+        private void Move()
+        {
+            var direction = m_moveDirection - transform.localPosition;
+            direction.Normalize();
+            transform.Translate(direction * Time.deltaTime * 2);
 
-        //}
+            var distance = Vector3.Distance(m_moveDirection, transform.localPosition);
+            if (distance <= 0.05)
+            {
+                transform.localPosition = m_moveDirection;
+                m_isMoving = false;
+            }
+        }
     }
 }

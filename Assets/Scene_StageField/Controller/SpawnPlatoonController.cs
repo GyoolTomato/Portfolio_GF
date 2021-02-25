@@ -34,9 +34,7 @@ namespace Assets.Scene_StageField.Controller
             var platoon = MonoBehaviour.Instantiate(player, selectedPoint.transform.position, Quaternion.identity);
             platoon.transform.parent = m_map.transform;
             var playerScript = platoon.GetComponent<Assets.Resources.StageField.Player>();
-            playerScript.SetValue(m_menuController.GetSelectedPlatoonNumber());
-
-            selectedPoint.OnPlayer = playerScript;
+            playerScript.Initialize(m_menuController.GetSelectedPlatoonNumber(), selectedPoint);
 
             m_stageFieldManager.SetSpawnPlatoonActive(false);
         }

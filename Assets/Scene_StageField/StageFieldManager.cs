@@ -11,10 +11,12 @@ namespace Assets.Scene_StageField
         private CameraController m_cameraController;
         private CharacterController m_characterController;
         private PointController m_pointController;
-        private SpawnPlatoonController m_spawnPlatoonController;        
+        private SpawnPlatoonController m_spawnPlatoonController;
+        private BattleFieldController m_battleFieldController;
 
         private GameObject m_canvas;
         private GameObject m_turnMonitor;
+        private GameObject m_turnButton;
         private GameObject m_spawnPlatoon;
         private GameObject m_map;
         private Assets.Resources.Object.Title m_title;
@@ -35,10 +37,13 @@ namespace Assets.Scene_StageField
             m_characterController.Initialize(this);
             m_pointController = new PointController();
             m_pointController.Initialize(this);
-            m_spawnPlatoonController = new SpawnPlatoonController();          
+            m_spawnPlatoonController = new SpawnPlatoonController();
+            m_battleFieldController = new BattleFieldController();
+            m_battleFieldController.Initialize(this);
 
             m_canvas = GameObject.Find("Canvas");
             m_turnMonitor = m_canvas.transform.Find("TurnMonitor").gameObject;
+            m_turnButton = m_canvas.transform.Find("TurnButton").gameObject; 
             m_spawnPlatoon = m_canvas.transform.Find("SpawnPlatoon").gameObject;
             m_map = GameObject.Find("Map");
             m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Resources.Object.Title>();
@@ -55,6 +60,7 @@ namespace Assets.Scene_StageField
         {
             m_touchController.UpdateIsClick();
             m_cameraController.Update();
+            m_pointController.Update();
         }
 
         public TouchController GetTouchController()
@@ -70,6 +76,11 @@ namespace Assets.Scene_StageField
         public PointController GetPointController()
         {
             return m_pointController;
+        }
+
+        public BattleFieldController GetBattleFieldController()
+        {
+            return m_battleFieldController;
         }
 
         private void BackAction()
@@ -92,12 +103,14 @@ namespace Assets.Scene_StageField
             if (active)
             {
                 m_turnMonitor.SetActive(false);
+                m_turnButton.SetActive(false);
                 m_spawnPlatoon.SetActive(true);
                 m_map.SetActive(false);
             }
             else
             {
                 m_turnMonitor.SetActive(true);
+                m_turnButton.SetActive(true);
                 m_spawnPlatoon.SetActive(false);
                 m_map.SetActive(true);
             }
