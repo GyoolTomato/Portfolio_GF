@@ -30,7 +30,7 @@ namespace Assets.Resources.StageField
         private TouchController m_touchController;
         private PointController m_pointController;
 
-        public List<GameObject> m_linkedPoints;
+        public List<OccupationPoint> m_linkedPoints;
         private GameObject m_lineDrawer;
 
         private void Awake()
@@ -89,7 +89,7 @@ namespace Assets.Resources.StageField
             }
         }
 
-        public List<GameObject> LinkedPoints()
+        public List<OccupationPoint> GetLinkedPoints()
         {
             return m_linkedPoints;
         }

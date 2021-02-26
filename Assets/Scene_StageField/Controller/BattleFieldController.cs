@@ -51,7 +51,7 @@ namespace Assets.Scene_StageField.Controller
 
         private void Handle_StartButton()
         {
-            if (m_manager.GetCharacterController().NumberOfPlayer() > 0)
+            if (m_manager.GetPlayerPlatoonController().NumberOfPlayer() > 0)
             {
                 m_isStart = true;
                 m_startButton.gameObject.SetActive(false);
@@ -87,6 +87,8 @@ namespace Assets.Scene_StageField.Controller
                     m_turnStartBanner_Title.text = "적 차례";
                     m_turnStartBanner_Turn.text = m_turnNumber + "턴";
                     m_manager.StartCoroutine(OffTurnStartBanner());
+
+                    m_manager.GetEnemyPlatoonController().MoveToPoint();
                     break;
                 default:
                     break;

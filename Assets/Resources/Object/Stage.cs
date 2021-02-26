@@ -54,6 +54,7 @@ namespace Assets.Resources.Object
 
         private void Handle_Click()
         {
+            m_gameManager.SetSelectedStage(m_userDataBase_Stage);
             SceneManager.LoadScene("Stage" + m_userDataBase_Stage.StageNumber + "-" + m_userDataBase_Stage.InnerNumber);
         }
     }

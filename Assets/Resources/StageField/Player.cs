@@ -10,7 +10,7 @@ namespace Assets.Resources.StageField
     {
         private StageFieldManager m_stageFieldManager;
         private TouchController m_touchController;
-        private CharacterController m_characterController;
+        private PlayerPlatoonController m_playerPlatoonController;
         private int m_platoonNumber;
         private bool m_isMoving;
         private float m_moveDistance;
@@ -22,7 +22,7 @@ namespace Assets.Resources.StageField
         {
             m_stageFieldManager = GameObject.Find("Manager").GetComponent<StageFieldManager>();
             m_touchController = m_stageFieldManager.GetTouchController();
-            m_characterController = m_stageFieldManager.GetCharacterController();
+            m_playerPlatoonController = m_stageFieldManager.GetPlayerPlatoonController();
         }
 
         // Update is called once per frame
@@ -30,7 +30,7 @@ namespace Assets.Resources.StageField
         {
             if (m_touchController.IsClick() && m_touchController.GetClickObject() == gameObject)
             {
-                m_characterController.SelectedPlayerPlatoon = this;
+                m_playerPlatoonController.SelectedPlayerPlatoon = this;
             }
 
             if (m_isMoving)

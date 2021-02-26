@@ -9,7 +9,8 @@ namespace Assets.Scene_StageField
         private Assets.Common.GameManager m_gameManager;
         private TouchController m_touchController;
         private CameraController m_cameraController;
-        private CharacterController m_characterController;
+        private PlayerPlatoonController m_playerPlatoonController;
+        private EnemyPlatoonController m_enemyPlatoonController;
         private PointController m_pointController;
         private SpawnPlatoonController m_spawnPlatoonController;
         private BattleFieldController m_battleFieldController;
@@ -33,8 +34,11 @@ namespace Assets.Scene_StageField
             m_touchController.Initialize(this);
             m_cameraController = new CameraController();
             m_cameraController.Initialize();
-            m_characterController = new CharacterController();
-            m_characterController.Initialize(this);
+            m_playerPlatoonController = new PlayerPlatoonController();
+            m_playerPlatoonController.Initialize(this);
+            m_enemyPlatoonController = new EnemyPlatoonController();
+            m_enemyPlatoonController.Initialize(this);
+
             m_pointController = new PointController();
             m_pointController.Initialize(this);
             m_spawnPlatoonController = new SpawnPlatoonController();
@@ -68,9 +72,14 @@ namespace Assets.Scene_StageField
             return m_touchController;
         }
 
-        public CharacterController GetCharacterController()
+        public PlayerPlatoonController GetPlayerPlatoonController()
         {
-            return m_characterController;
+            return m_playerPlatoonController;
+        }
+
+        public EnemyPlatoonController GetEnemyPlatoonController()
+        {
+            return m_enemyPlatoonController;
         }
 
         public PointController GetPointController()

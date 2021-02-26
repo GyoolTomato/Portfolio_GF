@@ -8,7 +8,7 @@ namespace Assets.Resources.StageField
     {
         private LineRenderer m_lineRenderer;
         private Gradient m_gradient;
-        private Transform m_target;
+        private OccupationPoint m_target;
 
         private void Awake()
         {
@@ -41,9 +41,9 @@ namespace Assets.Resources.StageField
             }
         }
 
-        public void SetValue(GameObject target)
+        public void SetValue(OccupationPoint target)
         {
-            m_target = target.transform;
+            m_target = target;
         }
     }
 }

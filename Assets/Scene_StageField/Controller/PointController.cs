@@ -41,7 +41,7 @@ namespace Assets.Scene_StageField.Controller
         public void ClickOccupationPoint(OccupationPoint point)
         {
             m_selectPoint = point;
-            var selectedPlayerPlatoon = m_stageFieldManager.GetCharacterController().SelectedPlayerPlatoon;
+            var selectedPlayerPlatoon = m_stageFieldManager.GetPlayerPlatoonController().SelectedPlayerPlatoon;
 
             if (m_stageFieldManager.GetBattleFieldController().IsStart())
             {
@@ -137,13 +137,35 @@ namespace Assets.Scene_StageField.Controller
             return result;
         }
 
+        public Enemy OnEnemy(OccupationPoint point)
+        {
+            var result = new Enemy();
+
+            var temp = GameObject.FindGameObjectsWithTag("Enemy");
+
+            foreach (var item in temp)
+            {
+                var enemyScript = item.GetComponent<Enemy>();
+
+                if (enemyScript != null)
+                {
+                    if (enemyScript.GetStayPoint() == point)
+                    {
+                        return enemyScript;
+                    }
+                }
+            }
+
+            return result;
+        }
+
         private bool IsLinked(OccupationPoint point0, OccupationPoint point1)
         {
             var result = false;
 
-            foreach (var item in point0.LinkedPoints())
+            foreach (var item in point0.GetLinkedPoints())
             {
-                if (item == point1.gameObject)
+                if (item == point1)
                 {
                     result = true;
                 }
@@ -162,7 +184,7 @@ namespace Assets.Scene_StageField.Controller
 
         private void Handle_Move()
         {
-            var selectedPlayerPlatoon = m_stageFieldManager.GetCharacterController().SelectedPlayerPlatoon;
+            var selectedPlayerPlatoon = m_stageFieldManager.GetPlayerPlatoonController().SelectedPlayerPlatoon;
             MovePlayer(selectedPlayerPlatoon, m_selectPoint);
             m_spawnAnswer.SetActive(false);
         }

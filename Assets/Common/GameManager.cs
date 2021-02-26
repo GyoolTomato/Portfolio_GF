@@ -8,7 +8,9 @@ namespace Assets.Common
     public class GameManager : MonoBehaviour
     {
         private static GameManager m_instance;
-        
+
+        private DB.User.UserDataBase_Stage m_userDataBaseStage;
+
         private DB.Game.GameDBManager m_gameDBManager;
         private DB.Index.Manager.IndexDBManager m_indexDBManager;
         private DB.User.Manager.UserDBManager m_userDBManager;
@@ -68,6 +70,23 @@ namespace Assets.Common
         public UserDBController UserDBController()
         {
             return m_userDBController;
+        }
+
+        public DB.User.UserDataBase_Stage SelectedStage
+        {
+            get
+            {
+                return m_userDataBaseStage;
+            }
+            set
+            {
+                m_userDataBaseStage = value;
+            }
+        }
+
+        public void SetSelectedStage(DB.User.UserDataBase_Stage data)
+        {
+            m_userDataBaseStage = data;
         }
     }
 }
