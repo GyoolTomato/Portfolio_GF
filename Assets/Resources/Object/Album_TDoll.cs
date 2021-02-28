@@ -22,7 +22,6 @@ namespace Assets.Resources.Object
         private GameObject m_platoon;
         private Text m_platoonNumber;
 
-        private Assets.Common.ImageController m_imageController;
         private int m_ownershipCode;
 
         private void Awake()
@@ -44,8 +43,6 @@ namespace Assets.Resources.Object
             m_platoon = informationBottom.Find("Platoon").gameObject;
 
             m_platoonNumber = m_platoon.transform.Find("Platoon").GetComponent<Text>();
-
-            m_imageController = new Assets.Common.ImageController();
         }
 
         // Start is called before the first frame update
@@ -63,6 +60,7 @@ namespace Assets.Resources.Object
         public void Initialize(Assets.Common.DB.User.UserDataBase_TDoll userData, ClickEvent clickEvent = null)
         {
             m_ownershipCode = userData.OwnershipCode;
+            m_character.sprite = m_gameManager.GetSpriteController().GetCharacterImage(userData.DataCode);
             ApplyDataCode(m_gameManager.IndexDBController().TDoll(userData.DataCode));            
             ApplyLevel(userData.Level);
             ApplyDummyLink(userData.DummyLink);

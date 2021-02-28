@@ -27,7 +27,6 @@ namespace Assets.Resources.Object
         private Text m_armor;
         private Text m_critical;
 
-        private Assets.Common.ImageController m_imageController;
         private int m_ownershipCode;
 
         private void Awake()

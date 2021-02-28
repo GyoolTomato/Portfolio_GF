@@ -94,6 +94,7 @@ namespace Assets.Resources.Object
 
                     m_name.text = indexDB.Name;
 
+                    m_character.sprite = m_gameManager.GetSpriteController().GetCharacterImage(userDB.DataCode);
                     ApplyDummyLink(userDB.DummyLink);
                     ApplyLevel(userDB.Level);
                     

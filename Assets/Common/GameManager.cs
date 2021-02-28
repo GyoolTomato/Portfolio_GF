@@ -19,6 +19,7 @@ namespace Assets.Common
         private IndexDBController m_indexDBController;
         private UserDBController m_userDBController;
         private StageBackupController m_stageBackupController;
+        private SpriteController m_spriteController;
 
         private void Awake()
         {
@@ -46,6 +47,7 @@ namespace Assets.Common
             m_userDBController.Initialize(m_userDBManager);
             m_stageBackupController = new StageBackupController();
             m_stageBackupController.Initialize(this);
+            m_spriteController = new SpriteController();            
         }
 
         // Start is called before the first frame update
@@ -78,6 +80,11 @@ namespace Assets.Common
         public StageBackupController GetStageBackupController()
         {
             return m_stageBackupController;
+        }
+
+        public SpriteController GetSpriteController()
+        {
+            return m_spriteController;
         }
 
         public DB.User.UserDataBase_Stage SelectedStage
