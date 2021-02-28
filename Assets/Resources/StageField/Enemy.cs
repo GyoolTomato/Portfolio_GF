@@ -52,6 +52,11 @@ namespace Assets.Resources.StageField
             return m_stayPoint;
         }
 
+        public bool IsMoving()
+        {
+            return m_isMoving;
+        }
+
         public void MovePoint(OccupationPoint point)
         {
             if (!m_isMoving)
@@ -74,6 +79,6 @@ namespace Assets.Resources.StageField
                 transform.localPosition = m_moveDirection;
                 m_isMoving = false;
             }
-        }
+        }        
     }
 }

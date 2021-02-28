@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.UI;
 using Assets.Scene_StageField.Controller;
 
 namespace Assets.Scene_StageField
@@ -19,7 +20,10 @@ namespace Assets.Scene_StageField
         private GameObject m_turnMonitor;
         private GameObject m_turnButton;
         private GameObject m_spawnPlatoon;
-        private GameObject m_map;
+        private GameObject m_exitAnswer;
+        private Button m_exitAnswer_No;
+        private Button m_exitAnswer_Yes;
+        private GameObject m_map;        
         private Assets.Resources.Object.Title m_title;
 
         public StageFieldManager()
@@ -49,6 +53,12 @@ namespace Assets.Scene_StageField
             m_turnMonitor = m_canvas.transform.Find("TurnMonitor").gameObject;
             m_turnButton = m_canvas.transform.Find("TurnButton").gameObject; 
             m_spawnPlatoon = m_canvas.transform.Find("SpawnPlatoon").gameObject;
+            m_exitAnswer = m_canvas.transform.Find("ExitAnswer").gameObject;
+            m_exitAnswer.SetActive(false);
+            m_exitAnswer_No = m_exitAnswer.transform.Find("No").GetComponent<Button>();
+            m_exitAnswer_No.onClick.AddListener(Handle_ExitCanel);
+            m_exitAnswer_Yes = m_exitAnswer.transform.Find("Yes").GetComponent<Button>();
+            m_exitAnswer_Yes.onClick.AddListener(Handle_Exit);
             m_map = GameObject.Find("Map");
             m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Resources.Object.Title>();
             m_title.Initialize(m_gameManager, "스테이지", BackAction);            
@@ -58,6 +68,7 @@ namespace Assets.Scene_StageField
         {
             SetSpawnPlatoonActive(false);
             m_spawnPlatoonController.Initialize(this);
+            LoadBackup();
         }
 
         private void Update()
@@ -99,7 +110,19 @@ namespace Assets.Scene_StageField
                 SetSpawnPlatoonActive(false);
             }
             else
-                UnityEngine.SceneManagement.SceneManager.LoadScene("SelectStage");
+            {
+                m_exitAnswer.SetActive(true);                
+            }
+        }
+
+        private void Handle_Exit()
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("SelectStage");
+        }
+
+        private void Handle_ExitCanel()
+        {
+            m_exitAnswer.SetActive(false);
         }
 
         public bool GetSpawnPlatoonActive()
@@ -123,6 +146,11 @@ namespace Assets.Scene_StageField
                 m_spawnPlatoon.SetActive(false);
                 m_map.SetActive(true);
             }
+        }
+
+        private void LoadBackup()
+        {
+            
         }
     }
 }

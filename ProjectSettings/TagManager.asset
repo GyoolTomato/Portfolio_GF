@@ -9,6 +9,7 @@ TagManager:
   - TDoll
   - Equipment
   - Character
+  - Point
   layers:
   - Default
   - TransparentFX

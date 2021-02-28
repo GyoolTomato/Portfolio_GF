@@ -8,12 +8,14 @@ namespace Assets.Scene_StageField.Controller
 {
     public class PlayerPlatoonController
     {
+        private Common.GameManager m_gameManager;
         private Player m_selectedPlayerPlatoon;
         private StageFieldManager m_scene_StageField;
         private OccupationPoint m_selectPoint;
 
         public void Initialize(StageFieldManager stageFieldManager)
         {
+            m_gameManager = GameObject.Find("GameManager").GetComponent<Common.GameManager>();
             m_scene_StageField = stageFieldManager;
         }
 
@@ -37,19 +39,16 @@ namespace Assets.Scene_StageField.Controller
             return temp.Length;
         }
 
-        //public void Move(OccupationPoint pointToMove)
-        //{
-        //    if (m_selectedPlayerPlatoon != null)
-        //    {
-        //        foreach (var item in pointToMove.LinkedPoints())
-        //        {
-        //            if (item == pointToMove.gameObject)
-        //            {
-        //                pointToMove.OnPlayer = m_selectedPlayerPlatoon;
-        //                return;
-        //            }
-        //        }
-        //    }
-        //}
+        public List<Player> GetPlayers()
+        {
+            var temp = GameObject.FindGameObjectsWithTag("Player");
+            var players = new List<Player>();
+            foreach (var item in players)
+            {
+                players.Add(item.GetComponent<Player>());
+            }
+
+            return players;
+        }
     }
 }

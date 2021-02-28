@@ -55,6 +55,11 @@ namespace Assets.Resources.StageField
             return m_stayPoint;
         }
 
+        public bool IsMoving()
+        {
+            return m_isMoving;
+        }
+
         public void MovePoint(OccupationPoint point)
         {
             if (!m_isMoving)

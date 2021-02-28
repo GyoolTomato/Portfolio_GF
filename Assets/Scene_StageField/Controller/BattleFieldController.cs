@@ -14,6 +14,7 @@ namespace Assets.Scene_StageField.Controller
             End,
         }
 
+        private Common.GameManager m_gameManager;
         private StageFieldManager m_manager;
         private bool m_isStart;
         private E_Turn m_turn;
@@ -31,6 +32,7 @@ namespace Assets.Scene_StageField.Controller
 
         public void Initialize(StageFieldManager manager)
         {
+            m_gameManager = GameObject.Find("GameManager").GetComponent<Common.GameManager>();
             m_manager = manager;
             m_isStart = false;
             m_turnNumber = 0;

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scene_StageField.Controller.EnemyData;
@@ -9,6 +10,16 @@ namespace Assets.Scene_StageField.Controller
 {
     public class EnemyPlatoonController
     {
+        enum E_State
+        {
+            Move,
+            Battle,
+            Occupation,
+            TurnEnd,
+            End,
+        }
+
+        private Common.GameManager m_gameManager;
         private StageFieldManager m_stageFieldManager;
         private EnemyListBase m_selectedStageEnemy;
         private Stage1_1 m_stage1_1;
@@ -27,6 +38,7 @@ namespace Assets.Scene_StageField.Controller
 
         public void Initialize(StageFieldManager manager)
         {
+            m_gameManager = GameObject.Find("GameManager").GetComponent<Common.GameManager>();
             m_stageFieldManager = manager;
 
             var gameManager = GameObject.Find("GameManager").GetComponent<Assets.Common.GameManager>();
@@ -80,15 +92,36 @@ namespace Assets.Scene_StageField.Controller
             }
         }
 
+        public List<Enemy> GetEnemies()
+        {
+            var temp = GameObject.FindGameObjectsWithTag("Enemy");
+            var enemies = new List<Enemy>();
+            foreach (var item in enemies)
+            {
+                enemies.Add(item.GetComponent<Enemy>());
+            }
+
+            return enemies;
+        }
+
+        public void StartEnemyTurn()
+        {
+            MoveToPoint();            
+        }
+
         public void MoveToPoint()
         {
             var pointController = m_stageFieldManager.GetPointController();
+            var linkedPoints = new List<OccupationPoint>();
+            var enableMovePoints = new List<OccupationPoint>();
+            var random = 0;
+            var needForBattle = false;
 
             foreach (var item in m_enemies)
             {
-                var linkedPoints = item.GetStayPoint().GetLinkedPoints();
-                var enableMovePoints = new List<OccupationPoint>();
-                var random = 0;
+                linkedPoints = item.GetStayPoint().GetLinkedPoints();
+                enableMovePoints = new List<OccupationPoint>();
+                random = 0;
 
                 foreach (var point in linkedPoints)
                 {
@@ -102,8 +135,20 @@ namespace Assets.Scene_StageField.Controller
                 {
                     random = UnityEngine.Random.Range(0, enableMovePoints.Count);
                     item.MovePoint(enableMovePoints[random]);
+                    needForBattle = true;
                 }                
             }
+
+            if (needForBattle)
+            {
+                m_stageFieldManager.StartCoroutine(Battle());
+            }
+        }
+
+        private IEnumerator Battle()
+        {
+            yield return new WaitForSeconds(5);
+            m_stageFieldManager.GetBattleFieldController().ChangeTurn(BattleFieldController.E_Turn.Player);
         }
     }
 }

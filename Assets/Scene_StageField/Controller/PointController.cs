@@ -10,6 +10,7 @@ namespace Assets.Scene_StageField.Controller
     public class PointController
     {
         private StageFieldManager m_stageFieldManager;
+        private List<OccupationPoint> m_occupationPoints;
         private OccupationPoint m_selectPoint;
 
         private GameObject m_spawnAnswer;
@@ -23,6 +24,12 @@ namespace Assets.Scene_StageField.Controller
         public void Initialize(StageFieldManager manager)
         {
             m_stageFieldManager = manager;
+            m_occupationPoints = new List<OccupationPoint>();
+            var points = GameObject.FindGameObjectsWithTag("Point");
+            foreach (var item in points)
+            {
+                m_occupationPoints.Add(item.GetComponent<OccupationPoint>());
+            }            
 
             var canvas = GameObject.Find("Canvas");
             m_spawnAnswer = canvas.transform.Find("SpawnAnswer").gameObject;
@@ -36,6 +43,11 @@ namespace Assets.Scene_StageField.Controller
         public void Update()
         {
 
+        }
+
+        public List<OccupationPoint> GetOccupationPoints()
+        {
+            return m_occupationPoints;
         }
 
         public void ClickOccupationPoint(OccupationPoint point)
