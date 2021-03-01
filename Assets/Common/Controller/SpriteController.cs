@@ -41,5 +41,18 @@ namespace Assets.Common.Controller
                     return null;
             }
         }
+
+        public Sprite GetIconImage(string Type)
+        {
+            if (Type.Equals("Magician"))
+                return UnityEngine.Resources.Load<Sprite>("Icon/MageStaff");
+            else if (Type.Equals("Archer"))
+                return UnityEngine.Resources.Load<Sprite>("Icon/Bow");
+            else if (Type.Equals("Knight"))
+                return UnityEngine.Resources.Load<Sprite>("Icon/Sword");
+            else
+                return null;
+        }
+
     }
 }

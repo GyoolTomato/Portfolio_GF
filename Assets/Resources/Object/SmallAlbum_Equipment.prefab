@@ -165,6 +165,7 @@ GameObject:
   - component: {fileID: 507389879794096652}
   - component: {fileID: 4363189903825235045}
   - component: {fileID: 376541639702639721}
+  - component: {fileID: 3211241332608878978}
   m_Layer: 5
   m_Name: SmallAlbum_Equipment
   m_TagString: Untagged
@@ -250,6 +251,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3211241332608878978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7084750575135102869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 1, y: -1}
+  m_UseGraphicAlpha: 1
 --- !u!1 &7825842305847046331
 GameObject:
   m_ObjectHideFlags: 0

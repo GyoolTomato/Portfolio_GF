@@ -22,22 +22,22 @@ public class WorkResourceSlot : MonoBehaviour
 
     private void Awake()
     {
-        
-    }
-
-    private void Start()
-    {
         m_image = transform.Find("Image").GetComponent<Image>();
         m_valueMonitor = transform.Find("ValueMonitor").GetComponent<Text>();
         m_valueUp = transform.Find("ValueUp").GetComponent<Button>();
         m_valueDown = transform.Find("ValueDown").GetComponent<Button>();
 
         m_minValue = 100;
-        m_value = m_minValue;        
+        m_value = m_minValue;
         ApplyValueInMonitor();
 
-        m_valueUp.onClick.AddListener(ValueUp);        
-        m_valueDown.onClick.AddListener(ValueDown);        
+        m_valueUp.onClick.AddListener(ValueUp);
+        m_valueDown.onClick.AddListener(ValueDown);
+    }
+
+    private void Start()
+    {
+     
     }
 
     private void Update()

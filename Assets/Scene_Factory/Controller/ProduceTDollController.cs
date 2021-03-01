@@ -25,7 +25,7 @@ namespace Assets.Scene_Factory.Controller
         }
 
         protected override void OrderReceive(UserDataBase_Produce produceData, int manPower, int bullet, int food, int militarySupplies, out bool result)
-        {
+        { 
             if (m_gameManager.ResourceContorller().TDollTicket().Amount >= 0)
             {
                 m_gameManager.ResourceContorller().OthersResourceAmountCal(Common.Controller.ResourceContorller.E_OthersResourceType.TDollTicket, -1);

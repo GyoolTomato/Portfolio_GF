@@ -56,7 +56,7 @@ namespace Assets.Resources.Object
             m_selectButton.onClick.AddListener(Handle_SelectTDoll);
 
             var informationTop = transform.Find("InformationTop");
-            m_typeImage = informationTop.Find("Image").GetComponent<Image>();
+            m_typeImage = informationTop.Find("Type").GetComponent<Image>();
             m_star = informationTop.Find("Star").GetComponent<Text>();
 
             var informationMid = transform.Find("InformationMid");

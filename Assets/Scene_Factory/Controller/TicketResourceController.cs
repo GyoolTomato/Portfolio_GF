@@ -22,6 +22,7 @@ public class TicketResourceController
         m_tDollTicket = factoryResourceInformation.Find("TDollTicket").GetComponent<FactoryResourceMonitor>();
         m_equipmentTicket = factoryResourceInformation.Find("EquipmentTicket").GetComponent<FactoryResourceMonitor>();
 
+        Debug.Log("gm : " + m_gameManager);
         UpdateValue();
     }
 

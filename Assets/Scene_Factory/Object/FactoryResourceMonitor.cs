@@ -12,11 +12,16 @@ public class FactoryResourceMonitor : MonoBehaviour
     {
     }
 
-    private void Start()
+    private void Awake()
     {
         m_image = transform.Find("Image").GetComponent<Image>();
         m_title = transform.Find("Title").GetComponent<Text>();
         m_amount = transform.Find("Amount").GetComponent<Text>();
+    }
+
+    private void Start()
+    {
+        
     }
 
     private void Update()

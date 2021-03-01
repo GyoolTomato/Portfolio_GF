@@ -59,8 +59,7 @@ namespace Assets.Resources.Object
 
         public void Initialize(Assets.Common.DB.User.UserDataBase_TDoll userData, ClickEvent clickEvent = null)
         {
-            m_ownershipCode = userData.OwnershipCode;
-            m_character.sprite = m_gameManager.GetSpriteController().GetCharacterImage(userData.DataCode);
+            m_ownershipCode = userData.OwnershipCode;            
             ApplyDataCode(m_gameManager.IndexDBController().TDoll(userData.DataCode));            
             ApplyLevel(userData.Level);
             ApplyDummyLink(userData.DummyLink);
@@ -75,7 +74,8 @@ namespace Assets.Resources.Object
 
         private void ApplyDataCode(Assets.Common.DB.Index.IndexDataBase_TDoll dBData)
         {
-            //m_typeImage.sprite = m_imageController.LoadSprite(dBData.Type);
+            m_character.sprite = m_gameManager.GetSpriteController().GetCharacterImage(dBData.DataCode);
+            m_typeImage.sprite = m_gameManager.GetSpriteController().GetIconImage(dBData.Type);
 
             var tempStar = string.Empty;
             for (int i = 0; i < dBData.Star; i++)

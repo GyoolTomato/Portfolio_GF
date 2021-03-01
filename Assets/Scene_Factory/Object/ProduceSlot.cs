@@ -32,10 +32,9 @@ namespace Assets.Scene_Factory.Object
         private WorkResourceSlot m_manPower;
         private WorkResourceSlot m_bullet;
         private WorkResourceSlot m_food;
-        private WorkResourceSlot m_militarySupplies;        
+        private WorkResourceSlot m_militarySupplies;
 
-        // Start is called before the first frame update
-        private void Start()
+        private void Awake()
         {
             m_state = E_State.End;
 
@@ -50,6 +49,12 @@ namespace Assets.Scene_Factory.Object
             m_bullet = m_orderPanel.transform.Find("WorkResourceSlot_Bullet").GetComponent<WorkResourceSlot>();
             m_food = m_orderPanel.transform.Find("WorkResourceSlot_Food").GetComponent<WorkResourceSlot>();
             m_militarySupplies = m_orderPanel.transform.Find("WorkResourceSlot_MilitarySupplies").GetComponent<WorkResourceSlot>();
+        }
+
+        // Start is called before the first frame update
+        private void Start()
+        {
+
             
         }
 
