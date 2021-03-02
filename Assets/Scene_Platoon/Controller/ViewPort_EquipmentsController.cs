@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Resources.Object;
+using Assets.Resources.Album;
 
 namespace Assets.Scene_Platoon.Controller
 {
@@ -29,7 +29,7 @@ namespace Assets.Scene_Platoon.Controller
                 m_list.Add(result);
 
                 var albumScript = new Album_Equipment();
-                albumScript = result.GetComponent<Assets.Resources.Object.Album_Equipment>();
+                albumScript = result.GetComponent<Album_Equipment>();
                 albumScript.Initialize(item, Handle_ClickEvent);
             }
         }

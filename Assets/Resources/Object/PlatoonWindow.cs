@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Resources.Album;
 
 namespace Assets.Resources.Object
 {

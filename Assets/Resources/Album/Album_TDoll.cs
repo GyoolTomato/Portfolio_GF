@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Resources.Object
+namespace Assets.Resources.Album
 {
     public class Album_TDoll : MonoBehaviour
     {

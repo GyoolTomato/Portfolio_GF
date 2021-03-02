@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Resources.Object
+namespace Assets.Resources.Album
 {
     public class SmallAlbum_Equipment : MonoBehaviour
     {
@@ -55,6 +55,7 @@ namespace Assets.Resources.Object
 
                 if (data != null)
                 {
+                    m_image.sprite = m_gameManager.GetSpriteController().GetEquipmentImage(data.DataCode);
                     m_limitedPower.text = data.LimitedPower + "%";
                     SetCurtain(false);
                 }

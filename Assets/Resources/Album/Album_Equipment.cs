@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Resources.Object
+namespace Assets.Resources.Album
 {
     public class Album_Equipment : MonoBehaviour
     {
@@ -87,14 +87,12 @@ namespace Assets.Resources.Object
 
         private void ApplyDataCode(Assets.Common.DB.Index.IndexDataBase_Equipment dBData)
         {
-            //m_typeImage.sprite = m_imageController.LoadSprite(dBData.Type);
-
             var tempStar = string.Empty;
             for (int i = 0; i < dBData.Star; i++)
                 tempStar += "★";
 
             m_star.text = tempStar;
-            //m_character.sprite = m_imageController.LoadSprite(dBData.DataCode);
+            m_character.sprite = m_gameManager.GetSpriteController().GetEquipmentImage(dBData.DataCode);
             m_name.text = dBData.Name;
             m_subName.text = dBData.Type;
 

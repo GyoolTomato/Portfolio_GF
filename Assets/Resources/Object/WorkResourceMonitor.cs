@@ -7,21 +7,22 @@ namespace Assets.Resources.Object
 {
     public class WorkResourceMonitor : MonoBehaviour
     {
-        private GameObject m_image;
-        private GameObject m_title;
-        private GameObject m_amount;
-        private GameObject m_chargingVolume;
-        private GameObject m_chargingVolume_Amount;
-        private GameObject m_chargingVolume_Time;
+        private Common.GameManager m_gameManager;
+        private Image m_image;
+        private Text m_title;
+        private Text m_amount;
+        private Text m_chargingVolume_Amount;
+        private Text m_chargingVolume_Time;
 
         private void Awake()
         {
-            m_image = transform.Find("Image").gameObject;
-            m_title = transform.Find("Title").gameObject;
-            m_amount = transform.Find("Amount").gameObject;
-            m_chargingVolume = transform.Find("ChargingVolume").gameObject;
-            m_chargingVolume_Amount = m_chargingVolume.transform.Find("Amount").gameObject;
-            m_chargingVolume_Time = m_chargingVolume.transform.Find("Time").gameObject;
+            m_gameManager = GameObject.Find("GameManager").GetComponent<Common.GameManager>();
+            m_image = transform.Find("Image").GetComponent<Image>();
+            m_title = transform.Find("Title").GetComponent<Text>();
+            m_amount = transform.Find("Amount").GetComponent<Text>();
+            var chargingVolume = transform.Find("ChargingVolume");
+            m_chargingVolume_Amount = chargingVolume.Find("Amount").GetComponent<Text>();
+            m_chargingVolume_Time = chargingVolume.Find("Time").GetComponent<Text>();
         }
 
         // Start is called before the first frame update
@@ -38,15 +39,11 @@ namespace Assets.Resources.Object
 
         public void ApplyData(Assets.Common.Interface.WorkResource in_WorkResourceInformation)
         {
-            var titleText = m_title.GetComponent<Text>();
-            var amountText = m_amount.GetComponent<Text>();
-            var chargingVolume_AmountText = m_chargingVolume_Amount.GetComponent<Text>();
-            var chargingVolume_TimeText = m_chargingVolume_Time.GetComponent<Text>();
-
-            titleText.text = in_WorkResourceInformation.Title;
-            amountText.text = in_WorkResourceInformation.Amount.ToString();
-            chargingVolume_AmountText.text = "+" + in_WorkResourceInformation.ChargingVolume_Amount.ToString();
-            chargingVolume_TimeText.text = "/" + in_WorkResourceInformation.ChargingVolume_Time.ToString() + "SEC";
+            m_image.sprite = m_gameManager.GetSpriteController().GetWorkResource(in_WorkResourceInformation.DBName);
+            m_title.text = in_WorkResourceInformation.Title;
+            m_amount.text = in_WorkResourceInformation.Amount.ToString();
+            m_chargingVolume_Amount.text = "+" + in_WorkResourceInformation.ChargingVolume_Amount.ToString();
+            m_chargingVolume_Time.text = "/" + in_WorkResourceInformation.ChargingVolume_Time.ToString() + "SEC";
         }
     }
 }

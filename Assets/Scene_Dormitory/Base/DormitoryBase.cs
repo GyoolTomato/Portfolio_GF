@@ -24,7 +24,7 @@ namespace Assets.Scene_Dormitory.Base
             var scrollView = view.Find("ScrollView");
             var viewPort = scrollView.Find("Viewport");
             m_viewPortContent = viewPort.Find("Content").gameObject;
-            m_album = UnityEngine.Resources.Load<GameObject>("Object/" + albumName);
+            m_album = UnityEngine.Resources.Load<GameObject>("Album/" + albumName);
         }
     }
 }

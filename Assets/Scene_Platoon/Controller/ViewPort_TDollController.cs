@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using Assets.Resources.Object;
+using Assets.Resources.Album;
 
 namespace Assets.Scene_Platoon.Controller
 {

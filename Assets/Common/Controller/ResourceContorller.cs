@@ -44,15 +44,15 @@ namespace Assets.Common.Controller
             m_userDBManager = userDBManager;
 
             m_manPower = new WorkResource();
-            m_manPower.Title = "인력";
-            m_manPower.DBName = "ManPower";
+            m_manPower.Title = "강철";
+            m_manPower.DBName = "Steal";
             m_manPower.Amount = 0;
             m_manPower.ChargingVolume_Time = 3.0f;
             m_manPower.ChargingVolume_Amount = 120;
 
             m_bullet = new WorkResource();
-            m_bullet.Title = "탄약";
-            m_bullet.DBName = "Bullet";
+            m_bullet.Title = "약초";
+            m_bullet.DBName = "Flower";
             m_bullet.Amount = 0;
             m_bullet.ChargingVolume_Time = 3.0f;
             m_bullet.ChargingVolume_Amount = 120;
@@ -65,8 +65,8 @@ namespace Assets.Common.Controller
             m_food.ChargingVolume_Amount = 120;
 
             m_militarySupplies = new WorkResource();
-            m_militarySupplies.Title = "부품";
-            m_militarySupplies.DBName = "MilitarySupplies";
+            m_militarySupplies.Title = "가죽";
+            m_militarySupplies.DBName = "Leather";
             m_militarySupplies.Amount = 0;
             m_militarySupplies.ChargingVolume_Time = 3.0f;
             m_militarySupplies.ChargingVolume_Amount = 40;
@@ -88,11 +88,11 @@ namespace Assets.Common.Controller
         {
             foreach (var item in m_gameManager.UserDBController().UserResource())
             {
-                if (item.Name == "ManPower")
+                if (item.Name == "Steal")
                 {
                     m_manPower.Amount = item.Value;
                 }
-                else if (item.Name == "Bullet")
+                else if (item.Name == "Flower")
                 {
                     m_bullet.Amount = item.Value;
                 }
@@ -100,7 +100,7 @@ namespace Assets.Common.Controller
                 {
                     m_food.Amount = item.Value;
                 }
-                else if (item.Name == "MilitarySupplies")
+                else if (item.Name == "Leather")
                 {
                     m_militarySupplies.Amount = item.Value;
                 }

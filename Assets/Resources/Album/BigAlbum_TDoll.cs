@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Assets.Common.DB.Index;
 
-namespace Assets.Resources.Object
+namespace Assets.Resources.Album
 {
     public class BigAlbum_TDoll : MonoBehaviour
     {
@@ -94,6 +94,7 @@ namespace Assets.Resources.Object
 
                     m_name.text = indexDB.Name;
 
+                    m_typeImage.sprite = m_gameManager.GetSpriteController().GetIconImage(indexDB.Type);
                     m_character.sprite = m_gameManager.GetSpriteController().GetCharacterImage(userDB.DataCode);
                     ApplyDummyLink(userDB.DummyLink);
                     ApplyLevel(userDB.Level);

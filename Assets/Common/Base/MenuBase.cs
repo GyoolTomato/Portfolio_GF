@@ -216,26 +216,26 @@ namespace Assets.Common.Base
         private void ChangeColor(Text buttonText, Image buttonImage)
         {
             if (m_buttonText1 != null)            
-                m_buttonText1.color = CustomColor.Gold;
+                m_buttonText1.color = CustomColor.Gold_T;
             if (m_buttonText2 != null)
-                m_buttonText2.color = CustomColor.Gold;
+                m_buttonText2.color = CustomColor.Gold_T;
             if (m_buttonText3 != null)
-                m_buttonText3.color = CustomColor.Gold;
+                m_buttonText3.color = CustomColor.Gold_T;
             if (m_buttonText4 != null)
-                m_buttonText4.color = CustomColor.Gold;
+                m_buttonText4.color = CustomColor.Gold_T;
             if (m_buttonText5 != null)
-                m_buttonText5.color = CustomColor.Gold;
+                m_buttonText5.color = CustomColor.Gold_T;
 
             if (m_buttonImage1 != null)
-                m_buttonImage1.color = CustomColor.DarkGray;
+                m_buttonImage1.color = CustomColor.DarkGray_T;
             if (m_buttonImage2 != null)
-                m_buttonImage2.color = CustomColor.DarkGray;
+                m_buttonImage2.color = CustomColor.DarkGray_T;
             if (m_buttonImage3 != null)
-                m_buttonImage3.color = CustomColor.DarkGray;
+                m_buttonImage3.color = CustomColor.DarkGray_T;
             if (m_buttonImage4 != null)
-                m_buttonImage4.color = CustomColor.DarkGray;
+                m_buttonImage4.color = CustomColor.DarkGray_T;
             if (m_buttonImage5 != null)
-                m_buttonImage5.color = CustomColor.DarkGray;
+                m_buttonImage5.color = CustomColor.DarkGray_T;
 
             if (buttonText != null)
                 buttonText.color = Color.black;
