@@ -41,7 +41,12 @@ namespace Assets.Scene_Platoon.Controller
 
         private void BackAction()
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("Lobby");
+            if (m_platoonController.IsOpen())
+            {
+                m_platoonController.CloseDormitory();
+            }
+            else
+                UnityEngine.SceneManagement.SceneManager.LoadScene("Lobby");
         }
     }
 }

@@ -91,6 +91,7 @@ namespace Assets.Resources.Album
             for (int i = 0; i < dBData.Star; i++)
                 tempStar += "★";
 
+            m_typeImage.sprite = m_gameManager.GetSpriteController().GetTypeImage(dBData.Type);
             m_star.text = tempStar;
             m_character.sprite = m_gameManager.GetSpriteController().GetEquipmentImage(dBData.DataCode);
             m_name.text = dBData.Name;

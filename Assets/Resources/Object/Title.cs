@@ -15,10 +15,10 @@ namespace Assets.Resources.Object
         private Button m_buttonBack;
         private Text m_name;
         private GameObject m_workResourceInformation;
-        private WorkResourceMonitor m_manPower;
-        private WorkResourceMonitor m_bullet;
+        private WorkResourceMonitor m_steel;
+        private WorkResourceMonitor m_flower;
         private WorkResourceMonitor m_food;
-        private WorkResourceMonitor m_militarySupplies;
+        private WorkResourceMonitor m_leather;
 
         private bool m_isInit;
 
@@ -28,10 +28,10 @@ namespace Assets.Resources.Object
             m_buttonBack = null;
             m_name = null;
             m_workResourceInformation = null;
-            m_manPower = null;
-            m_bullet = null;
+            m_steel = null;
+            m_flower = null;
             m_food = null;
-            m_militarySupplies = null;
+            m_leather = null;
         }
 
         public void Initialize(Assets.Common.GameManager gameManager, string name, BackAction backAction)
@@ -46,10 +46,10 @@ namespace Assets.Resources.Object
             m_name.text = name;
             m_backAction = backAction;
             m_workResourceInformation = title.Find("WorkResourceInformation").gameObject;
-            m_manPower = m_workResourceInformation.transform.Find("ManPower").GetComponent<WorkResourceMonitor>();
-            m_bullet = m_workResourceInformation.transform.Find("Bullet").GetComponent<WorkResourceMonitor>();
+            m_steel = m_workResourceInformation.transform.Find("Steel").GetComponent<WorkResourceMonitor>();
+            m_flower = m_workResourceInformation.transform.Find("Flower").GetComponent<WorkResourceMonitor>();
             m_food = m_workResourceInformation.transform.Find("Food").GetComponent<WorkResourceMonitor>();
-            m_militarySupplies = m_workResourceInformation.transform.Find("MilitarySupplies").GetComponent<WorkResourceMonitor>();            
+            m_leather = m_workResourceInformation.transform.Find("Leather").GetComponent<WorkResourceMonitor>();            
             m_isInit = true;
         }
 
@@ -63,10 +63,10 @@ namespace Assets.Resources.Object
 
         private void ApplyWorkResourceData()
         {
-            m_manPower.ApplyData(m_gameManager.ResourceContorller().ManPower());
-            m_bullet.ApplyData(m_gameManager.ResourceContorller().Bullet());
+            m_steel.ApplyData(m_gameManager.ResourceContorller().Steel());
+            m_flower.ApplyData(m_gameManager.ResourceContorller().Flower());
             m_food.ApplyData(m_gameManager.ResourceContorller().Food());
-            m_militarySupplies.ApplyData(m_gameManager.ResourceContorller().MilitarySupplies());
+            m_leather.ApplyData(m_gameManager.ResourceContorller().Leather());
         }
 
         private void Handle_Back()

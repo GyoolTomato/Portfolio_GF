@@ -10,10 +10,10 @@ namespace Assets.Scene_Platoon.Controller
         private Assets.Common.GameManager m_gameManager;
         private ViewPort_TDollController m_viewPort_TDollController;
         private ViewPort_EquipmentsController m_viewPort_EquipmentsController;
-
         private GameObject m_selectPlatoon;
         private GameObject m_menuView;
         private PlatoonWindow[] m_list_PlatoonWindow;
+        private bool m_isOpen;
 
 
         public PlatoonController()
@@ -72,7 +72,7 @@ namespace Assets.Scene_Platoon.Controller
             OpenDormitory();
             m_viewPort_TDollController.OpenValue(platoonNumber, sequence);
             m_viewPort_TDollController.View().SetActive(true);
-            m_viewPort_EquipmentsController.View().SetActive(false);
+            m_viewPort_EquipmentsController.View().SetActive(false);            
             
         }
 
@@ -90,6 +90,7 @@ namespace Assets.Scene_Platoon.Controller
             m_viewPort_EquipmentsController.Load();
             m_selectPlatoon.SetActive(true);
             m_menuView.SetActive(false);
+            m_isOpen = true;
         }
 
         public void CloseDormitory()
@@ -97,6 +98,12 @@ namespace Assets.Scene_Platoon.Controller
             Load();
             m_selectPlatoon.SetActive(false);
             m_menuView.SetActive(true);
+            m_isOpen = false;
+        }
+
+        public bool IsOpen()
+        {
+            return m_isOpen;
         }
     }
 }

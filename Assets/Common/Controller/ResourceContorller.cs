@@ -24,10 +24,10 @@ namespace Assets.Common.Controller
         private UserDBManager m_userDBManager;
 
         private bool m_collecting;
-        private WorkResource m_manPower;
-        private WorkResource m_bullet;
+        private WorkResource m_steel;
+        private WorkResource m_flower;
         private WorkResource m_food;
-        private WorkResource m_militarySupplies;
+        private WorkResource m_leather;
 
         private OthersResource m_passTicket;
         private OthersResource m_tDollTicket;
@@ -43,19 +43,19 @@ namespace Assets.Common.Controller
             m_gameManager = gameManager;
             m_userDBManager = userDBManager;
 
-            m_manPower = new WorkResource();
-            m_manPower.Title = "강철";
-            m_manPower.DBName = "Steal";
-            m_manPower.Amount = 0;
-            m_manPower.ChargingVolume_Time = 3.0f;
-            m_manPower.ChargingVolume_Amount = 120;
+            m_steel = new WorkResource();
+            m_steel.Title = "강철";
+            m_steel.DBName = "Steel";
+            m_steel.Amount = 0;
+            m_steel.ChargingVolume_Time = 3.0f;
+            m_steel.ChargingVolume_Amount = 120;
 
-            m_bullet = new WorkResource();
-            m_bullet.Title = "약초";
-            m_bullet.DBName = "Flower";
-            m_bullet.Amount = 0;
-            m_bullet.ChargingVolume_Time = 3.0f;
-            m_bullet.ChargingVolume_Amount = 120;
+            m_flower = new WorkResource();
+            m_flower.Title = "약초";
+            m_flower.DBName = "Flower";
+            m_flower.Amount = 0;
+            m_flower.ChargingVolume_Time = 3.0f;
+            m_flower.ChargingVolume_Amount = 120;
 
             m_food = new WorkResource();
             m_food.Title = "식량";
@@ -64,12 +64,12 @@ namespace Assets.Common.Controller
             m_food.ChargingVolume_Time = 3.0f;
             m_food.ChargingVolume_Amount = 120;
 
-            m_militarySupplies = new WorkResource();
-            m_militarySupplies.Title = "가죽";
-            m_militarySupplies.DBName = "Leather";
-            m_militarySupplies.Amount = 0;
-            m_militarySupplies.ChargingVolume_Time = 3.0f;
-            m_militarySupplies.ChargingVolume_Amount = 40;
+            m_leather = new WorkResource();
+            m_leather.Title = "가죽";
+            m_leather.DBName = "Leather";
+            m_leather.Amount = 0;
+            m_leather.ChargingVolume_Time = 3.0f;
+            m_leather.ChargingVolume_Amount = 40;
 
             m_passTicket = new OthersResource();
             m_passTicket.Title = "쾌속 제조권";
@@ -90,11 +90,11 @@ namespace Assets.Common.Controller
             {
                 if (item.Name == "Steal")
                 {
-                    m_manPower.Amount = item.Value;
+                    m_steel.Amount = item.Value;
                 }
                 else if (item.Name == "Flower")
                 {
-                    m_bullet.Amount = item.Value;
+                    m_flower.Amount = item.Value;
                 }
                 else if (item.Name == "Food")
                 {
@@ -102,7 +102,7 @@ namespace Assets.Common.Controller
                 }
                 else if (item.Name == "Leather")
                 {
-                    m_militarySupplies.Amount = item.Value;
+                    m_leather.Amount = item.Value;
                 }
             }
         }
@@ -129,32 +129,32 @@ namespace Assets.Common.Controller
         {
             if (!m_collecting)
             {
-                m_gameManager.StartCoroutine(ManPowerCharger());
-                m_gameManager.StartCoroutine(BulletCharger());
+                m_gameManager.StartCoroutine(SteelCharger());
+                m_gameManager.StartCoroutine(FlowerCharger());
                 m_gameManager.StartCoroutine(FoodCharger());
-                m_gameManager.StartCoroutine(MilitarySuppliesCharger());
+                m_gameManager.StartCoroutine(LeatherCharger());
                 m_collecting = true;
             }
         }        
 
-        IEnumerator ManPowerCharger()
+        IEnumerator SteelCharger()
         {
             while (true)
             {
                 ReadUserWorkResource();
-                yield return new WaitForSeconds(m_manPower.ChargingVolume_Time);
-                m_manPower.Amount += m_manPower.ChargingVolume_Amount;
-                m_gameManager.UserDBController().UpdateResource(m_manPower);
+                yield return new WaitForSeconds(m_steel.ChargingVolume_Time);
+                m_steel.Amount += m_steel.ChargingVolume_Amount;
+                m_gameManager.UserDBController().UpdateResource(m_steel);
             }
         }
-        IEnumerator BulletCharger()
+        IEnumerator FlowerCharger()
         {
             while (true)
             {
                 ReadUserWorkResource();
-                yield return new WaitForSeconds(m_bullet.ChargingVolume_Time);
-                m_bullet.Amount += m_bullet.ChargingVolume_Amount;
-                m_gameManager.UserDBController().UpdateResource(m_bullet);
+                yield return new WaitForSeconds(m_flower.ChargingVolume_Time);
+                m_flower.Amount += m_flower.ChargingVolume_Amount;
+                m_gameManager.UserDBController().UpdateResource(m_flower);
             }
         }
         IEnumerator FoodCharger()
@@ -167,34 +167,34 @@ namespace Assets.Common.Controller
                 m_gameManager.UserDBController().UpdateResource(m_food);
             }
         }
-        IEnumerator MilitarySuppliesCharger()
+        IEnumerator LeatherCharger()
         {
             while (true)
             {
                 ReadUserWorkResource();
-                yield return new WaitForSeconds(m_militarySupplies.ChargingVolume_Time);
-                m_militarySupplies.Amount += m_militarySupplies.ChargingVolume_Amount;
-                m_gameManager.UserDBController().UpdateResource(m_militarySupplies);
+                yield return new WaitForSeconds(m_leather.ChargingVolume_Time);
+                m_leather.Amount += m_leather.ChargingVolume_Amount;
+                m_gameManager.UserDBController().UpdateResource(m_leather);
             }
         }
 
-        public bool WorkResourceConsumption(int manPower, int bullet, int food, int militarySupplies)
+        public bool WorkResourceConsumption(int steel, int flower, int food, int leather)
         {
             var result = false;
 
-            if (m_manPower.Amount >= manPower &&
-                m_bullet.Amount >= bullet &&
+            if (m_steel.Amount >= steel &&
+                m_flower.Amount >= flower &&
                 m_food.Amount >= food &&
-                m_militarySupplies.Amount >= militarySupplies)
+                m_leather.Amount >= leather)
             {
-                m_manPower.Amount -= manPower;
-                m_bullet.Amount -= bullet;
+                m_steel.Amount -= steel;
+                m_flower.Amount -= flower;
                 m_food.Amount -= food;
-                m_militarySupplies.Amount -= militarySupplies;
-                m_gameManager.UserDBController().UpdateResource(m_manPower);
-                m_gameManager.UserDBController().UpdateResource(m_bullet);
+                m_leather.Amount -= leather;
+                m_gameManager.UserDBController().UpdateResource(m_steel);
+                m_gameManager.UserDBController().UpdateResource(m_flower);
                 m_gameManager.UserDBController().UpdateResource(m_food);
-                m_gameManager.UserDBController().UpdateResource(m_militarySupplies);
+                m_gameManager.UserDBController().UpdateResource(m_leather);
 
                 ReadUserWorkResource();
                 result = true;
@@ -248,14 +248,14 @@ namespace Assets.Common.Controller
             }
         }
 
-        public WorkResource ManPower()
+        public WorkResource Steel()
         {
-            return m_manPower;
+            return m_steel;
         }
 
-        public WorkResource Bullet()
+        public WorkResource Flower()
         {
-            return m_bullet;
+            return m_flower;
         }
 
         public WorkResource Food()
@@ -263,9 +263,9 @@ namespace Assets.Common.Controller
             return m_food;
         }
 
-        public WorkResource MilitarySupplies()
+        public WorkResource Leather()
         {
-            return m_militarySupplies;
+            return m_leather;
         }
 
         public OthersResource PassTicket()

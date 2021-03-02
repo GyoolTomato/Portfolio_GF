@@ -75,7 +75,7 @@ namespace Assets.Resources.Album
         private void ApplyDataCode(Assets.Common.DB.Index.IndexDataBase_TDoll dBData)
         {
             m_character.sprite = m_gameManager.GetSpriteController().GetCharacterImage(dBData.DataCode);
-            m_typeImage.sprite = m_gameManager.GetSpriteController().GetIconImage(dBData.Type);
+            m_typeImage.sprite = m_gameManager.GetSpriteController().GetTypeImage(dBData.Type);
 
             var tempStar = string.Empty;
             for (int i = 0; i < dBData.Star; i++)
