@@ -13,13 +13,14 @@ namespace Assets.Character
         protected override void Awake()
         {
             base.Awake();
+            Initialize(m_gameManager.IndexDBController().TDoll(1));
         }
 
         protected override void Start()
         {
             base.Start();
 
-            Initialize(m_gameManager.IndexDBController().TDoll(1));
+            
         }
 
         protected override void Update()

@@ -33,17 +33,21 @@ public class BattleFieldController
         m_boardUI.SetActive(false);
         m_board.SetActive(false);
 
-
         m_players = new List<CharacterBase>();
         m_enimies = new List<CharacterBase>();
 
         var tempPlayer = MonoBehaviour.Instantiate(CharacterObject.Healer(), new Vector3(-10, 0, 0), Quaternion.identity);
         var tempEnemy = MonoBehaviour.Instantiate(CharacterObject.Healer(), new Vector3(10, 0, 0), Quaternion.identity);
-        tempPlayer.transform.parent = m_battleField.transform;
-        tempEnemy.transform.parent = m_battleField.transform;
+        var scriptPlayer = tempPlayer.GetComponent<CharacterBase>();
+        var scriptEnemy = tempEnemy.GetComponent<CharacterBase>();
 
-        m_players.Add(tempPlayer.GetComponent<CharacterBase>());
-        m_enimies.Add(tempEnemy.GetComponent<CharacterBase>());
+        scriptPlayer.Initialize(CharacterBase.E_Team.Player, new Assets.Common.DB.User.UserDataBase_TDoll());
+        scriptEnemy.Initialize(CharacterBase.E_Team.Enemy, new Assets.Common.DB.User.UserDataBase_TDoll());
+        //tempPlayer.transform.parent = m_battleField.transform;
+        //tempEnemy.transform.parent = m_battleField.transform;
+
+        m_players.Add(scriptPlayer);
+        m_enimies.Add(scriptEnemy);
     }
 
     private void CloseBattleField()

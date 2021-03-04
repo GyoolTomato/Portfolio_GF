@@ -28,6 +28,7 @@ namespace Assets.Character.Base
         private Assets.Common.DB.Index.IndexDataBase_TDoll m_baseStat;
         private Assets.Common.DB.User.UserDataBase_TDoll m_userStat;
         private Animator m_animator;
+        private E_Team m_team;
         private E_State m_state;
         private string m_stringIsIdle;
         private string m_stringIsWalk;
@@ -86,7 +87,8 @@ namespace Assets.Character.Base
 
         public void Initialize(E_Team team, Common.DB.User.UserDataBase_TDoll userStat)
         {
-            switch (team)
+            m_team = team;
+            switch (m_team)
             {
                 case E_Team.Player:
                     transform.tag = "Player";
@@ -118,6 +120,10 @@ namespace Assets.Character.Base
         {
             if (TargetingEnemy() == null)
                 return;
+            else
+            {
+                SetState(E_State.Run);
+            }
         }
 
         private void Walk()
@@ -137,7 +143,17 @@ namespace Assets.Character.Base
             }
             else
             {
-                transform.Translate(Vector2.right * Time.deltaTime);
+                switch (m_team)
+                {
+                    case E_Team.Player:
+                        transform.Translate(Vector2.right * Time.deltaTime);
+                        break;
+                    case E_Team.Enemy:
+                        transform.Translate(Vector2.left * Time.deltaTime);
+                        break;
+                    default:
+                        break;
+                }                
             }
         }
 
