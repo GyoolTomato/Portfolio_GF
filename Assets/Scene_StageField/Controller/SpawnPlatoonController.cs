@@ -15,7 +15,8 @@ namespace Assets.Scene_StageField.Controller
         public void Initialize(StageFieldManager manager)
         {
             var canvas = GameObject.Find("Canvas");
-            var spawnPlatoon = canvas.transform.Find("SpawnPlatoon").gameObject;
+            var board = canvas.transform.Find("Board");
+            var spawnPlatoon = board.Find("SpawnPlatoon").gameObject;
 
             m_menuController = new MenuController();
             m_menuController.Initialize(spawnPlatoon);

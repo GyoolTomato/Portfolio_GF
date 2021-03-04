@@ -88,7 +88,7 @@ namespace Assets.Common.Controller
         {
             foreach (var item in m_gameManager.UserDBController().UserResource())
             {
-                if (item.Name == "Steal")
+                if (item.Name == "Steel")
                 {
                     m_steel.Amount = item.Value;
                 }

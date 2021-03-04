@@ -16,7 +16,7 @@ namespace Assets.Scene_Factory.Object
         }
 
         public delegate void CompleteListener(Common.DB.User.UserDataBase_Produce produceData);
-        public delegate void OrderListener(Common.DB.User.UserDataBase_Produce produceData, int manPower, int bullet, int food, int militarySupplies, out bool result);
+        public delegate void OrderListener(Common.DB.User.UserDataBase_Produce produceData, int steel, int flower, int food, int leather, out bool result);
 
         private E_State m_state;
         private OrderListener m_order;
@@ -29,10 +29,10 @@ namespace Assets.Scene_Factory.Object
         private Text m_remainingTime;
         private GameObject m_orderPanel;
         private Button m_orderButton;
-        private WorkResourceSlot m_manPower;
-        private WorkResourceSlot m_bullet;
+        private WorkResourceSlot m_steel;
+        private WorkResourceSlot m_flower;
         private WorkResourceSlot m_food;
-        private WorkResourceSlot m_militarySupplies;
+        private WorkResourceSlot m_leather;
 
         private void Awake()
         {
@@ -45,10 +45,10 @@ namespace Assets.Scene_Factory.Object
             m_orderPanel = this.transform.Find("OrderPanel").gameObject;
             m_orderButton = m_orderPanel.transform.Find("Order").GetComponent<Button>();
             m_orderButton.onClick.AddListener(Handle_Order);
-            m_manPower = m_orderPanel.transform.Find("WorkResourceSlot_ManPower").GetComponent<WorkResourceSlot>();
-            m_bullet = m_orderPanel.transform.Find("WorkResourceSlot_Bullet").GetComponent<WorkResourceSlot>();
+            m_steel = m_orderPanel.transform.Find("WorkResourceSlot_Steel").GetComponent<WorkResourceSlot>();
+            m_flower = m_orderPanel.transform.Find("WorkResourceSlot_Flower").GetComponent<WorkResourceSlot>();
             m_food = m_orderPanel.transform.Find("WorkResourceSlot_Food").GetComponent<WorkResourceSlot>();
-            m_militarySupplies = m_orderPanel.transform.Find("WorkResourceSlot_MilitarySupplies").GetComponent<WorkResourceSlot>();
+            m_leather = m_orderPanel.transform.Find("WorkResourceSlot_Leather").GetComponent<WorkResourceSlot>();
         }
 
         // Start is called before the first frame update
@@ -133,7 +133,7 @@ namespace Assets.Scene_Factory.Object
         {
             var orderData = new object();
             var result = false;
-            m_order(m_userDataBase_Produce, m_manPower.Value, m_bullet.Value, m_food.Value, m_militarySupplies.Value, out result);
+            m_order(m_userDataBase_Produce, m_steel.Value, m_flower.Value, m_food.Value, m_leather.Value, out result);
 
             if (result)
             {

@@ -148,7 +148,7 @@ namespace Assets.Scene_StageField.Controller
         private IEnumerator Battle()
         {
             yield return new WaitForSeconds(5);
-            m_stageFieldManager.GetBattleFieldController().ChangeTurn(BattleFieldController.E_Turn.Player);
+            m_stageFieldManager.GetBoardController().ChangeTurn(BoardController.E_Turn.Player);
         }
     }
 }

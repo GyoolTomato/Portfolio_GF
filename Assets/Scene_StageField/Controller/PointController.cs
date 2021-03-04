@@ -32,7 +32,8 @@ namespace Assets.Scene_StageField.Controller
             }            
 
             var canvas = GameObject.Find("Canvas");
-            m_spawnAnswer = canvas.transform.Find("SpawnAnswer").gameObject;
+            var board = canvas.transform.Find("Board");
+            m_spawnAnswer = board.Find("SpawnAnswer").gameObject;
             m_spawnAnswer.SetActive(false);
             m_spawnAnswer_Spawn = m_spawnAnswer.transform.Find("Spawn").GetComponent<Button>();
             m_spawnAnswer_Spawn.onClick.AddListener(Handle_Spawn);
@@ -55,14 +56,14 @@ namespace Assets.Scene_StageField.Controller
             m_selectPoint = point;
             var selectedPlayerPlatoon = m_stageFieldManager.GetPlayerPlatoonController().SelectedPlayerPlatoon;
 
-            if (m_stageFieldManager.GetBattleFieldController().IsStart())
+            if (m_stageFieldManager.GetBoardController().IsStart())
             {
                 if (selectedPlayerPlatoon == OnPlayer(point))
                     return;
 
-                switch (m_stageFieldManager.GetBattleFieldController().GetNowTurn())
+                switch (m_stageFieldManager.GetBoardController().GetNowTurn())
                 {
-                    case BattleFieldController.E_Turn.Player:
+                    case BoardController.E_Turn.Player:
                         switch (m_selectPoint.GetPointType())
                         {
                             case OccupationPoint.E_PointType.MainPoint:

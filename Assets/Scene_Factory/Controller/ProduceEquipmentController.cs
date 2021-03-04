@@ -23,48 +23,48 @@ namespace Assets.Scene_Factory.Controller
             }
         }
 
-        protected override void OrderReceive(UserDataBase_Produce produceData, int manPower, int bullet, int food, int militarySupplies, out bool result)
+        protected override void OrderReceive(UserDataBase_Produce produceData, int steel, int flower, int food, int leather, out bool result)
         {
             if (m_gameManager.ResourceContorller().EquipmentTicket().Amount >= 0)
             {
                 m_gameManager.ResourceContorller().OthersResourceAmountCal(Common.Controller.ResourceContorller.E_OthersResourceType.EquipmentTicket, -1);
                 m_ticketResourceController.UpdateValue();
-                base.OrderReceive(produceData, manPower, bullet, food, militarySupplies, out result);
+                base.OrderReceive(produceData, steel, flower, food, leather, out result);
 
                 var list = new List<Common.DB.Index.IndexDataBase_Equipment>();
                 var selectNumber = 0;
 
-                if (manPower >= 200 &&
-                    bullet >= 200 &&
+                if (steel >= 200 &&
+                    flower >= 200 &&
                     food >= 200 &&
-                    militarySupplies >= 100)
+                    leather >= 100)
                 {
                     list = m_gameManager.IndexDBController().Equipment(Common.Controller.IndexDBController.E_Equipment.All);
 
                     Debug.Log("Order : " + selectNumber.ToString());
                 }
-                else if (manPower >= 100 &&
-                    bullet >= 200 &&
+                else if (steel >= 100 &&
+                    flower >= 200 &&
                     food >= 200 &&
-                    militarySupplies >= 100)
+                    leather >= 100)
                 {
                     list = m_gameManager.IndexDBController().Equipment(Common.Controller.IndexDBController.E_Equipment.Weapon);
 
                     Debug.Log("Order : " + selectNumber.ToString());
                 }
-                else if (manPower >= 200 &&
-                    bullet >= 100 &&
+                else if (steel >= 200 &&
+                    flower >= 100 &&
                     food >= 200 &&
-                    militarySupplies >= 100)
+                    leather >= 100)
                 {
                     list = m_gameManager.IndexDBController().Equipment(Common.Controller.IndexDBController.E_Equipment.Armor);
 
                     Debug.Log("Order : " + selectNumber.ToString());
                 }
-                else if (manPower >= 200 &&
-                    bullet >= 200 &&
+                else if (steel >= 200 &&
+                    flower >= 200 &&
                     food >= 100 &&
-                    militarySupplies >= 100)
+                    leather >= 100)
                 {
                     list = m_gameManager.IndexDBController().Equipment(Common.Controller.IndexDBController.E_Equipment.Tool);
 

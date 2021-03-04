@@ -31,9 +31,9 @@ namespace Assets.Scene_Factory.Base
             m_messagePanel = canvas.transform.Find("MessagePanel").gameObject;
         }
 
-        protected virtual void OrderReceive(Common.DB.User.UserDataBase_Produce produceData, int manPower, int bullet, int food, int militarySupplies, out bool result)
+        protected virtual void OrderReceive(Common.DB.User.UserDataBase_Produce produceData, int steel, int flower, int food, int leather, out bool result)
         {
-            if (m_gameManager.ResourceContorller().WorkResourceConsumption(manPower, bullet, food, militarySupplies))
+            if (m_gameManager.ResourceContorller().WorkResourceConsumption(steel, flower, food, leather))
             {
                 m_messagePanel.SetActive(false);                
                 result = true;

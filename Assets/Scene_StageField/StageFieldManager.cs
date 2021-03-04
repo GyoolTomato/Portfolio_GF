@@ -14,9 +14,12 @@ namespace Assets.Scene_StageField
         private EnemyPlatoonController m_enemyPlatoonController;
         private PointController m_pointController;
         private SpawnPlatoonController m_spawnPlatoonController;
+        private BoardController m_boardController;
         private BattleFieldController m_battleFieldController;
 
         private GameObject m_canvas;
+        private GameObject m_battleField;
+        private GameObject m_board;        
         private GameObject m_turnMonitor;
         private GameObject m_turnButton;
         private GameObject m_spawnPlatoon;
@@ -46,14 +49,18 @@ namespace Assets.Scene_StageField
             m_pointController = new PointController();
             m_pointController.Initialize(this);
             m_spawnPlatoonController = new SpawnPlatoonController();
+            m_boardController = new BoardController();
+            m_boardController.Initialize(this);
             m_battleFieldController = new BattleFieldController();
-            m_battleFieldController.Initialize(this);
+            m_battleFieldController.Initialize();
 
             m_canvas = GameObject.Find("Canvas");
-            m_turnMonitor = m_canvas.transform.Find("TurnMonitor").gameObject;
-            m_turnButton = m_canvas.transform.Find("TurnButton").gameObject; 
-            m_spawnPlatoon = m_canvas.transform.Find("SpawnPlatoon").gameObject;
-            m_exitAnswer = m_canvas.transform.Find("ExitAnswer").gameObject;
+            m_battleField = m_canvas.transform.Find("BattleField").gameObject;
+            m_board = m_canvas.transform.Find("Board").gameObject;
+            m_turnMonitor = m_board.transform.Find("TurnMonitor").gameObject;
+            m_turnButton = m_board.transform.Find("TurnButton").gameObject; 
+            m_spawnPlatoon = m_board.transform.Find("SpawnPlatoon").gameObject;
+            m_exitAnswer = m_board.transform.Find("ExitAnswer").gameObject;
             m_exitAnswer.SetActive(false);
             m_exitAnswer_No = m_exitAnswer.transform.Find("No").GetComponent<Button>();
             m_exitAnswer_No.onClick.AddListener(Handle_ExitCanel);
@@ -69,6 +76,8 @@ namespace Assets.Scene_StageField
             SetSpawnPlatoonActive(false);
             m_spawnPlatoonController.Initialize(this);
             LoadBackup();
+
+            m_battleFieldController.OpenBattleField();
         }
 
         private void Update()
@@ -98,9 +107,9 @@ namespace Assets.Scene_StageField
             return m_pointController;
         }
 
-        public BattleFieldController GetBattleFieldController()
+        public BoardController GetBoardController()
         {
-            return m_battleFieldController;
+            return m_boardController;
         }
 
         private void BackAction()
