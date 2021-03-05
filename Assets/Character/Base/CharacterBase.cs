@@ -25,11 +25,13 @@ namespace Assets.Character.Base
 
         protected Assets.Common.GameManager m_gameManager;
         private bool m_isInit;
-        private Assets.Common.DB.Index.IndexDataBase_TDoll m_baseStat;
-        private Assets.Common.DB.User.UserDataBase_TDoll m_userStat;
-        private Animator m_animator;
+        private CharacterStat m_stat;
+        //private Assets.Common.DB.Index.IndexDataBase_TDoll m_baseStat;
+        //private Assets.Common.DB.User.UserDataBase_TDoll m_userStat;        
         private E_Team m_team;
         private E_State m_state;
+
+        private Animator m_animator;
         private string m_stringIsIdle;
         private string m_stringIsWalk;
         private string m_stringIsRun;
@@ -44,8 +46,10 @@ namespace Assets.Character.Base
         protected virtual void Awake()
         {
             m_gameManager = GameObject.Find("GameManager").GetComponent<Common.GameManager>();
-            m_animator = GetComponent<Animator>();
+            m_stat = new CharacterStat();
             m_state = E_State.Idle;
+
+            m_animator = GetComponent<Animator>();
             m_stringIsIdle = "isIdle";
             m_stringIsWalk = "isWalk";
             m_stringIsRun = "isRun";
@@ -103,21 +107,47 @@ namespace Assets.Character.Base
                     break;
             }
 
-            m_userStat = userStat;            
+            var adjustLevel = userStat.Level / 100;
+            m_stat.Hp = m_stat.Hp * adjustLevel;
+            m_stat.FirePower = m_stat.FirePower * adjustLevel;
+            m_stat.Critical = m_stat.Critical * adjustLevel;
+            m_stat.Focus = m_stat.Focus * adjustLevel;
+            m_stat.Armor = m_stat.Armor * adjustLevel;
+            m_stat.Avoidance = m_stat.Avoidance * adjustLevel;
 
-            if (m_userStat != null && m_baseStat != null)
+            var equipments = new List<Common.DB.Index.IndexDataBase_Equipment>();
+            equipments.Add(m_gameManager.IndexDBController().Equipment(userStat.EquipmentOwnershipNumber0));
+            equipments.Add(m_gameManager.IndexDBController().Equipment(userStat.EquipmentOwnershipNumber1));
+            equipments.Add(m_gameManager.IndexDBController().Equipment(userStat.EquipmentOwnershipNumber2));
+            foreach (var item in equipments)
             {
-                m_isInit = true;
-            }           
+                m_stat.Armor += item.Armor;
+                m_stat.Critical += item.Critical;
+                m_stat.FirePower += item.FirePower;
+                m_stat.Focus += item.Focus;
+            }
+
+            m_isInit = true;
+
         }
 
         protected void Initialize(Common.DB.Index.IndexDataBase_TDoll baseStat)
         {
-            m_baseStat = baseStat;
+            m_stat.Hp = baseStat.Hp;
+            m_stat.FirePower = baseStat.FirePower;
+            m_stat.AttackSpeed = baseStat.AttackSpeed;
+            m_stat.AttackRange = baseStat.AttackRange;
+            m_stat.Critical = baseStat.Critical;
+            m_stat.Focus = baseStat.Focus;
+            m_stat.Armor = baseStat.Armor;
+            m_stat.Avoidance = baseStat.Avoidance;
+            m_stat.MoveSpeed = baseStat.MoveSpeed;
         }
 
         private void Idle()
         {
+            m_animator.speed = 1.0f;
+
             if (TargetingEnemy() == null)
                 return;
             else
@@ -128,12 +158,16 @@ namespace Assets.Character.Base
 
         private void Walk()
         {
+            m_animator.speed = 1.0f;
+
             if (TargetingEnemy() == null)
                 SetState(E_State.Idle);
         }
 
         private void Run()
         {
+            m_animator.speed = 1.3f;
+
             if (TargetingEnemy() == null)
                 SetState(E_State.Idle);
 
@@ -146,10 +180,10 @@ namespace Assets.Character.Base
                 switch (m_team)
                 {
                     case E_Team.Player:
-                        transform.Translate(Vector2.right * Time.deltaTime);
+                        transform.Translate(Vector2.right * Time.deltaTime * m_stat.MoveSpeed);
                         break;
                     case E_Team.Enemy:
-                        transform.Translate(Vector2.left * Time.deltaTime);
+                        transform.Translate(Vector2.left * Time.deltaTime * m_stat.MoveSpeed);
                         break;
                     default:
                         break;
@@ -159,6 +193,8 @@ namespace Assets.Character.Base
 
         private void Attack()
         {
+            m_animator.speed = m_stat.AttackSpeed;
+
             if (TargetingEnemy() == null)            
                 SetState(E_State.Idle);            
 
@@ -174,6 +210,7 @@ namespace Assets.Character.Base
 
         private void Die()
         {
+            m_animator.speed = 1.0f;
 
         }
 
@@ -266,7 +303,7 @@ namespace Assets.Character.Base
         {
             if (TargetingEnemy() != null)
             {
-                if (Vector3.Distance(TargetingEnemy().transform.position, transform.position) <= m_baseStat.AttackRange)
+                if (Vector3.Distance(TargetingEnemy().transform.position, transform.position) <= m_stat.AttackRange)
                 {
                     return true;
                 }

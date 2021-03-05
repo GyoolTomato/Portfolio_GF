@@ -43,8 +43,8 @@ public class BattleFieldController
 
         scriptPlayer.Initialize(CharacterBase.E_Team.Player, new Assets.Common.DB.User.UserDataBase_TDoll());
         scriptEnemy.Initialize(CharacterBase.E_Team.Enemy, new Assets.Common.DB.User.UserDataBase_TDoll());
-        //tempPlayer.transform.parent = m_battleField.transform;
-        //tempEnemy.transform.parent = m_battleField.transform;
+        tempPlayer.transform.parent = m_battleField.transform;
+        tempEnemy.transform.parent = m_battleField.transform;
 
         m_players.Add(scriptPlayer);
         m_enimies.Add(scriptEnemy);

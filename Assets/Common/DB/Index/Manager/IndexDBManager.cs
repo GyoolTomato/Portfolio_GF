@@ -113,8 +113,8 @@ namespace Assets.Common.DB.Index.Manager
                             tempData_TDoll.Star = dataReader.GetInt32(3);
                             tempData_TDoll.Hp = dataReader.GetInt32(4);
                             tempData_TDoll.FirePower = dataReader.GetInt32(5);
-                            tempData_TDoll.AttackRange = dataReader.GetFloat(6);
-                            tempData_TDoll.AttackSpeed = dataReader.GetFloat(7);
+                            tempData_TDoll.AttackSpeed = dataReader.GetFloat(6);
+                            tempData_TDoll.AttackRange = dataReader.GetFloat(7);                            
                             tempData_TDoll.Critical = dataReader.GetFloat(8);
                             tempData_TDoll.Focus = dataReader.GetInt32(9);
                             tempData_TDoll.Armor = dataReader.GetInt32(10);
