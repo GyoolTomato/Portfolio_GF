@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,17 +8,19 @@ namespace Assets.Scene_StageField.Controller
 {
     public class BoardController
     {
-        public enum E_Turn
+        public enum E_State
         {
-            Player,
-            Enemy,
+            PlayerTurn,
+            EnemyTurn,
+            Battle,
+            Occupation,
             End,
         }
 
         private Common.GameManager m_gameManager;
         private StageFieldManager m_manager;
         private bool m_isStart;
-        private E_Turn m_turn;
+        private E_State m_state;
         private int m_turnNumber;
 
         private GameObject m_turnStartBanner;
@@ -25,6 +28,8 @@ namespace Assets.Scene_StageField.Controller
         private Text m_turnStartBanner_Turn;
         private Button m_startButton;
         private Button m_endTurnButton;
+
+        private List<Base.BattleData> m_battleDatas;
 
         public BoardController()
         {
@@ -38,7 +43,7 @@ namespace Assets.Scene_StageField.Controller
             m_turnNumber = 0;
 
             var canvas = GameObject.Find("Canvas");
-            var board = canvas.transform.Find("Board");
+            var board = canvas.transform.Find("BoardUI");
             m_turnStartBanner = board.Find("TurnStartBanner").gameObject;
             m_turnStartBanner.SetActive(false);
             m_turnStartBanner_Title = m_turnStartBanner.transform.Find("Title").GetComponent<Text>();
@@ -59,7 +64,7 @@ namespace Assets.Scene_StageField.Controller
                 m_isStart = true;
                 m_startButton.gameObject.SetActive(false);
                 m_endTurnButton.gameObject.SetActive(true);
-                ChangeTurn(E_Turn.Player);
+                ChangeState(E_State.PlayerTurn);
             }
             else
             {
@@ -69,33 +74,59 @@ namespace Assets.Scene_StageField.Controller
 
         private void Handle_EndTurnButton()
         {
-            ChangeTurn(E_Turn.Enemy);
+            ChangeState(E_State.EnemyTurn);
         }
 
-        public void ChangeTurn(E_Turn turn)
+        public void ChangeState(E_State state)
         {
-            m_turn = turn;
+            m_state = state;
 
-            switch (m_turn)
+            switch (m_state)
             {
-                case E_Turn.Player:
-                    m_turnNumber++;
-                    m_turnStartBanner.SetActive(true);
-                    m_turnStartBanner_Title.text = "플레이어 차례";
-                    m_turnStartBanner_Turn.text = m_turnNumber + "턴";
-                    m_manager.StartCoroutine(OffTurnStartBanner());
+                case E_State.PlayerTurn:
+                    State_PlayerTurn();
                     break;
-                case E_Turn.Enemy:
-                    m_turnStartBanner.SetActive(true);
-                    m_turnStartBanner_Title.text = "적 차례";
-                    m_turnStartBanner_Turn.text = m_turnNumber + "턴";
-                    m_manager.StartCoroutine(OffTurnStartBanner());
-
-                    m_manager.GetEnemyPlatoonController().MoveToPoint();
+                case E_State.EnemyTurn:
+                    State_EnemyTurn();
+                    break;
+                case E_State.Battle:
+                    State_Battle();
+                    break;
+                case E_State.Occupation:
+                    State_Occupation();
                     break;
                 default:
                     break;
             }
+        }
+
+        private void State_PlayerTurn()
+        {
+            m_turnNumber++;
+            m_turnStartBanner.SetActive(true);
+            m_turnStartBanner_Title.text = "플레이어 차례";
+            m_turnStartBanner_Turn.text = m_turnNumber + "턴";
+            m_manager.StartCoroutine(OffTurnStartBanner());
+        }
+
+        private void State_EnemyTurn()
+        {
+            m_turnStartBanner.SetActive(true);
+            m_turnStartBanner_Title.text = "적 차례";
+            m_turnStartBanner_Turn.text = m_turnNumber + "턴";
+            m_manager.StartCoroutine(OffTurnStartBanner());
+            m_manager.GetEnemyPlatoonController().StartEnemyTurn();
+            m_manager.StartCoroutine(MoveFinishCheck());
+        }
+
+        private void State_Battle()
+        {
+            m_manager.StartCoroutine(BattleAllFinishCheck());
+        }
+
+        private void State_Occupation()
+        {
+
         }
 
         private IEnumerator OffTurnStartBanner()
@@ -104,14 +135,56 @@ namespace Assets.Scene_StageField.Controller
             m_turnStartBanner.SetActive(false);
         }
 
+        private IEnumerator MoveFinishCheck()
+        {
+            var moving = true;
+            var enemies = m_manager.GetEnemyPlatoonController().GetEnemies();
+
+            while (moving)
+            {
+                if (enemies.Count > 0)
+                {
+                    foreach (var item in enemies)
+                    {
+                        if (item.IsMoving())
+                            moving = true;
+                        else
+                            moving = false;
+                    }
+                }
+                else
+                {
+                    yield return null;
+                }
+            }
+
+            ChangeState(E_State.Battle);
+            yield return null;
+        }
+
+        private IEnumerator BattleAllFinishCheck()
+        {
+            var notFinish = true;
+
+            while (notFinish)
+            {
+                if (m_battleDatas.Count == 0)
+                    notFinish = false;
+            }
+
+            yield return new WaitForSeconds(3);
+            ChangeState(E_State.Occupation);
+            yield return null;
+        }
+
         public bool IsStart()
         {
             return m_isStart;
         }
 
-        public E_Turn GetNowTurn()
+        public E_State GetNowState()
         {
-            return m_turn;
+            return m_state;
         }
     }
 }

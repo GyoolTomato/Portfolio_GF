@@ -29,8 +29,9 @@ namespace Assets.Scene_StageField.Controller
         private Stage1_5 m_stage1_5;
 
         private GameObject m_enemyObject;
-        private GameObject m_map;
+        private GameObject m_board;
         private List<Enemy> m_enemies;
+        private bool m_isMoveFinish;
 
         public EnemyPlatoonController()
         {
@@ -44,7 +45,7 @@ namespace Assets.Scene_StageField.Controller
             var gameManager = GameObject.Find("GameManager").GetComponent<Assets.Common.GameManager>();
             var selectedStage = gameManager.SelectedStage;
             m_enemyObject = UnityEngine.Resources.Load<GameObject>("StageField/Enemy");
-            m_map = GameObject.Find("Map");
+            m_board = GameObject.Find("Board");
 
             if (selectedStage.StageNumber == 1)
             {
@@ -84,7 +85,7 @@ namespace Assets.Scene_StageField.Controller
             foreach (var item in m_selectedStageEnemy.GetEnemyParties())
             {
                 var platoon = MonoBehaviour.Instantiate(m_enemyObject, Vector3.zero, Quaternion.identity);
-                platoon.transform.parent = m_map.transform;
+                platoon.transform.parent = m_board.transform;
                 var enemyScript = platoon.GetComponent<Assets.Resources.StageField.Enemy>();
                 enemyScript.Initialize(item);
 
@@ -106,16 +107,17 @@ namespace Assets.Scene_StageField.Controller
 
         public void StartEnemyTurn()
         {
-            MoveToPoint();            
+            MoveToPoint();
+            m_stageFieldManager.StartCoroutine(MoveFinishCheck());
         }
 
-        public void MoveToPoint()
+        private void MoveToPoint()
         {
+            m_isMoveFinish = false;
             var pointController = m_stageFieldManager.GetPointController();
             var linkedPoints = new List<OccupationPoint>();
             var enableMovePoints = new List<OccupationPoint>();
             var random = 0;
-            var needForBattle = false;
 
             foreach (var item in m_enemies)
             {
@@ -135,20 +137,36 @@ namespace Assets.Scene_StageField.Controller
                 {
                     random = UnityEngine.Random.Range(0, enableMovePoints.Count);
                     item.MovePoint(enableMovePoints[random]);
-                    needForBattle = true;
                 }                
-            }
-
-            if (needForBattle)
-            {
-                m_stageFieldManager.StartCoroutine(Battle());
             }
         }
 
-        private IEnumerator Battle()
+        IEnumerator MoveFinishCheck()
         {
-            yield return new WaitForSeconds(5);
-            m_stageFieldManager.GetBoardController().ChangeTurn(BoardController.E_Turn.Player);
+            if (m_enemies.Count > 0)
+            {
+                var isFinish = false;
+
+                while (!isFinish)
+                {
+                    isFinish = true;
+                    foreach (var item in m_enemies)
+                    {
+                        if (item.IsMoving())
+                            isFinish = false;
+                    }
+
+                    yield return new WaitForSeconds(1);
+                }
+            }
+
+            m_isMoveFinish = true;
+            yield return null;
+        }
+
+        public bool IsMoveFinish()
+        {
+            return m_isMoveFinish;
         }
     }
 }

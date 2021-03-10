@@ -29,7 +29,7 @@ namespace Assets.Scene_StageField.Controller.EnemyData
             temp.Memeber3.IndexNumber = 1;
             temp.Memeber3.Level = 10;
             temp.Memeber3.DummyLink = 1;
-            temp.StartPoint = m_map.transform.Find("NormalPoint_1").GetComponent<OccupationPoint>();
+            temp.StartPoint = m_board.transform.Find("NormalPoint_1").GetComponent<OccupationPoint>();
             m_enemyParties.Add(temp);
 
             temp = new EnemyParty();
@@ -45,7 +45,7 @@ namespace Assets.Scene_StageField.Controller.EnemyData
             temp.Memeber3.IndexNumber = 1;
             temp.Memeber3.Level = 10;
             temp.Memeber3.DummyLink = 1;
-            temp.StartPoint = m_map.transform.Find("MainPoint_Enemy").GetComponent<OccupationPoint>();
+            temp.StartPoint = m_board.transform.Find("MainPoint_Enemy").GetComponent<OccupationPoint>();
             m_enemyParties.Add(temp);
         }
     }

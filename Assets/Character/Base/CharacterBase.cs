@@ -128,7 +128,6 @@ namespace Assets.Character.Base
             }
 
             m_isInit = true;
-
         }
 
         protected void Initialize(Common.DB.Index.IndexDataBase_TDoll baseStat)

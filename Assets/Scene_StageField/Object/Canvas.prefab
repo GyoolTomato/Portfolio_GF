@@ -2114,7 +2114,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7484660965667389417}
   m_Layer: 0
-  m_Name: BattleField
+  m_Name: BattleFieldUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2819,7 +2819,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4177902470691807504}
   m_Layer: 5
-  m_Name: Board
+  m_Name: BoardUI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

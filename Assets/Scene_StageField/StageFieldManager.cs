@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Scene_StageField.Controller;
@@ -7,6 +8,13 @@ namespace Assets.Scene_StageField
 {
     public class StageFieldManager : MonoBehaviour
     {
+        public enum E_State
+        {
+            Board,
+            Battle,
+            End,
+        }
+
         private Assets.Common.GameManager m_gameManager;
         private TouchController m_touchController;
         private CameraController m_cameraController;
@@ -17,16 +25,17 @@ namespace Assets.Scene_StageField
         private BoardController m_boardController;
         private BattleFieldController m_battleFieldController;
 
-        private GameObject m_canvas;
         private GameObject m_battleField;
         private GameObject m_board;        
+        private GameObject m_canvas;
+        private GameObject m_battleFieldUI;
+        private GameObject m_boardUI;
         private GameObject m_turnMonitor;
         private GameObject m_turnButton;
         private GameObject m_spawnPlatoon;
         private GameObject m_exitAnswer;
         private Button m_exitAnswer_No;
-        private Button m_exitAnswer_Yes;
-        private GameObject m_map;        
+        private Button m_exitAnswer_Yes;      
         private Assets.Resources.Object.Title m_title;
 
         public StageFieldManager()
@@ -52,32 +61,31 @@ namespace Assets.Scene_StageField
             m_boardController = new BoardController();
             m_boardController.Initialize(this);
             m_battleFieldController = new BattleFieldController();
-            m_battleFieldController.Initialize();
+            m_battleFieldController.Initialize(this);
 
+            m_battleField = GameObject.Find("BattleField");
+            m_board = GameObject.Find("Board");
             m_canvas = GameObject.Find("Canvas");
-            m_battleField = m_canvas.transform.Find("BattleField").gameObject;
-            m_board = m_canvas.transform.Find("Board").gameObject;
-            m_turnMonitor = m_board.transform.Find("TurnMonitor").gameObject;
-            m_turnButton = m_board.transform.Find("TurnButton").gameObject; 
-            m_spawnPlatoon = m_board.transform.Find("SpawnPlatoon").gameObject;
-            m_exitAnswer = m_board.transform.Find("ExitAnswer").gameObject;
+            m_battleFieldUI = m_canvas.transform.Find("BattleFieldUI").gameObject;
+            m_boardUI = m_canvas.transform.Find("BoardUI").gameObject;
+            m_turnMonitor = m_boardUI.transform.Find("TurnMonitor").gameObject;
+            m_turnButton = m_boardUI.transform.Find("TurnButton").gameObject; 
+            m_spawnPlatoon = m_boardUI.transform.Find("SpawnPlatoon").gameObject;
+            m_exitAnswer = m_boardUI.transform.Find("ExitAnswer").gameObject;
             m_exitAnswer.SetActive(false);
             m_exitAnswer_No = m_exitAnswer.transform.Find("No").GetComponent<Button>();
             m_exitAnswer_No.onClick.AddListener(Handle_ExitCanel);
             m_exitAnswer_Yes = m_exitAnswer.transform.Find("Yes").GetComponent<Button>();
             m_exitAnswer_Yes.onClick.AddListener(Handle_Exit);
-            m_map = GameObject.Find("Map");
             m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Resources.Object.Title>();
             m_title.Initialize(m_gameManager, "스테이지", BackAction);            
         }
 
         private void Start()
         {
+            
             SetSpawnPlatoonActive(false);
-            m_spawnPlatoonController.Initialize(this);
-            LoadBackup();
-
-            m_battleFieldController.OpenBattleField();
+            m_spawnPlatoonController.Initialize(this);        
         }
 
         private void Update()
@@ -85,6 +93,7 @@ namespace Assets.Scene_StageField
             m_touchController.UpdateIsClick();
             m_cameraController.Update();
             m_pointController.Update();
+            ChangeState(E_State.Board);
         }
 
         public TouchController GetTouchController()
@@ -146,20 +155,36 @@ namespace Assets.Scene_StageField
                 m_turnMonitor.SetActive(false);
                 m_turnButton.SetActive(false);
                 m_spawnPlatoon.SetActive(true);
-                m_map.SetActive(false);
+                m_board.SetActive(false);
             }
             else
             {
                 m_turnMonitor.SetActive(true);
                 m_turnButton.SetActive(true);
                 m_spawnPlatoon.SetActive(false);
-                m_map.SetActive(true);
+                m_board.SetActive(true);
             }
         }
 
-        private void LoadBackup()
+        public void ChangeState(E_State state)
         {
-            
+            switch (state)
+            {
+                case E_State.Board:
+                    m_board.SetActive(true);
+                    m_boardUI.SetActive(true);
+                    m_battleField.SetActive(false);
+                    m_battleFieldUI.SetActive(false);
+                    break;
+                case E_State.Battle:
+                    m_board.SetActive(false);
+                    m_boardUI.SetActive(false);
+                    m_battleField.SetActive(true);
+                    m_battleFieldUI.SetActive(false);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

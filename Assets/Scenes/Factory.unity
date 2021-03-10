@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -164,7 +164,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1595659721689119835, guid: 34f587471e8b649828acf1894f92a4a0, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 300
+      value: 380
       objectReference: {fileID: 0}
     - target: {fileID: 1595659721689119835, guid: 34f587471e8b649828acf1894f92a4a0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -200,7 +200,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1595659721689119835, guid: 34f587471e8b649828acf1894f92a4a0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -370
+      value: -450
       objectReference: {fileID: 0}
     - target: {fileID: 1595659721689119835, guid: 34f587471e8b649828acf1894f92a4a0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1228,7 +1228,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1595659721689119835, guid: 34f587471e8b649828acf1894f92a4a0, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 300
+      value: 380
       objectReference: {fileID: 0}
     - target: {fileID: 1595659721689119835, guid: 34f587471e8b649828acf1894f92a4a0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1264,7 +1264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1595659721689119835, guid: 34f587471e8b649828acf1894f92a4a0, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -370
+      value: -450
       objectReference: {fileID: 0}
     - target: {fileID: 1595659721689119835, guid: 34f587471e8b649828acf1894f92a4a0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -2819,7 +2819,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1595659721689119835, guid: 34f587471e8b649828acf1894f92a4a0, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 300
+      value: 380
       objectReference: {fileID: 0}
     - target: {fileID: 1595659721689119835, guid: 34f587471e8b649828acf1894f92a4a0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3269,7 +3269,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1595659721689119835, guid: 34f587471e8b649828acf1894f92a4a0, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 300
+      value: 380
       objectReference: {fileID: 0}
     - target: {fileID: 1595659721689119835, guid: 34f587471e8b649828acf1894f92a4a0, type: 3}
       propertyPath: m_LocalPosition.x

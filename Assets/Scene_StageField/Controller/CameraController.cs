@@ -8,7 +8,7 @@ namespace Assets.Scene_StageField.Controller
         private StageFieldManager m_stageFieldManager;
         private TouchController m_touchController;
 
-        private GameObject m_map;
+        private GameObject m_board;
         private GameObject m_field;
         private Vector2 m_beforeMousePosition;
 
@@ -21,8 +21,8 @@ namespace Assets.Scene_StageField.Controller
             m_stageFieldManager = GameObject.Find("Manager").GetComponent<StageFieldManager>();
             m_touchController = m_stageFieldManager.GetTouchController();
 
-            m_map = GameObject.Find("Map");
-            m_field = m_map.transform.Find("Field").gameObject;
+            m_board = GameObject.Find("Board");
+            m_field = m_board.transform.Find("Field").gameObject;
         }
 
         public void Update()
@@ -54,7 +54,7 @@ namespace Assets.Scene_StageField.Controller
             var result = new Vector3();
             var cameraHeight = Camera.main.orthographicSize * 2;
             var cameraWidth = (Screen.width * cameraHeight) / Screen.height;
-            var mapPosition = m_map.transform.position;
+            var mapPosition = m_board.transform.position;
             var fieldSize = m_field.transform.localScale;
 
             result.x = mapPosition.x + move.x * speed;
@@ -79,7 +79,7 @@ namespace Assets.Scene_StageField.Controller
                 result.y = -(fieldSize.y/2) + cameraHeight/2;
             }
 
-            m_map.transform.position = result;
+            m_board.transform.position = result;
         }
     }
 }
