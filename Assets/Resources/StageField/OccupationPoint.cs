@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scene_StageField;
-using Assets.Scene_StageField.Controller;
+using Assets.Scene_StageField.Board.Controller;
 
 namespace Assets.Resources.StageField
 {
@@ -42,8 +42,8 @@ namespace Assets.Resources.StageField
         void Start()
         {
             m_stageFieldManager = GameObject.Find("Manager").GetComponent<StageFieldManager>();
-            m_touchController = m_stageFieldManager.GetTouchController();
-            m_pointController = m_stageFieldManager.GetPointController();
+            m_touchController = m_stageFieldManager.GetBoardManager().GetTouchController();
+            m_pointController = m_stageFieldManager.GetBoardManager().GetPointController();
 
             var temp = new GameObject();
             var tempScript = new LineDrawer();

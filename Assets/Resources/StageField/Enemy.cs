@@ -2,7 +2,7 @@
 using System.Collections;
 using Assets.Common.DB.User;
 using Assets.Scene_StageField;
-using Assets.Scene_StageField.Controller;
+using Assets.Scene_StageField.Board.Controller;
 using Assets.Scene_StageField.Controller.EnemyData.Base;
 
 namespace Assets.Resources.StageField
@@ -22,8 +22,8 @@ namespace Assets.Resources.StageField
         void Start()
         {
             m_stageFieldManager = GameObject.Find("Manager").GetComponent<StageFieldManager>();
-            m_touchController = m_stageFieldManager.GetTouchController();
-            m_playerPlatoonController = m_stageFieldManager.GetPlayerPlatoonController();
+            m_touchController = m_stageFieldManager.GetBoardManager().GetTouchController();
+            m_playerPlatoonController = m_stageFieldManager.GetBoardManager().GetPlayerPlatoonController();
         }
 
         // Update is called once per frame

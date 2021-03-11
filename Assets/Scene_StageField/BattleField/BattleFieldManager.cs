@@ -7,9 +7,9 @@ using Assets.Character.Base;
 using Assets.Common.DB.User;
 using Assets.Common.DB.Index;
 
-namespace Assets.Scene_StageField.Controller
+namespace Assets.Scene_StageField.BattleField
 {
-    public class BattleFieldController
+    public class BattleFieldManager
     {
         private StageFieldManager m_stageFieldManager;
         private GameObject m_battleFieldUI;
@@ -19,7 +19,7 @@ namespace Assets.Scene_StageField.Controller
         private List<CharacterBase> m_players;
         private List<CharacterBase> m_enimies;
 
-        public BattleFieldController()
+        public BattleFieldManager()
         {
         }
 

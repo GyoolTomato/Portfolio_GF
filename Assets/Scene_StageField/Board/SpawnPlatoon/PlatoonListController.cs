@@ -2,7 +2,7 @@
 using UnityEngine;
 using Assets.Resources.Object;
 
-namespace Assets.Scene_StageField.Controller.SpawnPlatoon
+namespace Assets.Scene_StageField.Board.SpawnPlatoon
 {
     public class PlatoonListController
     {

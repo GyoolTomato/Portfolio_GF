@@ -4,19 +4,19 @@ using System.Collections.Generic;
 using Assets.Resources.StageField;
 using Assets.Scene_StageField;
 
-namespace Assets.Scene_StageField.Controller
+namespace Assets.Scene_StageField.Board.Controller
 {
     public class PlayerPlatoonController
     {
         private Common.GameManager m_gameManager;
         private Player m_selectedPlayerPlatoon;
-        private StageFieldManager m_scene_StageField;
+        private BoardManager m_boardManager;
         private OccupationPoint m_selectPoint;
 
-        public void Initialize(StageFieldManager stageFieldManager)
+        public void Initialize(BoardManager boardManager)
         {
             m_gameManager = GameObject.Find("GameManager").GetComponent<Common.GameManager>();
-            m_scene_StageField = stageFieldManager;
+            m_boardManager = boardManager;
         }
 
         public Player SelectedPlayerPlatoon

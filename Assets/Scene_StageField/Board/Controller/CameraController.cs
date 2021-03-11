@@ -1,11 +1,11 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Scene_StageField.Controller
+namespace Assets.Scene_StageField.Board.Controller
 {
     public class CameraController
     {
-        private StageFieldManager m_stageFieldManager;
+        private BoardManager m_boardManager;
         private TouchController m_touchController;
 
         private GameObject m_board;
@@ -16,10 +16,10 @@ namespace Assets.Scene_StageField.Controller
         {
         }
 
-        public void Initialize()
+        public void Initialize(BoardManager boardManager)
         {
-            m_stageFieldManager = GameObject.Find("Manager").GetComponent<StageFieldManager>();
-            m_touchController = m_stageFieldManager.GetTouchController();
+            m_boardManager = boardManager;
+            m_touchController = m_boardManager.GetTouchController();
 
             m_board = GameObject.Find("Board");
             m_field = m_board.transform.Find("Field").gameObject;

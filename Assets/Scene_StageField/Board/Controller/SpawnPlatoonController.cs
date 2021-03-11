@@ -1,18 +1,18 @@
 ﻿using System;
 using UnityEngine;
 using Assets.Resources.Object;
-using Assets.Scene_StageField.Controller.SpawnPlatoon;
+using Assets.Scene_StageField.Board.SpawnPlatoon;
 
-namespace Assets.Scene_StageField.Controller
+namespace Assets.Scene_StageField.Board.Controller
 {
     public class SpawnPlatoonController
     {
         private MenuController m_menuController;
         private PlatoonListController m_platoonListController;
-        private StageFieldManager m_stageFieldManager;
+        private BoardManager m_boardManager;
         private GameObject m_board;
 
-        public void Initialize(StageFieldManager manager)
+        public void Initialize(BoardManager boardManager)
         {
             var canvas = GameObject.Find("Canvas");
             var board = canvas.transform.Find("BoardUI");
@@ -23,21 +23,21 @@ namespace Assets.Scene_StageField.Controller
             m_menuController.SetSpawnListener(SpawnPlayer);
             m_platoonListController = new PlatoonListController();
             m_platoonListController.Initialize(spawnPlatoon);
-            m_stageFieldManager = manager;
+            m_boardManager = boardManager;
             m_board = GameObject.Find("Board");
         }
 
         void SpawnPlayer()
         {            
             var player = UnityEngine.Resources.Load<GameObject>("StageField/Player");
-            var selectedPoint = m_stageFieldManager.GetPointController().GetSelectedPoint();
+            var selectedPoint = m_boardManager.GetPointController().GetSelectedPoint();
 
             var platoon = MonoBehaviour.Instantiate(player, selectedPoint.transform.position, Quaternion.identity);
             platoon.transform.parent = m_board.transform;
             var playerScript = platoon.GetComponent<Assets.Resources.StageField.Player>();
             playerScript.Initialize(m_menuController.GetSelectedPlatoonNumber(), selectedPoint);
 
-            m_stageFieldManager.SetSpawnPlatoonActive(false);
+            m_boardManager.SetSpawnPlatoonActive(false);
         }
     }
 }

@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scene_StageField.Controller.SpawnPlatoon
+namespace Assets.Scene_StageField.Board.SpawnPlatoon
 {
     public class MenuController : Assets.Common.Base.MenuBase
     {

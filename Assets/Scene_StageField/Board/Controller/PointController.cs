@@ -5,11 +5,11 @@ using System.Collections.Generic;
 using Assets.Resources.StageField;
 using Assets.Scene_StageField;
 
-namespace Assets.Scene_StageField.Controller
+namespace Assets.Scene_StageField.Board.Controller
 {
     public class PointController
     {
-        private StageFieldManager m_stageFieldManager;
+        private BoardManager m_boardManager;
         private List<OccupationPoint> m_occupationPoints;
         private OccupationPoint m_selectPoint;
 
@@ -21,9 +21,9 @@ namespace Assets.Scene_StageField.Controller
         {
         }
 
-        public void Initialize(StageFieldManager manager)
+        public void Initialize(BoardManager boardManager)
         {
-            m_stageFieldManager = manager;
+            m_boardManager = boardManager;
             m_occupationPoints = new List<OccupationPoint>();
             var points = GameObject.FindGameObjectsWithTag("Point");
             foreach (var item in points)
@@ -54,23 +54,23 @@ namespace Assets.Scene_StageField.Controller
         public void ClickOccupationPoint(OccupationPoint point)
         {
             m_selectPoint = point;
-            var selectedPlayerPlatoon = m_stageFieldManager.GetPlayerPlatoonController().SelectedPlayerPlatoon;
+            var selectedPlayerPlatoon = m_boardManager.GetPlayerPlatoonController().SelectedPlayerPlatoon;
 
-            if (m_stageFieldManager.GetBoardController().IsStart())
+            if (m_boardManager.IsStart())
             {
                 if (selectedPlayerPlatoon == OnPlayer(point))
                     return;
 
-                switch (m_stageFieldManager.GetBoardController().GetNowState())
+                switch (m_boardManager.GetNowState())
                 {
-                    case BoardController.E_State.PlayerTurn:
+                    case BoardManager.E_State.PlayerTurn:
                         switch (m_selectPoint.GetPointType())
                         {
                             case OccupationPoint.E_PointType.MainPoint:
                                 if (selectedPlayerPlatoon == null)
                                 {
                                     if (m_selectPoint.Owner == OccupationPoint.E_Owner.Player)
-                                        m_stageFieldManager.SetSpawnPlatoonActive(true);
+                                        m_boardManager.SetSpawnPlatoonActive(true);
                                 }
                                 else
                                     m_spawnAnswer.SetActive(true);
@@ -79,7 +79,7 @@ namespace Assets.Scene_StageField.Controller
                                 if (selectedPlayerPlatoon == null)
                                 {
                                     if (m_selectPoint.Owner == OccupationPoint.E_Owner.Player)
-                                        m_stageFieldManager.SetSpawnPlatoonActive(true);
+                                        m_boardManager.SetSpawnPlatoonActive(true);
                                 }
                                 else
                                     m_spawnAnswer.SetActive(true);
@@ -102,7 +102,7 @@ namespace Assets.Scene_StageField.Controller
                     case OccupationPoint.E_PointType.MainPoint:
                         if (m_selectPoint.Owner == OccupationPoint.E_Owner.Player)
                         {
-                            m_stageFieldManager.SetSpawnPlatoonActive(true);
+                            m_boardManager.SetSpawnPlatoonActive(true);
                             return;
                         }
                         break;
@@ -189,15 +189,15 @@ namespace Assets.Scene_StageField.Controller
 
         private void Handle_Spawn()
         {
-            if (m_selectPoint.Owner == OccupationPoint.E_Owner.Player)            
-                m_stageFieldManager.SetSpawnPlatoonActive(true);                
+            if (m_selectPoint.Owner == OccupationPoint.E_Owner.Player)
+                m_boardManager.SetSpawnPlatoonActive(true);                
             
             m_spawnAnswer.SetActive(false);
         }
 
         private void Handle_Move()
         {
-            var selectedPlayerPlatoon = m_stageFieldManager.GetPlayerPlatoonController().SelectedPlayerPlatoon;
+            var selectedPlayerPlatoon = m_boardManager.GetPlayerPlatoonController().SelectedPlayerPlatoon;
             MovePlayer(selectedPlayerPlatoon, m_selectPoint);
             m_spawnAnswer.SetActive(false);
         }

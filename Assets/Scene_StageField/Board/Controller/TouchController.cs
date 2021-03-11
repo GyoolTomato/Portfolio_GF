@@ -1,11 +1,11 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Scene_StageField.Controller
+namespace Assets.Scene_StageField.Board.Controller
 {
     public class TouchController
     {
-        private StageFieldManager m_stageFieldManager;
+        private BoardManager m_boardManager;
         private bool m_isClick;
 
         private GameObject m_clickObject;
@@ -15,14 +15,14 @@ namespace Assets.Scene_StageField.Controller
         {
         }
 
-        public void Initialize(StageFieldManager stageFieldManager)
+        public void Initialize(BoardManager boardManager)
         {
-            m_stageFieldManager = stageFieldManager;
+            m_boardManager = boardManager;
         }
 
         public void UpdateIsClick()
         {
-            if (!m_stageFieldManager.GetSpawnPlatoonActive())
+            if (!m_boardManager.GetSpawnPlatoonActive())
             {
                 if (Input.GetMouseButtonDown(0))
                 {

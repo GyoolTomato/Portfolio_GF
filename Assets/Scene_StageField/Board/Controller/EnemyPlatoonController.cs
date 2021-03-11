@@ -6,7 +6,7 @@ using Assets.Scene_StageField.Controller.EnemyData;
 using Assets.Scene_StageField.Controller.EnemyData.Base;
 using Assets.Resources.StageField;
 
-namespace Assets.Scene_StageField.Controller
+namespace Assets.Scene_StageField.Board.Controller
 {
     public class EnemyPlatoonController
     {
@@ -20,7 +20,7 @@ namespace Assets.Scene_StageField.Controller
         }
 
         private Common.GameManager m_gameManager;
-        private StageFieldManager m_stageFieldManager;
+        private BoardManager m_boardManager;
         private EnemyListBase m_selectedStageEnemy;
         private Stage1_1 m_stage1_1;
         private Stage1_2 m_stage1_2;
@@ -37,10 +37,10 @@ namespace Assets.Scene_StageField.Controller
         {
         }
 
-        public void Initialize(StageFieldManager manager)
+        public void Initialize(BoardManager boardManager)
         {
             m_gameManager = GameObject.Find("GameManager").GetComponent<Common.GameManager>();
-            m_stageFieldManager = manager;
+            m_boardManager = boardManager;
 
             var gameManager = GameObject.Find("GameManager").GetComponent<Assets.Common.GameManager>();
             var selectedStage = gameManager.SelectedStage;
@@ -107,14 +107,14 @@ namespace Assets.Scene_StageField.Controller
 
         public void StartEnemyTurn()
         {
+            m_isMoveFinish = false;
             MoveToPoint();
-            m_stageFieldManager.StartCoroutine(MoveFinishCheck());
+            m_boardManager.GetStageFieldManager().StartCoroutine(MoveFinishCheck());
         }
 
         private void MoveToPoint()
-        {
-            m_isMoveFinish = false;
-            var pointController = m_stageFieldManager.GetPointController();
+        {            
+            var pointController = m_boardManager.GetPointController();
             var linkedPoints = new List<OccupationPoint>();
             var enableMovePoints = new List<OccupationPoint>();
             var random = 0;

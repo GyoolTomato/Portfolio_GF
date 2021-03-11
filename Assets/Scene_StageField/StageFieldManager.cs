@@ -3,6 +3,8 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Scene_StageField.Controller;
+using Assets.Scene_StageField.Board;
+using Assets.Scene_StageField.BattleField;
 
 namespace Assets.Scene_StageField
 {
@@ -16,23 +18,17 @@ namespace Assets.Scene_StageField
         }
 
         private Assets.Common.GameManager m_gameManager;
-        private TouchController m_touchController;
-        private CameraController m_cameraController;
-        private PlayerPlatoonController m_playerPlatoonController;
-        private EnemyPlatoonController m_enemyPlatoonController;
-        private PointController m_pointController;
-        private SpawnPlatoonController m_spawnPlatoonController;
-        private BoardController m_boardController;
-        private BattleFieldController m_battleFieldController;
+
+        private E_State m_state;
+        private BoardManager m_boardManager;
+        private BattleFieldManager m_battleFieldManager;
 
         private GameObject m_battleField;
         private GameObject m_board;        
         private GameObject m_canvas;
         private GameObject m_battleFieldUI;
         private GameObject m_boardUI;
-        private GameObject m_turnMonitor;
-        private GameObject m_turnButton;
-        private GameObject m_spawnPlatoon;
+        
         private GameObject m_exitAnswer;
         private Button m_exitAnswer_No;
         private Button m_exitAnswer_Yes;      
@@ -46,31 +42,17 @@ namespace Assets.Scene_StageField
         private void Awake()
         {
             m_gameManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Common.GameManager>();
-            m_touchController = new TouchController();
-            m_touchController.Initialize(this);
-            m_cameraController = new CameraController();
-            m_cameraController.Initialize();
-            m_playerPlatoonController = new PlayerPlatoonController();
-            m_playerPlatoonController.Initialize(this);
-            m_enemyPlatoonController = new EnemyPlatoonController();
-            m_enemyPlatoonController.Initialize(this);
-
-            m_pointController = new PointController();
-            m_pointController.Initialize(this);
-            m_spawnPlatoonController = new SpawnPlatoonController();
-            m_boardController = new BoardController();
-            m_boardController.Initialize(this);
-            m_battleFieldController = new BattleFieldController();
-            m_battleFieldController.Initialize(this);
+            m_state = E_State.End;
+            m_boardManager = new BoardManager();
+            m_boardManager.Initialize(this);
+            m_battleFieldManager = new BattleFieldManager();
+            m_battleFieldManager.Initialize(this);
 
             m_battleField = GameObject.Find("BattleField");
             m_board = GameObject.Find("Board");
             m_canvas = GameObject.Find("Canvas");
             m_battleFieldUI = m_canvas.transform.Find("BattleFieldUI").gameObject;
             m_boardUI = m_canvas.transform.Find("BoardUI").gameObject;
-            m_turnMonitor = m_boardUI.transform.Find("TurnMonitor").gameObject;
-            m_turnButton = m_boardUI.transform.Find("TurnButton").gameObject; 
-            m_spawnPlatoon = m_boardUI.transform.Find("SpawnPlatoon").gameObject;
             m_exitAnswer = m_boardUI.transform.Find("ExitAnswer").gameObject;
             m_exitAnswer.SetActive(false);
             m_exitAnswer_No = m_exitAnswer.transform.Find("No").GetComponent<Button>();
@@ -83,49 +65,48 @@ namespace Assets.Scene_StageField
 
         private void Start()
         {
-            
-            SetSpawnPlatoonActive(false);
-            m_spawnPlatoonController.Initialize(this);        
+            ChangeState(E_State.Board);
+            switch (m_state)
+            {
+                case E_State.Board:
+                    m_boardManager.Start();
+                    break;
+                case E_State.Battle:
+                    break;
+                default:
+                    break;
+            }            
         }
 
         private void Update()
         {
-            m_touchController.UpdateIsClick();
-            m_cameraController.Update();
-            m_pointController.Update();
-            ChangeState(E_State.Board);
+            switch (m_state)
+            {
+                case E_State.Board:
+                    m_boardManager.Update();
+                    break;
+                case E_State.Battle:
+                    break;
+                default:
+                    break;
+            }            
         }
 
-        public TouchController GetTouchController()
+        public BoardManager GetBoardManager()
         {
-            return m_touchController;
+            return m_boardManager;
         }
 
-        public PlayerPlatoonController GetPlayerPlatoonController()
+        public BattleFieldManager GetBattleFieldManager()
         {
-            return m_playerPlatoonController;
-        }
-
-        public EnemyPlatoonController GetEnemyPlatoonController()
-        {
-            return m_enemyPlatoonController;
-        }
-
-        public PointController GetPointController()
-        {
-            return m_pointController;
-        }
-
-        public BoardController GetBoardController()
-        {
-            return m_boardController;
+            return m_battleFieldManager;
         }
 
         private void BackAction()
         {
-            if (m_spawnPlatoon.activeSelf)
+            if (m_boardManager.GetSpawnPlatoonActive())
             {
-                SetSpawnPlatoonActive(false);
+                m_boardManager.SetSpawnPlatoonActive(false);
             }
             else
             {
@@ -143,32 +124,10 @@ namespace Assets.Scene_StageField
             m_exitAnswer.SetActive(false);
         }
 
-        public bool GetSpawnPlatoonActive()
-        {
-            return m_spawnPlatoon.activeSelf;
-        }
-
-        public void SetSpawnPlatoonActive(bool active)
-        {
-            if (active)
-            {
-                m_turnMonitor.SetActive(false);
-                m_turnButton.SetActive(false);
-                m_spawnPlatoon.SetActive(true);
-                m_board.SetActive(false);
-            }
-            else
-            {
-                m_turnMonitor.SetActive(true);
-                m_turnButton.SetActive(true);
-                m_spawnPlatoon.SetActive(false);
-                m_board.SetActive(true);
-            }
-        }
-
         public void ChangeState(E_State state)
         {
-            switch (state)
+            m_state = state;
+            switch (m_state)
             {
                 case E_State.Board:
                     m_board.SetActive(true);
