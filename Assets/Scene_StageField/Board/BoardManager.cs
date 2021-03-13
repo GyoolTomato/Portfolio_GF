@@ -45,8 +45,7 @@ namespace Assets.Scene_StageField.Board
 
         private E_State m_state;
         private bool m_isStart;        
-        private int m_turnNumber;
-        private List<Base.BattleData> m_battleDatas;
+        private int m_turnNumber;        
 
         public BoardManager()
         {
@@ -88,9 +87,11 @@ namespace Assets.Scene_StageField.Board
             m_playerTurn = new PlayerTurn();
             m_playerTurn.Initialize(m_stageFieldmanager, m_turnStartBanner);
             m_enemyTurn = new EnemyTurn();
-            m_enemyTurn.Initialize(m_stageFieldmanager, m_enemyPlatoonController, m_turnStartBanner);
+            m_enemyTurn.Initialize(m_stageFieldmanager, m_turnStartBanner);
             m_battle = new Battle();
+            m_battle.Initialize(m_stageFieldmanager);
             m_occupation = new Occupation();
+            m_occupation.Initialize(m_stageFieldmanager);
 
             m_state = E_State.End;
             m_isStart = false;
@@ -138,45 +139,20 @@ namespace Assets.Scene_StageField.Board
             {
                 case E_State.PlayerTurn:
                     m_turnNumber++;
-                    m_playerTurn.TurnStart(m_turnNumber);
+                    m_playerTurn.StartTurn(m_turnNumber);
                     break;
                 case E_State.EnemyTurn:
-                    m_enemyTurn.TurnStart(m_turnNumber);
+                    m_enemyTurn.StartTurn(m_turnNumber);
                     break;
                 case E_State.Battle:
-                    State_Battle();
+                    m_battle.StartTurn();
                     break;
                 case E_State.Occupation:
-                    State_Occupation();
+
                     break;
                 default:
                     break;
             }
-        }
-
-        private void State_Battle()
-        {
-            m_stageFieldmanager.StartCoroutine(BattleAllFinishCheck());
-        }
-
-        private void State_Occupation()
-        {
-
-        }
-
-        private IEnumerator BattleAllFinishCheck()
-        {
-            var notFinish = true;
-
-            while (notFinish)
-            {
-                if (m_battleDatas.Count == 0)
-                    notFinish = false;
-                yield return null;
-            }
-
-            yield return new WaitForSeconds(3);
-            ChangeState(E_State.Occupation);            
         }
 
         public E_State GetNowState() => m_state;

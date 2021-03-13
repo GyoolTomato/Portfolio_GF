@@ -17,16 +17,16 @@ namespace Assets.Scene_StageField.Board.Turn
         {
         }
 
-        public void Initialize(StageFieldManager stageFieldManager, Controller.EnemyPlatoonController enemyPlatoonController, GameObject turnStartBanner)
+        public void Initialize(StageFieldManager stageFieldManager, GameObject turnStartBanner)
         {
             m_stageFieldManager = stageFieldManager;
-            m_enemyPlatoonController = enemyPlatoonController;
+            m_enemyPlatoonController = m_stageFieldManager.GetBoardManager().GetEnemyPlatoonController();
             m_turnStartBanner = turnStartBanner;
             m_turnStartBanner_Title = m_turnStartBanner.transform.Find("Title").GetComponent<Text>();
             m_turnStartBanner_Turn = m_turnStartBanner.transform.Find("Turn").GetComponent<Text>();
         }
 
-        public void TurnStart(int turnNumber)
+        public void StartTurn(int turnNumber)
         {
             m_turnStartBanner.SetActive(true);
             m_turnStartBanner_Title.text = "적 차례";

@@ -24,7 +24,7 @@ namespace Assets.Scene_StageField.Board.Turn
             m_turnStartBanner_Turn = m_turnStartBanner.transform.Find("Turn").GetComponent<Text>();
         }
 
-        public void TurnStart(int turnNumber)
+        public void StartTurn(int turnNumber)
         {
             m_turnStartBanner.SetActive(true);
             m_turnStartBanner_Title.text = "플레이어 차례";

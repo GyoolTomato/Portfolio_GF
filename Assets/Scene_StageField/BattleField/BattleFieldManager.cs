@@ -6,11 +6,19 @@ using Assets.Character;
 using Assets.Character.Base;
 using Assets.Common.DB.User;
 using Assets.Common.DB.Index;
+using Assets.Resources.StageField;
 
 namespace Assets.Scene_StageField.BattleField
 {
     public class BattleFieldManager
     {
+        public enum E_Winner
+        {
+            Player,
+            Enemy,
+            End,
+        }
+
         private StageFieldManager m_stageFieldManager;
         private GameObject m_battleFieldUI;
         private GameObject m_battleField;
@@ -18,6 +26,8 @@ namespace Assets.Scene_StageField.BattleField
         private GameObject m_board;
         private List<CharacterBase> m_players;
         private List<CharacterBase> m_enimies;
+        private bool m_finishBattle;
+        private E_Winner m_winner;
 
         public BattleFieldManager()
         {
@@ -33,15 +43,16 @@ namespace Assets.Scene_StageField.BattleField
             m_board = GameObject.Find("Board");
         }
 
-        public void OpenBattleField(UserDataBase_Platoon playerPlatoon, UserDataBase_Platoon enemyPlatoon)
+        public void OpenBattleField(Base.BattleData battleData)
         {
+            m_finishBattle = false;
             m_battleFieldUI.SetActive(true);
             m_battleField.SetActive(true);
             m_boardUI.SetActive(false);
             m_board.SetActive(false);
 
-            m_stageFieldManager.StartCoroutine(CreatePlayer(playerPlatoon));
-            m_stageFieldManager.StartCoroutine(CreateEnemy(enemyPlatoon));
+            m_stageFieldManager.StartCoroutine(CreatePlayer(battleData.Player));
+            m_stageFieldManager.StartCoroutine(CreateEnemy(battleData.Enemy));
 
             m_players = new List<CharacterBase>();
             m_enimies = new List<CharacterBase>();
@@ -66,14 +77,25 @@ namespace Assets.Scene_StageField.BattleField
             m_battleField.SetActive(false);
             m_boardUI.SetActive(true);
             m_board.SetActive(true);
+            m_finishBattle = true;
         }
 
-        private IEnumerator CreatePlayer(UserDataBase_Platoon playerPlatoon)
+        public bool IsFinishBattle()
+        {
+            return m_finishBattle;
+        }
+
+        public E_Winner GetWinner()
+        {
+            return E_Winner.End;
+        }
+
+        private IEnumerator CreatePlayer(Player player)
         {
             yield return null;
         }
 
-        private IEnumerator CreateEnemy(UserDataBase_Platoon enemyPlatoon)
+        private IEnumerator CreateEnemy(Enemy enemy)
         {
             yield return null;
         }
