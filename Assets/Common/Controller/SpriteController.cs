@@ -24,7 +24,7 @@ namespace Assets.Common.Controller
                 case 2:
                     return UnityEngine.Resources.Load<Sprite>("Character/Sorceress");
                 case 3:
-                    return UnityEngine.Resources.Load<Sprite>("Character/Witch");
+                    return UnityEngine.Resources.Load<Sprite>("Character/Wizzard");
                 case 4:
                     return UnityEngine.Resources.Load<Sprite>("Character/Archer");
                 case 5:

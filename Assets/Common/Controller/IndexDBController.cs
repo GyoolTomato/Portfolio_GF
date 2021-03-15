@@ -120,8 +120,16 @@ namespace Assets.Common.Controller
         public IndexDataBase_Equipment Equipment(int dataCode)
         {
             var result = new IndexDataBase_Equipment();
+            var temp = m_dBManager.ReadDataBase(IndexDBManager.E_Table.Equipment, QuerySupport_Index.SelectEquipment_DataCode(dataCode));
 
-            result = m_dBManager.ReadDataBase(IndexDBManager.E_Table.Equipment, QuerySupport_Index.SelectEquipment_DataCode(dataCode))[0] as IndexDataBase_Equipment;
+            if (temp.Count > 0)
+            {
+                result = temp[0] as IndexDataBase_Equipment;
+            }
+            else
+            {
+                result = null;
+            }            
 
             return result;
         }

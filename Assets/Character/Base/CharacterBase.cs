@@ -89,7 +89,7 @@ namespace Assets.Character.Base
             }
         }
 
-        public void Initialize(E_Team team, Common.DB.User.UserDataBase_TDoll userStat)
+        public void Initialize(E_Team team, Common.DB.User.UserDataBase_TDoll userStat, int orderInLayer)
         {
             m_team = team;
             switch (m_team)
@@ -121,14 +121,53 @@ namespace Assets.Character.Base
             equipments.Add(m_gameManager.IndexDBController().Equipment(userStat.EquipmentOwnershipNumber2));
             foreach (var item in equipments)
             {
-                m_stat.Armor += item.Armor;
-                m_stat.Critical += item.Critical;
-                m_stat.FirePower += item.FirePower;
-                m_stat.Focus += item.Focus;
+                if (item != null)
+                {
+                    m_stat.Armor += item.Armor;
+                    m_stat.Critical += item.Critical;
+                    m_stat.FirePower += item.FirePower;
+                    m_stat.Focus += item.Focus;
+                }                
             }
+
+            var spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer.sortingOrder = orderInLayer;
 
             m_isInit = true;
         }
+
+        public void Initialize(E_Team team, Assets.Scene_StageField.Controller.EnemyData.Base.EnemyMember enemyStat, int orderInLayer)
+        {
+            m_team = team;
+            switch (m_team)
+            {
+                case E_Team.Player:
+                    transform.tag = "Player";
+                    break;
+                case E_Team.Enemy:
+                    transform.tag = "Enemy";
+                    var temp = transform.localScale;
+                    temp.x = temp.x * -1;
+                    transform.localScale = temp;
+                    break;
+                default:
+                    break;
+            }
+
+            var adjustLevel = enemyStat.Level / 100;
+            m_stat.Hp = m_stat.Hp * adjustLevel;
+            m_stat.FirePower = m_stat.FirePower * adjustLevel;
+            m_stat.Critical = m_stat.Critical * adjustLevel;
+            m_stat.Focus = m_stat.Focus * adjustLevel;
+            m_stat.Armor = m_stat.Armor * adjustLevel;
+            m_stat.Avoidance = m_stat.Avoidance * adjustLevel;
+
+            var spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer.sortingOrder = orderInLayer;
+
+            m_isInit = true;
+        }
+
 
         protected void Initialize(Common.DB.Index.IndexDataBase_TDoll baseStat)
         {

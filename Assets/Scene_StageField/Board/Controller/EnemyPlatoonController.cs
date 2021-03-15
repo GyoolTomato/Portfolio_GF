@@ -28,7 +28,7 @@ namespace Assets.Scene_StageField.Board.Controller
         private Stage1_4 m_stage1_4;
         private Stage1_5 m_stage1_5;
 
-        private GameObject m_enemyObject;
+        private GameObject m_platoonObject;
         private GameObject m_board;
         private List<Enemy> m_enemies;
         private bool m_isMoveFinish;
@@ -44,7 +44,7 @@ namespace Assets.Scene_StageField.Board.Controller
 
             var gameManager = GameObject.Find("GameManager").GetComponent<Assets.Common.GameManager>();
             var selectedStage = gameManager.SelectedStage;
-            m_enemyObject = UnityEngine.Resources.Load<GameObject>("StageField/Enemy");
+            m_platoonObject = UnityEngine.Resources.Load<GameObject>("StageField/Platoon");
             m_board = GameObject.Find("Board");
 
             if (selectedStage.StageNumber == 1)
@@ -76,7 +76,7 @@ namespace Assets.Scene_StageField.Board.Controller
                         m_stage1_5.Initialize();
                         m_selectedStageEnemy = m_stage1_5;
                         break;
-                    default:
+                default:
                         break;
                 }
             }
@@ -84,8 +84,9 @@ namespace Assets.Scene_StageField.Board.Controller
             m_enemies = new List<Enemy>();
             foreach (var item in m_selectedStageEnemy.GetEnemyParties())
             {
-                var platoon = MonoBehaviour.Instantiate(m_enemyObject, Vector3.zero, Quaternion.identity);
+                var platoon = MonoBehaviour.Instantiate(m_platoonObject, Vector3.zero, Quaternion.identity);
                 platoon.transform.parent = m_board.transform;
+                platoon.AddComponent<Assets.Resources.StageField.Enemy>();
                 var enemyScript = platoon.GetComponent<Assets.Resources.StageField.Enemy>();
                 enemyScript.Initialize(item);
 
@@ -97,7 +98,7 @@ namespace Assets.Scene_StageField.Board.Controller
         {
             var temp = GameObject.FindGameObjectsWithTag("Enemy");
             var enemies = new List<Enemy>();
-            foreach (var item in enemies)
+            foreach (var item in temp)
             {
                 enemies.Add(item.GetComponent<Enemy>());
             }

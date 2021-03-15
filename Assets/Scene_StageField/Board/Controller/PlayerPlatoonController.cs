@@ -43,7 +43,7 @@ namespace Assets.Scene_StageField.Board.Controller
         {
             var temp = GameObject.FindGameObjectsWithTag("Player");
             var players = new List<Player>();
-            foreach (var item in players)
+            foreach (var item in temp)
             {
                 players.Add(item.GetComponent<Player>());
             }

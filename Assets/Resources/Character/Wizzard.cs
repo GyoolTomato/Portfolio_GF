@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace Assets.Character
 {
-    public class Witch : Base.CharacterBase
+    public class Wizzard : Base.CharacterBase
     {
-        public Witch()
+        public Wizzard()
         {
         }
 
@@ -19,14 +19,11 @@ namespace Assets.Character
         protected override void Start()
         {
             base.Start();
-
-
         }
 
         protected override void Update()
         {
             base.Update();
-
         }
     }
 }

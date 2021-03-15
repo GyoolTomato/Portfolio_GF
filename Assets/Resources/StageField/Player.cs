@@ -11,11 +11,11 @@ namespace Assets.Resources.StageField
         private StageFieldManager m_stageFieldManager;
         private TouchController m_touchController;
         private PlayerPlatoonController m_playerPlatoonController;
-        private int m_platoonNumber;
         private bool m_isMoving;
         private float m_moveDistance;
         private Vector3 m_moveDirection;
         private OccupationPoint m_stayPoint;
+        private UserDataBase_Platoon m_platoonData;
 
         // Use this for initialization
         void Start()
@@ -39,20 +39,21 @@ namespace Assets.Resources.StageField
             }
         }
 
-        public void Initialize(int platoonNumber, OccupationPoint spawnPoint)
+        public void Initialize(UserDataBase_Platoon platoon, OccupationPoint spawnPoint)
         {
-            m_platoonNumber = platoonNumber;
+            m_platoonData = platoon;
             m_stayPoint = spawnPoint;
-        }
-
-        public int GetPlatoonNumber()
-        {
-            return m_platoonNumber;
+            transform.tag = "Player";
         }
 
         public OccupationPoint GetStayPoint()
         {
             return m_stayPoint;
+        }
+
+        public UserDataBase_Platoon GetPlatoonData()
+        {
+            return m_platoonData;
         }
 
         public bool IsMoving()

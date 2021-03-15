@@ -40,6 +40,7 @@ namespace Assets.Resources.StageField
             m_enemyParty = enemyParty;
             m_stayPoint = enemyParty.StartPoint;
             transform.localPosition = m_stayPoint.transform.localPosition;
+            transform.tag = "Enemy";
         }
 
         public EnemyParty GetEnemyParty()

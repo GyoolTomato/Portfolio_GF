@@ -37,7 +37,7 @@ namespace Assets.Scene_StageField.Board.Turn
             foreach (var player in m_boardManager.GetPlayerPlatoonController().GetPlayers())
             {
                 playerScript = player.GetComponent<Player>();
-                foreach (var enemy in m_boardManager.GetEnemyPlatoonController().GetEnemies() )
+                foreach (var enemy in m_boardManager.GetEnemyPlatoonController().GetEnemies())
                 {
                     enemyScript = enemy.GetComponent<Enemy>();
 

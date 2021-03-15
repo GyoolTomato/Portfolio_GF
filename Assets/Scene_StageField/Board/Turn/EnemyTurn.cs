@@ -44,14 +44,12 @@ namespace Assets.Scene_StageField.Board.Turn
 
         private IEnumerator MoveFinishCheck()
         {
-            while (true)
-            {
-                if (m_enemyPlatoonController.IsMoveFinish())
-                {
-                    m_stageFieldManager.GetBoardManager().ChangeState(BoardManager.E_State.Battle);
-                }
+            while (!m_enemyPlatoonController.IsMoveFinish())
+            {                
                 yield return null;
             }
+
+            m_stageFieldManager.GetBoardManager().ChangeState(BoardManager.E_State.Battle);
         }
     }
 }
