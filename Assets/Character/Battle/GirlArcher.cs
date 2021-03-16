@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Character
+namespace Assets.Character.Battle
 {
-    public class Sorceress : Base.CharacterBase
+    public class GirlArcher : Base.CharacterBase
     {
-        public Sorceress()
+        public GirlArcher()
         {
         }
 
         protected override void Awake()
         {
             base.Awake();
-            Initialize(m_gameManager.IndexDBController().TDoll(2));
+            Initialize(m_gameManager.IndexDBController().TDoll(5));
         }
 
         protected override void Start()

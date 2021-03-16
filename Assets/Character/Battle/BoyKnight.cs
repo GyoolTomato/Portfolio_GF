@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Character
+namespace Assets.Character.Battle
 {
-    public class ElfKnight : Base.CharacterBase
+    public class BoyKnight : Base.CharacterBase
     {
-        public ElfKnight()
+        public BoyKnight()
         {
         }
 
         protected override void Awake()
         {
             base.Awake();
-            Initialize(m_gameManager.IndexDBController().TDoll(9));
+            Initialize(m_gameManager.IndexDBController().TDoll(7));
         }
 
         protected override void Start()
         {
-            base.Start();
+            base.Start();            
         }
 
         protected override void Update()

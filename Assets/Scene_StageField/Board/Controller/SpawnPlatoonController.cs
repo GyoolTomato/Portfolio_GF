@@ -3,6 +3,7 @@ using UnityEngine;
 using Assets.Common;
 using Assets.Resources.Object;
 using Assets.Scene_StageField.Board.SpawnPlatoon;
+using Assets.Character;
 
 namespace Assets.Scene_StageField.Board.Controller
 {
@@ -31,17 +32,16 @@ namespace Assets.Scene_StageField.Board.Controller
         }
 
         void SpawnPlayer()
-        {            
-            var platoonObject = UnityEngine.Resources.Load<GameObject>("StageField/Platoon");
+        {
+            //Index를 맞추기 위해 -1 처리
+            var platoonData = m_gameManager.UserDBController().UserFormation()[m_menuController.GetSelectedPlatoonNumber() - 1];
+            var platoonObject = CharacterObject.DataCodeObject(m_gameManager.UserDBController().UserTDoll(platoonData.Member1).DataCode);
             var selectedPoint = m_boardManager.GetPointController().GetSelectedPoint();
 
             var platoon = MonoBehaviour.Instantiate(platoonObject, selectedPoint.transform.position, Quaternion.identity);
             platoon.transform.parent = m_board.transform;
             platoon.AddComponent<Resources.StageField.Player>();
             var playerScript = platoon.GetComponent<Assets.Resources.StageField.Player>();
-
-            //Index를 맞추기 위해 -1 처리
-            var platoonData = m_gameManager.UserDBController().UserFormation()[m_menuController.GetSelectedPlatoonNumber()-1];
             playerScript.Initialize(platoonData, selectedPoint);
 
             m_boardManager.SetSpawnPlatoonActive(false);

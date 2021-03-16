@@ -4,7 +4,7 @@ using System.Collections;
 using UnityEngine;
 using Assets.Common;
 using Assets.Character;
-using Assets.Character.Base;
+using Assets.Character.Battle.Base;
 using Assets.Common.DB.User;
 using Assets.Common.DB.Index;
 using Assets.Resources.StageField;
@@ -97,7 +97,7 @@ namespace Assets.Scene_StageField.BattleField
             var tempScript = new CharacterBase();
             var yPosition = 0.0f;
             var yPositionMin = -4.5f;
-            var yPositionMax = -2.5f;
+            var yPositionMax = -2.7f;
 
             for (int i = 1; i <= 5; i++)
             {                
@@ -107,7 +107,7 @@ namespace Assets.Scene_StageField.BattleField
                     tempObject = m_spawnController.SpawnCharacter(member1.DataCode, new Vector3(-10, yPosition, 0));
                     tempObject.transform.parent = m_battleField.transform;
                     tempScript = tempObject.GetComponent<CharacterBase>();
-                    tempScript.Initialize(CharacterBase.E_Team.Player, member1, 3);
+                    tempScript.Initialize(CharacterBase.E_Team.Player, member1);
                     yield return new WaitForSeconds(1.0f);
                 }
                 if (member2 != null && member2.DummyLink >= i)
@@ -116,7 +116,7 @@ namespace Assets.Scene_StageField.BattleField
                     tempObject = m_spawnController.SpawnCharacter(member2.DataCode, new Vector3(-10, yPosition, 0));
                     tempObject.transform.parent = m_battleField.transform;
                     tempScript = tempObject.GetComponent<CharacterBase>();
-                    tempScript.Initialize(CharacterBase.E_Team.Player, member2, 4);
+                    tempScript.Initialize(CharacterBase.E_Team.Player, member2);
                     yield return new WaitForSeconds(1.0f);
                 }
                 if (member3 != null && member3.DummyLink >= i)
@@ -125,7 +125,7 @@ namespace Assets.Scene_StageField.BattleField
                     tempObject = m_spawnController.SpawnCharacter(member3.DataCode, new Vector3(-10, yPosition, 0));
                     tempObject.transform.parent = m_battleField.transform;
                     tempScript = tempObject.GetComponent<CharacterBase>();
-                    tempScript.Initialize(CharacterBase.E_Team.Player, member3, 5);
+                    tempScript.Initialize(CharacterBase.E_Team.Player, member3);
                     yield return new WaitForSeconds(1.0f);
                 }
                 if (member4 != null && member4.DummyLink >= i)
@@ -134,7 +134,7 @@ namespace Assets.Scene_StageField.BattleField
                     tempObject = m_spawnController.SpawnCharacter(member4.DataCode, new Vector3(-10, yPosition, 0));
                     tempObject.transform.parent = m_battleField.transform;
                     tempScript = tempObject.GetComponent<CharacterBase>();
-                    tempScript.Initialize(CharacterBase.E_Team.Player, member4, 6);
+                    tempScript.Initialize(CharacterBase.E_Team.Player, member4);
                     yield return new WaitForSeconds(1.0f);
                 }
                 
@@ -154,22 +154,19 @@ namespace Assets.Scene_StageField.BattleField
             var tempScript = new CharacterBase();
             var yPosition = 0.0f;
             var yPositionMin = -4.5f;
-            var yPositionMax = -2.5f;
-            var orderInLayer = 0;
+            var yPositionMax = -2.7f;
 
             for (int i = 1; i <= 5; i++)
             {
-                orderInLayer = 3;
                 foreach (var item in platoon.Members())
                 {
-                    orderInLayer++;
                     if (item != null && item.DummyLink >= i)
                     {
                         yPosition = UnityEngine.Random.Range(yPositionMin, yPositionMax);
                         tempObject = m_spawnController.SpawnCharacter(item.IndexNumber, new Vector3(10, yPosition, 0));
                         tempObject.transform.parent = m_battleField.transform;
                         tempScript = tempObject.GetComponent<CharacterBase>();
-                        tempScript.Initialize(CharacterBase.E_Team.Enemy, item, orderInLayer);
+                        tempScript.Initialize(CharacterBase.E_Team.Enemy, item);
                         yield return new WaitForSeconds(1.0f);
                     }                    
                 }                

@@ -5,6 +5,7 @@ using UnityEngine;
 using Assets.Scene_StageField.Controller.EnemyData;
 using Assets.Scene_StageField.Controller.EnemyData.Base;
 using Assets.Resources.StageField;
+using Assets.Character;
 
 namespace Assets.Scene_StageField.Board.Controller
 {
@@ -27,8 +28,7 @@ namespace Assets.Scene_StageField.Board.Controller
         private Stage1_3 m_stage1_3;
         private Stage1_4 m_stage1_4;
         private Stage1_5 m_stage1_5;
-
-        private GameObject m_platoonObject;
+                
         private GameObject m_board;
         private List<Enemy> m_enemies;
         private bool m_isMoveFinish;
@@ -43,8 +43,7 @@ namespace Assets.Scene_StageField.Board.Controller
             m_boardManager = boardManager;
 
             var gameManager = GameObject.Find("GameManager").GetComponent<Assets.Common.GameManager>();
-            var selectedStage = gameManager.SelectedStage;
-            m_platoonObject = UnityEngine.Resources.Load<GameObject>("StageField/Platoon");
+            var selectedStage = gameManager.SelectedStage;            
             m_board = GameObject.Find("Board");
 
             if (selectedStage.StageNumber == 1)
@@ -81,10 +80,15 @@ namespace Assets.Scene_StageField.Board.Controller
                 }
             }
 
+            CreateEnemy();
+        }
+
+        private void CreateEnemy()
+        {
             m_enemies = new List<Enemy>();
             foreach (var item in m_selectedStageEnemy.GetEnemyParties())
             {
-                var platoon = MonoBehaviour.Instantiate(m_platoonObject, Vector3.zero, Quaternion.identity);
+                var platoon = MonoBehaviour.Instantiate(CharacterObject.DataCodeObject(item.Memeber1.IndexNumber), Vector3.zero, Quaternion.identity);
                 platoon.transform.parent = m_board.transform;
                 platoon.AddComponent<Assets.Resources.StageField.Enemy>();
                 var enemyScript = platoon.GetComponent<Assets.Resources.StageField.Enemy>();

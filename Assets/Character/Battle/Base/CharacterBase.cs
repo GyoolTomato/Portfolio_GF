@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
-namespace Assets.Character.Base
+namespace Assets.Character.Battle.Base
 {
     public class CharacterBase : MonoBehaviour
     {
@@ -89,7 +90,7 @@ namespace Assets.Character.Base
             }
         }
 
-        public void Initialize(E_Team team, Common.DB.User.UserDataBase_TDoll userStat, int orderInLayer)
+        public void Initialize(E_Team team, Common.DB.User.UserDataBase_TDoll userStat)
         {
             m_team = team;
             switch (m_team)
@@ -130,13 +131,13 @@ namespace Assets.Character.Base
                 }                
             }
 
-            var spriteRenderer = GetComponent<SpriteRenderer>();
-            spriteRenderer.sortingOrder = orderInLayer;
+            var sortingGroup = GetComponent<SortingGroup>();
+            sortingGroup.sortingOrder = (int)(Math.Abs(transform.position.y) * 10);
 
             m_isInit = true;
         }
 
-        public void Initialize(E_Team team, Assets.Scene_StageField.Controller.EnemyData.Base.EnemyMember enemyStat, int orderInLayer)
+        public void Initialize(E_Team team, Assets.Scene_StageField.Controller.EnemyData.Base.EnemyMember enemyStat)
         {
             m_team = team;
             switch (m_team)
@@ -162,8 +163,8 @@ namespace Assets.Character.Base
             m_stat.Armor = m_stat.Armor * adjustLevel;
             m_stat.Avoidance = m_stat.Avoidance * adjustLevel;
 
-            var spriteRenderer = GetComponent<SpriteRenderer>();
-            spriteRenderer.sortingOrder = orderInLayer;
+            var sortingGroup = GetComponent<SortingGroup>();
+            sortingGroup.sortingOrder = (int)(Math.Abs(transform.position.y) * 10);
 
             m_isInit = true;
         }

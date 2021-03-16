@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Character
+namespace Assets.Character.Battle
 {
-    public class BoyKnight : Base.CharacterBase
+    public class Wizzard : Base.CharacterBase
     {
-        public BoyKnight()
+        public Wizzard()
         {
         }
 
         protected override void Awake()
         {
             base.Awake();
-            Initialize(m_gameManager.IndexDBController().TDoll(7));
+            Initialize(m_gameManager.IndexDBController().TDoll(3));
         }
 
         protected override void Start()
         {
-            base.Start();            
+            base.Start();
         }
 
         protected override void Update()

@@ -4,6 +4,7 @@ using Assets.Common.DB.User;
 using Assets.Scene_StageField;
 using Assets.Scene_StageField.Board.Controller;
 using Assets.Scene_StageField.Controller.EnemyData.Base;
+using Assets.Character.Board;
 
 namespace Assets.Resources.StageField
 {
@@ -17,6 +18,7 @@ namespace Assets.Resources.StageField
         private float m_moveDistance;
         private Vector3 m_moveDirection;
         private OccupationPoint m_stayPoint;
+        private CharacterBase m_characterBase;
 
         // Use this for initialization
         void Start()
@@ -41,6 +43,10 @@ namespace Assets.Resources.StageField
             m_stayPoint = enemyParty.StartPoint;
             transform.localPosition = m_stayPoint.transform.localPosition;
             transform.tag = "Enemy";
+            var tempScale = transform.localScale;
+            tempScale.x = tempScale.x * -1;
+            transform.localScale = tempScale;
+            m_characterBase = gameObject.AddComponent<CharacterBase>();
         }
 
         public EnemyParty GetEnemyParty()
@@ -64,6 +70,7 @@ namespace Assets.Resources.StageField
             {
                 m_stayPoint = point;
                 m_moveDirection = m_stayPoint.transform.localPosition;
+                m_characterBase.SetAnim(CharacterBase.E_State.Run);
                 m_isMoving = true;
             }
         }
@@ -78,6 +85,7 @@ namespace Assets.Resources.StageField
             if (distance <= 0.05)
             {
                 transform.localPosition = m_moveDirection;
+                m_characterBase.SetAnim(CharacterBase.E_State.Idle);
                 m_isMoving = false;
             }
         }        

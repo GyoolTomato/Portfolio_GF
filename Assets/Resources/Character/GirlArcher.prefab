@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 18
+  m_SortingOrder: 40
   m_BoneTransforms:
   - {fileID: 589831522340451226}
 --- !u!137 &709238770074635618
@@ -1727,9 +1727,9 @@ GameObject:
   m_Component:
   - component: {fileID: 590085260899491414}
   - component: {fileID: 679256915401259148}
-  - component: {fileID: -6484645535620714412}
   - component: {fileID: 4402107762862696090}
   - component: {fileID: -1224510335263758015}
+  - component: {fileID: -3203489381489350339}
   m_Layer: 0
   m_Name: GirlArcher
   m_TagString: Untagged
@@ -1771,18 +1771,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &-6484645535620714412
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 593206301628996796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c98a58c5c16ad4de0b1019a3a5d64711, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &4402107762862696090
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1847,9 +1835,20 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1}
+  m_Offset: {x: 0, y: 2.5}
+  m_Size: {x: 4, y: 6}
   m_Direction: 0
+--- !u!210 &-3203489381489350339
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 593206301628996796}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &593230205446079370
 GameObject:
   m_ObjectHideFlags: 0

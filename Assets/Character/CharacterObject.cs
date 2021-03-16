@@ -53,5 +53,32 @@ namespace Assets.Character
         {
             return UnityEngine.Resources.Load<GameObject>("Character/ElfKnight");
         }
+
+        public static GameObject DataCodeObject(int dataCode)
+        {
+            switch (dataCode)
+            {
+                case 1:
+                    return Healer();                    
+                case 2:
+                    return Sorceress();
+                case 3:
+                    return Wizzard();
+                case 4:
+                    return Archer();
+                case 5:
+                    return GirlArcher();
+                case 6:
+                    return HoodArcher();
+                case 7:
+                    return BoyKnight();
+                case 8:
+                    return ChargeKnight();
+                case 9:
+                    return ElfKnight();
+                default:
+                    return null;                    
+            }
+        }
     }
 }

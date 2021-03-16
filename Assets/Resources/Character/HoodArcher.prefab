@@ -1914,7 +1914,7 @@ MonoBehaviour:
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 21
+  m_SortingOrder: 40
   m_BoneTransforms:
   - {fileID: 7238933419161388769}
 --- !u!137 &7319152885305757625
@@ -1956,7 +1956,7 @@ SkinnedMeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 21
+  m_SortingOrder: 40
   serializedVersion: 2
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
@@ -2062,7 +2062,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Length: 0.36265987
+  m_Length: 0.3626598
   m_ChildTransform: {fileID: 7236033954104582079}
   m_AttachedIK: {fileID: 0}
 --- !u!1 &7241734310614679671
@@ -2122,9 +2122,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7236122935778811605}
   - component: {fileID: 7291087760634179121}
-  - component: {fileID: 7447310778758060632}
   - component: {fileID: -767204760572402358}
   - component: {fileID: 6896028570442627193}
+  - component: {fileID: -314304850811444405}
   m_Layer: 0
   m_Name: HoodArcher
   m_TagString: Untagged
@@ -2167,18 +2167,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7447310778758060632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7241770889017789537}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 844f3cb345a0d43e7896be35fec3a051, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &-767204760572402358
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2243,6 +2231,17 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1}
+  m_Offset: {x: 0, y: 2.5}
+  m_Size: {x: 4, y: 6}
   m_Direction: 0
+--- !u!210 &-314304850811444405
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7241770889017789537}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0

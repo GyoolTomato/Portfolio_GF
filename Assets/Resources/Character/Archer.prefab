@@ -119,9 +119,9 @@ GameObject:
   m_Component:
   - component: {fileID: 403747132282813015}
   - component: {fileID: 342476830836383721}
-  - component: {fileID: 5303978713047595365}
   - component: {fileID: 7710360875275885972}
   - component: {fileID: -5931447024677246766}
+  - component: {fileID: -6504349485465322684}
   m_Layer: 0
   m_Name: Archer
   m_TagString: Untagged
@@ -163,18 +163,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5303978713047595365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 400917280728826889}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b1f19642f081145be99a2774e754e871, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &7710360875275885972
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -239,9 +227,20 @@ CapsuleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1}
+  m_Offset: {x: 0, y: 2.5}
+  m_Size: {x: 4, y: 6}
   m_Direction: 0
+--- !u!210 &-6504349485465322684
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 400917280728826889}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
 --- !u!1 &401008584436842427
 GameObject:
   m_ObjectHideFlags: 0
@@ -1553,7 +1552,7 @@ MonoBehaviour:
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 40
+  m_SortingOrder: 30
   m_BoneTransforms:
   - {fileID: 404033611364239353}
 --- !u!137 &320760056043523345
@@ -1595,7 +1594,7 @@ SkinnedMeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 40
+  m_SortingOrder: 30
   serializedVersion: 2
   m_Quality: 0
   m_UpdateWhenOffscreen: 0

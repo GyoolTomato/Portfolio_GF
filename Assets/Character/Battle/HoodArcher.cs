@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Character
+namespace Assets.Character.Battle
 {
-    public class Wizzard : Base.CharacterBase
+    public class HoodArcher : Base.CharacterBase
     {
-        public Wizzard()
+        public HoodArcher()
         {
         }
 
         protected override void Awake()
         {
             base.Awake();
-            Initialize(m_gameManager.IndexDBController().TDoll(3));
+            Initialize(m_gameManager.IndexDBController().TDoll(6));
         }
 
         protected override void Start()

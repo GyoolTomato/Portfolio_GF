@@ -3,6 +3,7 @@ using System.Collections;
 using Assets.Common.DB.User;
 using Assets.Scene_StageField;
 using Assets.Scene_StageField.Board.Controller;
+using Assets.Character.Board;
 
 namespace Assets.Resources.StageField
 {
@@ -16,6 +17,7 @@ namespace Assets.Resources.StageField
         private Vector3 m_moveDirection;
         private OccupationPoint m_stayPoint;
         private UserDataBase_Platoon m_platoonData;
+        private CharacterBase m_characterBase;
 
         // Use this for initialization
         void Start()
@@ -44,6 +46,7 @@ namespace Assets.Resources.StageField
             m_platoonData = platoon;
             m_stayPoint = spawnPoint;
             transform.tag = "Player";
+            m_characterBase = gameObject.AddComponent<CharacterBase>();
         }
 
         public OccupationPoint GetStayPoint()
@@ -67,6 +70,7 @@ namespace Assets.Resources.StageField
             {
                 m_stayPoint = point;
                 m_moveDirection = m_stayPoint.transform.localPosition;
+                m_characterBase.SetAnim(CharacterBase.E_State.Run);
                 m_isMoving = true;
             }            
         }
@@ -81,6 +85,7 @@ namespace Assets.Resources.StageField
             if (distance <= 0.05)
             {
                 transform.localPosition = m_moveDirection;
+                m_characterBase.SetAnim(CharacterBase.E_State.Idle);
                 m_isMoving = false;
             }
         }

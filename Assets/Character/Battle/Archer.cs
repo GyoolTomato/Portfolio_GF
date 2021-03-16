@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Character
+namespace Assets.Character.Battle
 {
-    public class GirlArcher : Base.CharacterBase
+    public class Archer : Base.CharacterBase
     {
-        public GirlArcher()
+        public Archer()
         {
         }
 
         protected override void Awake()
         {
             base.Awake();
-            Initialize(m_gameManager.IndexDBController().TDoll(5));
+            Initialize(m_gameManager.IndexDBController().TDoll(4));
         }
 
         protected override void Start()
         {
-            base.Start();
+            base.Start();            
         }
 
         protected override void Update()

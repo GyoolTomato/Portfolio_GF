@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Character
+namespace Assets.Character.Battle
 {
-    public class ChargeKnight : Base.CharacterBase
+    public class ElfKnight : Base.CharacterBase
     {
-        public ChargeKnight()
+        public ElfKnight()
         {
         }
 
         protected override void Awake()
         {
             base.Awake();
-            Initialize(m_gameManager.IndexDBController().TDoll(8));
+            Initialize(m_gameManager.IndexDBController().TDoll(9));
         }
 
         protected override void Start()
