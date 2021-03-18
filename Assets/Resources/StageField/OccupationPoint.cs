@@ -45,17 +45,12 @@ namespace Assets.Resources.StageField
             m_touchController = m_stageFieldManager.GetBoardManager().GetTouchController();
             m_pointController = m_stageFieldManager.GetBoardManager().GetPointController();
 
-            var temp = new GameObject();
-            var tempScript = new LineDrawer();
-
             foreach (var item in m_linkedPoints)
-            {
-                temp = new GameObject();
-                temp = GameObject.Instantiate(m_lineDrawer, transform.position, Quaternion.identity);
+            {                
+                var temp = GameObject.Instantiate(m_lineDrawer, transform.position, Quaternion.identity);
                 temp.transform.parent = transform;
 
-                tempScript = new LineDrawer();
-                tempScript = temp.GetComponent<LineDrawer>();
+                var tempScript = temp.GetComponent<LineDrawer>();
                 tempScript.SetValue(item);
             }
 

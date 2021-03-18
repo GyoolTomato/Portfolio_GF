@@ -50,7 +50,7 @@ namespace Assets.Scene_Platoon.Controller
 
         private void Load()
         {
-            var data = m_gameManager.UserDBController().UserFormation();
+            var data = m_gameManager.GetUserDBController().UserFormation();
 
             for (int i = 0; i < m_list_PlatoonWindow.Length; i++)
             {

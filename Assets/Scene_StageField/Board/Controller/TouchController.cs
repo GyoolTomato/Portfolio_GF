@@ -33,8 +33,6 @@ namespace Assets.Scene_StageField.Board.Controller
                 {
                     m_isClick = false;
                 }
-
-                Debug.Log("ClickObject : " + m_clickObject);
             }
         }
 

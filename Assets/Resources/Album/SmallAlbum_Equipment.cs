@@ -51,7 +51,7 @@ namespace Assets.Resources.Album
             {
                 m_tDollOwnershipCode = tDollOwnershipCode;
                 m_sequence = sequence;
-                var data = m_gameManager.UserDBController().UserEquipment(ownershipCode);
+                var data = m_gameManager.GetUserDBController().UserEquipment(ownershipCode);
 
                 if (data != null)
                 {

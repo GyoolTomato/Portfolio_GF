@@ -31,15 +31,13 @@ namespace Assets.Scene_StageField.Board.Turn
         private void CheckBattle()
         {
             m_battleDatas = new List<Base.BattleData>();
-            var playerScript = new Player();
-            var enemyScript = new Enemy();
 
             foreach (var player in m_boardManager.GetPlayerPlatoonController().GetPlayers())
             {
-                playerScript = player.GetComponent<Player>();
+                var playerScript = player.GetComponent<Player>();
                 foreach (var enemy in m_boardManager.GetEnemyPlatoonController().GetEnemies())
                 {
-                    enemyScript = enemy.GetComponent<Enemy>();
+                    var enemyScript = enemy.GetComponent<Enemy>();
 
                     if (playerScript.GetStayPoint() == enemyScript.GetStayPoint())
                     {

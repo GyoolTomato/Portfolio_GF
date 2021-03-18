@@ -22,7 +22,7 @@ namespace Assets.Scene_Platoon.Controller
             }
 
             m_list = new List<GameObject>();
-            foreach (var item in m_gameManager.UserDBController().UserEquipments())
+            foreach (var item in m_gameManager.GetUserDBController().UserEquipments())
             {
                 var result = GameObject.Instantiate(m_album, Vector3.zero, Quaternion.identity);
                 result.transform.parent = m_viewPortContent.transform;
@@ -43,7 +43,7 @@ namespace Assets.Scene_Platoon.Controller
         private void Handle_ClickEvent(int ownershipCode)
         {
             var temp = new Assets.Common.DB.User.UserDataBase_TDoll();
-            var tempList = m_gameManager.UserDBController().UserTDoll();
+            var tempList = m_gameManager.GetUserDBController().UserTDoll();
 
             foreach (var item in tempList)
             {
@@ -51,19 +51,19 @@ namespace Assets.Scene_Platoon.Controller
                 {
                     temp = item;
                     temp.EquipmentOwnershipNumber0 = 0;
-                    m_gameManager.UserDBController().UpdateOwnership(temp);
+                    m_gameManager.GetUserDBController().UpdateOwnership(temp);
                 }
                 else if (item.EquipmentOwnershipNumber1 == ownershipCode)
                 {
                     temp = item;
                     temp.EquipmentOwnershipNumber1 = 0;
-                    m_gameManager.UserDBController().UpdateOwnership(temp);
+                    m_gameManager.GetUserDBController().UpdateOwnership(temp);
                 }
                 else if (item.EquipmentOwnershipNumber2 == ownershipCode)
                 {
                     temp = item;
                     temp.EquipmentOwnershipNumber2 = 0;
-                    m_gameManager.UserDBController().UpdateOwnership(temp);
+                    m_gameManager.GetUserDBController().UpdateOwnership(temp);
                 }
             }
 
@@ -88,7 +88,7 @@ namespace Assets.Scene_Platoon.Controller
                             break;                            
                     }
 
-                    m_gameManager.UserDBController().UpdateOwnership(temp);
+                    m_gameManager.GetUserDBController().UpdateOwnership(temp);
                     m_platoonController.CloseDormitory();
                     break;
                 }

@@ -86,7 +86,7 @@ namespace Assets.Common.Controller
 
         private void ReadUserWorkResource()
         {
-            foreach (var item in m_gameManager.UserDBController().UserResource())
+            foreach (var item in m_gameManager.GetUserDBController().UserResource())
             {
                 if (item.Name == "Steel")
                 {
@@ -144,7 +144,7 @@ namespace Assets.Common.Controller
                 ReadUserWorkResource();
                 yield return new WaitForSeconds(m_steel.ChargingVolume_Time);
                 m_steel.Amount += m_steel.ChargingVolume_Amount;
-                m_gameManager.UserDBController().UpdateResource(m_steel);
+                m_gameManager.GetUserDBController().UpdateResource(m_steel);
             }
         }
         IEnumerator FlowerCharger()
@@ -154,7 +154,7 @@ namespace Assets.Common.Controller
                 ReadUserWorkResource();
                 yield return new WaitForSeconds(m_flower.ChargingVolume_Time);
                 m_flower.Amount += m_flower.ChargingVolume_Amount;
-                m_gameManager.UserDBController().UpdateResource(m_flower);
+                m_gameManager.GetUserDBController().UpdateResource(m_flower);
             }
         }
         IEnumerator FoodCharger()
@@ -164,7 +164,7 @@ namespace Assets.Common.Controller
                 ReadUserWorkResource();
                 yield return new WaitForSeconds(m_food.ChargingVolume_Time);
                 m_food.Amount += m_food.ChargingVolume_Amount;
-                m_gameManager.UserDBController().UpdateResource(m_food);
+                m_gameManager.GetUserDBController().UpdateResource(m_food);
             }
         }
         IEnumerator LeatherCharger()
@@ -174,7 +174,7 @@ namespace Assets.Common.Controller
                 ReadUserWorkResource();
                 yield return new WaitForSeconds(m_leather.ChargingVolume_Time);
                 m_leather.Amount += m_leather.ChargingVolume_Amount;
-                m_gameManager.UserDBController().UpdateResource(m_leather);
+                m_gameManager.GetUserDBController().UpdateResource(m_leather);
             }
         }
 
@@ -191,10 +191,10 @@ namespace Assets.Common.Controller
                 m_flower.Amount -= flower;
                 m_food.Amount -= food;
                 m_leather.Amount -= leather;
-                m_gameManager.UserDBController().UpdateResource(m_steel);
-                m_gameManager.UserDBController().UpdateResource(m_flower);
-                m_gameManager.UserDBController().UpdateResource(m_food);
-                m_gameManager.UserDBController().UpdateResource(m_leather);
+                m_gameManager.GetUserDBController().UpdateResource(m_steel);
+                m_gameManager.GetUserDBController().UpdateResource(m_flower);
+                m_gameManager.GetUserDBController().UpdateResource(m_food);
+                m_gameManager.GetUserDBController().UpdateResource(m_leather);
 
                 ReadUserWorkResource();
                 result = true;

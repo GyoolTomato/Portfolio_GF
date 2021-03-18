@@ -19,6 +19,7 @@ namespace Assets.Resources.StageField
                 );
 
             m_lineRenderer = GetComponent<LineRenderer>();
+            m_target = null;
 
         }
 
@@ -31,7 +32,7 @@ namespace Assets.Resources.StageField
             m_lineRenderer.colorGradient = m_gradient;
         }
 
-        // Update is called once per frame
+        //// Update is called once per frame
         void Update()
         {
             if (m_target != null)

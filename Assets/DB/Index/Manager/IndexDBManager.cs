@@ -148,8 +148,6 @@ namespace Assets.Common.DB.Index.Manager
                 dbCommand = null;
                 dbConnection.Close();
                 dbConnection = null;
-
-                Debug.Log("ReadDataBase Success");
             }
             catch (System.Exception e)
             {

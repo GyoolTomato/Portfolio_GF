@@ -30,10 +30,10 @@ namespace Assets.Scene_SelectStage.Controller
 
         public void Load()
         {
-            foreach (var item in m_gameManager.UserDBController().Stage())
+            foreach (var item in m_gameManager.GetUserDBController().Stage())
             {
                 var result = GameObject.Instantiate(m_album, Vector3.zero, Quaternion.identity);
-                result.transform.parent = m_viewPortContent.transform;
+                result.transform.SetParent(m_viewPortContent.transform);
 
                 var script = result.GetComponent<Stage>();
                 script.ApplyValue(item);

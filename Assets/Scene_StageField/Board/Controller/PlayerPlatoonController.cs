@@ -28,7 +28,6 @@ namespace Assets.Scene_StageField.Board.Controller
             set
             {
                 m_selectedPlayerPlatoon = value;
-                Debug.Log("SetSelectedPlayerPlatoon : " + m_selectedPlayerPlatoon);
             }
         }
 

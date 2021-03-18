@@ -73,7 +73,7 @@ namespace Assets.Resources.Album
         public void Initialize(Assets.Common.DB.User.UserDataBase_Equipment userData, ClickEvent clickEvent = null)
         {
             m_ownershipCode = userData.OwnershipCode;
-            ApplyDataCode(m_gameManager.IndexDBController().Equipment(userData.DataCode));
+            ApplyDataCode(m_gameManager.GetIndexDBController().Equipment(userData.DataCode));
             ApplyMountInformation();            
             ApplyLimitedPower(userData.LimitedPower);
             ApplyLevel(userData.Level);
@@ -107,14 +107,14 @@ namespace Assets.Resources.Album
         {
             m_mountInformation.SetActive(false);
 
-            var tempList = m_gameManager.UserDBController().UserTDoll();
+            var tempList = m_gameManager.GetUserDBController().UserTDoll();
             foreach (var item in tempList)
             {
                 if (item.EquipmentOwnershipNumber0 == m_ownershipCode ||
                     item.EquipmentOwnershipNumber1 == m_ownershipCode ||
                     item.EquipmentOwnershipNumber2 == m_ownershipCode)
                 {
-                    var temp = m_gameManager.IndexDBController().TDoll(item.DataCode);
+                    var temp = m_gameManager.GetIndexDBController().TDoll(item.DataCode);
                     m_mountInformationText.text = temp.Name;
                     m_mountInformation.SetActive(true);
                     break;

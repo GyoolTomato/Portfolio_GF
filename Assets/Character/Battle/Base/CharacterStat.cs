@@ -5,6 +5,7 @@ namespace Assets.Character.Battle.Base
     public class CharacterStat
     {
         public int Level { get; set; }
+        public int MaxHp { get; set; }
         public int Hp { get; set; }
         public int FirePower { get; set; }
         public float AttackSpeed { get; set; }

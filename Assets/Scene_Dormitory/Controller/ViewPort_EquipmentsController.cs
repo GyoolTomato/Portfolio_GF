@@ -11,7 +11,7 @@ namespace Assets.Scene_Dormitory.Controller
 
         public void Load()
         {
-            foreach (var item in m_gameManager.UserDBController().UserEquipments())
+            foreach (var item in m_gameManager.GetUserDBController().UserEquipments())
             {
                 var result = GameObject.Instantiate(m_album, Vector3.zero, Quaternion.identity);
                 result.transform.parent = m_viewPortContent.transform;

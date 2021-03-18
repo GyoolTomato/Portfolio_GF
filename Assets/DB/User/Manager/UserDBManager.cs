@@ -185,8 +185,6 @@ namespace Assets.Common.DB.User.Manager
                 dbCommand = null;
                 dbConnection.Close();
                 dbConnection = null;
-
-                Debug.Log("ReadDataBase Success");
             }
             catch (System.Exception e)
             {
@@ -222,8 +220,6 @@ namespace Assets.Common.DB.User.Manager
                 dbCommand = null;
                 dbConnection.Close();
                 dbConnection = null;
-
-                Debug.Log("SQL Success");
             }
             catch (System.Exception e)
             {
@@ -254,8 +250,6 @@ namespace Assets.Common.DB.User.Manager
                 dbCommand = null;
                 dbConnection.Close();
                 dbConnection = null;
-
-                Debug.Log("SQL Success");
             }
             catch (System.Exception e)
             {

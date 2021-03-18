@@ -33,7 +33,7 @@ namespace Assets.Scene_Factory.Base
 
         protected virtual void OrderReceive(Common.DB.User.UserDataBase_Produce produceData, int steel, int flower, int food, int leather, out bool result)
         {
-            if (m_gameManager.ResourceContorller().WorkResourceConsumption(steel, flower, food, leather))
+            if (m_gameManager.GetResourceContorller().WorkResourceConsumption(steel, flower, food, leather))
             {
                 m_messagePanel.SetActive(false);                
                 result = true;

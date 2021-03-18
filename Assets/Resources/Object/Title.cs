@@ -63,10 +63,10 @@ namespace Assets.Resources.Object
 
         private void ApplyWorkResourceData()
         {
-            m_steel.ApplyData(m_gameManager.ResourceContorller().Steel());
-            m_flower.ApplyData(m_gameManager.ResourceContorller().Flower());
-            m_food.ApplyData(m_gameManager.ResourceContorller().Food());
-            m_leather.ApplyData(m_gameManager.ResourceContorller().Leather());
+            m_steel.ApplyData(m_gameManager.GetResourceContorller().Steel());
+            m_flower.ApplyData(m_gameManager.GetResourceContorller().Flower());
+            m_food.ApplyData(m_gameManager.GetResourceContorller().Food());
+            m_leather.ApplyData(m_gameManager.GetResourceContorller().Leather());
         }
 
         private void Handle_Back()

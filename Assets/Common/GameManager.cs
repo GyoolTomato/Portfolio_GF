@@ -62,17 +62,17 @@ namespace Assets.Common
 
         }
 
-        public ResourceContorller ResourceContorller()
+        public ResourceContorller GetResourceContorller()
         {
             return m_resourceContorller;
         }
 
-        public IndexDBController IndexDBController()
+        public IndexDBController GetIndexDBController()
         {
             return m_indexDBController;
         }
 
-        public UserDBController UserDBController()
+        public UserDBController GetUserDBController()
         {
             return m_userDBController;
         }

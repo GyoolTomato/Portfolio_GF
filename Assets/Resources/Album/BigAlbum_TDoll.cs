@@ -83,10 +83,10 @@ namespace Assets.Resources.Album
             try
             {
                 m_ownershipCode = ownershipCode;
-                var userDB = m_gameManager.UserDBController().UserTDoll(m_ownershipCode);
+                var userDB = m_gameManager.GetUserDBController().UserTDoll(m_ownershipCode);
                 if (userDB != null)
                 {
-                    var indexDB = m_gameManager.IndexDBController().TDoll(userDB.DataCode);
+                    var indexDB = m_gameManager.GetIndexDBController().TDoll(userDB.DataCode);
 
                     var tempStar = string.Empty;
                     for (int i = 0; i < indexDB.Star; i++)

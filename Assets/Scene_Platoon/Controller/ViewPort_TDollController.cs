@@ -25,7 +25,7 @@ namespace Assets.Scene_Platoon.Controller
             }
 
             m_list = new List<GameObject>();
-            foreach (var item in m_gameManager.UserDBController().UserTDoll())
+            foreach (var item in m_gameManager.GetUserDBController().UserTDoll())
             {
                 var result = GameObject.Instantiate(m_album, Vector3.zero, Quaternion.identity);
                 result.transform.parent = m_viewPortContent.transform;
@@ -46,7 +46,7 @@ namespace Assets.Scene_Platoon.Controller
         private void Handle_ClickEvent(int ownershipCode)
         {
             var temp = new Assets.Common.DB.User.UserDataBase_Platoon();
-            var tempList = m_gameManager.UserDBController().UserFormation();
+            var tempList = m_gameManager.GetUserDBController().UserFormation();
 
             foreach (var item in tempList)
             {
@@ -54,25 +54,25 @@ namespace Assets.Scene_Platoon.Controller
                 {
                     temp = item;
                     temp.Member1 = 0;
-                    m_gameManager.UserDBController().UpdatePlatoon(temp);
+                    m_gameManager.GetUserDBController().UpdatePlatoon(temp);
                 }
                 else if (item.Member2 == ownershipCode)
                 {
                     temp = item;
                     temp.Member2 = 0;
-                    m_gameManager.UserDBController().UpdatePlatoon(temp);
+                    m_gameManager.GetUserDBController().UpdatePlatoon(temp);
                 }
                 else if (item.Member3 == ownershipCode)
                 {
                     temp = item;
                     temp.Member3 = 0;
-                    m_gameManager.UserDBController().UpdatePlatoon(temp);
+                    m_gameManager.GetUserDBController().UpdatePlatoon(temp);
                 }
                 else if (item.Member4 == ownershipCode)
                 {
                     temp = item;
                     temp.Member4 = 0;
-                    m_gameManager.UserDBController().UpdatePlatoon(temp);
+                    m_gameManager.GetUserDBController().UpdatePlatoon(temp);
                 }
             }
 
@@ -100,7 +100,7 @@ namespace Assets.Scene_Platoon.Controller
                         default:
                             break;
                     }
-                    m_gameManager.UserDBController().UpdatePlatoon(temp);
+                    m_gameManager.GetUserDBController().UpdatePlatoon(temp);
                     m_platoonController.CloseDormitory();
                     break;
                 }

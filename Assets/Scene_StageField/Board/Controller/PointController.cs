@@ -130,8 +130,6 @@ namespace Assets.Scene_StageField.Board.Controller
 
         public Player OnPlayer(OccupationPoint point)
         {
-            var result = new Player();
-
             var temp = GameObject.FindGameObjectsWithTag("Player");
 
             foreach (var item in temp)
@@ -147,13 +145,11 @@ namespace Assets.Scene_StageField.Board.Controller
                 }
             }
 
-            return result;
+            return null;
         }
 
         public Enemy OnEnemy(OccupationPoint point)
         {
-            var result = new Enemy();
-
             var temp = GameObject.FindGameObjectsWithTag("Enemy");
 
             foreach (var item in temp)
@@ -169,7 +165,7 @@ namespace Assets.Scene_StageField.Board.Controller
                 }
             }
 
-            return result;
+            return null;
         }
 
         private bool IsLinked(OccupationPoint point0, OccupationPoint point1)

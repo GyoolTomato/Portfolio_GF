@@ -60,7 +60,7 @@ namespace Assets.Resources.Album
         public void Initialize(Assets.Common.DB.User.UserDataBase_TDoll userData, ClickEvent clickEvent = null)
         {
             m_ownershipCode = userData.OwnershipCode;            
-            ApplyDataCode(m_gameManager.IndexDBController().TDoll(userData.DataCode));            
+            ApplyDataCode(m_gameManager.GetIndexDBController().TDoll(userData.DataCode));            
             ApplyLevel(userData.Level);
             ApplyDummyLink(userData.DummyLink);
             ApplyPlatoonNumber();
@@ -98,7 +98,7 @@ namespace Assets.Resources.Album
 
         private void ApplyPlatoonNumber()
         {
-            var tempNumber = m_gameManager.UserDBController().FormationNumber(m_ownershipCode);
+            var tempNumber = m_gameManager.GetUserDBController().FormationNumber(m_ownershipCode);
 
             if (tempNumber == 0)
             {

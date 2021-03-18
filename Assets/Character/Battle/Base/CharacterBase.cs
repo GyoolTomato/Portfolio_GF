@@ -26,7 +26,7 @@ namespace Assets.Character.Battle.Base
 
         protected Assets.Common.GameManager m_gameManager;
         private bool m_isInit;
-        private CharacterStat m_stat;
+        protected CharacterStat m_stat;
         //private Assets.Common.DB.Index.IndexDataBase_TDoll m_baseStat;
         //private Assets.Common.DB.User.UserDataBase_TDoll m_userStat;        
         private E_Team m_team;
@@ -38,11 +38,7 @@ namespace Assets.Character.Battle.Base
         private string m_stringIsRun;
         private string m_stringIsAttack;
         private string m_stringIsDie;
-
-        public CharacterBase()
-        {
-
-        }
+        private float m_elapsedTimeAttackDelay;
 
         protected virtual void Awake()
         {
@@ -65,8 +61,14 @@ namespace Assets.Character.Battle.Base
 
         protected virtual void Update()
         {
-            if (!m_isInit)            
+            if (!m_isInit)
                 return;
+
+            if (m_stat.Hp <= 0)
+                SetState(E_State.Die);
+
+            if (m_elapsedTimeAttackDelay > 0.0f)            
+                m_elapsedTimeAttackDelay -= Time.deltaTime;            
 
             switch (m_state)
             {
@@ -77,7 +79,7 @@ namespace Assets.Character.Battle.Base
                     Walk();
                     break;
                 case E_State.Run:
-                    Run();      
+                    Run();
                     break;
                 case E_State.Attack:
                     Attack();
@@ -108,18 +110,19 @@ namespace Assets.Character.Battle.Base
                     break;
             }
 
-            var adjustLevel = userStat.Level / 100;
-            m_stat.Hp = m_stat.Hp * adjustLevel;
-            m_stat.FirePower = m_stat.FirePower * adjustLevel;
-            m_stat.Critical = m_stat.Critical * adjustLevel;
-            m_stat.Focus = m_stat.Focus * adjustLevel;
-            m_stat.Armor = m_stat.Armor * adjustLevel;
-            m_stat.Avoidance = m_stat.Avoidance * adjustLevel;
+            var adjustLevel =  1 /*(double)userStat.Level / (double)100*/;
+            m_stat.MaxHp = (int)(m_stat.Hp * adjustLevel);
+            m_stat.Hp = (int)(m_stat.Hp * adjustLevel);
+            m_stat.FirePower = (int)(m_stat.FirePower * adjustLevel);
+            m_stat.Critical = (int)(m_stat.Critical * adjustLevel);
+            m_stat.Focus = (int)(m_stat.Focus * adjustLevel);
+            m_stat.Armor = (int)(m_stat.Armor * adjustLevel);
+            m_stat.Avoidance = (int)(m_stat.Avoidance * adjustLevel);
 
             var equipments = new List<Common.DB.Index.IndexDataBase_Equipment>();
-            equipments.Add(m_gameManager.IndexDBController().Equipment(userStat.EquipmentOwnershipNumber0));
-            equipments.Add(m_gameManager.IndexDBController().Equipment(userStat.EquipmentOwnershipNumber1));
-            equipments.Add(m_gameManager.IndexDBController().Equipment(userStat.EquipmentOwnershipNumber2));
+            equipments.Add(m_gameManager.GetIndexDBController().Equipment(userStat.EquipmentOwnershipNumber0));
+            equipments.Add(m_gameManager.GetIndexDBController().Equipment(userStat.EquipmentOwnershipNumber1));
+            equipments.Add(m_gameManager.GetIndexDBController().Equipment(userStat.EquipmentOwnershipNumber2));
             foreach (var item in equipments)
             {
                 if (item != null)
@@ -128,7 +131,7 @@ namespace Assets.Character.Battle.Base
                     m_stat.Critical += item.Critical;
                     m_stat.FirePower += item.FirePower;
                     m_stat.Focus += item.Focus;
-                }                
+                }
             }
 
             var sortingGroup = GetComponent<SortingGroup>();
@@ -155,7 +158,8 @@ namespace Assets.Character.Battle.Base
                     break;
             }
 
-            var adjustLevel = enemyStat.Level / 100;
+            var adjustLevel = 1 /*(double)userStat.Level / (double)100*/;
+            m_stat.MaxHp = m_stat.Hp * adjustLevel;
             m_stat.Hp = m_stat.Hp * adjustLevel;
             m_stat.FirePower = m_stat.FirePower * adjustLevel;
             m_stat.Critical = m_stat.Critical * adjustLevel;
@@ -172,6 +176,7 @@ namespace Assets.Character.Battle.Base
 
         protected void Initialize(Common.DB.Index.IndexDataBase_TDoll baseStat)
         {
+            m_stat.MaxHp = baseStat.Hp;
             m_stat.Hp = baseStat.Hp;
             m_stat.FirePower = baseStat.FirePower;
             m_stat.AttackSpeed = baseStat.AttackSpeed;
@@ -185,28 +190,29 @@ namespace Assets.Character.Battle.Base
 
         private void Idle()
         {
-            m_animator.speed = 1.0f;
-
             if (TargetingEnemy() == null)
                 return;
             else
             {
-                SetState(E_State.Run);
+                if (IsInAttackRange())
+                {
+                    SetState(E_State.Attack);
+                }
+                else
+                {
+                    SetState(E_State.Run);
+                }
             }
         }
 
         private void Walk()
         {
-            m_animator.speed = 1.0f;
-
             if (TargetingEnemy() == null)
                 SetState(E_State.Idle);
         }
 
         private void Run()
         {
-            m_animator.speed = 1.3f;
-
             if (TargetingEnemy() == null)
                 SetState(E_State.Idle);
 
@@ -226,20 +232,22 @@ namespace Assets.Character.Battle.Base
                         break;
                     default:
                         break;
-                }                
+                }
             }
         }
 
         private void Attack()
         {
-            m_animator.speed = m_stat.AttackSpeed;
-
-            if (TargetingEnemy() == null)            
-                SetState(E_State.Idle);            
+            if (TargetingEnemy() == null)
+                SetState(E_State.Idle);
 
             if (IsInAttackRange())
-            {
-
+            {                
+                if (m_elapsedTimeAttackDelay <= 0.0f)
+                {                    
+                    AttackAction();
+                    m_elapsedTimeAttackDelay = m_stat.AttackSpeed;
+                }
             }
             else
             {
@@ -247,10 +255,25 @@ namespace Assets.Character.Battle.Base
             }
         }
 
+        protected virtual void AttackAction() { }
+
         private void Die()
         {
-            m_animator.speed = 1.0f;
+            Invoke("DestroyObject", 3.0f);
+        }
 
+        private void DestroyObject()
+        {
+            Destroy(gameObject);
+        }
+
+        public void ApplyDamage(int damage)
+        {            
+            m_stat.Hp -= damage;
+            if (m_stat.Hp > m_stat.MaxHp)
+            {
+                m_stat.Hp = m_stat.MaxHp;
+            }
         }
 
         private void SetState(E_State state)
@@ -270,29 +293,34 @@ namespace Assets.Character.Battle.Base
             switch (m_state)
             {
                 case E_State.Idle:
+                    m_animator.speed = 1.0f;
                     m_animator.SetBool(m_stringIsIdle, true);
                     break;
                 case E_State.Walk:
+                    m_animator.speed = 1.0f;
                     m_animator.SetBool(m_stringIsWalk, true);
                     break;
                 case E_State.Run:
+                    m_animator.speed = 1.3f;
                     m_animator.SetBool(m_stringIsRun, true);
                     break;
                 case E_State.Attack:
+                    m_animator.speed = m_stat.AttackSpeed;
                     m_animator.SetBool(m_stringIsAttack, true);
                     break;
                 case E_State.Die:
+                    m_animator.speed = 1.0f;
                     m_animator.SetBool(m_stringIsDie, true);
                     break;
                 default:
                     break;
             }
-        }
+        }        
 
         protected CharacterBase TargetingEnemy()
         {
-            var target = new CharacterBase();
-            var enemies = new List<CharacterBase>();
+            GameObject target = null;
+            var enemies = new List<GameObject>();
 
             if (this.tag.Equals("Player"))
             {
@@ -300,7 +328,7 @@ namespace Assets.Character.Battle.Base
                 {
                     if (item.GetComponent<CharacterBase>() != null)
                     {
-                        enemies.Add(item.GetComponent<CharacterBase>());
+                        enemies.Add(item);
                     }
                 }
             }
@@ -310,7 +338,7 @@ namespace Assets.Character.Battle.Base
                 {
                     if (item.GetComponent<CharacterBase>() != null)
                     {
-                        enemies.Add(item.GetComponent<CharacterBase>());
+                        enemies.Add(item);
                     }
                 }
             }
@@ -335,7 +363,7 @@ namespace Assets.Character.Battle.Base
                 }
             }
 
-            return target;
+            return target.GetComponent<CharacterBase>();
         }
 
         private bool IsInAttackRange()
@@ -350,5 +378,10 @@ namespace Assets.Character.Battle.Base
 
             return false;
         }
+
+        public E_Team GetTeam()
+        {
+            return m_team;
+        }        
     }
 }

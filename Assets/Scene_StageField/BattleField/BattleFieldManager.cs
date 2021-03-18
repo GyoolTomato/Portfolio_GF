@@ -88,13 +88,12 @@ namespace Assets.Scene_StageField.BattleField
             m_isCreatingPlayer = true;
 
             var platoon = player.GetPlatoonData();
-            var member1 = m_gameManager.UserDBController().UserTDoll(platoon.Member1);
-            var member2 = m_gameManager.UserDBController().UserTDoll(platoon.Member2);
-            var member3 = m_gameManager.UserDBController().UserTDoll(platoon.Member3);
-            var member4 = m_gameManager.UserDBController().UserTDoll(platoon.Member4);
+            var member1 = m_gameManager.GetUserDBController().UserTDoll(platoon.Member1);
+            var member2 = m_gameManager.GetUserDBController().UserTDoll(platoon.Member2);
+            var member3 = m_gameManager.GetUserDBController().UserTDoll(platoon.Member3);
+            var member4 = m_gameManager.GetUserDBController().UserTDoll(platoon.Member4);
 
-            var tempObject = new GameObject();
-            var tempScript = new CharacterBase();
+            GameObject tempObject;
             var yPosition = 0.0f;
             var yPositionMin = -4.5f;
             var yPositionMax = -2.7f;
@@ -106,7 +105,7 @@ namespace Assets.Scene_StageField.BattleField
                     yPosition = UnityEngine.Random.Range(yPositionMin, yPositionMax);
                     tempObject = m_spawnController.SpawnCharacter(member1.DataCode, new Vector3(-10, yPosition, 0));
                     tempObject.transform.parent = m_battleField.transform;
-                    tempScript = tempObject.GetComponent<CharacterBase>();
+                    var tempScript = tempObject.GetComponent<CharacterBase>();
                     tempScript.Initialize(CharacterBase.E_Team.Player, member1);
                     yield return new WaitForSeconds(1.0f);
                 }
@@ -115,7 +114,7 @@ namespace Assets.Scene_StageField.BattleField
                     yPosition = UnityEngine.Random.Range(yPositionMin, yPositionMax);
                     tempObject = m_spawnController.SpawnCharacter(member2.DataCode, new Vector3(-10, yPosition, 0));
                     tempObject.transform.parent = m_battleField.transform;
-                    tempScript = tempObject.GetComponent<CharacterBase>();
+                    var tempScript = tempObject.GetComponent<CharacterBase>();
                     tempScript.Initialize(CharacterBase.E_Team.Player, member2);
                     yield return new WaitForSeconds(1.0f);
                 }
@@ -124,7 +123,7 @@ namespace Assets.Scene_StageField.BattleField
                     yPosition = UnityEngine.Random.Range(yPositionMin, yPositionMax);
                     tempObject = m_spawnController.SpawnCharacter(member3.DataCode, new Vector3(-10, yPosition, 0));
                     tempObject.transform.parent = m_battleField.transform;
-                    tempScript = tempObject.GetComponent<CharacterBase>();
+                    var tempScript = tempObject.GetComponent<CharacterBase>();
                     tempScript.Initialize(CharacterBase.E_Team.Player, member3);
                     yield return new WaitForSeconds(1.0f);
                 }
@@ -133,7 +132,7 @@ namespace Assets.Scene_StageField.BattleField
                     yPosition = UnityEngine.Random.Range(yPositionMin, yPositionMax);
                     tempObject = m_spawnController.SpawnCharacter(member4.DataCode, new Vector3(-10, yPosition, 0));
                     tempObject.transform.parent = m_battleField.transform;
-                    tempScript = tempObject.GetComponent<CharacterBase>();
+                    var tempScript = tempObject.GetComponent<CharacterBase>();
                     tempScript.Initialize(CharacterBase.E_Team.Player, member4);
                     yield return new WaitForSeconds(1.0f);
                 }
@@ -150,8 +149,7 @@ namespace Assets.Scene_StageField.BattleField
 
             var platoon = enemy.GetEnemyParty();
 
-            var tempObject = new GameObject();
-            var tempScript = new CharacterBase();
+            GameObject tempObject;
             var yPosition = 0.0f;
             var yPositionMin = -4.5f;
             var yPositionMax = -2.7f;
@@ -165,7 +163,7 @@ namespace Assets.Scene_StageField.BattleField
                         yPosition = UnityEngine.Random.Range(yPositionMin, yPositionMax);
                         tempObject = m_spawnController.SpawnCharacter(item.IndexNumber, new Vector3(10, yPosition, 0));
                         tempObject.transform.parent = m_battleField.transform;
-                        tempScript = tempObject.GetComponent<CharacterBase>();
+                        var tempScript = tempObject.GetComponent<CharacterBase>();
                         tempScript.Initialize(CharacterBase.E_Team.Enemy, item);
                         yield return new WaitForSeconds(1.0f);
                     }                    

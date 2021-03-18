@@ -34,8 +34,8 @@ namespace Assets.Scene_StageField.Board.Controller
         void SpawnPlayer()
         {
             //Index를 맞추기 위해 -1 처리
-            var platoonData = m_gameManager.UserDBController().UserFormation()[m_menuController.GetSelectedPlatoonNumber() - 1];
-            var platoonObject = CharacterObject.DataCodeObject(m_gameManager.UserDBController().UserTDoll(platoonData.Member1).DataCode);
+            var platoonData = m_gameManager.GetUserDBController().UserFormation()[m_menuController.GetSelectedPlatoonNumber() - 1];
+            var platoonObject = CharacterObject.DataCodeObject(m_gameManager.GetUserDBController().UserTDoll(platoonData.Member1).DataCode);
             var selectedPoint = m_boardManager.GetPointController().GetSelectedPoint();
 
             var platoon = MonoBehaviour.Instantiate(platoonObject, selectedPoint.transform.position, Quaternion.identity);
