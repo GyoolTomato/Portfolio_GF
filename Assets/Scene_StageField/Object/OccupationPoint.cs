@@ -78,6 +78,9 @@ namespace Assets.Scene_StageField.Object
             }
             set
             {
+                if (m_owner == value)                
+                    return;
+                
                 m_owner = value;
                 UpdateOwnerColor();
             }
@@ -110,21 +113,20 @@ namespace Assets.Scene_StageField.Object
         {
             var spriteRenderer = GetComponent<SpriteRenderer>();
 
-            var color = spriteRenderer.color;
-            var temp = Color.white - color;
-            var red = temp.r / 100f;
-            var green = temp.g / 100f;
-            var blue = temp.b / 100f;
+            var temp = Color.white - spriteRenderer.color;
+            var red = temp.r / 10f;
+            var green = temp.g / 10f;
+            var blue = temp.b / 10f;
             while (spriteRenderer.color != Color.white)
             {                
                 spriteRenderer.color = new Color(spriteRenderer.color.r + red, spriteRenderer.color.g + green, spriteRenderer.color.b + blue);
                 yield return new WaitForSeconds(0.01f);
             }
 
-            temp = newColor - color;
-            red = temp.r / 100f;
-            green = temp.g / 100f;
-            blue = temp.b / 100f;
+            temp = newColor - spriteRenderer.color;
+            red = temp.r / 10f;
+            green = temp.g / 10f;
+            blue = temp.b / 10f;
             while (spriteRenderer.color != newColor)
             {
                 spriteRenderer.color = new Color(spriteRenderer.color.r + red, spriteRenderer.color.g + green, spriteRenderer.color.b + blue);
