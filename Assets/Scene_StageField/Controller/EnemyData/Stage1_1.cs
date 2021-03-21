@@ -1,6 +1,6 @@
 ﻿using System;
+using Assets.Scene_StageField.Object;
 using Assets.Scene_StageField.Controller.EnemyData.Base;
-using Assets.Resources.StageField;
 
 namespace Assets.Scene_StageField.Controller.EnemyData
 {

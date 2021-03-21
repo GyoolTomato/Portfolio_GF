@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Resources.StageField;
+using Assets.Scene_StageField.Object;
 
 namespace Assets.Scene_StageField.Board.Turn
 {
@@ -74,9 +74,10 @@ namespace Assets.Scene_StageField.Board.Turn
 
                     yield return null;
                 }
+                battleFieldManager.CloseBattleField();
             }
 
-            yield return new WaitForSeconds(3);
+            yield return new WaitForSeconds(3);            
             m_stageFieldManager.GetBoardManager().ChangeState(BoardManager.E_State.Occupation);
         }
     }

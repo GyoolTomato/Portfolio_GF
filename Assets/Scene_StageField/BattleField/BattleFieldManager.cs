@@ -5,9 +5,7 @@ using UnityEngine;
 using Assets.Common;
 using Assets.Character;
 using Assets.Character.Battle.Base;
-using Assets.Common.DB.User;
-using Assets.Common.DB.Index;
-using Assets.Resources.StageField;
+using Assets.Scene_StageField.Object;
 using Assets.Scene_StageField.Controller.EnemyData.Base;
 
 namespace Assets.Scene_StageField.BattleField
@@ -24,12 +22,14 @@ namespace Assets.Scene_StageField.BattleField
         private GameManager m_gameManager;
         private StageFieldManager m_stageFieldManager;
         private Controller.SpawnController m_spawnController;
+        private Base.BattleData m_battleData;
         private GameObject m_battleFieldUI;
         private GameObject m_battleField;
+        private Transform m_battleField_Units;
         private GameObject m_boardUI;
         private GameObject m_board;
-        private bool m_isCreatingPlayer;
-        private bool m_isCreatingEnemy;
+        private bool m_isFinishCreatingPlayer;
+        private bool m_isFinishCreatingEnemy;
         private bool m_isFinishBattle;
         private E_Winner m_winner;
 
@@ -45,32 +45,45 @@ namespace Assets.Scene_StageField.BattleField
             var canvas = GameObject.Find("Canvas");
             m_battleFieldUI = canvas.transform.Find("BattleFieldUI").gameObject;
             m_battleField = GameObject.Find("BattleField");
+            m_battleField_Units = m_battleField.transform.Find("Units");
             m_boardUI = canvas.transform.Find("BoardUI").gameObject;
             m_board = GameObject.Find("Board");
         }
 
+        private void ClearBattleField()
+        {
+            foreach (Transform item in m_battleField_Units)
+            {
+                MonoBehaviour.Destroy(item.gameObject);
+            }
+        }
+
         public void OpenBattleField(Base.BattleData battleData)
         {
-            m_isCreatingPlayer = false;
-            m_isCreatingEnemy = false;
+            ClearBattleField();
+
+            m_battleData = battleData;
+            m_isFinishCreatingPlayer = false;
+            m_isFinishCreatingEnemy = false;
             m_isFinishBattle = false;
             m_battleFieldUI.SetActive(true);
             m_battleField.SetActive(true);
             m_boardUI.SetActive(false);
             m_board.SetActive(false);
 
+            m_isFinishCreatingPlayer = false;
+            m_isFinishCreatingEnemy = false;
             m_stageFieldManager.StartCoroutine(CreatePlayer(battleData.Player));
             m_stageFieldManager.StartCoroutine(CreateEnemy(battleData.Enemy));
             m_stageFieldManager.StartCoroutine(BattleFinishCheck());
         }
 
-        private void CloseBattleField()
+        public void CloseBattleField()
         {
             m_battleFieldUI.SetActive(false);
             m_battleField.SetActive(false);
             m_boardUI.SetActive(true);
             m_board.SetActive(true);
-            m_isFinishBattle = true;
         }
 
         public bool IsFinishBattle()
@@ -85,8 +98,6 @@ namespace Assets.Scene_StageField.BattleField
 
         private IEnumerator CreatePlayer(Player player)
         {
-            m_isCreatingPlayer = true;
-
             var platoon = player.GetPlatoonData();
             var member1 = m_gameManager.GetUserDBController().UserTDoll(platoon.Member1);
             var member2 = m_gameManager.GetUserDBController().UserTDoll(platoon.Member2);
@@ -104,7 +115,7 @@ namespace Assets.Scene_StageField.BattleField
                 {
                     yPosition = UnityEngine.Random.Range(yPositionMin, yPositionMax);
                     tempObject = m_spawnController.SpawnCharacter(member1.DataCode, new Vector3(-10, yPosition, 0));
-                    tempObject.transform.parent = m_battleField.transform;
+                    tempObject.transform.parent = m_battleField_Units;
                     var tempScript = tempObject.GetComponent<CharacterBase>();
                     tempScript.Initialize(CharacterBase.E_Team.Player, member1);
                     yield return new WaitForSeconds(1.0f);
@@ -113,7 +124,7 @@ namespace Assets.Scene_StageField.BattleField
                 {
                     yPosition = UnityEngine.Random.Range(yPositionMin, yPositionMax);
                     tempObject = m_spawnController.SpawnCharacter(member2.DataCode, new Vector3(-10, yPosition, 0));
-                    tempObject.transform.parent = m_battleField.transform;
+                    tempObject.transform.parent = m_battleField_Units;
                     var tempScript = tempObject.GetComponent<CharacterBase>();
                     tempScript.Initialize(CharacterBase.E_Team.Player, member2);
                     yield return new WaitForSeconds(1.0f);
@@ -122,7 +133,7 @@ namespace Assets.Scene_StageField.BattleField
                 {
                     yPosition = UnityEngine.Random.Range(yPositionMin, yPositionMax);
                     tempObject = m_spawnController.SpawnCharacter(member3.DataCode, new Vector3(-10, yPosition, 0));
-                    tempObject.transform.parent = m_battleField.transform;
+                    tempObject.transform.parent = m_battleField_Units;
                     var tempScript = tempObject.GetComponent<CharacterBase>();
                     tempScript.Initialize(CharacterBase.E_Team.Player, member3);
                     yield return new WaitForSeconds(1.0f);
@@ -131,7 +142,7 @@ namespace Assets.Scene_StageField.BattleField
                 {
                     yPosition = UnityEngine.Random.Range(yPositionMin, yPositionMax);
                     tempObject = m_spawnController.SpawnCharacter(member4.DataCode, new Vector3(-10, yPosition, 0));
-                    tempObject.transform.parent = m_battleField.transform;
+                    tempObject.transform.parent = m_battleField_Units;
                     var tempScript = tempObject.GetComponent<CharacterBase>();
                     tempScript.Initialize(CharacterBase.E_Team.Player, member4);
                     yield return new WaitForSeconds(1.0f);
@@ -139,14 +150,12 @@ namespace Assets.Scene_StageField.BattleField
                 
             }
 
-            m_isCreatingPlayer = false;
+            m_isFinishCreatingPlayer = true;
             yield return null;
         }
 
         private IEnumerator CreateEnemy(Enemy enemy)
         {
-            m_isCreatingEnemy = true;
-
             var platoon = enemy.GetEnemyParty();
 
             GameObject tempObject;
@@ -162,7 +171,7 @@ namespace Assets.Scene_StageField.BattleField
                     {
                         yPosition = UnityEngine.Random.Range(yPositionMin, yPositionMax);
                         tempObject = m_spawnController.SpawnCharacter(item.IndexNumber, new Vector3(10, yPosition, 0));
-                        tempObject.transform.parent = m_battleField.transform;
+                        tempObject.transform.parent = m_battleField_Units;
                         var tempScript = tempObject.GetComponent<CharacterBase>();
                         tempScript.Initialize(CharacterBase.E_Team.Enemy, item);
                         yield return new WaitForSeconds(1.0f);
@@ -170,18 +179,50 @@ namespace Assets.Scene_StageField.BattleField
                 }                
             }
 
-            m_isCreatingEnemy = false;
+            m_isFinishCreatingEnemy = true;
             yield return null;
         }
 
         private IEnumerator BattleFinishCheck()
         {
-            while (m_isCreatingPlayer && m_isCreatingEnemy)
-            {                
+            var isBattle = true;
+
+            while (isBattle)
+            {
+                if (m_isFinishCreatingPlayer && m_isFinishCreatingEnemy)
+                {
+                    var players = GameObject.FindGameObjectsWithTag("Player");
+                    var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+                    if (players.Length <= 0)
+                    {
+                        MonoBehaviour.Destroy(m_battleData.Player.gameObject);
+                        m_winner = E_Winner.Enemy;
+                        m_isFinishBattle = true;
+                        isBattle = false;
+                        m_stageFieldManager.StartCoroutine(FinishBanner());
+                    }
+                    else if (enemies.Length <= 0)
+                    {
+                        MonoBehaviour.Destroy(m_battleData.Enemy.gameObject);
+                        m_winner = E_Winner.Player;
+                        m_isFinishBattle = true;
+                        isBattle = false;
+                        m_stageFieldManager.StartCoroutine(FinishBanner());
+                    }
+                }
+
                 yield return null;
             }
 
-            m_isFinishBattle = true;
+            yield return null;
+        }
+
+        private IEnumerator FinishBanner()
+        {
+            
+
+            yield return null;
         }
     }
 }

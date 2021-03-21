@@ -1,6 +1,6 @@
 ﻿using System;
 using Assets.Common.DB.User;
-using Assets.Resources.StageField;
+using Assets.Scene_StageField.Object;
 
 namespace Assets.Scene_StageField.Base
 {

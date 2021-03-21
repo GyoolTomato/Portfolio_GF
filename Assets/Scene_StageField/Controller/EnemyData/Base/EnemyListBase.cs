@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Resources.StageField;
+using Assets.Scene_StageField.Object;
 
 namespace Assets.Scene_StageField.Controller.EnemyData.Base
 {

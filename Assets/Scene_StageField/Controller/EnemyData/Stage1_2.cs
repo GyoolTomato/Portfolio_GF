@@ -1,6 +1,6 @@
 ﻿using System;
+using Assets.Scene_StageField.Object;
 using Assets.Scene_StageField.Controller.EnemyData.Base;
-using Assets.Resources.StageField;
 
 namespace Assets.Scene_StageField.Controller.EnemyData
 {
@@ -29,7 +29,7 @@ namespace Assets.Scene_StageField.Controller.EnemyData
             temp.Memeber3.IndexNumber = 1;
             temp.Memeber3.Level = 10;
             temp.Memeber3.DummyLink = 1;
-            temp.StartPoint = new Resources.StageField.OccupationPoint();
+            temp.StartPoint = new OccupationPoint();
             m_enemyParties.Add(temp);
 
             temp = new EnemyParty();
@@ -45,7 +45,7 @@ namespace Assets.Scene_StageField.Controller.EnemyData
             temp.Memeber3.IndexNumber = 1;
             temp.Memeber3.Level = 10;
             temp.Memeber3.DummyLink = 1;
-            temp.StartPoint = new Resources.StageField.OccupationPoint();
+            temp.StartPoint = new OccupationPoint();
             m_enemyParties.Add(temp);
         }
     }

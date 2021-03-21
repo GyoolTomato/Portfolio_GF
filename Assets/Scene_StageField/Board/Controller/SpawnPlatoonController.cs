@@ -4,6 +4,7 @@ using Assets.Common;
 using Assets.Resources.Object;
 using Assets.Scene_StageField.Board.SpawnPlatoon;
 using Assets.Character;
+using Assets.Scene_StageField.Object;
 
 namespace Assets.Scene_StageField.Board.Controller
 {
@@ -40,8 +41,8 @@ namespace Assets.Scene_StageField.Board.Controller
 
             var platoon = MonoBehaviour.Instantiate(platoonObject, selectedPoint.transform.position, Quaternion.identity);
             platoon.transform.parent = m_board.transform;
-            platoon.AddComponent<Resources.StageField.Player>();
-            var playerScript = platoon.GetComponent<Assets.Resources.StageField.Player>();
+            platoon.AddComponent<Player>();
+            var playerScript = platoon.GetComponent<Player>();
             playerScript.Initialize(platoonData, selectedPoint);
 
             m_boardManager.SetSpawnPlatoonActive(false);

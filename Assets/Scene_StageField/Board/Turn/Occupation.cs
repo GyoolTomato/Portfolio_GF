@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Resources.StageField;
+using Assets.Scene_StageField.Object;
 
 namespace Assets.Scene_StageField.Board.Turn
 {
@@ -28,22 +28,19 @@ namespace Assets.Scene_StageField.Board.Turn
 
         private void PointOccupation()
         {
-            var playerScript = new Player();
-            var enemyScript = new Enemy();
-
             foreach (var player in m_boardManager.GetPlayerPlatoonController().GetPlayers())
             {
-                playerScript = player.GetComponent<Player>();
+                var playerScript = player.GetComponent<Player>();
                 playerScript.GetStayPoint().Owner = OccupationPoint.E_Owner.Player;
             }
 
             foreach (var enemy in m_boardManager.GetEnemyPlatoonController().GetEnemies())
             {
-                enemyScript = enemy.GetComponent<Enemy>();
+                var enemyScript = enemy.GetComponent<Enemy>();
                 enemyScript.GetStayPoint().Owner = OccupationPoint.E_Owner.Enemy;
             }
 
             m_boardManager.ChangeState(BoardManager.E_State.PlayerTurn);
-        }
+        }        
     }
 }

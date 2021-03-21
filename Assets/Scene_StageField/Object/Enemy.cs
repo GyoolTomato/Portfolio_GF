@@ -1,22 +1,20 @@
 ﻿using UnityEngine;
-using System.Collections;
-using Assets.Common.DB.User;
-using Assets.Scene_StageField;
 using Assets.Scene_StageField.Board.Controller;
+using Assets.Scene_StageField.Controller.EnemyData.Base;
 using Assets.Character.Board;
 
-namespace Assets.Resources.StageField
+namespace Assets.Scene_StageField.Object
 {
-    public class Player : MonoBehaviour
+    public class Enemy : MonoBehaviour
     {
         private StageFieldManager m_stageFieldManager;
         private TouchController m_touchController;
         private PlayerPlatoonController m_playerPlatoonController;
+        private EnemyParty m_enemyParty;
         private bool m_isMoving;
         private float m_moveDistance;
         private Vector3 m_moveDirection;
         private OccupationPoint m_stayPoint;
-        private UserDataBase_Platoon m_platoonData;
         private CharacterBase m_characterBase;
 
         // Use this for initialization
@@ -30,33 +28,32 @@ namespace Assets.Resources.StageField
         // Update is called once per frame
         void Update()
         {
-            if (m_touchController.IsClick() && m_touchController.GetClickObject() == gameObject)
-            {
-                m_playerPlatoonController.SelectedPlayerPlatoon = this;
-            }
-
             if (m_isMoving)
             {
                 Move();
             }
         }
 
-        public void Initialize(UserDataBase_Platoon platoon, OccupationPoint spawnPoint)
+        public void Initialize(EnemyParty enemyParty)
         {
-            m_platoonData = platoon;
-            m_stayPoint = spawnPoint;
-            transform.tag = "Player";
+            m_enemyParty = enemyParty;
+            m_stayPoint = enemyParty.StartPoint;
+            transform.localPosition = m_stayPoint.transform.localPosition;
+            transform.tag = "Enemy";
+            var tempScale = transform.localScale;
+            tempScale.x = tempScale.x * -1;
+            transform.localScale = tempScale;
             m_characterBase = gameObject.AddComponent<CharacterBase>();
+        }
+
+        public EnemyParty GetEnemyParty()
+        {
+            return m_enemyParty;
         }
 
         public OccupationPoint GetStayPoint()
         {
             return m_stayPoint;
-        }
-
-        public UserDataBase_Platoon GetPlatoonData()
-        {
-            return m_platoonData;
         }
 
         public bool IsMoving()
@@ -72,7 +69,7 @@ namespace Assets.Resources.StageField
                 m_moveDirection = m_stayPoint.transform.localPosition;
                 m_characterBase.SetAnim(CharacterBase.E_State.Run);
                 m_isMoving = true;
-            }            
+            }
         }
 
         private void Move()
@@ -88,6 +85,6 @@ namespace Assets.Resources.StageField
                 m_characterBase.SetAnim(CharacterBase.E_State.Idle);
                 m_isMoving = false;
             }
-        }
+        }        
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Common;
-using Assets.Resources.StageField;
+using Assets.Scene_StageField.Object;
 
 namespace Assets.Common.Controller
 {

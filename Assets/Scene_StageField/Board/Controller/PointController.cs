@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
-using Assets.Resources.StageField;
+using Assets.Scene_StageField.Object;
 using Assets.Scene_StageField;
 
 namespace Assets.Scene_StageField.Board.Controller

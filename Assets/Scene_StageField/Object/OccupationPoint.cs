@@ -1,10 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Scene_StageField;
 using Assets.Scene_StageField.Board.Controller;
 
-namespace Assets.Resources.StageField
+namespace Assets.Scene_StageField.Object
 {
     public class OccupationPoint : MonoBehaviour
     {
@@ -95,16 +94,44 @@ namespace Assets.Resources.StageField
             switch (m_owner)
             {
                 case E_Owner.Player:
-                    spriteRenderer.color = Color.blue;
+                    StartCoroutine(UpdateOwnerAnimation(Color.blue));
                     break;
                 case E_Owner.Enemy:
-                    spriteRenderer.color = Color.red;
+                    StartCoroutine(UpdateOwnerAnimation(Color.red));
                     break;
                 case E_Owner.End:
                     break;
                 default:
                     break;
             }
+        }
+
+        private IEnumerator UpdateOwnerAnimation(Color newColor)
+        {
+            var spriteRenderer = GetComponent<SpriteRenderer>();
+
+            var color = spriteRenderer.color;
+            var temp = Color.white - color;
+            var red = temp.r / 100f;
+            var green = temp.g / 100f;
+            var blue = temp.b / 100f;
+            while (spriteRenderer.color != Color.white)
+            {                
+                spriteRenderer.color = new Color(spriteRenderer.color.r + red, spriteRenderer.color.g + green, spriteRenderer.color.b + blue);
+                yield return new WaitForSeconds(0.01f);
+            }
+
+            temp = newColor - color;
+            red = temp.r / 100f;
+            green = temp.g / 100f;
+            blue = temp.b / 100f;
+            while (spriteRenderer.color != newColor)
+            {
+                spriteRenderer.color = new Color(spriteRenderer.color.r + red, spriteRenderer.color.g + green, spriteRenderer.color.b + blue);
+                yield return new WaitForSeconds(0.01f);
+            }
+
+            yield return null;
         }
     }
 }

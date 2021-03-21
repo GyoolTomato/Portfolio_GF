@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scene_StageField.Controller.EnemyData;
 using Assets.Scene_StageField.Controller.EnemyData.Base;
-using Assets.Resources.StageField;
+using Assets.Scene_StageField.Object;
 using Assets.Character;
 
 namespace Assets.Scene_StageField.Board.Controller
@@ -90,8 +90,8 @@ namespace Assets.Scene_StageField.Board.Controller
             {
                 var platoon = MonoBehaviour.Instantiate(CharacterObject.DataCodeObject(item.Memeber1.IndexNumber), Vector3.zero, Quaternion.identity);
                 platoon.transform.parent = m_board.transform;
-                platoon.AddComponent<Assets.Resources.StageField.Enemy>();
-                var enemyScript = platoon.GetComponent<Assets.Resources.StageField.Enemy>();
+                platoon.AddComponent<Enemy>();
+                var enemyScript = platoon.GetComponent<Enemy>();
                 enemyScript.Initialize(item);
 
                 m_enemies.Add(enemyScript);

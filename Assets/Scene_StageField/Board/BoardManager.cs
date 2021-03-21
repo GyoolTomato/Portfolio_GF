@@ -148,7 +148,7 @@ namespace Assets.Scene_StageField.Board
                     m_battle.StartTurn();
                     break;
                 case E_State.Occupation:
-
+                    m_occupation.StartTurn();
                     break;
                 default:
                     break;

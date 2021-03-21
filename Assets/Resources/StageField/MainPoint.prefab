@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2679933929858603286}
   - component: {fileID: 614409022819102210}
-  - component: {fileID: 7044757993065340966}
   - component: {fileID: 8539899639516164468}
+  - component: {fileID: 6400575082964010126}
   m_Layer: 0
   m_Name: MainPoint
   m_TagString: Point
@@ -84,21 +84,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7044757993065340966
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4241413616622723632}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df49904bd980a4be1bb94d310b39b707, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_pointType: 0
-  m_owner: 0
-  m_linkedPoints: []
 --- !u!58 &8539899639516164468
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -115,3 +100,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
+--- !u!114 &6400575082964010126
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4241413616622723632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e03f55f7de1614d1098adedac4b665f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_pointType: 0
+  m_owner: 0
+  m_linkedPoints: []

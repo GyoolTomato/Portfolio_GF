@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Resources.StageField
+namespace Assets.Scene_StageField.Object
 {
     public class LineDrawer : MonoBehaviour
     {
