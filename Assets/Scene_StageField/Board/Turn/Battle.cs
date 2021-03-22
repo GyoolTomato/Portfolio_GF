@@ -63,7 +63,7 @@ namespace Assets.Scene_StageField.Board.Turn
                     yield return null;
                 }
 
-                yield return new WaitForSeconds(3);
+                yield return new WaitForSeconds(2);
             }
 
             m_stageFieldManager.GetBoardManager().ChangeState(BoardManager.E_State.Occupation);

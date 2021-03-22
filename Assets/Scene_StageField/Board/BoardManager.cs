@@ -176,6 +176,19 @@ namespace Assets.Scene_StageField.Board
             }
         }
 
+        public int GetNumberOfMovementAvailableValue()
+        {
+            var monitor = m_turnMonitor.transform.Find("Number");
+            var monitorText = monitor.GetComponent<Text>();
+
+            return int.Parse(monitorText.text);
+        }
+        public void SetNumberOfMovementAvailableValue(int value)
+        {
+            var monitor = m_turnMonitor.transform.Find("Number");
+            var monitorText = monitor.GetComponent<Text>();
+            monitorText.text = value.ToString();
+        }
         public TouchController GetTouchController() => m_touchController;
         public PlayerPlatoonController GetPlayerPlatoonController() => m_playerPlatoonController;
         public EnemyPlatoonController GetEnemyPlatoonController() => m_enemyPlatoonController;

@@ -58,7 +58,7 @@ namespace Assets.Scene_StageField.Board.Controller
 
             if (m_boardManager.IsStart())
             {
-                if (selectedPlayerPlatoon == OnPlayer(point))
+                if (OnPlayer(point) != null || OnEnemy(point) != null)
                     return;
 
                 switch (m_boardManager.GetNowState())

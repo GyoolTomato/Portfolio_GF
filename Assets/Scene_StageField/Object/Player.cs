@@ -65,12 +65,16 @@ namespace Assets.Scene_StageField.Object
 
         public void MovePoint(OccupationPoint point)
         {
-            if (!m_isMoving)
+            var boardManager = m_stageFieldManager.GetBoardManager();
+            var numberOfMovementAvailableValue = boardManager.GetNumberOfMovementAvailableValue();
+
+            if (!m_isMoving && numberOfMovementAvailableValue > 0)
             {
                 m_stayPoint = point;
                 m_moveDirection = m_stayPoint.transform.localPosition;
                 m_characterBase.SetAnim(CharacterBase.E_State.Run);
                 m_isMoving = true;
+                boardManager.SetNumberOfMovementAvailableValue(numberOfMovementAvailableValue - 1);
             }            
         }
 
