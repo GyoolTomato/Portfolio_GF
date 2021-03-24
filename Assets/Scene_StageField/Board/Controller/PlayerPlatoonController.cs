@@ -31,13 +31,6 @@ namespace Assets.Scene_StageField.Board.Controller
             }
         }
 
-        public int NumberOfPlayer()
-        {
-            var temp = GameObject.FindGameObjectsWithTag("Player");
-
-            return temp.Length;
-        }
-
         public List<Player> GetPlayers()
         {
             var temp = GameObject.FindGameObjectsWithTag("Player");

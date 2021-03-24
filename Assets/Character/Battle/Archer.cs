@@ -35,7 +35,7 @@ namespace Assets.Character.Battle
             if (TargetingEnemy() != null)
             {
                 var temp = Instantiate(SkillObject.Arrow(), new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
-                temp.transform.parent = transform;
+                //temp.transform.parent = transform;
                 var tempScript = temp.GetComponent<Skill.Base.SkillBase>();
                 tempScript.Initialize(gameObject, TargetingEnemy().gameObject, m_stat.FirePower);
             }

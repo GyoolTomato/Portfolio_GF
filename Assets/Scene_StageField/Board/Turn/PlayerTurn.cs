@@ -28,11 +28,16 @@ namespace Assets.Scene_StageField.Board.Turn
 
         public void StartTurn(int turnNumber)
         {
-            m_turnStartBanner.SetActive(true);
-            m_turnStartBanner_Title.text = "플레이어 차례";
-            m_turnStartBanner_Turn.text = turnNumber + "턴";
-            m_stageFieldManager.StartCoroutine(OffTurnStartBanner());
-            InitNumberOFMovementAvailable();
+            m_stageFieldManager.GetPlayController().GameOverCheck();
+
+            if (m_stageFieldManager.GetPlayController().IsPlaying())
+            {
+                m_turnStartBanner.SetActive(true);
+                m_turnStartBanner_Title.text = "플레이어 차례";
+                m_turnStartBanner_Turn.text = turnNumber + "턴";
+                m_stageFieldManager.StartCoroutine(OffTurnStartBanner());
+                InitNumberOFMovementAvailable();
+            }
         }
 
         private IEnumerator OffTurnStartBanner()

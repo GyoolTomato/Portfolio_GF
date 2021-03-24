@@ -23,7 +23,10 @@ namespace Assets.Scene_StageField.Board.Turn
 
         public void StartTurn()
         {
-            PointOccupation();
+            if (m_stageFieldManager.GetPlayController().IsPlaying())
+            {
+                PointOccupation();
+            }
         }
 
         private void PointOccupation()

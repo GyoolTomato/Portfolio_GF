@@ -26,6 +26,7 @@ namespace Assets.Scene_StageField.BattleField
         private GameObject m_battleFieldUI;
         private GameObject m_battleField;
         private Transform m_battleField_Units;
+        private Transform m_battleField_Objects;
         private GameObject m_boardUI;
         private GameObject m_board;
         private bool m_isFinishCreatingPlayer;
@@ -46,6 +47,7 @@ namespace Assets.Scene_StageField.BattleField
             m_battleFieldUI = canvas.transform.Find("BattleFieldUI").gameObject;
             m_battleField = GameObject.Find("BattleField");
             m_battleField_Units = m_battleField.transform.Find("Units");
+            m_battleField_Objects = m_battleField.transform.Find("Objects");
             m_boardUI = canvas.transform.Find("BoardUI").gameObject;
             m_board = GameObject.Find("Board");
         }
@@ -53,6 +55,11 @@ namespace Assets.Scene_StageField.BattleField
         private void ClearBattleField()
         {
             foreach (Transform item in m_battleField_Units)
+            {
+                MonoBehaviour.Destroy(item.gameObject);
+            }
+
+            foreach (Transform item in m_battleField_Objects)
             {
                 MonoBehaviour.Destroy(item.gameObject);
             }

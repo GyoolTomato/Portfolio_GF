@@ -32,12 +32,12 @@ namespace Assets.Skill.Base
                     var direction = m_targetPosition - m_masterPosition;
                     direction.Normalize();
 
-                    if (m_master.GetComponent<CharacterBase>().GetTeam() == CharacterBase.E_Team.Enemy)
-                    {
-                        var temp = direction;
-                        temp.x *= -1;
-                        direction = temp;
-                    }
+                    //if (m_master.GetComponent<CharacterBase>().GetTeam() == CharacterBase.E_Team.Enemy)
+                    //{
+                    //    var temp = direction;
+                    //    temp.x *= -1;
+                    //    direction = temp;
+                    //}
 
                     transform.Translate(direction * Time.deltaTime * m_speed);
 

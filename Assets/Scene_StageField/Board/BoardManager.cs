@@ -43,8 +43,7 @@ namespace Assets.Scene_StageField.Board
         private Battle m_battle;
         private Occupation m_occupation;
 
-        private E_State m_state;
-        private bool m_isStart;        
+        private E_State m_state;       
         private int m_turnNumber;        
 
         public BoardManager()
@@ -81,7 +80,7 @@ namespace Assets.Scene_StageField.Board
             m_enemyPlatoonController = new EnemyPlatoonController();
             m_enemyPlatoonController.Initialize(this);
             m_pointController = new PointController();
-            m_pointController.Initialize(this);
+            m_pointController.Initialize(manager);
             m_spawnPlatoonController = new SpawnPlatoonController();
 
             m_playerTurn = new PlayerTurn();
@@ -94,7 +93,6 @@ namespace Assets.Scene_StageField.Board
             m_occupation.Initialize(m_stageFieldmanager);
 
             m_state = E_State.End;
-            m_isStart = false;
             m_turnNumber = 0;
         }
 
@@ -113,9 +111,9 @@ namespace Assets.Scene_StageField.Board
 
         private void Handle_StartButton()
         {
-            if (m_playerPlatoonController.NumberOfPlayer() > 0)
+            if (m_playerPlatoonController.GetPlayers().Count > 0)
             {
-                m_isStart = true;
+                m_stageFieldmanager.GetPlayController().StartPlay();
                 m_startButton.gameObject.SetActive(false);
                 m_endTurnButton.gameObject.SetActive(true);
                 ChangeState(E_State.PlayerTurn);
@@ -155,8 +153,7 @@ namespace Assets.Scene_StageField.Board
             }
         }
 
-        public E_State GetNowState() => m_state;
-        public bool IsStart() => m_isStart;        
+        public E_State GetNowState() => m_state;            
         public bool GetSpawnPlatoonActive() => m_spawnPlatoon.activeSelf;
         public void SetSpawnPlatoonActive(bool active)
         {

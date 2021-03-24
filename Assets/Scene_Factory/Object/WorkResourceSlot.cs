@@ -71,6 +71,11 @@ public class WorkResourceSlot : MonoBehaviour
         }
     }
 
+    public void SetImage(Sprite sprite)
+    {
+        m_image.sprite = sprite;
+    }
+
     private void ApplyValueInMonitor()
     {
         m_valueMonitor.text = m_value.ToString("D4");

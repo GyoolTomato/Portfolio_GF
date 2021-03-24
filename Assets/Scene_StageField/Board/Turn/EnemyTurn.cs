@@ -28,12 +28,15 @@ namespace Assets.Scene_StageField.Board.Turn
 
         public void StartTurn(int turnNumber)
         {
-            m_turnStartBanner.SetActive(true);
-            m_turnStartBanner_Title.text = "적 차례";
-            m_turnStartBanner_Turn.text = turnNumber + "턴";
-            m_enemyPlatoonController.StartEnemyTurn();
-            m_stageFieldManager.StartCoroutine(OffTurnStartBanner());
-            m_stageFieldManager.StartCoroutine(MoveFinishCheck());
+            if (m_stageFieldManager.GetPlayController().IsPlaying())
+            {
+                m_turnStartBanner.SetActive(true);
+                m_turnStartBanner_Title.text = "적 차례";
+                m_turnStartBanner_Turn.text = turnNumber + "턴";
+                m_enemyPlatoonController.StartEnemyTurn();
+                m_stageFieldManager.StartCoroutine(OffTurnStartBanner());
+                m_stageFieldManager.StartCoroutine(MoveFinishCheck());
+            }
         }
 
         private IEnumerator OffTurnStartBanner()

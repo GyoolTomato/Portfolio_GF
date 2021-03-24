@@ -25,7 +25,10 @@ namespace Assets.Scene_StageField.Board.Turn
 
         public void StartTurn()
         {
-            CheckBattle();
+            if (m_stageFieldManager.GetPlayController().IsPlaying())
+            {
+                CheckBattle();
+            }
         }
 
         private void CheckBattle()

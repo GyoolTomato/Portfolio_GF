@@ -25,9 +25,10 @@ namespace Assets.Scene_Factory.Base
             var canvas = GameObject.Find("Canvas");
             var menuView = canvas.transform.Find("MenuView");
             var produceTDoll = menuView.Find(menuName);
+            var content = produceTDoll.Find("Scroll View").Find("Viewport").Find("Content");
             m_produceSlotList = new List<Object.ProduceSlot>();
-            m_produceSlotList.Add(produceTDoll.transform.Find("ProduceSlot_0").GetComponent<Object.ProduceSlot>());
-            m_produceSlotList.Add(produceTDoll.transform.Find("ProduceSlot_1").GetComponent<Object.ProduceSlot>());          
+            m_produceSlotList.Add(content.transform.Find("ProduceSlot_0").GetComponent<Object.ProduceSlot>());
+            m_produceSlotList.Add(content.transform.Find("ProduceSlot_1").GetComponent<Object.ProduceSlot>());          
             m_messagePanel = canvas.transform.Find("MessagePanel").gameObject;
         }
 

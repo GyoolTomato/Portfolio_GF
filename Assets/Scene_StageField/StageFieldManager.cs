@@ -20,6 +20,7 @@ namespace Assets.Scene_StageField
         private Assets.Common.GameManager m_gameManager;
 
         private E_State m_state;
+        private PlayController m_playController;
         private BoardManager m_boardManager;
         private BattleFieldManager m_battleFieldManager;
 
@@ -43,6 +44,8 @@ namespace Assets.Scene_StageField
         {
             m_gameManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Common.GameManager>();
             m_state = E_State.End;
+            m_playController = new PlayController();
+            m_playController.Initialize(this);
             m_boardManager = new BoardManager();
             m_boardManager.Initialize(this);
             m_battleFieldManager = new BattleFieldManager();
@@ -90,6 +93,11 @@ namespace Assets.Scene_StageField
                 default:
                     break;
             }            
+        }
+
+        public PlayController GetPlayController()
+        {
+            return m_playController;
         }
 
         public BoardManager GetBoardManager()

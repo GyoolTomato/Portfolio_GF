@@ -9,6 +9,7 @@ namespace Assets.Scene_StageField.Board.Controller
 {
     public class PointController
     {
+        private StageFieldManager m_stageFieldManager;
         private BoardManager m_boardManager;
         private List<OccupationPoint> m_occupationPoints;
         private OccupationPoint m_selectPoint;
@@ -21,9 +22,10 @@ namespace Assets.Scene_StageField.Board.Controller
         {
         }
 
-        public void Initialize(BoardManager boardManager)
+        public void Initialize(StageFieldManager stageFieldManager)
         {
-            m_boardManager = boardManager;
+            m_stageFieldManager = stageFieldManager;
+            m_boardManager = m_stageFieldManager.GetBoardManager();
             m_occupationPoints = new List<OccupationPoint>();
             var points = GameObject.FindGameObjectsWithTag("Point");
             foreach (var item in points)
@@ -51,12 +53,57 @@ namespace Assets.Scene_StageField.Board.Controller
             return m_occupationPoints;
         }
 
+        public List<OccupationPoint> GetMainPoints()
+        {
+            var result = new List<OccupationPoint>();
+
+            foreach (var item in GetOccupationPoints())
+            {
+                if (item.GetPointType() == OccupationPoint.E_PointType.MainPoint)
+                {
+                    result.Add(item);
+                }
+            }
+
+            return result;
+        }
+
+        public List<OccupationPoint> GetHeliPoints()
+        {
+            var result = new List<OccupationPoint>();
+
+            foreach (var item in GetOccupationPoints())
+            {
+                if (item.GetPointType() == OccupationPoint.E_PointType.HeliPortPoint)
+                {
+                    result.Add(item);
+                }
+            }
+
+            return result;
+        }
+
+        public List<OccupationPoint> GetNormalPoints()
+        {
+            var result = new List<OccupationPoint>();
+
+            foreach (var item in GetOccupationPoints())
+            {
+                if (item.GetPointType() == OccupationPoint.E_PointType.NormalPoint)
+                {
+                    result.Add(item);
+                }
+            }
+
+            return result;
+        }
+
         public void ClickOccupationPoint(OccupationPoint point)
         {
             m_selectPoint = point;
             var selectedPlayerPlatoon = m_boardManager.GetPlayerPlatoonController().SelectedPlayerPlatoon;
 
-            if (m_boardManager.IsStart())
+            if (m_stageFieldManager.GetPlayController().IsPlaying())
             {
                 if (OnPlayer(point) != null || OnEnemy(point) != null)
                     return;

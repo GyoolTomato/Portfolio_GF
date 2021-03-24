@@ -40,6 +40,8 @@ namespace Assets.Character.Battle.Base
         private string m_stringIsDie;
         private float m_elapsedTimeAttackDelay;
 
+        protected Transform m_objectParent;
+
         protected virtual void Awake()
         {
             m_gameManager = GameObject.Find("GameManager").GetComponent<Common.GameManager>();
@@ -138,6 +140,9 @@ namespace Assets.Character.Battle.Base
             sortingGroup.sortingOrder = (int)(Math.Abs(transform.position.y) * 10);
 
             m_isInit = true;
+
+            m_objectParent = GameObject.Find("BattleField").transform.Find("Objects");
+
         }
 
         public void Initialize(E_Team team, Assets.Scene_StageField.Controller.EnemyData.Base.EnemyMember enemyStat)

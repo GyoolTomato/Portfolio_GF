@@ -54,7 +54,7 @@ namespace Assets.Scene_Factory.Object
         // Start is called before the first frame update
         private void Start()
         {
-
+            SetResource();
             
         }
 
@@ -139,7 +139,17 @@ namespace Assets.Scene_Factory.Object
             {
                 ChangeState(E_State.Working);
             }
-        }        
+        }
+
+        private void SetResource()
+        {
+            var gameManager = GameObject.Find("GameManager").GetComponent<Common.GameManager>();
+            
+            m_steel.SetImage(gameManager.GetSpriteController().GetWorkResource("Steel"));
+            m_flower.SetImage(gameManager.GetSpriteController().GetWorkResource("Flower"));
+            m_food.SetImage(gameManager.GetSpriteController().GetWorkResource("Food"));
+            m_leather.SetImage(gameManager.GetSpriteController().GetWorkResource("Leather"));
+        }
     }
 }
 
