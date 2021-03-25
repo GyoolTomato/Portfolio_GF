@@ -11,5 +11,7 @@ namespace Assets.Common.Interface
         public static Color Silver => new Color(171f / 255f, 171f / 255f, 171f / 255f, 255f / 255f);
         public static Color DarkGray => new Color(111f / 255f, 111f / 255f, 111f / 255f, 255f / 255f);
         public static Color DarkGray_T => new Color(111f / 255f, 111f / 255f, 111f / 255f, 200f / 255f);
+        public static Color PlayerPoint => new Color(0f / 255f, 193f / 255f, 248f / 255f, 255f / 255f);
+        public static Color EnemyPoint => new Color(255f / 255f, 85f / 255f, 55f / 255f, 255f / 255f);
     }
 }

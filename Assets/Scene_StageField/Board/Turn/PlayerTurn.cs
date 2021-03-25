@@ -67,5 +67,7 @@ namespace Assets.Scene_StageField.Board.Turn
             var numberOfMovementAvailable = players.Length + addByPoints;
             m_boardManager.SetNumberOfMovementAvailableValue(numberOfMovementAvailable);
         }
+
+        
     }
 }

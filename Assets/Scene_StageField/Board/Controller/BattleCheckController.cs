@@ -4,18 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scene_StageField.Object;
 
-namespace Assets.Scene_StageField.Board.Turn
+namespace Assets.Scene_StageField.Board.Controller
 {
-    public class Battle
+    public class BattleCheckController
     {
+        public BattleCheckController()
+        {
+        }
+
         private StageFieldManager m_stageFieldManager;
         private BoardManager m_boardManager;
         private List<Base.BattleData> m_battleDatas;
         private bool m_isInCombat;
-
-        public Battle()
-        {
-        }
 
         public void Initialize(StageFieldManager stageFieldManager)
         {
@@ -23,15 +23,7 @@ namespace Assets.Scene_StageField.Board.Turn
             m_boardManager = m_stageFieldManager.GetBoardManager();
         }
 
-        public void StartTurn()
-        {
-            if (m_stageFieldManager.GetPlayController().IsPlaying())
-            {
-                CheckBattle();
-            }
-        }
-
-        private void CheckBattle()
+        public void CheckBattle()
         {
             m_battleDatas = new List<Base.BattleData>();
 
@@ -52,7 +44,7 @@ namespace Assets.Scene_StageField.Board.Turn
                     }
                 }
             }
-
+            
             m_stageFieldManager.StartCoroutine(SelectBattle());
         }
 
@@ -68,8 +60,7 @@ namespace Assets.Scene_StageField.Board.Turn
 
                 yield return new WaitForSeconds(2);
             }
-
-            m_stageFieldManager.GetBoardManager().ChangeState(BoardManager.E_State.Occupation);
+            
             yield return null;
         }
 
@@ -80,7 +71,7 @@ namespace Assets.Scene_StageField.Board.Turn
         }
 
         private IEnumerator FocusingAnimation(Base.BattleData battleData)
-        {           
+        {
             m_stageFieldManager.StartCoroutine(BattleStart(battleData));
             yield return null;
         }

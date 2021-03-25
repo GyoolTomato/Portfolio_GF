@@ -30,7 +30,7 @@ namespace Assets.Scene_StageField.Board.Controller
         private Stage1_5 m_stage1_5;
                 
         private GameObject m_board;
-        private List<Enemy> m_enemies;
+        //private List<Enemy> m_enemies;
         private bool m_isMoveFinish;
 
         public EnemyPlatoonController()
@@ -85,7 +85,6 @@ namespace Assets.Scene_StageField.Board.Controller
 
         private void CreateEnemy()
         {
-            m_enemies = new List<Enemy>();
             foreach (var item in m_selectedStageEnemy.GetEnemyParties())
             {
                 var platoon = MonoBehaviour.Instantiate(CharacterObject.DataCodeObject(item.Memeber1.IndexNumber), Vector3.zero, Quaternion.identity);
@@ -93,8 +92,6 @@ namespace Assets.Scene_StageField.Board.Controller
                 platoon.AddComponent<Enemy>();
                 var enemyScript = platoon.GetComponent<Enemy>();
                 enemyScript.Initialize(item);
-
-                m_enemies.Add(enemyScript);
             }
         }
 
@@ -124,7 +121,7 @@ namespace Assets.Scene_StageField.Board.Controller
             var enableMovePoints = new List<OccupationPoint>();
             var random = 0;
 
-            foreach (var item in m_enemies)
+            foreach (var item in GetEnemies())
             {
                 linkedPoints = item.GetStayPoint().GetLinkedPoints();
                 enableMovePoints = new List<OccupationPoint>();
@@ -148,14 +145,14 @@ namespace Assets.Scene_StageField.Board.Controller
 
         IEnumerator MoveFinishCheck()
         {
-            if (m_enemies.Count > 0)
+            if (GetEnemies().Count > 0)
             {
                 var isFinish = false;
 
                 while (!isFinish)
                 {
                     isFinish = true;
-                    foreach (var item in m_enemies)
+                    foreach (var item in GetEnemies())
                     {
                         if (item.IsMoving())
                             isFinish = false;

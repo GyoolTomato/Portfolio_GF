@@ -52,6 +52,7 @@ namespace Assets.Character.Board
 
         public void SetAnim(E_State state)
         {
+            var a = gameObject;
             m_animator.SetBool(m_stringIsIdle, false);
             m_animator.SetBool(m_stringIsWalk, false);
             m_animator.SetBool(m_stringIsRun, false);

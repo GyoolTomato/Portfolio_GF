@@ -105,7 +105,8 @@ namespace Assets.Scene_StageField.Board.Controller
 
             if (m_stageFieldManager.GetPlayController().IsPlaying())
             {
-                if (OnPlayer(point) != null || OnEnemy(point) != null)
+                //캐릭터 존재시 리턴
+                if (OnPlayer(point) != null)
                     return;
 
                 switch (m_boardManager.GetNowState())

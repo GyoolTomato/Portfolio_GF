@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿ using UnityEngine;
 using System.Collections;
 using Assets.Common.DB.User;
 using Assets.Scene_StageField.Board.Controller;
@@ -90,6 +90,7 @@ namespace Assets.Scene_StageField.Object
                 transform.localPosition = m_moveDirection;
                 m_characterBase.SetAnim(CharacterBase.E_State.Idle);
                 m_isMoving = false;
+                m_stageFieldManager.GetBoardManager().GetBattleCheckController().CheckBattle();
             }
         }
     }

@@ -17,6 +17,12 @@ namespace Assets.Scene_StageField.Object
         private OccupationPoint m_stayPoint;
         private CharacterBase m_characterBase;
 
+        private void Awake()
+        {
+            var collider = transform.GetComponent<CapsuleCollider2D>();
+            collider.enabled = false;
+        }
+
         // Use this for initialization
         void Start()
         {

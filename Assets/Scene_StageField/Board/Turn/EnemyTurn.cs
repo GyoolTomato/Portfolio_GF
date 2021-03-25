@@ -52,7 +52,7 @@ namespace Assets.Scene_StageField.Board.Turn
                 yield return null;
             }
 
-            m_stageFieldManager.GetBoardManager().ChangeState(BoardManager.E_State.Battle);
+            m_stageFieldManager.GetBoardManager().ChangeState(BoardManager.E_State.EnemyBattle);
         }
     }
 }

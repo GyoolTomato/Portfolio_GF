@@ -97,10 +97,10 @@ namespace Assets.Scene_StageField.Object
             switch (m_owner)
             {
                 case E_Owner.Player:
-                    StartCoroutine(UpdateOwnerAnimation(Color.blue));
+                    StartCoroutine(UpdateOwnerAnimation(Common.Interface.CustomColor.PlayerPoint));
                     break;
                 case E_Owner.Enemy:
-                    StartCoroutine(UpdateOwnerAnimation(Color.red));
+                    StartCoroutine(UpdateOwnerAnimation(Common.Interface.CustomColor.EnemyPoint));
                     break;
                 case E_Owner.End:
                     break;
@@ -111,7 +111,7 @@ namespace Assets.Scene_StageField.Object
 
         private IEnumerator UpdateOwnerAnimation(Color newColor)
         {
-            var spriteRenderer = GetComponent<SpriteRenderer>();
+            var spriteRenderer = transform.Find("Background").GetComponent<SpriteRenderer>();
 
             var temp = Color.white - spriteRenderer.color;
             var red = temp.r / 10f;

@@ -15,7 +15,7 @@ namespace Assets.Scene_StageField.Board
         {
             PlayerTurn,
             EnemyTurn,
-            Battle,
+            EnemyBattle,
             Occupation,
             End,
         }
@@ -37,10 +37,11 @@ namespace Assets.Scene_StageField.Board
         private EnemyPlatoonController m_enemyPlatoonController;
         private PointController m_pointController;
         private SpawnPlatoonController m_spawnPlatoonController;
+        private BattleCheckController m_battleCheckController;
 
         private PlayerTurn m_playerTurn;
         private EnemyTurn m_enemyTurn;
-        private Battle m_battle;
+        private EnemyBattle m_enemyBattle;
         private Occupation m_occupation;
 
         private E_State m_state;       
@@ -82,13 +83,15 @@ namespace Assets.Scene_StageField.Board
             m_pointController = new PointController();
             m_pointController.Initialize(manager);
             m_spawnPlatoonController = new SpawnPlatoonController();
+            m_battleCheckController = new BattleCheckController();
+            m_battleCheckController.Initialize(manager);
 
             m_playerTurn = new PlayerTurn();
             m_playerTurn.Initialize(m_stageFieldmanager, m_turnStartBanner);
             m_enemyTurn = new EnemyTurn();
             m_enemyTurn.Initialize(m_stageFieldmanager, m_turnStartBanner);
-            m_battle = new Battle();
-            m_battle.Initialize(m_stageFieldmanager);
+            m_enemyBattle = new EnemyBattle();
+            m_enemyBattle.Initialize(m_stageFieldmanager);
             m_occupation = new Occupation();
             m_occupation.Initialize(m_stageFieldmanager);
 
@@ -142,8 +145,8 @@ namespace Assets.Scene_StageField.Board
                 case E_State.EnemyTurn:
                     m_enemyTurn.StartTurn(m_turnNumber);
                     break;
-                case E_State.Battle:
-                    m_battle.StartTurn();
+                case E_State.EnemyBattle:
+                    m_enemyBattle.StartTurn();
                     break;
                 case E_State.Occupation:
                     m_occupation.StartTurn();
@@ -190,6 +193,7 @@ namespace Assets.Scene_StageField.Board
         public PlayerPlatoonController GetPlayerPlatoonController() => m_playerPlatoonController;
         public EnemyPlatoonController GetEnemyPlatoonController() => m_enemyPlatoonController;
         public PointController GetPointController() => m_pointController;
+        public BattleCheckController GetBattleCheckController() => m_battleCheckController;
         public StageFieldManager GetStageFieldManager() => m_stageFieldmanager;
     }
 }
