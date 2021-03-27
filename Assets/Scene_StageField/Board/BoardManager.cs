@@ -17,6 +17,7 @@ namespace Assets.Scene_StageField.Board
             EnemyTurn,
             EnemyBattle,
             Occupation,
+            GameOver,
             End,
         }
 
@@ -25,6 +26,7 @@ namespace Assets.Scene_StageField.Board
         private GameObject m_turnButton;
         private GameObject m_spawnPlatoon;
         private GameObject m_turnStartBanner;
+        private GameObject m_gameOverBanner;
         private Button m_startButton;
         private Button m_endTurnButton;
 
@@ -60,7 +62,9 @@ namespace Assets.Scene_StageField.Board
             m_turnButton = boardUI.transform.Find("TurnButton").gameObject;
             m_spawnPlatoon = boardUI.transform.Find("SpawnPlatoon").gameObject;
             m_turnStartBanner = boardUI.Find("TurnStartBanner").gameObject;
-            m_turnStartBanner.SetActive(false);            
+            m_turnStartBanner.SetActive(false);
+            m_gameOverBanner = boardUI.Find("GameOverBanner").gameObject;
+            m_gameOverBanner.SetActive(false);
             var turnButton = boardUI.Find("TurnButton");
             m_startButton = turnButton.transform.Find("StartButton").GetComponent<Button>();
             m_startButton.onClick.AddListener(Handle_StartButton);
@@ -141,15 +145,23 @@ namespace Assets.Scene_StageField.Board
                 case E_State.PlayerTurn:
                     m_turnNumber++;
                     m_playerTurn.StartTurn(m_turnNumber);
+                    m_turnButton.SetActive(true);
                     break;
                 case E_State.EnemyTurn:
                     m_enemyTurn.StartTurn(m_turnNumber);
+                    m_turnButton.SetActive(false);
                     break;
                 case E_State.EnemyBattle:
                     m_enemyBattle.StartTurn();
+                    m_turnButton.SetActive(false);
                     break;
                 case E_State.Occupation:
                     m_occupation.StartTurn();
+                    m_turnButton.SetActive(false);
+                    break;
+                case E_State.GameOver:
+                    m_occupation.StartTurn();
+
                     break;
                 default:
                     break;
