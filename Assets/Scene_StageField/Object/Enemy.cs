@@ -42,14 +42,17 @@ namespace Assets.Scene_StageField.Object
 
         public void Initialize(EnemyParty enemyParty)
         {
-            m_enemyParty = enemyParty;
-            m_stayPoint = enemyParty.StartPoint;
-            transform.localPosition = m_stayPoint.transform.localPosition;
-            transform.tag = "Enemy";
-            var tempScale = transform.localScale;
-            tempScale.x = tempScale.x * -1;
-            transform.localScale = tempScale;
-            m_characterBase = gameObject.AddComponent<CharacterBase>();
+            if (enemyParty != null)
+            {
+                m_enemyParty = enemyParty;
+                m_stayPoint = enemyParty.StartPoint;
+                transform.localPosition = m_stayPoint.transform.localPosition;
+                transform.tag = "Enemy";
+                var tempScale = transform.localScale;
+                tempScale.x = tempScale.x * -1;
+                transform.localScale = tempScale;
+                m_characterBase = gameObject.AddComponent<CharacterBase>();
+            }
         }
 
         public EnemyParty GetEnemyParty()

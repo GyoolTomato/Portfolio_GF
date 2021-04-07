@@ -62,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_pointType: 2
-  m_owner: 0
+  m_owner: 2
   m_linkedPoints: []
 --- !u!1 &5643219909248529416
 GameObject:
@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 4797424848567896021}
   - component: {fileID: 3180408422173636002}
   m_Layer: 0
-  m_Name: Circle
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

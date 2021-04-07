@@ -91,6 +91,8 @@ namespace Assets.Scene_StageField.BattleField
             m_battleField.SetActive(false);
             m_boardUI.SetActive(true);
             m_board.SetActive(true);
+
+            m_stageFieldManager.GetPlayController().GameOverCheck();
         }
 
         public bool IsFinishBattle()

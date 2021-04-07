@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 5532305010056082832}
   - component: {fileID: 1553113030703996764}
   - component: {fileID: 4476557730787759153}
+  - component: {fileID: 2950012604468023626}
+  - component: {fileID: 1548195221383460545}
   m_Layer: 0
   m_Name: LineDrawer
   m_TagString: Untagged
@@ -142,3 +144,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ff7bc1105daa4ff6ae413a485d30add, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!210 &2950012604468023626
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9012051637984929489}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 1
+--- !u!114 &1548195221383460545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9012051637984929489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
+  m_EffectDistance: {x: 2, y: 2}
+  m_UseGraphicAlpha: 1

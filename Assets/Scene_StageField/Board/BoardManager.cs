@@ -17,16 +17,14 @@ namespace Assets.Scene_StageField.Board
             EnemyTurn,
             EnemyBattle,
             Occupation,
-            GameOver,
             End,
         }
 
         private GameObject m_board;
-        private GameObject m_turnMonitor;
+        private GameObject m_movePointMonitor;
         private GameObject m_turnButton;
         private GameObject m_spawnPlatoon;
         private GameObject m_turnStartBanner;
-        private GameObject m_gameOverBanner;
         private Button m_startButton;
         private Button m_endTurnButton;
 
@@ -58,13 +56,11 @@ namespace Assets.Scene_StageField.Board
             m_board = GameObject.Find("Board");
             var canvas = GameObject.Find("Canvas");
             var boardUI = canvas.transform.Find("BoardUI");
-            m_turnMonitor = boardUI.transform.Find("TurnMonitor").gameObject;
+            m_movePointMonitor = boardUI.transform.Find("MovePointMonitor").gameObject;
             m_turnButton = boardUI.transform.Find("TurnButton").gameObject;
             m_spawnPlatoon = boardUI.transform.Find("SpawnPlatoon").gameObject;
             m_turnStartBanner = boardUI.Find("TurnStartBanner").gameObject;
             m_turnStartBanner.SetActive(false);
-            m_gameOverBanner = boardUI.Find("GameOverBanner").gameObject;
-            m_gameOverBanner.SetActive(false);
             var turnButton = boardUI.Find("TurnButton");
             m_startButton = turnButton.transform.Find("StartButton").GetComponent<Button>();
             m_startButton.onClick.AddListener(Handle_StartButton);
@@ -91,9 +87,9 @@ namespace Assets.Scene_StageField.Board
             m_battleCheckController.Initialize(manager);
 
             m_playerTurn = new PlayerTurn();
-            m_playerTurn.Initialize(m_stageFieldmanager, m_turnStartBanner);
+            m_playerTurn.Initialize(m_stageFieldmanager, m_turnStartBanner, m_movePointMonitor, m_endTurnButton.gameObject);
             m_enemyTurn = new EnemyTurn();
-            m_enemyTurn.Initialize(m_stageFieldmanager, m_turnStartBanner);
+            m_enemyTurn.Initialize(m_stageFieldmanager, m_turnStartBanner, m_movePointMonitor, m_endTurnButton.gameObject);
             m_enemyBattle = new EnemyBattle();
             m_enemyBattle.Initialize(m_stageFieldmanager);
             m_occupation = new Occupation();
@@ -111,9 +107,12 @@ namespace Assets.Scene_StageField.Board
 
         public void Update()
         {
-            m_touchController.UpdateIsClick();
-            m_cameraController.Update();
-            m_pointController.Update();
+            if (!m_stageFieldmanager.GetPlayController().IsFinish())
+            {
+                m_touchController.UpdateIsClick();
+                m_cameraController.Update();
+                m_pointController.Update();
+            }            
         }
 
         private void Handle_StartButton()
@@ -133,7 +132,10 @@ namespace Assets.Scene_StageField.Board
 
         private void Handle_EndTurnButton()
         {
-            ChangeState(E_State.EnemyTurn);
+            if (m_playerPlatoonController.IsMoveFinish())
+            {
+                ChangeState(E_State.EnemyTurn);
+            }            
         }
 
         public void ChangeState(E_State state)
@@ -145,23 +147,15 @@ namespace Assets.Scene_StageField.Board
                 case E_State.PlayerTurn:
                     m_turnNumber++;
                     m_playerTurn.StartTurn(m_turnNumber);
-                    m_turnButton.SetActive(true);
                     break;
                 case E_State.EnemyTurn:
                     m_enemyTurn.StartTurn(m_turnNumber);
-                    m_turnButton.SetActive(false);
                     break;
                 case E_State.EnemyBattle:
                     m_enemyBattle.StartTurn();
-                    m_turnButton.SetActive(false);
                     break;
                 case E_State.Occupation:
                     m_occupation.StartTurn();
-                    m_turnButton.SetActive(false);
-                    break;
-                case E_State.GameOver:
-                    m_occupation.StartTurn();
-
                     break;
                 default:
                     break;
@@ -174,14 +168,14 @@ namespace Assets.Scene_StageField.Board
         {
             if (active)
             {
-                m_turnMonitor.SetActive(false);
+                m_movePointMonitor.SetActive(false);
                 m_turnButton.SetActive(false);
                 m_spawnPlatoon.SetActive(true);
                 m_board.SetActive(false);
             }
             else
             {
-                m_turnMonitor.SetActive(true);
+                m_movePointMonitor.SetActive(true);
                 m_turnButton.SetActive(true);
                 m_spawnPlatoon.SetActive(false);
                 m_board.SetActive(true);
@@ -190,14 +184,14 @@ namespace Assets.Scene_StageField.Board
 
         public int GetNumberOfMovementAvailableValue()
         {
-            var monitor = m_turnMonitor.transform.Find("Number");
+            var monitor = m_movePointMonitor.transform.Find("Number");
             var monitorText = monitor.GetComponent<Text>();
 
             return int.Parse(monitorText.text);
         }
         public void SetNumberOfMovementAvailableValue(int value)
         {
-            var monitor = m_turnMonitor.transform.Find("Number");
+            var monitor = m_movePointMonitor.transform.Find("Number");
             var monitorText = monitor.GetComponent<Text>();
             monitorText.text = value.ToString();
         }

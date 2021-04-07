@@ -31,7 +31,7 @@ namespace Assets.Character.Battle.Base
         //private Assets.Common.DB.User.UserDataBase_TDoll m_userStat;        
         private E_Team m_team;
         private E_State m_state;
-
+        
         private Animator m_animator;
         private string m_stringIsIdle;
         private string m_stringIsWalk;
@@ -39,8 +39,7 @@ namespace Assets.Character.Battle.Base
         private string m_stringIsAttack;
         private string m_stringIsDie;
         private float m_elapsedTimeAttackDelay;
-
-        protected Transform m_objectParent;
+        private float m_animationCorrection;
 
         protected virtual void Awake()
         {
@@ -139,10 +138,7 @@ namespace Assets.Character.Battle.Base
             var sortingGroup = GetComponent<SortingGroup>();
             sortingGroup.sortingOrder = (int)(Math.Abs(transform.position.y) * 10);
 
-            m_isInit = true;
-
-            m_objectParent = GameObject.Find("BattleField").transform.Find("Objects");
-
+            m_isInit = true; 
         }
 
         public void Initialize(E_Team team, Assets.Scene_StageField.Controller.EnemyData.Base.EnemyMember enemyStat)
@@ -179,7 +175,7 @@ namespace Assets.Character.Battle.Base
         }
 
 
-        protected void Initialize(Common.DB.Index.IndexDataBase_TDoll baseStat)
+        protected void Initialize(Common.DB.Index.IndexDataBase_TDoll baseStat, float animationCorrection)
         {
             m_stat.MaxHp = baseStat.Hp;
             m_stat.Hp = baseStat.Hp;
@@ -191,6 +187,8 @@ namespace Assets.Character.Battle.Base
             m_stat.Armor = baseStat.Armor;
             m_stat.Avoidance = baseStat.Avoidance;
             m_stat.MoveSpeed = baseStat.MoveSpeed;
+
+            m_animationCorrection = animationCorrection;
         }
 
         private void Idle()
@@ -310,7 +308,7 @@ namespace Assets.Character.Battle.Base
                     m_animator.SetBool(m_stringIsRun, true);
                     break;
                 case E_State.Attack:
-                    m_animator.speed = m_stat.AttackSpeed;
+                    m_animator.speed = m_stat.AttackSpeed * m_animationCorrection;
                     m_animator.SetBool(m_stringIsAttack, true);
                     break;
                 case E_State.Die:

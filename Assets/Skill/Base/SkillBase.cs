@@ -20,7 +20,15 @@ namespace Assets.Skill.Base
 
         private void Start()
         {
-            
+            try
+            {
+                var objects = GameObject.Find("BattleField").transform.Find("Objects");
+                transform.parent = objects;
+            }
+            catch
+            {
+
+            }
         }
 
         private void Update()

@@ -452,6 +452,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bfecdfadacb8405981cce6b95af0bdf, type: 3}
+--- !u!1 &276269937 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 43644737514027953, guid: 3bfecdfadacb8405981cce6b95af0bdf, type: 3}
+  m_PrefabInstance: {fileID: 276269936}
+  m_PrefabAsset: {fileID: 0}
+--- !u!210 &276269938
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 276269937}
+  m_Enabled: 1
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 99
 --- !u!1001 &359902885
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1145,6 +1161,10 @@ PrefabInstance:
     - target: {fileID: 4241413616622723632, guid: 4b8b557bb87c64c54b9e26990b30bd16, type: 3}
       propertyPath: m_Name
       value: MainPoint_Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 6400575082964010126, guid: 4b8b557bb87c64c54b9e26990b30bd16, type: 3}
+      propertyPath: m_owner
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6400575082964010126, guid: 4b8b557bb87c64c54b9e26990b30bd16, type: 3}
       propertyPath: m_linkedPoints.Array.size

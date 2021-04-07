@@ -90,7 +90,7 @@ TextMesh:
   m_Text: H
   m_OffsetZ: 0
   m_CharacterSize: 0.08
-  m_LineSpacing: 0
+  m_LineSpacing: 2
   m_Anchor: 4
   m_Alignment: 1
   m_TabSize: 4
@@ -100,7 +100,7 @@ TextMesh:
   m_Font: {fileID: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4281545523
 --- !u!210 &3533278030658928690
 SortingGroup:
   m_ObjectHideFlags: 0
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_pointType: 1
-  m_owner: 0
+  m_owner: 2
   m_linkedPoints: []
 --- !u!222 &6590779994021125712
 CanvasRenderer:

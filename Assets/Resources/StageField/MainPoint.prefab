@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_pointType: 0
-  m_owner: 0
+  m_owner: 2
   m_linkedPoints: []
 --- !u!1 &5583794255057230390
 GameObject:
@@ -258,7 +258,7 @@ TextMesh:
   m_Font: {fileID: 0}
   m_Color:
     serializedVersion: 2
-    rgba: 4294967295
+    rgba: 4281545523
 --- !u!210 &6164159126059262251
 SortingGroup:
   m_ObjectHideFlags: 0

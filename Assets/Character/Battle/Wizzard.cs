@@ -15,7 +15,7 @@ namespace Assets.Character.Battle
         protected override void Awake()
         {
             base.Awake();
-            Initialize(m_gameManager.GetIndexDBController().TDoll(3));
+            Initialize(m_gameManager.GetIndexDBController().TDoll(3), 1.5f);
         }
 
         protected override void Start()
@@ -34,8 +34,7 @@ namespace Assets.Character.Battle
 
             if (TargetingEnemy() != null)
             {
-                var temp = Instantiate(SkillObject.Magic(), new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
-                temp.transform.parent = m_objectParent;
+                var temp = Instantiate(SkillObject.Magic(), new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);                
                 var tempScript = temp.GetComponent<Skill.Base.SkillBase>();
                 tempScript.Initialize(gameObject, TargetingEnemy().gameObject, m_stat.FirePower);
             }

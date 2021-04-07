@@ -2468,7 +2468,7 @@ GameObject:
   - component: {fileID: 2140734782745072354}
   - component: {fileID: 897281557222857751}
   m_Layer: 5
-  m_Name: Button
+  m_Name: SpawnButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4331,7 +4331,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7883170185260133621}
   m_Layer: 0
-  m_Name: TurnMonitor
+  m_Name: MovePointMonitor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

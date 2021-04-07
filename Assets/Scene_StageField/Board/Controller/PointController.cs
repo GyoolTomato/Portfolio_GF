@@ -115,22 +115,32 @@ namespace Assets.Scene_StageField.Board.Controller
                         switch (m_selectPoint.GetPointType())
                         {
                             case OccupationPoint.E_PointType.MainPoint:
-                                if (selectedPlayerPlatoon == null)
+                                if (point.Owner == OccupationPoint.E_Owner.Player)
                                 {
-                                    if (m_selectPoint.Owner == OccupationPoint.E_Owner.Player)
-                                        m_boardManager.SetSpawnPlatoonActive(true);
+                                    if (selectedPlayerPlatoon == null)
+                                    {
+                                        if (m_selectPoint.Owner == OccupationPoint.E_Owner.Player)
+                                            m_boardManager.SetSpawnPlatoonActive(true);
+                                    }
+                                    else
+                                        m_spawnAnswer.SetActive(true);
                                 }
                                 else
-                                    m_spawnAnswer.SetActive(true);
+                                    MovePlayer(selectedPlayerPlatoon, m_selectPoint);
                                 break;
                             case OccupationPoint.E_PointType.HeliPortPoint:
-                                if (selectedPlayerPlatoon == null)
+                                if (point.Owner == OccupationPoint.E_Owner.Player)
                                 {
-                                    if (m_selectPoint.Owner == OccupationPoint.E_Owner.Player)
-                                        m_boardManager.SetSpawnPlatoonActive(true);
+                                    if (selectedPlayerPlatoon == null)
+                                    {
+                                        if (m_selectPoint.Owner == OccupationPoint.E_Owner.Player)
+                                            m_boardManager.SetSpawnPlatoonActive(true);
+                                    }
+                                    else
+                                        m_spawnAnswer.SetActive(true);
                                 }
                                 else
-                                    m_spawnAnswer.SetActive(true);
+                                    MovePlayer(selectedPlayerPlatoon, m_selectPoint);
                                 break;
                             case OccupationPoint.E_PointType.NormalPoint:
                                 MovePlayer(selectedPlayerPlatoon, m_selectPoint);

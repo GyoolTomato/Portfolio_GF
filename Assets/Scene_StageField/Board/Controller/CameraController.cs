@@ -27,6 +27,9 @@ namespace Assets.Scene_StageField.Board.Controller
 
         public void Update()
         {
+            Debug.Log("isClick : " + m_touchController.IsClick());
+            Debug.Log(m_touchController.GetClickObject() == m_field);
+
             if (m_touchController.IsClick() && m_touchController.GetClickObject() == m_field)
             {
                 Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);

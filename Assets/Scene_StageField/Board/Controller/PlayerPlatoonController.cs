@@ -42,5 +42,19 @@ namespace Assets.Scene_StageField.Board.Controller
 
             return players;
         }
+
+        public bool IsMoveFinish()
+        {
+            if (GetPlayers().Count > 0)
+            {
+                foreach (var item in GetPlayers())
+                {
+                    if (item.IsMoving())
+                        return false;
+                }
+            }
+
+            return true;
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace Assets.Scene_StageField.Controller
     {
         private StageFieldManager m_stageFieldManager;
         private bool m_isPlaying;
+        private bool m_isFinish;
         private GameObject m_gameOverBanner;
         private Transform m_gameOverBanner_Curtain;
         private Transform m_gameOverBanner_Banner;
@@ -33,22 +34,31 @@ namespace Assets.Scene_StageField.Controller
 
         public void StartPlay()
         {
+            m_isFinish = false;
             m_isPlaying = true;
         }
 
         public void GameOverCheck()
         {
+            m_stageFieldManager.StartCoroutine(GameOver());
+        }
+
+        private IEnumerator GameOver()
+        {           
             if (NotFoundPlayerMainPoints() || PlayerAllDie())
             {
-                EnemyWinEvent();
-                m_isPlaying = false;
+                yield return new WaitForSeconds(3);
+                m_stageFieldManager.StartCoroutine(GameOverBannerAnimation(false));
+                SetIsFinish(true);
+            }
+            else if (NotFoundEnemyMainPoints())
+            {
+                yield return new WaitForSeconds(3);
+                m_stageFieldManager.StartCoroutine(GameOverBannerAnimation(true));
+                SetIsFinish(true);
             }
 
-            if (NotFoundEnemyMainPoints())
-            {
-                PlayerWinEvent();
-                m_isPlaying = false;
-            }
+            yield return null;
         }
 
         public bool NotFoundPlayerMainPoints()
@@ -72,7 +82,7 @@ namespace Assets.Scene_StageField.Controller
 
             foreach (var item in pointController.GetMainPoints())
             {
-                if (item.Owner == Object.OccupationPoint.E_Owner.Player)
+                if (item.Owner == Object.OccupationPoint.E_Owner.Enemy)
                 {
                     return false;
                 }
@@ -93,22 +103,27 @@ namespace Assets.Scene_StageField.Controller
             return false;
         }
 
-        public void PlayerWinEvent()
-        {
-            m_stageFieldManager.StartCoroutine(GameOverBannerAnimation(true));
-        }
-
-        public void EnemyWinEvent()
-        {            
-            m_stageFieldManager.StartCoroutine(GameOverBannerAnimation(false));
-        }
-
         public bool IsPlaying()
         {
             return m_isPlaying;
         }
 
-        IEnumerator GameOverBannerAnimation(bool playerWin)
+        public bool IsFinish()
+        {           
+            return m_isFinish;
+        }
+
+        private void SetIsFinish(bool value)
+        {
+            if (value)
+            {
+                m_isPlaying = false;
+            }
+
+            m_isFinish = value;
+        }
+
+        private IEnumerator GameOverBannerAnimation(bool playerWin)
         {
             m_gameOverBanner.SetActive(true);
             m_gameOverBanner_Curtain.gameObject.SetActive(true);
@@ -124,24 +139,28 @@ namespace Assets.Scene_StageField.Controller
             winImage.color = new Color(winImage.color.r, winImage.color.g, winImage.color.b, 0);
             loseImage.color = new Color(loseImage.color.r, loseImage.color.g, loseImage.color.b, 0);
 
-            while (curtainImage.color.a != 1)
+            while (curtainImage.color.a != 170f/255f)
             {
-
-                yield return new WaitForSeconds(0.1f);
+                curtainImage.color = new Color(curtainImage.color.r, curtainImage.color.g, curtainImage.color.b, curtainImage.color.a + 10f/255f);
+                yield return new WaitForSeconds(0.01f);
             }
 
             if (playerWin)
             {
-                while (winImage.color.a != 1)
+                m_gameOverBanner_Banner_Lose.gameObject.SetActive(false);
+                while (winImage.color.a < 200f/255f)
                 {
-                    yield return new WaitForSeconds(0.1f);
+                    winImage.color = new Color(curtainImage.color.r, curtainImage.color.g, curtainImage.color.b, curtainImage.color.a + 10f / 255f);
+                    yield return new WaitForSeconds(0.01f);
                 }
             }
             else
             {
-                while (loseImage.color.a != 1)
+                m_gameOverBanner_Banner_Win.gameObject.SetActive(false);
+                while (loseImage.color.a < 200f/255f)
                 {
-                    yield return new WaitForSeconds(0.1f);
+                    loseImage.color = new Color(curtainImage.color.r, curtainImage.color.g, curtainImage.color.b, curtainImage.color.a + 10f / 255f);
+                    yield return new WaitForSeconds(0.01f);
                 }
             }            
 

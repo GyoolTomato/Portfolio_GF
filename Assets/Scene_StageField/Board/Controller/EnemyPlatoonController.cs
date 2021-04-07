@@ -30,7 +30,6 @@ namespace Assets.Scene_StageField.Board.Controller
         private Stage1_5 m_stage1_5;
                 
         private GameObject m_board;
-        //private List<Enemy> m_enemies;
         private bool m_isMoveFinish;
 
         public EnemyPlatoonController()

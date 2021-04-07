@@ -12,18 +12,22 @@ namespace Assets.Scene_StageField.Board.Turn
         private GameObject m_turnStartBanner;
         private Text m_turnStartBanner_Title;
         private Text m_turnStartBanner_Turn;
+        private GameObject m_movePointMonitor;
+        private GameObject m_endTurnButton;
 
         public EnemyTurn()
         {
         }
 
-        public void Initialize(StageFieldManager stageFieldManager, GameObject turnStartBanner)
+        public void Initialize(StageFieldManager stageFieldManager, GameObject turnStartBanner, GameObject movePointMonitor, GameObject endturnButton)
         {
             m_stageFieldManager = stageFieldManager;
             m_enemyPlatoonController = m_stageFieldManager.GetBoardManager().GetEnemyPlatoonController();
             m_turnStartBanner = turnStartBanner;
             m_turnStartBanner_Title = m_turnStartBanner.transform.Find("Title").GetComponent<Text>();
             m_turnStartBanner_Turn = m_turnStartBanner.transform.Find("Turn").GetComponent<Text>();
+            m_movePointMonitor = movePointMonitor;
+            m_endTurnButton = endturnButton;
         }
 
         public void StartTurn(int turnNumber)
@@ -33,6 +37,8 @@ namespace Assets.Scene_StageField.Board.Turn
                 m_turnStartBanner.SetActive(true);
                 m_turnStartBanner_Title.text = "적 차례";
                 m_turnStartBanner_Turn.text = turnNumber + "턴";
+                m_movePointMonitor.SetActive(false);
+                m_endTurnButton.SetActive(false);
                 m_enemyPlatoonController.StartEnemyTurn();
                 m_stageFieldManager.StartCoroutine(OffTurnStartBanner());
                 m_stageFieldManager.StartCoroutine(MoveFinishCheck());
