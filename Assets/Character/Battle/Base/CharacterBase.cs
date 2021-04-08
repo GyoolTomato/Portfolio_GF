@@ -19,7 +19,7 @@ namespace Assets.Character.Battle.Base
             Idle,
             Walk,
             Run,
-            Attack,
+            SkillAction,
             Die,
             End,
         }
@@ -82,8 +82,8 @@ namespace Assets.Character.Battle.Base
                 case E_State.Run:
                     Run();
                     break;
-                case E_State.Attack:
-                    Attack();
+                case E_State.SkillAction:
+                    SkillAction();
                     break;
                 case E_State.Die:
                     Die();
@@ -199,7 +199,7 @@ namespace Assets.Character.Battle.Base
             {
                 if (IsInAttackRange())
                 {
-                    SetState(E_State.Attack);
+                    SetState(E_State.SkillAction);
                 }
                 else
                 {
@@ -221,7 +221,7 @@ namespace Assets.Character.Battle.Base
 
             if (IsInAttackRange())
             {
-                SetState(E_State.Attack);
+                SetState(E_State.SkillAction);
             }
             else
             {
@@ -239,7 +239,7 @@ namespace Assets.Character.Battle.Base
             }
         }
 
-        private void Attack()
+        protected virtual void SkillAction()
         {
             if (TargetingEnemy() == null)
                 SetState(E_State.Idle);
@@ -262,7 +262,9 @@ namespace Assets.Character.Battle.Base
 
         private void Die()
         {
-            Invoke("DestroyObject", 3.0f);
+            var collider = this.GetComponent<CapsuleCollider2D>();
+            Destroy(collider);
+            Invoke("DestroyObject", 1.5f);
         }
 
         private void DestroyObject()
@@ -307,12 +309,12 @@ namespace Assets.Character.Battle.Base
                     m_animator.speed = 1.3f;
                     m_animator.SetBool(m_stringIsRun, true);
                     break;
-                case E_State.Attack:
+                case E_State.SkillAction:
                     m_animator.speed = m_stat.AttackSpeed * m_animationCorrection;
                     m_animator.SetBool(m_stringIsAttack, true);
                     break;
                 case E_State.Die:
-                    m_animator.speed = 1.0f;
+                    m_animator.speed = 1.5f;
                     m_animator.SetBool(m_stringIsDie, true);
                     break;
                 default:
