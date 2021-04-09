@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Assets.Skill
 {
-    public class BasicAttack : Base.SkillBase
+    public class Magic : Base.SkillBase
     {
-        public BasicAttack()
+        public Magic()
         {
         }
 
@@ -14,6 +14,7 @@ namespace Assets.Skill
             base.Initialize(master, target, damage);
 
             m_isInit = true;
+            m_speed = 8;
         }
     }
 }

@@ -5,14 +5,11 @@ using Assets.Character.Battle.Base;
 namespace Assets.Skill.Base
 {
     public class SkillBase : MonoBehaviour
-    {            
-        [SerializeField]
-        protected GameObject m_explosionObject;
-        [SerializeField]
-        protected float m_speed;
-
+    {       
         protected bool m_isInit;
+        protected float m_speed;
         protected Transform m_imageTransform;
+        protected Transform m_explosionTransform;        
         protected GameObject m_master;
         protected GameObject m_target;
         protected Vector3 m_masterPosition;
@@ -22,12 +19,15 @@ namespace Assets.Skill.Base
         private void Awake()
         {
             m_imageTransform = transform.Find("Image");
+            m_explosionTransform = transform.Find("Explosion");
         }
 
         private void Start()
         {
             try
             {
+                m_explosionTransform.gameObject.SetActive(false);
+
                 var objects = GameObject.Find("BattleField").transform.Find("Objects");
                 transform.parent = objects;
             }
@@ -88,10 +88,21 @@ namespace Assets.Skill.Base
                 var characterBase = collision.gameObject.GetComponent<CharacterBase>();
                 characterBase.ApplyDamage(m_damage);
 
-                Destroy(gameObject);
+                Boom();
             }
         }
 
-        
+        private void Boom()
+        {
+            m_imageTransform.gameObject.SetActive(false);
+            m_explosionTransform.gameObject.SetActive(true);
+
+            Invoke("InvokeDestroy", 1);
+        }
+
+        private void InvokeDestroy()
+        {
+            Destroy(gameObject);
+        }
     }
 }

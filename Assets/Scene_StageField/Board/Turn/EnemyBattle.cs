@@ -106,7 +106,7 @@ namespace Assets.Scene_StageField.Board.Turn
 
                 yield return null;
             }
-            battleFieldManager.CloseBattleField();
+            m_stageFieldManager.StartCoroutine(battleFieldManager.CloseBattleField());
             m_isInCombat = false;
         }
     }

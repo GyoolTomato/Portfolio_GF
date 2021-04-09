@@ -67,7 +67,7 @@ namespace Assets.Scene_StageField.BattleField
 
         public void OpenBattleField(Base.BattleData battleData)
         {
-            ClearBattleField();
+             ClearBattleField();
 
             m_battleData = battleData;
             m_isFinishCreatingPlayer = false;
@@ -85,8 +85,10 @@ namespace Assets.Scene_StageField.BattleField
             m_stageFieldManager.StartCoroutine(BattleFinishCheck());
         }
 
-        public void CloseBattleField()
+        public IEnumerator CloseBattleField()
         {
+            yield return new WaitForSeconds(2);
+
             m_battleFieldUI.SetActive(false);
             m_battleField.SetActive(false);
             m_boardUI.SetActive(true);
