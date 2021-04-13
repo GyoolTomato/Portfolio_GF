@@ -264,7 +264,7 @@ namespace Assets.Character.Battle.Base
         {
             var collider = this.GetComponent<CapsuleCollider2D>();
             Destroy(collider);
-            Invoke("DestroyObject", 1.5f);
+            Invoke("DestroyObject", 1.0f);
         }
 
         private void DestroyObject()
@@ -314,7 +314,7 @@ namespace Assets.Character.Battle.Base
                     m_animator.SetBool(m_stringIsAttack, true);
                     break;
                 case E_State.Die:
-                    m_animator.speed = 1.5f;
+                    m_animator.speed = 2.0f;
                     m_animator.SetBool(m_stringIsDie, true);
                     break;
                 default:

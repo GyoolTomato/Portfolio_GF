@@ -14,7 +14,7 @@ namespace Assets.Skill
             base.Initialize(master, target, damage, isInstanceBoom);
 
             m_isInit = true;
-            m_speed = 8;
+            m_speed = 5;
         }
     }
 }

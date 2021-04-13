@@ -84,19 +84,25 @@ namespace Assets.Skill.Base
             var angle = Vector3.SignedAngle(transform.up, m_targetPosition - m_masterPosition, transform.forward);
             m_imageTransform.Rotate(new Vector3(transform.rotation.x, transform.rotation.y, angle));
 
+            transform.tag = master.transform.tag;
+
             if (m_isInstanceBoom)            
-                transform.position = m_targetPosition;            
+                transform.position = m_targetPosition;
         }
 
 
         private void OnTriggerEnter2D(Collider2D collision)
-        {            
-            if (collision.gameObject == m_target)
+        {
+            if (collision.gameObject == m_target || transform.tag != collision.transform.tag)
             {
                 var characterBase = collision.gameObject.GetComponent<CharacterBase>();
-                characterBase.ApplyDamage(m_damage);
 
-                Boom(collision.transform);
+                if (characterBase != null)
+                {
+                    characterBase.ApplyDamage(m_damage);
+
+                    Boom(collision.transform);
+                }                
             }
         }
 
