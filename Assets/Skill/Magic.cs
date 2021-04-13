@@ -9,9 +9,9 @@ namespace Assets.Skill
         {
         }
 
-        public override void Initialize(GameObject master, GameObject target, int damage)
+        public override void Initialize(GameObject master, GameObject target, int damage, bool isInstanceBoom)
         {
-            base.Initialize(master, target, damage);
+            base.Initialize(master, target, damage, isInstanceBoom);
 
             m_isInit = true;
             m_speed = 8;

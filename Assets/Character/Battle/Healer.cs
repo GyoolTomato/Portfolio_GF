@@ -61,7 +61,7 @@ namespace Assets.Character.Battle
                 {
                     var healingObject = Instantiate(SkillObject.Heal(), new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
                     var tempScript = healingObject.GetComponent<Skill.Base.SkillBase>();
-                    tempScript.Initialize(gameObject, temp.gameObject, m_stat.FirePower);
+                    tempScript.Initialize(gameObject, temp.gameObject, m_stat.FirePower, true);
                 }
             }
         }

@@ -5,11 +5,15 @@ using Assets.Character.Battle.Base;
 namespace Assets.Skill.Base
 {
     public class SkillBase : MonoBehaviour
-    {       
+    {
+        [SerializeField]
+        protected GameObject m_explosionObject;
+
         protected bool m_isInit;
+        protected bool m_isBoom;
+        protected bool m_isInstanceBoom;
         protected float m_speed;
-        protected Transform m_imageTransform;
-        protected Transform m_explosionTransform;        
+        protected Transform m_imageTransform;      
         protected GameObject m_master;
         protected GameObject m_target;
         protected Vector3 m_masterPosition;
@@ -19,17 +23,16 @@ namespace Assets.Skill.Base
         private void Awake()
         {
             m_imageTransform = transform.Find("Image");
-            m_explosionTransform = transform.Find("Explosion");
         }
 
         private void Start()
         {
             try
             {
-                m_explosionTransform.gameObject.SetActive(false);
-
                 var objects = GameObject.Find("BattleField").transform.Find("Objects");
                 transform.parent = objects;
+
+                m_isBoom = false;
             }
             catch
             {
@@ -53,7 +56,8 @@ namespace Assets.Skill.Base
                     //    direction = temp;
                     //}
 
-                    transform.Translate(direction * Time.deltaTime * m_speed);
+                    if (!m_isBoom)
+                        transform.Translate(direction * Time.deltaTime * m_speed);
 
                     if (transform.position.x > Screen.width || transform.position.x < -Screen.width)
                     {
@@ -67,17 +71,21 @@ namespace Assets.Skill.Base
             }            
         }
 
-        public virtual void Initialize(GameObject master, GameObject target, int damage)
+        public virtual void Initialize(GameObject master, GameObject target, int damage, bool isInstanceBoom = false)
         {
             m_master = master;
             m_target = target;
             m_damage = damage;
+            m_isInstanceBoom = isInstanceBoom;
 
             m_masterPosition = new Vector3(m_master.transform.position.x, m_master.transform.position.y, m_master.transform.position.z);
             m_targetPosition = new Vector3(m_target.transform.position.x, m_target.transform.position.y + 0.5f, m_target.transform.position.z);
 
             var angle = Vector3.SignedAngle(transform.up, m_targetPosition - m_masterPosition, transform.forward);
             m_imageTransform.Rotate(new Vector3(transform.rotation.x, transform.rotation.y, angle));
+
+            if (m_isInstanceBoom)            
+                transform.position = m_targetPosition;            
         }
 
 
@@ -88,16 +96,28 @@ namespace Assets.Skill.Base
                 var characterBase = collision.gameObject.GetComponent<CharacterBase>();
                 characterBase.ApplyDamage(m_damage);
 
-                Boom();
+                Boom(collision.transform);
             }
         }
 
-        private void Boom()
+        private void Boom(Transform collisionTransform)
         {
+            m_isBoom = true;
             m_imageTransform.gameObject.SetActive(false);
-            m_explosionTransform.gameObject.SetActive(true);
 
-            Invoke("InvokeDestroy", 1);
+            if (m_explosionObject != null)
+            {
+                var explosionObject = Instantiate(m_explosionObject, transform.position, Quaternion.identity);
+
+                if (m_isInstanceBoom)
+                {
+                    explosionObject.transform.position = m_targetPosition;
+                }
+                
+                explosionObject.transform.parent = transform;
+            }            
+
+            Invoke("InvokeDestroy", 2);
         }
 
         private void InvokeDestroy()
