@@ -191,7 +191,7 @@ namespace Assets.Common.Controller
             var conversionData = new UserDataBase_TDoll();
             conversionData.DataCode = data.DataCode;
             conversionData.Level = 1;
-            conversionData.DummyLink = 1;
+            conversionData.DummyLink = Random.Range(1, 6);
             conversionData.EquipmentOwnershipNumber0 = 0;
             conversionData.EquipmentOwnershipNumber1 = 0;
             conversionData.EquipmentOwnershipNumber2 = 0;

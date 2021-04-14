@@ -79,7 +79,7 @@ namespace Assets.Skill.Base
             m_isInstanceBoom = isInstanceBoom;
 
             m_masterPosition = new Vector3(m_master.transform.position.x, m_master.transform.position.y, m_master.transform.position.z);
-            m_targetPosition = new Vector3(m_target.transform.position.x, m_target.transform.position.y + 0.5f, m_target.transform.position.z);
+            m_targetPosition = new Vector3(m_target.transform.position.x, m_target.transform.position.y + 0.3f, m_target.transform.position.z);
 
             var angle = Vector3.SignedAngle(transform.up, m_targetPosition - m_masterPosition, transform.forward);
             m_imageTransform.Rotate(new Vector3(transform.rotation.x, transform.rotation.y, angle));
@@ -99,6 +99,7 @@ namespace Assets.Skill.Base
 
                 if (characterBase != null)
                 {
+                    
                     characterBase.ApplyDamage(m_damage);
 
                     Boom(collision.transform);
@@ -108,8 +109,8 @@ namespace Assets.Skill.Base
 
         private void Boom(Transform collisionTransform)
         {
-            m_isBoom = true;
             m_imageTransform.gameObject.SetActive(false);
+            m_isBoom = true;            
 
             if (m_explosionObject != null)
             {

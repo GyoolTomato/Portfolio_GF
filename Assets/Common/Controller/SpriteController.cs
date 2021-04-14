@@ -99,6 +99,18 @@ namespace Assets.Common.Controller
             {
                 return UnityEngine.Resources.Load<Sprite>("WorkResource/Leather");
             }
+            else if (dBName.Equals("PassTicket"))
+            {
+                return UnityEngine.Resources.Load<Sprite>("WorkResource/PassTicket");
+            }
+            else if (dBName.Equals("TDollTicket"))
+            {
+                return UnityEngine.Resources.Load<Sprite>("WorkResource/TDollTicket");
+            }
+            else if (dBName.Equals("EquipmentTicket"))
+            {
+                return UnityEngine.Resources.Load<Sprite>("WorkResource/EquipmentTicket");
+            }            
             else
                 return null;
         }

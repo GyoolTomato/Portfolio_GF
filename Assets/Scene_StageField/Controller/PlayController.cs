@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace Assets.Scene_StageField.Controller
 {
@@ -27,6 +28,8 @@ namespace Assets.Scene_StageField.Controller
             m_gameOverBanner = GameObject.Find("GameOverBanner");
             m_gameOverBanner_Curtain = m_gameOverBanner.transform.Find("Curtain");
             m_gameOverBanner_Banner = m_gameOverBanner.transform.Find("Banner");
+            var button = m_gameOverBanner_Banner.GetComponent<Button>();
+            button.onClick.AddListener(ReturnSelectStageScene);
             m_gameOverBanner_Banner_Win = m_gameOverBanner_Banner.Find("Win");
             m_gameOverBanner_Banner_Lose = m_gameOverBanner_Banner.Find("Lose");
             m_gameOverBanner.SetActive(false);
@@ -128,14 +131,16 @@ namespace Assets.Scene_StageField.Controller
             m_gameOverBanner.SetActive(true);
             m_gameOverBanner_Curtain.gameObject.SetActive(true);
             m_gameOverBanner_Banner.gameObject.SetActive(true);
-            m_gameOverBanner_Banner_Win.gameObject.SetActive(true);
-            m_gameOverBanner_Banner_Lose.gameObject.SetActive(true);
+            m_gameOverBanner_Banner_Win.gameObject.SetActive(false);
+            m_gameOverBanner_Banner_Lose.gameObject.SetActive(false);
 
             var curtainImage = m_gameOverBanner_Curtain.GetComponent<Image>();
-            var winImage = m_gameOverBanner_Banner_Win.GetComponent<Image>();
-            var loseImage = m_gameOverBanner_Banner_Lose.GetComponent<Image>();
+            var bannerImage = m_gameOverBanner_Banner.GetComponent<Image>();
+            var winImage = m_gameOverBanner_Banner_Win.GetComponent<Text>();
+            var loseImage = m_gameOverBanner_Banner_Lose.GetComponent<Text>();
 
             curtainImage.color = new Color(curtainImage.color.r, curtainImage.color.g, curtainImage.color.b, 0);
+            bannerImage.color = new Color(bannerImage.color.r, bannerImage.color.g, bannerImage.color.b, 0);
             winImage.color = new Color(winImage.color.r, winImage.color.g, winImage.color.b, 0);
             loseImage.color = new Color(loseImage.color.r, loseImage.color.g, loseImage.color.b, 0);
 
@@ -147,24 +152,31 @@ namespace Assets.Scene_StageField.Controller
 
             if (playerWin)
             {
-                m_gameOverBanner_Banner_Lose.gameObject.SetActive(false);
+                m_gameOverBanner_Banner_Win.gameObject.SetActive(true);
                 while (winImage.color.a < 200f/255f)
                 {
-                    winImage.color = new Color(curtainImage.color.r, curtainImage.color.g, curtainImage.color.b, curtainImage.color.a + 10f / 255f);
+                    bannerImage.color = new Color(curtainImage.color.r, curtainImage.color.g, curtainImage.color.b, curtainImage.color.a + 10f / 255f);
+                    winImage.color = new Color(winImage.color.r, winImage.color.g, winImage.color.b, winImage.color.a + 10f / 255f);
                     yield return new WaitForSeconds(0.01f);
                 }
             }
             else
             {
-                m_gameOverBanner_Banner_Win.gameObject.SetActive(false);
+                m_gameOverBanner_Banner_Lose.gameObject.SetActive(true);
                 while (loseImage.color.a < 200f/255f)
                 {
-                    loseImage.color = new Color(curtainImage.color.r, curtainImage.color.g, curtainImage.color.b, curtainImage.color.a + 10f / 255f);
+                    bannerImage.color = new Color(curtainImage.color.r, curtainImage.color.g, curtainImage.color.b, curtainImage.color.a + 10f / 255f);
+                    loseImage.color = new Color(loseImage.color.r, loseImage.color.g, loseImage.color.b, loseImage.color.a + 10f / 255f);
                     yield return new WaitForSeconds(0.01f);
                 }
             }            
 
             yield return null;
+        }
+
+        private void ReturnSelectStageScene()
+        {
+            SceneManager.LoadScene("SelectStage");
         }
     }
 }

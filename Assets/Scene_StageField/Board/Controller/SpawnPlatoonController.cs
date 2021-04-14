@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using Assets.Common;
 using Assets.Resources.Object;
@@ -12,9 +14,11 @@ namespace Assets.Scene_StageField.Board.Controller
     {
         private GameManager m_gameManager;
         private MenuController m_menuController;
-        private PlatoonListController m_platoonListController;
+        private PlatoonListController m_platoonListController;        
         private BoardManager m_boardManager;
         private GameObject m_board;
+        private GameObject m_spawnRefusal;
+        private List<int> m_usedNumbers;
 
         public void Initialize(BoardManager boardManager)
         {
@@ -30,6 +34,9 @@ namespace Assets.Scene_StageField.Board.Controller
             m_platoonListController.Initialize(spawnPlatoon);
             m_boardManager = boardManager;
             m_board = GameObject.Find("Board");
+            m_spawnRefusal = spawnPlatoon.transform.Find("SpawnRefusal").gameObject;
+            m_spawnRefusal.SetActive(false);
+            m_usedNumbers = new List<int>();
         }
 
         void SpawnPlayer()
@@ -39,13 +46,30 @@ namespace Assets.Scene_StageField.Board.Controller
             var platoonObject = CharacterObject.DataCodeObject(m_gameManager.GetUserDBController().UserTDoll(platoonData.Member1).DataCode);
             var selectedPoint = m_boardManager.GetPointController().GetSelectedPoint();
 
+            foreach (var item in m_usedNumbers)
+            {
+                if (item == m_menuController.GetSelectedPlatoonNumber())
+                {
+                    m_gameManager.StartCoroutine(AlertMessage());
+                    return;
+                }
+            }
+            m_usedNumbers.Add(m_menuController.GetSelectedPlatoonNumber());
+
             var platoon = MonoBehaviour.Instantiate(platoonObject, selectedPoint.transform.position, Quaternion.identity);
             platoon.transform.parent = m_board.transform;
             platoon.AddComponent<Player>();
             var playerScript = platoon.GetComponent<Player>();
-            playerScript.Initialize(platoonData, selectedPoint);
+            playerScript.Initialize(platoonData, selectedPoint);            
 
             m_boardManager.SetSpawnPlatoonActive(false);
+        }
+
+        private IEnumerator AlertMessage()
+        {
+            m_spawnRefusal.SetActive(true);
+            yield return new WaitForSeconds(2f);
+            m_spawnRefusal.SetActive(false);
         }
     }
 }

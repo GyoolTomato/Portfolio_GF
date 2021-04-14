@@ -31,7 +31,7 @@ public class FactoryResourceMonitor : MonoBehaviour
 
     public void ApplyData(Assets.Common.Interface.OthersResource othersResource)
     {
-        m_image = othersResource.Image;
+        m_image.sprite = othersResource.ImageSprite;
         m_title.text = othersResource.Title;
         m_amount.text = othersResource.Amount.ToString();
     }
