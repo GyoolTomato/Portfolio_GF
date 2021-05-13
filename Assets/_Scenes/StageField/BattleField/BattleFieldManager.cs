@@ -132,7 +132,7 @@ namespace Assets.Scenes.StageField.BattleField
                     tempObject = m_spawnController.SpawnCharacter(member1.DataCode, new Vector3(-10, yPosition, 0));
                     tempObject.transform.parent = m_battleField_Units;
                     var tempScript = tempObject.GetComponent<CharacterBase>();
-                    tempScript.Initialize(CharacterBase.E_Team.Player, member1);
+                    tempScript.Initialize(Team.Player, member1);
                     yield return new WaitForSeconds(1.0f);
                 }
                 if (member2 != null && member2.DummyLink >= i)
@@ -141,7 +141,7 @@ namespace Assets.Scenes.StageField.BattleField
                     tempObject = m_spawnController.SpawnCharacter(member2.DataCode, new Vector3(-10, yPosition, 0));
                     tempObject.transform.parent = m_battleField_Units;
                     var tempScript = tempObject.GetComponent<CharacterBase>();
-                    tempScript.Initialize(CharacterBase.E_Team.Player, member2);
+                    tempScript.Initialize(Team.Player, member2);
                     yield return new WaitForSeconds(1.0f);
                 }
                 if (member3 != null && member3.DummyLink >= i)
@@ -150,7 +150,7 @@ namespace Assets.Scenes.StageField.BattleField
                     tempObject = m_spawnController.SpawnCharacter(member3.DataCode, new Vector3(-10, yPosition, 0));
                     tempObject.transform.parent = m_battleField_Units;
                     var tempScript = tempObject.GetComponent<CharacterBase>();
-                    tempScript.Initialize(CharacterBase.E_Team.Player, member3);
+                    tempScript.Initialize(Team.Player, member3);
                     yield return new WaitForSeconds(1.0f);
                 }
                 if (member4 != null && member4.DummyLink >= i)
@@ -159,7 +159,7 @@ namespace Assets.Scenes.StageField.BattleField
                     tempObject = m_spawnController.SpawnCharacter(member4.DataCode, new Vector3(-10, yPosition, 0));
                     tempObject.transform.parent = m_battleField_Units;
                     var tempScript = tempObject.GetComponent<CharacterBase>();
-                    tempScript.Initialize(CharacterBase.E_Team.Player, member4);
+                    tempScript.Initialize(Team.Player, member4);
                     yield return new WaitForSeconds(1.0f);
                 }
                 
@@ -188,7 +188,7 @@ namespace Assets.Scenes.StageField.BattleField
                         tempObject = m_spawnController.SpawnCharacter(item.IndexNumber, new Vector3(10, yPosition, 0));
                         tempObject.transform.parent = m_battleField_Units;
                         var tempScript = tempObject.GetComponent<CharacterBase>();
-                        tempScript.Initialize(CharacterBase.E_Team.Enemy, item);
+                        tempScript.Initialize(Team.Enemy, item);
                         yield return new WaitForSeconds(1.0f);
                     }                    
                 }                

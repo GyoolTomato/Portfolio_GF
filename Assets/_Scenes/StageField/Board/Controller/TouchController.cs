@@ -40,7 +40,7 @@ namespace Assets.Scenes.StageField.Board.Controller
         {
             m_mouseTouchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-            var hit = Physics2D.Raycast(m_mouseTouchPos, Vector2.zero, 0.0f);
+            var hit = Physics2D.Raycast(m_mouseTouchPos, Vector2.zero , 0.0f);
 
             m_clickObject = hit.collider.gameObject;
         }

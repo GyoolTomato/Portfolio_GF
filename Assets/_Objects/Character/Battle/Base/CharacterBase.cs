@@ -7,38 +7,15 @@ namespace Assets.Character.Battle.Base
 {
     public class CharacterBase : MonoBehaviour
     {
-        public enum E_Team
-        {
-            Player,
-            Enemy,
-            End,
-        }
-
-        public enum E_State
-        {
-            Idle,
-            Walk,
-            Run,
-            SkillAction,
-            Die,
-            End,
-        }
-
         protected Assets.Common.GameManager m_gameManager;
         protected DB.DbManager m_dbManager;
         private bool m_isInit;
-        protected CharacterStat m_stat;
+        protected CharacterStat m_characterStat;
         //private Assets.Common.DB.Index.IndexDataBase_TDoll m_baseStat;
         //private Assets.Common.DB.User.UserDataBase_TDoll m_userStat;        
-        private E_Team m_team;
-        private E_State m_state;
-        
-        private Animator m_animator;
-        private string m_stringIsIdle;
-        private string m_stringIsWalk;
-        private string m_stringIsRun;
-        private string m_stringIsAttack;
-        private string m_stringIsDie;
+        private Team m_team;     
+        protected Animator m_animator;
+                
         private float m_elapsedTimeAttackDelay;
         private float m_animationCorrection;
 
@@ -46,15 +23,9 @@ namespace Assets.Character.Battle.Base
         {
             m_gameManager = GameObject.Find("GameManager").GetComponent<Common.GameManager>();
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
-            m_stat = new CharacterStat();
-            m_state = E_State.Idle;
+            m_characterStat = new CharacterStat();
 
             m_animator = GetComponent<Animator>();
-            m_stringIsIdle = "isIdle";
-            m_stringIsWalk = "isWalk";
-            m_stringIsRun = "isRun";
-            m_stringIsAttack = "isAttack";
-            m_stringIsDie = "isDie";
         }
 
         protected virtual void Start()
@@ -67,43 +38,21 @@ namespace Assets.Character.Battle.Base
             if (!m_isInit)
                 return;
 
-            if (m_stat.Hp <= 0)
-                SetState(E_State.Die);
-
             if (m_elapsedTimeAttackDelay > 0.0f)            
-                m_elapsedTimeAttackDelay -= Time.deltaTime;            
+                m_elapsedTimeAttackDelay -= Time.deltaTime;
 
-            switch (m_state)
-            {
-                case E_State.Idle:
-                    Idle();
-                    break;
-                case E_State.Walk:
-                    Walk();
-                    break;
-                case E_State.Run:
-                    Run();
-                    break;
-                case E_State.SkillAction:
-                    SkillAction();
-                    break;
-                case E_State.Die:
-                    Die();
-                    break;
-                default:
-                    break;
-            }
+            StateMachine();
         }
 
-        public void Initialize(E_Team team, DB.User.UserDataBase_TDoll userStat)
+        public void Initialize(Team team, DB.User.UserDataBase_TDoll userStat)
         {
             m_team = team;
             switch (m_team)
             {
-                case E_Team.Player:
+                case Team.Player:
                     transform.tag = "Player";
                     break;
-                case E_Team.Enemy:
+                case Team.Enemy:
                     transform.tag = "Enemy";
                     var temp = transform.localScale;
                     temp.x = temp.x * -1;
@@ -113,14 +62,14 @@ namespace Assets.Character.Battle.Base
                     break;
             }
 
-            var adjustLevel =  1 /*(double)userStat.Level / (double)100*/;
-            m_stat.MaxHp = (int)(m_stat.Hp * adjustLevel);
-            m_stat.Hp = (int)(m_stat.Hp * adjustLevel);
-            m_stat.FirePower = (int)(m_stat.FirePower * adjustLevel);
-            m_stat.Critical = (int)(m_stat.Critical * adjustLevel);
-            m_stat.Focus = (int)(m_stat.Focus * adjustLevel);
-            m_stat.Armor = (int)(m_stat.Armor * adjustLevel);
-            m_stat.Avoidance = (int)(m_stat.Avoidance * adjustLevel);
+            var adjustLevel = 1;
+            m_characterStat.MaxHp = (int)(m_characterStat.Hp * adjustLevel);
+            m_characterStat.Hp = (int)(m_characterStat.Hp * adjustLevel);
+            m_characterStat.FirePower = (int)(m_characterStat.FirePower * adjustLevel);
+            m_characterStat.Critical = (int)(m_characterStat.Critical * adjustLevel);
+            m_characterStat.Focus = (int)(m_characterStat.Focus * adjustLevel);
+            m_characterStat.Armor = (int)(m_characterStat.Armor * adjustLevel);
+            m_characterStat.Avoidance = (int)(m_characterStat.Avoidance * adjustLevel);
 
             var equipments = new List<DB.Index.IndexDataBase_Equipment>();
             equipments.Add(m_dbManager.GetIndexDBController().Equipment(userStat.EquipmentOwnershipNumber0));
@@ -130,10 +79,10 @@ namespace Assets.Character.Battle.Base
             {
                 if (item != null)
                 {
-                    m_stat.Armor += item.Armor;
-                    m_stat.Critical += item.Critical;
-                    m_stat.FirePower += item.FirePower;
-                    m_stat.Focus += item.Focus;
+                    m_characterStat.Armor += item.Armor;
+                    m_characterStat.Critical += item.Critical;
+                    m_characterStat.FirePower += item.FirePower;
+                    m_characterStat.Focus += item.Focus;
                 }
             }
 
@@ -143,32 +92,30 @@ namespace Assets.Character.Battle.Base
             m_isInit = true; 
         }
 
-        public void Initialize(E_Team team, Assets.Scenes.StageField.Controller.EnemyData.Base.EnemyMember enemyStat)
+        public void Initialize(Team team, Assets.Scenes.StageField.Controller.EnemyData.Base.EnemyMember enemyStat)
         {
-            m_team = team;
-            switch (m_team)
+            if (team == Team.Enemy)
             {
-                case E_Team.Player:
-                    transform.tag = "Player";
-                    break;
-                case E_Team.Enemy:
-                    transform.tag = "Enemy";
-                    var temp = transform.localScale;
-                    temp.x = temp.x * -1;
-                    transform.localScale = temp;
-                    break;
-                default:
-                    break;
+                var temp = transform.localScale;
+                temp.x = temp.x * -1;
+                transform.localScale = temp;
+
+                transform.tag = "Enemy";
+            }
+            else
+            {
+                transform.tag = "Player";
             }
 
             var adjustLevel = 1 /*(double)userStat.Level / (double)100*/;
-            m_stat.MaxHp = m_stat.Hp * adjustLevel;
-            m_stat.Hp = m_stat.Hp * adjustLevel;
-            m_stat.FirePower = m_stat.FirePower * adjustLevel;
-            m_stat.Critical = m_stat.Critical * adjustLevel;
-            m_stat.Focus = m_stat.Focus * adjustLevel;
-            m_stat.Armor = m_stat.Armor * adjustLevel;
-            m_stat.Avoidance = m_stat.Avoidance * adjustLevel;
+            m_team = team;
+            m_characterStat.MaxHp = m_characterStat.Hp * adjustLevel;
+            m_characterStat.Hp = m_characterStat.Hp * adjustLevel;
+            m_characterStat.FirePower = m_characterStat.FirePower * adjustLevel;
+            m_characterStat.Critical = m_characterStat.Critical * adjustLevel;
+            m_characterStat.Focus = m_characterStat.Focus * adjustLevel;
+            m_characterStat.Armor = m_characterStat.Armor * adjustLevel;
+            m_characterStat.Avoidance = m_characterStat.Avoidance * adjustLevel;
 
             var sortingGroup = GetComponent<SortingGroup>();
             sortingGroup.sortingOrder = (int)(Math.Abs(transform.position.y) * 10);
@@ -179,150 +126,28 @@ namespace Assets.Character.Battle.Base
 
         protected void Initialize(DB.Index.IndexDataBase_TDoll baseStat, float animationCorrection)
         {
-            m_stat.MaxHp = baseStat.Hp;
-            m_stat.Hp = baseStat.Hp;
-            m_stat.FirePower = baseStat.FirePower;
-            m_stat.AttackSpeed = baseStat.AttackSpeed;
-            m_stat.AttackRange = baseStat.AttackRange;
-            m_stat.Critical = baseStat.Critical;
-            m_stat.Focus = baseStat.Focus;
-            m_stat.Armor = baseStat.Armor;
-            m_stat.Avoidance = baseStat.Avoidance;
-            m_stat.MoveSpeed = baseStat.MoveSpeed;
+            m_characterStat.MaxHp = baseStat.Hp;
+            m_characterStat.Hp = baseStat.Hp;
+            m_characterStat.FirePower = baseStat.FirePower;
+            m_characterStat.AttackSpeed = baseStat.AttackSpeed;
+            m_characterStat.AttackRange = baseStat.AttackRange;
+            m_characterStat.Critical = baseStat.Critical;
+            m_characterStat.Focus = baseStat.Focus;
+            m_characterStat.Armor = baseStat.Armor;
+            m_characterStat.Avoidance = baseStat.Avoidance;
+            m_characterStat.MoveSpeed = baseStat.MoveSpeed;
 
             m_animationCorrection = animationCorrection;
         }
 
-        private void Idle()
-        {
-            if (TargetingEnemy() == null)
-                return;
-            else
-            {
-                if (IsInAttackRange())
-                {
-                    SetState(E_State.SkillAction);
-                }
-                else
-                {
-                    SetState(E_State.Run);
-                }
-            }
-        }
-
-        private void Walk()
-        {
-            if (TargetingEnemy() == null)
-                SetState(E_State.Idle);
-        }
-
-        private void Run()
-        {
-            if (TargetingEnemy() == null)
-                SetState(E_State.Idle);
-
-            if (IsInAttackRange())
-            {
-                SetState(E_State.SkillAction);
-            }
-            else
-            {
-                switch (m_team)
-                {
-                    case E_Team.Player:
-                        transform.Translate(Vector2.right * Time.deltaTime * m_stat.MoveSpeed);
-                        break;
-                    case E_Team.Enemy:
-                        transform.Translate(Vector2.left * Time.deltaTime * m_stat.MoveSpeed);
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
-        protected virtual void SkillAction()
-        {
-            if (TargetingEnemy() == null)
-                SetState(E_State.Idle);
-
-            if (IsInAttackRange())
-            {                
-                if (m_elapsedTimeAttackDelay <= 0.0f)
-                {                    
-                    AttackAction();
-                    m_elapsedTimeAttackDelay = m_stat.AttackSpeed;
-                }
-            }
-            else
-            {
-                SetState(E_State.Idle);
-            }
-        }
-
-        protected virtual void AttackAction() { }
-
-        private void Die()
-        {
-            var collider = this.GetComponent<CapsuleCollider2D>();
-            Destroy(collider);
-            Invoke("DestroyObject", 1.0f);
-        }
-
-        private void DestroyObject()
-        {
-            Destroy(gameObject);
-        }
-
         public void ApplyDamage(int damage)
-        {            
-            m_stat.Hp -= damage;
-            if (m_stat.Hp > m_stat.MaxHp)
+        {
+            m_characterStat.Hp -= damage;
+            if (m_characterStat.Hp > m_characterStat.MaxHp)
             {
-                m_stat.Hp = m_stat.MaxHp;
+                m_characterStat.Hp = m_characterStat.MaxHp;
             }
         }
-
-        private void SetState(E_State state)
-        {
-            m_state = state;
-            SetAnim(m_state);
-        }
-
-        protected void SetAnim(E_State state)
-        {
-            m_animator.SetBool(m_stringIsIdle, false);
-            m_animator.SetBool(m_stringIsWalk, false);
-            m_animator.SetBool(m_stringIsRun, false);
-            m_animator.SetBool(m_stringIsAttack, false);
-            m_animator.SetBool(m_stringIsDie, false);
-
-            switch (m_state)
-            {
-                case E_State.Idle:
-                    m_animator.speed = 1.0f;
-                    m_animator.SetBool(m_stringIsIdle, true);
-                    break;
-                case E_State.Walk:
-                    m_animator.speed = 1.0f;
-                    m_animator.SetBool(m_stringIsWalk, true);
-                    break;
-                case E_State.Run:
-                    m_animator.speed = 1.3f;
-                    m_animator.SetBool(m_stringIsRun, true);
-                    break;
-                case E_State.SkillAction:
-                    m_animator.speed = m_stat.AttackSpeed * m_animationCorrection;
-                    m_animator.SetBool(m_stringIsAttack, true);
-                    break;
-                case E_State.Die:
-                    m_animator.speed = 2.0f;
-                    m_animator.SetBool(m_stringIsDie, true);
-                    break;
-                default:
-                    break;
-            }
-        }        
 
         protected CharacterBase TargetingEnemy()
         {
@@ -373,11 +198,11 @@ namespace Assets.Character.Battle.Base
             return target.GetComponent<CharacterBase>();
         }
 
-        private bool IsInAttackRange()
+        protected bool IsInAttackRange()
         {
             if (TargetingEnemy() != null)
             {
-                if (Vector3.Distance(TargetingEnemy().transform.position, transform.position) <= m_stat.AttackRange)
+                if (Vector3.Distance(TargetingEnemy().transform.position, transform.position) <= m_characterStat.AttackRange)
                 {
                     return true;
                 }
@@ -386,9 +211,12 @@ namespace Assets.Character.Battle.Base
             return false;
         }
 
-        public E_Team GetTeam()
+        public CharacterStat GetCharacterStat() => m_characterStat;
+        public Team GetTeam() => m_team;
+
+        protected virtual void StateMachine()
         {
-            return m_team;
-        }        
+
+        }
     }
 }

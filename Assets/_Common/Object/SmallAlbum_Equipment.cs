@@ -37,7 +37,7 @@ namespace Assets.Resources.Album
         public void Initialize(SelectEquipment selectEquipment)
         {
             m_gameManager = GameObject.Find("GameManager").GetComponent<Assets.Common.GameManager>();
-            m_dbManager = GameObject.Find("DbManager").GetComponent<DB.DbManager>();
+            m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
 
             m_selectEquipment = selectEquipment;            
 

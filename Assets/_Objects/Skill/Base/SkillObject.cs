@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Skill
+namespace Assets.Skill.Base
 {
     public static class SkillObject
     {

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using UnityEngine;
-
+using Assets.Character.Battle.Base;
 
 namespace Assets.Skill
 {
@@ -11,7 +11,7 @@ namespace Assets.Skill
         {
         }
 
-        public override void Initialize(GameObject master, GameObject target, int damage, bool isInstanceBoom)
+        public override void Initialize(CharacterBase master, CharacterBase target, int damage, bool isInstanceBoom)
         {
             base.Initialize(master, target, damage, isInstanceBoom);
 

@@ -14,8 +14,8 @@ namespace Assets.Skill.Base
         protected bool m_isInstanceBoom;
         protected float m_speed;
         protected Transform m_imageTransform;      
-        protected GameObject m_master;
-        protected GameObject m_target;
+        protected CharacterBase m_master;
+        protected CharacterBase m_target;
         protected Vector3 m_masterPosition;
         protected Vector3 m_targetPosition;        
         protected int m_damage;
@@ -71,7 +71,7 @@ namespace Assets.Skill.Base
             }            
         }
 
-        public virtual void Initialize(GameObject master, GameObject target, int damage, bool isInstanceBoom = false)
+        public virtual void Initialize(CharacterBase master, CharacterBase target, int damage, bool isInstanceBoom = false)
         {
             m_master = master;
             m_target = target;
@@ -84,7 +84,7 @@ namespace Assets.Skill.Base
             var angle = Vector3.SignedAngle(transform.up, m_targetPosition - m_masterPosition, transform.forward);
             m_imageTransform.Rotate(new Vector3(transform.rotation.x, transform.rotation.y, angle));
 
-            transform.tag = master.transform.tag;
+            //transform.tag = master.transform.tag;
 
             if (m_isInstanceBoom)            
                 transform.position = m_targetPosition;
@@ -93,17 +93,21 @@ namespace Assets.Skill.Base
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.gameObject == m_target || transform.tag != collision.transform.tag)
+            var characterBase = collision.gameObject.GetComponent<CharacterBase>();
+
+            if (characterBase != null && characterBase == m_target)
             {
-                var characterBase = collision.gameObject.GetComponent<CharacterBase>();
+                //if (collision.gameObject == m_target || transform.tag != collision.transform.tag)
+                //{
 
-                if (characterBase != null)
-                {
-                    
-                    characterBase.ApplyDamage(m_damage);
+                //    if (characterBase != null)
+                //    {
 
-                    Boom(collision.transform);
-                }                
+                        characterBase.ApplyDamage(m_damage);
+
+                        Boom(collision.transform);
+                //    }
+                //}
             }
         }
 

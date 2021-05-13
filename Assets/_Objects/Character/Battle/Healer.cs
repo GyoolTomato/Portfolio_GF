@@ -2,14 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Character.Battle.Base;
-using Assets.Skill;
+using Assets.Skill.Base;
 
 namespace Assets.Character.Battle
 {
     public class Healer : CharacterBase
     {
-        private int m_maxHealStack;
-        private int m_healStack;
+        private float m_healCoolTime;
+        private float m_healCounter;
+
+        private StateMachine.Die m_stateMachineDie;
+        private StateMachine.Idle m_stateMachineIdle;
+        private StateMachine.Run m_stateMachineRun;
+        private StateMachine.NormalAttack m_stateMachineNormalAttack;
+        private StateMachine.Heal m_stateMachineHeal;
 
         public Healer()
         {
@@ -19,8 +25,19 @@ namespace Assets.Character.Battle
         {
             base.Awake();
             Initialize(m_dbManager.GetIndexDBController().TDoll(1), 1.5f);
-            m_maxHealStack = 3;
-            m_healStack = 0;
+            m_healCoolTime = 3;
+            m_healCounter = 0;
+
+            m_stateMachineDie = new StateMachine.Die();
+            m_stateMachineDie.Initialize(m_animator, this);
+            m_stateMachineIdle = new StateMachine.Idle();
+            m_stateMachineIdle.Initialize(m_animator, this);
+            m_stateMachineRun = new StateMachine.Run();
+            m_stateMachineRun.Initialize(m_animator, this);
+            m_stateMachineNormalAttack = new StateMachine.NormalAttack();
+            m_stateMachineNormalAttack.Initialize(m_animator, this);
+            m_stateMachineHeal = new StateMachine.Heal();
+            m_stateMachineHeal.Initialize(m_animator, this);
         }
 
         protected override void Start()
@@ -33,104 +50,39 @@ namespace Assets.Character.Battle
             base.Update();
         }
 
-        protected override void AttackAction()
+        protected override void StateMachine()
         {
-            base.AttackAction();
-
-            if (TargetingEnemy() != null)
+            if (m_characterStat.Hp > 0)
             {
-                var temp = Instantiate(SkillObject.NearAttack(), new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
-                var tempScript = temp.GetComponent<Skill.Base.SkillBase>();
-                tempScript.Initialize(gameObject, TargetingEnemy().gameObject, m_stat.FirePower);
-
-                m_healStack++;
-                if (m_healStack >= m_maxHealStack)
+                if (TargetingEnemy() == null)
                 {
-                    Healing();
-                    m_healStack = 0;
+                    m_stateMachineIdle.Action();
+                }
+                else
+                {
+                    if (m_healCounter > 0)
+                        m_healCounter -= Time.deltaTime;
+
+                    if (IsInAttackRange())
+                    {
+                        if (m_healCounter <= 0)
+                        {
+                            m_stateMachineHeal.Action();
+                            m_healCounter = m_healCoolTime;
+                        }
+                        else
+                        {
+                            m_stateMachineNormalAttack.Action(TargetingEnemy(), SkillObject.Magic());
+                        }
+                    }
+                    else
+                    {
+                        m_stateMachineRun.Action();
+                    }
                 }
             }
+            else
+                m_stateMachineDie.Action();
         }
-
-        private void Healing()
-        {
-            foreach (var item in GameObject.FindGameObjectsWithTag(this.tag))
-            {
-                var temp = item.GetComponent<CharacterBase>();
-                if (temp != null)
-                {
-                    var healingObject = Instantiate(SkillObject.Heal(), new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);
-                    var tempScript = healingObject.GetComponent<Skill.Base.SkillBase>();
-                    tempScript.Initialize(gameObject, temp.gameObject, m_stat.FirePower, true);
-                }
-            }
-        }
-
-        //protected override void AttackAction()
-        //{
-        //    base.AttackAction();
-
-        //    if (TargetingAlly() != null)
-        //    {
-        //        var temp = Instantiate(SkillObject.Heal(), new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);                
-        //        var tempScript = temp.GetComponent<Skill.Base.SkillBase>();
-        //        tempScript.Initialize(gameObject, TargetingAlly().gameObject, m_stat.FirePower);
-        //    }
-        //    else if (TargetingEnemy() != null)
-        //    {
-        //        var temp = Instantiate(SkillObject.Magic(), new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), Quaternion.identity);                
-        //        var tempScript = temp.GetComponent<Skill.Base.SkillBase>();
-        //        tempScript.Initialize(gameObject, TargetingEnemy().gameObject, m_stat.FirePower);
-        //    }
-        //}
-
-        //private CharacterBase TargetingAlly()
-        //{
-        //    GameObject target = null;
-        //    var allies = new List<GameObject>();
-
-        //    if (this.tag.Equals("Player"))
-        //    {
-        //        foreach (var item in GameObject.FindGameObjectsWithTag("Player"))
-        //        {
-        //            if (item.GetComponent<CharacterBase>() != null)
-        //            {
-        //                allies.Add(item);
-        //            }
-        //        }
-        //    }
-        //    else if (this.tag.Equals("Enemy"))
-        //    {
-        //        foreach (var item in GameObject.FindGameObjectsWithTag("Enemy"))
-        //        {
-        //            if (item.GetComponent<CharacterBase>() != null)
-        //            {
-        //                allies.Add(item);
-        //            }
-        //        }
-        //    }
-
-        //    if (allies.Count == 0)
-        //        return null;
-
-        //    var distance_0 = 0.0f;
-        //    var distance_1 = 0.0f;
-        //    for (int i = 0; i < allies.Count; i++)
-        //    {
-        //        if (i == 0)
-        //            target = allies[0];
-        //        else
-        //        {
-        //            distance_0 = Vector3.Distance(target.transform.position, transform.position);
-        //            distance_1 = Vector3.Distance(allies[i].transform.position, transform.position);
-        //            if (distance_0 < distance_1)
-        //            {
-        //                target = allies[i];
-        //            }
-        //        }
-        //    }
-
-        //    return target.GetComponent<CharacterBase>();
-        //}
     }
 }
