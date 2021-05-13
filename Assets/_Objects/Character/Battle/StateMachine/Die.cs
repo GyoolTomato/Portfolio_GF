@@ -32,7 +32,6 @@ namespace Assets.Character.Battle.StateMachine
                 var collider = m_characterBase.gameObject.GetComponent<CapsuleCollider2D>();
                 if (collider != null)
                     MonoBehaviour.Destroy(collider);
-                m_characterBase.transform.tag = string.Empty;
 
                 m_delayTime -= Time.deltaTime;
             }

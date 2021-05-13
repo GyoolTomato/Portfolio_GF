@@ -151,46 +151,34 @@ namespace Assets.Character.Battle.Base
 
         protected CharacterBase TargetingEnemy()
         {
-            GameObject target = null;
-            var enemies = new List<GameObject>();
+            GameObject target = null;            
 
-            if (this.tag.Equals("Player"))
+            var unitsObject = GameObject.Find("BattleField").transform.Find("Units");
+            var characters = unitsObject.GetComponentsInChildren<CharacterBase>();
+            var livedEnemies = new List<GameObject>();
+
+            foreach (var item in characters)
             {
-                foreach (var item in GameObject.FindGameObjectsWithTag("Enemy"))
+                if (!item.GetTeam().Equals(m_team) && item.GetCharacterStat().Hp > 0)
                 {
-                    if (item.GetComponent<CharacterBase>() != null)
-                    {
-                        enemies.Add(item);
-                    }
-                }
-            }
-            else if (this.tag.Equals("Enemy"))
-            {
-                foreach (var item in GameObject.FindGameObjectsWithTag("Player"))
-                {
-                    if (item.GetComponent<CharacterBase>() != null)
-                    {
-                        enemies.Add(item);
-                    }
-                }
+                    livedEnemies.Add(item.gameObject);
+                }                
             }
 
-            if (enemies.Count == 0)
+            if (livedEnemies.Count == 0)
                 return null;
 
-            var distance_0 = 0.0f;
-            var distance_1 = 0.0f;
-            for (int i = 0; i < enemies.Count; i++)
+            for (int i = 0; i < livedEnemies.Count; i++)
             {
                 if (i == 0)
-                    target = enemies[0];
+                    target = livedEnemies[0];
                 else
                 {
-                    distance_0 = Vector3.Distance(target.transform.position, transform.position);
-                    distance_1 = Vector3.Distance(enemies[i].transform.position, transform.position);
+                    var distance_0 = Vector3.Distance(target.transform.position, transform.position);
+                    var distance_1 = Vector3.Distance(livedEnemies[i].transform.position, transform.position);
                     if (distance_0 > distance_1)
                     {
-                        target = enemies[i];
+                        target = livedEnemies[i];
                     }
                 }
             }
