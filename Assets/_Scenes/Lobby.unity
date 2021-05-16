@@ -3020,7 +3020,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uCC3D\uACE0"
+  m_Text: "\uC219\uC18C"
 --- !u!222 &2127169543
 CanvasRenderer:
   m_ObjectHideFlags: 0
