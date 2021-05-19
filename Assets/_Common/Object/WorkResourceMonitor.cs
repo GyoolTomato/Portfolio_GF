@@ -7,7 +7,7 @@ namespace Assets.Resources.Object
 {
     public class WorkResourceMonitor : MonoBehaviour
     {
-        private Common.GameManager m_gameManager;
+        private Common.ResourceManager m_resourceManager;
         private Image m_image;
         private Text m_title;
         private Text m_amount;
@@ -16,7 +16,7 @@ namespace Assets.Resources.Object
 
         private void Awake()
         {
-            m_gameManager = GameObject.Find("GameManager").GetComponent<Common.GameManager>();
+            m_resourceManager = GameObject.Find("GameManager").GetComponent<Common.ResourceManager>();
             m_image = transform.Find("Image").GetComponent<Image>();
             m_title = transform.Find("Title").GetComponent<Text>();
             m_amount = transform.Find("Amount").GetComponent<Text>();
@@ -39,7 +39,7 @@ namespace Assets.Resources.Object
 
         public void ApplyData(Assets.Common.Interface.WorkResource in_WorkResourceInformation)
         {
-            m_image.sprite = m_gameManager.GetSpriteController().GetWorkResource(in_WorkResourceInformation.DBName);
+            m_image.sprite = m_resourceManager.GetSpriteController().GetWorkResource(in_WorkResourceInformation.DBName);
             m_title.text = in_WorkResourceInformation.Title;
             m_amount.text = in_WorkResourceInformation.Amount.ToString();
             m_chargingVolume_Amount.text = "+" + in_WorkResourceInformation.ChargingVolume_Amount.ToString();

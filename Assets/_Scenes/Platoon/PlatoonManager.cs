@@ -5,7 +5,7 @@ namespace Assets.Scenes.Platoon.Controller
 {
     public class PlatoonManager : MonoBehaviour
     {
-        private Assets.Common.GameManager m_gameManager;
+        private Assets.Common.ResourceManager m_resourceManager;
         private GameObject m_canvas;
 
         private Assets.Resources.Object.Title m_title;
@@ -23,11 +23,11 @@ namespace Assets.Scenes.Platoon.Controller
 
         private void Start()
         {
-            m_gameManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Common.GameManager>();
+            m_resourceManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Common.ResourceManager>();
             m_canvas = GameObject.Find("Canvas");
 
             m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Resources.Object.Title>();
-            m_title.Initialize(m_gameManager, "편성", BackAction);
+            m_title.Initialize(m_resourceManager, "편성", BackAction);
             m_menuController = new MenuController();
             m_menuController.Initialize(m_canvas);
             m_platoonController = new PlatoonController();

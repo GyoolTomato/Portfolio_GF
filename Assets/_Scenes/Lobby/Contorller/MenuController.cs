@@ -8,8 +8,6 @@ namespace Assets.Scenes.Lobby.Controller
 {
     public class MenuController
     {
-        private Assets.Common.GameManager m_gameManager;
-
         private Button m_combat;
         private Button m_research;
         private Button m_restore;
@@ -19,8 +17,6 @@ namespace Assets.Scenes.Lobby.Controller
 
         public MenuController()
         {
-            m_gameManager = null;
-
             m_combat = null;
             m_research = null;
             m_restore = null;
@@ -29,10 +25,8 @@ namespace Assets.Scenes.Lobby.Controller
             m_dormitory = null;
         }
 
-        public void Initialize(Assets.Common.GameManager gameManager, GameObject canvas)
+        public void Initialize(GameObject canvas)
         {
-            m_gameManager = gameManager;
-
             var menu = canvas.transform.Find("Menu");
             m_combat = menu.Find("Combat").GetComponent<Button>();
             m_research = menu.Find("Research").GetComponent<Button>();

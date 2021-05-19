@@ -8,14 +8,14 @@ namespace Assets.Scenes.StageField.Board.Controller
 {
     public class PlayerPlatoonController
     {
-        private Common.GameManager m_gameManager;
+        private Common.ResourceManager m_resourceManager;
         private Player m_selectedPlayerPlatoon;
         private BoardManager m_boardManager;
         private OccupationPoint m_selectPoint;
 
         public void Initialize(BoardManager boardManager)
         {
-            m_gameManager = GameObject.Find("GameManager").GetComponent<Common.GameManager>();
+            m_resourceManager = GameObject.Find("GameManager").GetComponent<Common.ResourceManager>();
             m_boardManager = boardManager;
         }
 

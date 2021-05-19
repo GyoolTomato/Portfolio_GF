@@ -5,6 +5,8 @@ namespace Assets.DB
 {
     public class DbManager : MonoBehaviour
     {
+        private static DbManager m_instance;
+
         private Game.GameDBManager m_gameDBManager;
         private Index.Manager.IndexDBManager m_indexDBManager;
         private User.Manager.UserDBManager m_userDBManager;
@@ -18,6 +20,15 @@ namespace Assets.DB
 
         private void Awake()
         {
+            if (m_instance != null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            m_instance = this;
+            DontDestroyOnLoad(gameObject);
+
             m_gameDBManager = new DB.Game.GameDBManager();
             m_gameDBManager.Initailize(this);
             m_indexDBManager = new DB.Index.Manager.IndexDBManager();

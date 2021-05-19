@@ -20,7 +20,7 @@ namespace Assets.Common.Controller
             End,
         }
 
-        private GameManager m_gameManager;
+        private ResourceManager m_resourceManager;
         private DbManager m_dbManager;
 
         private bool m_collecting;
@@ -38,9 +38,9 @@ namespace Assets.Common.Controller
 
         }
 
-        public void Initialize(GameManager gameManager)
+        public void Initialize(ResourceManager resourceManager)
         {
-            m_gameManager = gameManager;
+            m_resourceManager = resourceManager;
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
 
             m_steel = new WorkResource();
@@ -72,17 +72,17 @@ namespace Assets.Common.Controller
             m_leather.ChargingVolume_Amount = 40;
 
             m_passTicket = new OthersResource();
-            m_passTicket.ImageSprite = m_gameManager.GetSpriteController().GetWorkResource("PassTicket");
+            m_passTicket.ImageSprite = m_resourceManager.GetSpriteController().GetWorkResource("PassTicket");
             m_passTicket.Title = "쾌속 제조권";
             m_passTicket.Amount = 0;
 
             m_tDollTicket = new OthersResource();
-            m_tDollTicket.ImageSprite = m_gameManager.GetSpriteController().GetWorkResource("TDollTicket");
+            m_tDollTicket.ImageSprite = m_resourceManager.GetSpriteController().GetWorkResource("TDollTicket");
             m_tDollTicket.Title = "인형 제조권";
             m_tDollTicket.Amount = 0;
 
             m_equipmentTicket = new OthersResource();
-            m_equipmentTicket.ImageSprite = m_gameManager.GetSpriteController().GetWorkResource("EquipmentTicket");
+            m_equipmentTicket.ImageSprite = m_resourceManager.GetSpriteController().GetWorkResource("EquipmentTicket");
             m_equipmentTicket.Title = "장비 제조권";
             m_equipmentTicket.Amount = 0;
         }
@@ -132,10 +132,10 @@ namespace Assets.Common.Controller
         {
             if (!m_collecting)
             {
-                m_gameManager.StartCoroutine(SteelCharger());
-                m_gameManager.StartCoroutine(FlowerCharger());
-                m_gameManager.StartCoroutine(FoodCharger());
-                m_gameManager.StartCoroutine(LeatherCharger());
+                m_resourceManager.StartCoroutine(SteelCharger());
+                m_resourceManager.StartCoroutine(FlowerCharger());
+                m_resourceManager.StartCoroutine(FoodCharger());
+                m_resourceManager.StartCoroutine(LeatherCharger());
                 m_collecting = true;
             }
         }        

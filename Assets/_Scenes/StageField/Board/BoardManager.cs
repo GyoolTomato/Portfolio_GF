@@ -28,7 +28,6 @@ namespace Assets.Scenes.StageField.Board
         private Button m_startButton;
         private Button m_endTurnButton;
 
-        private Common.GameManager m_gameManager;
         private StageFieldManager m_stageFieldmanager;
 
         private TouchController m_touchController;
@@ -68,8 +67,7 @@ namespace Assets.Scenes.StageField.Board
             m_endTurnButton = turnButton.transform.Find("EndTurnButton").GetComponent<Button>();
             m_endTurnButton.onClick.AddListener(Handle_EndTurnButton);
             m_endTurnButton.gameObject.SetActive(false);
-
-            m_gameManager = GameObject.Find("GameManager").GetComponent<Common.GameManager>();
+           
             m_stageFieldmanager = manager;
 
             m_touchController = new TouchController();

@@ -7,7 +7,7 @@ namespace Assets.Scenes.Platoon.Controller
 {
     public class PlatoonController
     {
-        private Assets.Common.GameManager m_gameManager;
+        private Assets.Common.ResourceManager m_resourceManager;
         private DB.DbManager m_dbManager;
 
         private ViewPort_TDollController m_viewPort_TDollController;
@@ -24,7 +24,7 @@ namespace Assets.Scenes.Platoon.Controller
 
         public void Initialize(GameObject canvas)
         {
-            m_gameManager = GameObject.Find("GameManager").GetComponent<Assets.Common.GameManager>();
+            m_resourceManager = GameObject.Find("GameManager").GetComponent<Assets.Common.ResourceManager>();
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
 
             m_viewPort_TDollController = new ViewPort_TDollController();

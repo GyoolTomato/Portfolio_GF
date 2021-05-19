@@ -7,7 +7,7 @@ namespace Assets.Scenes.Platoon.Base
 {
     public class SelectPlatoonBase
     {
-        protected GameManager m_gameManager;
+        protected ResourceManager m_resourceManager;
         protected DB.DbManager m_dbManager;
 
         protected Controller.PlatoonController m_platoonController;
@@ -23,7 +23,7 @@ namespace Assets.Scenes.Platoon.Base
 
         public void Initialize(Controller.PlatoonController platoonController, string viewName, string albumName)
         {
-            m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+            m_resourceManager = GameObject.Find("GameManager").GetComponent<ResourceManager>();
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
 
             m_platoonController = platoonController;

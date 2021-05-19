@@ -6,7 +6,7 @@ namespace Assets.Scenes.StageField.Board.SpawnPlatoon
 {
     public class PlatoonListController
     {
-        private Assets.Common.GameManager m_gameManager;
+        private Assets.Common.ResourceManager m_resourceManager;
         private DB.DbManager m_dbManager;
 
         private GameObject m_selectPlatoon;
@@ -20,7 +20,7 @@ namespace Assets.Scenes.StageField.Board.SpawnPlatoon
 
         public void Initialize(GameObject spawnPlatoon)
         {
-            m_gameManager = GameObject.Find("GameManager").GetComponent<Assets.Common.GameManager>();
+            m_resourceManager = GameObject.Find("GameManager").GetComponent<Assets.Common.ResourceManager>();
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
 
             m_menuView = spawnPlatoon.transform.Find("MenuView").gameObject;

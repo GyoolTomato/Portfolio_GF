@@ -6,7 +6,7 @@ namespace Assets.Scenes.Lobby.Controller
 {
     public class BackgroundController
     {
-        private Assets.Common.GameManager m_gameManager;
+        private Assets.Common.ResourceManager m_resourceManager;
 
         private RectTransform m_background;
 
@@ -15,9 +15,9 @@ namespace Assets.Scenes.Lobby.Controller
         {
         }
 
-        public void Initialize(Assets.Common.GameManager gameManager, GameObject canvas)
+        public void Initialize(Assets.Common.ResourceManager resourceManager, GameObject canvas)
         {
-            m_gameManager = gameManager;
+            m_resourceManager = resourceManager;
 
             ApplayImage(canvas);
         }

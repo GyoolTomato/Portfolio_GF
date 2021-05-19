@@ -9,7 +9,7 @@ namespace Assets.Scenes.Dormitory.Base
         protected GameObject m_viewPortContent;
         protected GameObject m_album;
 
-        protected GameManager m_gameManager;
+        protected ResourceManager m_gameManager;
         protected DB.DbManager m_dbManager;
 
         public DormitoryBase()
@@ -18,7 +18,7 @@ namespace Assets.Scenes.Dormitory.Base
 
         public void Initialize(string menuViewName, string albumName)
         {
-            m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+            m_gameManager = GameObject.Find("GameManager").GetComponent<ResourceManager>();
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
             var canvas = GameObject.Find("Canvas");
             var menuView = canvas.transform.Find("MenuView");

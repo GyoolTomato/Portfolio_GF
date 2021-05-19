@@ -8,7 +8,7 @@ namespace Assets.Resources.Album
     {
         public delegate void SelectEquipment(int tDollOwnershipCode, int sequence);
 
-        private Assets.Common.GameManager m_gameManager;
+        private Assets.Common.ResourceManager m_resourceManager;
         private DB.DbManager m_dbManager;
 
         private SelectEquipment m_selectEquipment;
@@ -36,7 +36,7 @@ namespace Assets.Resources.Album
 
         public void Initialize(SelectEquipment selectEquipment)
         {
-            m_gameManager = GameObject.Find("GameManager").GetComponent<Assets.Common.GameManager>();
+            m_resourceManager = GameObject.Find("GameManager").GetComponent<Assets.Common.ResourceManager>();
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
 
             m_selectEquipment = selectEquipment;            
@@ -59,7 +59,7 @@ namespace Assets.Resources.Album
 
                 if (data != null)
                 {
-                    m_image.sprite = m_gameManager.GetSpriteController().GetEquipmentImage(data.DataCode);
+                    m_image.sprite = m_resourceManager.GetSpriteController().GetEquipmentImage(data.DataCode);
                     m_limitedPower.text = data.LimitedPower + "%";
                     SetCurtain(false);
                 }

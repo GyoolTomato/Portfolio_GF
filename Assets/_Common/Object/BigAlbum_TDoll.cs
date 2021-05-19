@@ -8,7 +8,7 @@ namespace Assets.Resources.Album
     {
         public delegate void Handle_SelectPlatoon(int platoonNumber, int sequence);
 
-        private Assets.Common.GameManager m_gameManager;
+        private Assets.Common.ResourceManager m_resourceManager;
         private DB.DbManager m_dbManager;
 
         private Handle_SelectPlatoon m_selectTDoll;
@@ -46,8 +46,8 @@ namespace Assets.Resources.Album
         }
 
         public void Initialize(int platoonNumber, int sequence, Handle_SelectPlatoon selectTDoll, SmallAlbum_Equipment.SelectEquipment selectEquipment)
-        {            
-            m_gameManager = GameObject.Find("GameManager").GetComponent<Assets.Common.GameManager>();
+        {
+            m_resourceManager = GameObject.Find("GameManager").GetComponent<Assets.Common.ResourceManager>();
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
 
             m_selectTDoll = selectTDoll;
@@ -97,8 +97,8 @@ namespace Assets.Resources.Album
 
                     m_name.text = indexDB.Name;
 
-                    m_typeImage.sprite = m_gameManager.GetSpriteController().GetTypeImage(indexDB.Type);
-                    m_character.sprite = m_gameManager.GetSpriteController().GetCharacterImage(userDB.DataCode);
+                    m_typeImage.sprite = m_resourceManager.GetSpriteController().GetTypeImage(indexDB.Type);
+                    m_character.sprite = m_resourceManager.GetSpriteController().GetCharacterImage(userDB.DataCode);
                     ApplyDummyLink(userDB.DummyLink);
                     ApplyLevel(userDB.Level);
                     

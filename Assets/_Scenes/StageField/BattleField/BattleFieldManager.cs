@@ -19,7 +19,6 @@ namespace Assets.Scenes.StageField.BattleField
             End,
         }
 
-        private GameManager m_gameManager;
         private DB.DbManager m_dbManager;
 
         private StageFieldManager m_stageFieldManager;
@@ -41,8 +40,7 @@ namespace Assets.Scenes.StageField.BattleField
         }
 
         public void Initialize(StageFieldManager stageFieldManager)
-        {
-            m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        {            
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
 
             m_stageFieldManager = stageFieldManager;

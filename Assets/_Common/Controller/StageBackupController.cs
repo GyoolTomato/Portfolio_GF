@@ -8,8 +8,6 @@ namespace Assets.Common.Controller
 {
     public class StageBackupController
     {
-        private GameManager m_gameManager;
-
         private DB.User.UserDataBase_Stage m_stage;
         private List<Player> m_players;
         private List<Enemy> m_enemies;
@@ -19,9 +17,9 @@ namespace Assets.Common.Controller
         {
         }
 
-        public void Initialize(GameManager manager)
+        public void Initialize()
         {
-            m_gameManager = manager;
+
         }
 
         public void Backup(DB.User.UserDataBase_Stage stage, List<Player> players, List<Enemy> enemies, List<OccupationPoint> occupationPoints)

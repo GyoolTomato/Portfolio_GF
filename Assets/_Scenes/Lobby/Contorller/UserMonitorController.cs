@@ -7,7 +7,7 @@ namespace Assets.Scenes.Lobby.Controller
 {
     public class UserMonitorController
     {
-        private Assets.Common.GameManager m_gameManager;
+        private Assets.Common.ResourceManager m_resourceManager;
         private GameObject m_workResourceInformation;
 
         private WorkResourceMonitor m_steel;
@@ -17,7 +17,7 @@ namespace Assets.Scenes.Lobby.Controller
 
         public UserMonitorController()
         {
-            m_gameManager = null;
+            m_resourceManager = null;
 
             m_steel = null;
             m_flower = null;
@@ -25,9 +25,9 @@ namespace Assets.Scenes.Lobby.Controller
             m_leather = null;
         }
 
-        public void Initialize(Assets.Common.GameManager gameManager, GameObject canvas)
+        public void Initialize(Assets.Common.ResourceManager resourceManager, GameObject canvas)
         {
-            m_gameManager = gameManager;
+            m_resourceManager = resourceManager;
 
             var userMonitor = canvas.transform.Find("UserMonitor");
             m_workResourceInformation = userMonitor.Find("WorkResourceInformation").gameObject;
@@ -39,10 +39,10 @@ namespace Assets.Scenes.Lobby.Controller
 
         public void ApplyData()
         {
-            m_steel.ApplyData(m_gameManager.GetResourceContorller().Steel());
-            m_flower.ApplyData(m_gameManager.GetResourceContorller().Flower());
-            m_food.ApplyData(m_gameManager.GetResourceContorller().Food());
-            m_leather.ApplyData(m_gameManager.GetResourceContorller().Leather());
+            m_steel.ApplyData(m_resourceManager.GetResourceContorller().Steel());
+            m_flower.ApplyData(m_resourceManager.GetResourceContorller().Flower());
+            m_food.ApplyData(m_resourceManager.GetResourceContorller().Food());
+            m_leather.ApplyData(m_resourceManager.GetResourceContorller().Leather());
         }
     }
 }

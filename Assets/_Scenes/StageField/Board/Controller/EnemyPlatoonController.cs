@@ -20,7 +20,6 @@ namespace Assets.Scenes.StageField.Board.Controller
             End,
         }
 
-        private Common.GameManager m_gameManager;
         private BoardManager m_boardManager;
         private EnemyListBase m_selectedStageEnemy;
         private Stage1_1 m_stage1_1;
@@ -37,11 +36,10 @@ namespace Assets.Scenes.StageField.Board.Controller
         }
 
         public void Initialize(BoardManager boardManager)
-        {
-            m_gameManager = GameObject.Find("GameManager").GetComponent<Common.GameManager>();
+        {            
             m_boardManager = boardManager;
 
-            var gameManager = GameObject.Find("GameManager").GetComponent<Assets.Common.GameManager>();
+            var gameManager = GameObject.Find("GameManager").GetComponent<Assets.Common.ResourceManager>();
             var selectedStage = gameManager.SelectedStage;            
             m_board = GameObject.Find("Board");
 

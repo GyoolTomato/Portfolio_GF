@@ -12,7 +12,7 @@ namespace Assets.Scenes.StageField.Board.Controller
 {
     public class SpawnPlatoonController
     {
-        private GameManager m_gameManager;
+        private ResourceManager m_resourceManager;
         private DB.DbManager m_dbManager;
 
         private MenuController m_menuController;
@@ -28,7 +28,7 @@ namespace Assets.Scenes.StageField.Board.Controller
             var board = canvas.transform.Find("BoardUI");
             var spawnPlatoon = board.Find("SpawnPlatoon").gameObject;
 
-            m_gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+            m_resourceManager = GameObject.Find("GameManager").GetComponent<ResourceManager>();
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
 
             m_menuController = new MenuController();
@@ -54,7 +54,7 @@ namespace Assets.Scenes.StageField.Board.Controller
             {
                 if (item == m_menuController.GetSelectedPlatoonNumber())
                 {
-                    m_gameManager.StartCoroutine(AlertMessage());
+                    m_resourceManager.StartCoroutine(AlertMessage());
                     return;
                 }
             }

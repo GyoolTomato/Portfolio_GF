@@ -6,15 +6,15 @@ namespace Assets.Scenes.Lobby.Controller
 {
     public class AdController
     {
-        private Assets.Common.GameManager m_gameManager;
+        private Assets.Common.ResourceManager m_resourceManager;
 
         public AdController()
         {
         }
 
-        public void Initialize(Assets.Common.GameManager gameManager, GameObject canvas)
+        public void Initialize(Assets.Common.ResourceManager resourceManager, GameObject canvas)
         {
-            m_gameManager = gameManager;
+            m_resourceManager = resourceManager;
         }
     }
 }

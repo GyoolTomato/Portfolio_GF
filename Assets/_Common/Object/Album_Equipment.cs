@@ -9,7 +9,7 @@ namespace Assets.Resources.Album
     {
         public delegate void ClickEvent(int ownershipCode);
 
-        private Common.GameManager m_gameManager;
+        private Common.ResourceManager m_resourceManager;
         private DB.DbManager m_dbManager;
         private ClickEvent m_clickEvent;
 
@@ -32,7 +32,7 @@ namespace Assets.Resources.Album
 
         private void Awake()
         {
-            m_gameManager = GameObject.Find("GameManager").GetComponent<Common.GameManager>();
+            m_resourceManager = GameObject.Find("GameManager").GetComponent<Common.ResourceManager>();
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
 
             m_button = this.GetComponent<Button>();
@@ -93,9 +93,9 @@ namespace Assets.Resources.Album
             for (int i = 0; i < dBData.Star; i++)
                 tempStar += "★";
 
-            m_typeImage.sprite = m_gameManager.GetSpriteController().GetTypeImage(dBData.Type);
+            m_typeImage.sprite = m_resourceManager.GetSpriteController().GetTypeImage(dBData.Type);
             m_star.text = tempStar;
-            m_character.sprite = m_gameManager.GetSpriteController().GetEquipmentImage(dBData.DataCode);
+            m_character.sprite = m_resourceManager.GetSpriteController().GetEquipmentImage(dBData.DataCode);
             m_name.text = dBData.Name;
             m_subName.text = dBData.Type;
 

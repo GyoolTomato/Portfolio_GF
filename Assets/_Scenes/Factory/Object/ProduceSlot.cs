@@ -143,7 +143,7 @@ namespace Assets.Scenes.Factory.Object
 
         private void SetResource()
         {
-            var gameManager = GameObject.Find("GameManager").GetComponent<Common.GameManager>();
+            var gameManager = GameObject.Find("GameManager").GetComponent<Common.ResourceManager>();
             
             m_steel.SetImage(gameManager.GetSpriteController().GetWorkResource("Steel"));
             m_flower.SetImage(gameManager.GetSpriteController().GetWorkResource("Flower"));

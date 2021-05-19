@@ -13,9 +13,9 @@ namespace Assets.Scenes.Factory.Controller
         {
         }
 
-        public override void Initialize(GameManager gameManager, TicketResourceController ticketResourceController, string menuName)
+        public override void Initialize(ResourceManager resourceManager, TicketResourceController ticketResourceController, string menuName)
         {
-            base.Initialize(gameManager, ticketResourceController, menuName);
+            base.Initialize(resourceManager, ticketResourceController, menuName);
             var produceDBIndex = 0;
             foreach (var item in m_produceSlotList)
             {
@@ -26,9 +26,9 @@ namespace Assets.Scenes.Factory.Controller
 
         protected override void OrderReceive(UserDataBase_Produce produceData, int steel, int flower, int food, int leather, out bool result)
         { 
-            if (m_gameManager.GetResourceContorller().TDollTicket().Amount >= 0)
+            if (m_resourceManager.GetResourceContorller().TDollTicket().Amount >= 0)
             {
-                m_gameManager.GetResourceContorller().OthersResourceAmountCal(Common.Controller.ResourceContorller.E_OthersResourceType.TDollTicket, -1);
+                m_resourceManager.GetResourceContorller().OthersResourceAmountCal(Common.Controller.ResourceContorller.E_OthersResourceType.TDollTicket, -1);
                 m_ticketResourceController.UpdateValue();
                 base.OrderReceive(produceData, steel, flower, food, leather, out result);
 

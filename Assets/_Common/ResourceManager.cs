@@ -5,15 +5,14 @@ using Assets.Common.Controller;
 
 namespace Assets.Common
 {
-    public class GameManager : MonoBehaviour
+    public class ResourceManager : MonoBehaviour
     {
-        private static GameManager m_instance;
+        private static ResourceManager m_instance;
 
         private DB.User.UserDataBase_Stage m_userDataBaseStage;
 
         private SpriteController m_spriteController;
-        private ResourceContorller m_resourceContorller;
-        private StageBackupController m_stageBackupController;        
+        private ResourceContorller m_resourceContorller;   
 
         private void Awake()
         {
@@ -28,9 +27,7 @@ namespace Assets.Common
 
             m_spriteController = new SpriteController();
             m_resourceContorller = new ResourceContorller();
-            m_resourceContorller.Initialize(this);
-            m_stageBackupController = new StageBackupController();
-            m_stageBackupController.Initialize(this);                       
+            m_resourceContorller.Initialize(this);                    
         }
 
         // Start is called before the first frame update
@@ -48,11 +45,6 @@ namespace Assets.Common
         public ResourceContorller GetResourceContorller()
         {
             return m_resourceContorller;
-        }
-
-        public StageBackupController GetStageBackupController()
-        {
-            return m_stageBackupController;
         }
 
         public SpriteController GetSpriteController()

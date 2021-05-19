@@ -7,7 +7,7 @@ namespace Assets.Resources.Object
 {
     public class Stage : MonoBehaviour
     {
-        private Common.GameManager m_gameManager;
+        private Common.ResourceManager m_resourceManager;
         private DB.User.UserDataBase_Stage m_userDataBase_Stage;
 
         private Button m_button;
@@ -22,7 +22,7 @@ namespace Assets.Resources.Object
 
         private void Awake()
         {
-            m_gameManager = GameObject.Find("GameManager").GetComponent<Common.GameManager>();
+            m_resourceManager = GameObject.Find("GameManager").GetComponent<Common.ResourceManager>();
 
             m_button = GetComponent<Button>();
             m_button.onClick.AddListener(Handle_Click);
@@ -54,7 +54,7 @@ namespace Assets.Resources.Object
 
         private void Handle_Click()
         {
-            m_gameManager.SetSelectedStage(m_userDataBase_Stage);
+            m_resourceManager.SetSelectedStage(m_userDataBase_Stage);
             SceneManager.LoadScene("Stage" + m_userDataBase_Stage.StageNumber + "-" + m_userDataBase_Stage.InnerNumber);
         }
     }

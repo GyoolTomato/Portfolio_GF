@@ -8,7 +8,7 @@ namespace Assets.Scenes.Factory.Base
 {
     public class ProduceBase
     {
-        protected Assets.Common.GameManager m_gameManager;
+        protected Assets.Common.ResourceManager m_resourceManager;
         protected DB.DbManager m_dbManager;
         protected TicketResourceController m_ticketResourceController;
 
@@ -19,9 +19,9 @@ namespace Assets.Scenes.Factory.Base
         {
         }
 
-        public virtual void Initialize(Assets.Common.GameManager gameManager, TicketResourceController ticketResourceController, string menuName)
+        public virtual void Initialize(Assets.Common.ResourceManager resourceManager, TicketResourceController ticketResourceController, string menuName)
         {
-            m_gameManager = gameManager;
+            m_resourceManager = resourceManager;
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
             m_ticketResourceController = ticketResourceController;
 
@@ -37,7 +37,7 @@ namespace Assets.Scenes.Factory.Base
 
         protected virtual void OrderReceive(DB.User.UserDataBase_Produce produceData, int steel, int flower, int food, int leather, out bool result)
         {
-            if (m_gameManager.GetResourceContorller().WorkResourceConsumption(steel, flower, food, leather))
+            if (m_resourceManager.GetResourceContorller().WorkResourceConsumption(steel, flower, food, leather))
             {
                 m_messagePanel.SetActive(false);                
                 result = true;
@@ -45,7 +45,7 @@ namespace Assets.Scenes.Factory.Base
             else
             {
                 m_messagePanel.SetActive(true);
-                m_gameManager.StartCoroutine(OffMessagePanel());
+                m_resourceManager.StartCoroutine(OffMessagePanel());
                 result = false;
             }
         }
