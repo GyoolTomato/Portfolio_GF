@@ -31,82 +31,72 @@ namespace Assets.DB.Index
             m_dbManager.StartCoroutine(DBCreate());
         }
 
-        //private IEnumerator DBCreate()
-        //{
-        //    m_dBFilePath = "URI=file:";
-
-        //    if (Application.platform == RuntimePlatform.Android)
-        //    {
-        //        m_dBFilePath += DbFile.IndexDBPath_Android;
-        //        if (File.Exists(m_dBFilePath))
-        //            File.Delete(m_dBFilePath);
-
-        //        var unityWebRequest = UnityWebRequest.Get(Path.Combine(Application.streamingAssetsPath, DbFile.IndexDBFileName));
-        //        unityWebRequest.downloadedBytes.ToString();
-        //        yield return unityWebRequest.SendWebRequest().isDone;
-        //        File.WriteAllBytes(m_dBFilePath, unityWebRequest.downloadHandler.data);
-        //    }
-        //    else if (Application.platform == RuntimePlatform.IPhonePlayer)
-        //        m_dBFilePath += string.Empty;
-        //    else
-        //    {
-        //        m_dBFilePath += DbFile.IndexDBPath_PC;
-        //        if (File.Exists(m_dBFilePath))
-        //            File.Delete(m_dBFilePath);
-
-        //        var webClient = new WebClient();
-        //        webClient.DownloadFileAsync(Server.IndexDBUrl, m_dBFilePath);
-        //        webClient.DownloadFileCompleted += WebClient_DownloadFileCompleted;
-        //        yield return !webClient.IsBusy;
-        //        webClient.Dispose();
-        //    }           
-        //}
-
-        //private void WebClient_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
-        //{
-        //    Debug.Log("IndexDB Download Complete");
-        //}
-
-        // StreamingAssets에서 복사
         private IEnumerator DBCreate()
         {
-            var sourceFilePath = Path.Combine(Application.streamingAssetsPath, "Index.db");
-            var filePath = string.Empty;
+            m_dBFilePath = "URI=file:";
+
             if (Application.platform == RuntimePlatform.Android)
-            {
-                filePath = Path.Combine(Application.persistentDataPath, "Index.db");
-                if (File.Exists(filePath))
-                    File.Delete(filePath);
-
-                var unityWebRequest = UnityWebRequest.Get(sourceFilePath);
-                unityWebRequest.downloadedBytes.ToString();
-                yield return unityWebRequest.SendWebRequest().isDone;
-                File.WriteAllBytes(filePath, unityWebRequest.downloadHandler.data);
-
-                Debug.Log("*sourceFile : " + sourceFilePath);
-                Debug.Log("*sourceFile2 : " + "jar:file//" + Application.dataPath + "!/assets/Index.db");
-                Debug.Log("Create Index DB");
-                Debug.Log("*Size : " + File.ReadAllBytes(filePath).Length);
-                Debug.Log("*Download Size : " + unityWebRequest.downloadHandler.data.Length);
-            }
+                m_dBFilePath += DbFile.IndexDBPath_Android;
             else if (Application.platform == RuntimePlatform.IPhonePlayer)
-            {
-
-            }
+                m_dBFilePath += string.Empty;
             else
-            {
-                filePath = Path.Combine(Application.dataPath, "Index.db");
-                if (File.Exists(filePath))
-                    File.Delete(filePath);
+                m_dBFilePath += DbFile.IndexDBPath_PC;
 
-                File.Copy(sourceFilePath, filePath);
+            if (File.Exists(m_dBFilePath))
+                File.Delete(m_dBFilePath);
 
-                Debug.Log("Create Index DB");
-                Debug.Log("*Size : " + File.ReadAllBytes(filePath).Length);
-            }
-
-            m_dBFilePath = "URI=file:" + filePath;
+            var webClient = new WebClient();
+            webClient.DownloadFileAsync(Server.IndexDBUrl, m_dBFilePath);
+            webClient.DownloadFileCompleted += WebClient_DownloadFileCompleted;
+            yield return !webClient.IsBusy;
+            webClient.Dispose();
         }
+
+        private void WebClient_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        {
+            Debug.Log("IndexDB Download Complete");
+        }
+
+        // StreamingAssets에서 복사
+        //private IEnumerator DBCreate()
+        //{
+        //    var sourceFilePath = Path.Combine(Application.streamingAssetsPath, DBName);
+        //    var filePath = string.Empty;
+        //    if (Application.platform == RuntimePlatform.Android)
+        //    {
+        //        filePath = Path.Combine(Application.persistentDataPath, DBName);
+        //        if (File.Exists(filePath))
+        //            File.Delete(filePath);
+
+        //        var unityWebRequest = UnityWebRequest.Get(sourceFilePath);
+        //        unityWebRequest.downloadedBytes.ToString();
+        //        yield return unityWebRequest.SendWebRequest().isDone;
+        //        File.WriteAllBytes(filePath, unityWebRequest.downloadHandler.data);
+
+        //        Debug.Log("*sourceFile : " + sourceFilePath);
+        //        Debug.Log("*sourceFile2 : " + "jar:file//" + Application.dataPath + "!/assets/Index.db");
+        //        Debug.Log("Create Index DB");
+        //        Debug.Log("*Size : " + File.ReadAllBytes(filePath).Length);
+        //        Debug.Log("*Download Size : " + unityWebRequest.downloadHandler.data.Length);
+        //    }
+        //    else if (Application.platform == RuntimePlatform.IPhonePlayer)
+        //    {
+
+        //    }
+        //    else
+        //    {
+        //        filePath = Path.Combine(Application.dataPath, DBName);
+        //        if (File.Exists(filePath))
+        //            File.Delete(filePath);
+
+        //        File.Copy(sourceFilePath, filePath);
+
+        //        Debug.Log("Create Index DB");
+        //        Debug.Log("*Size : " + File.ReadAllBytes(filePath).Length);
+        //    }
+
+        //    m_dBFilePath = filePath;
+        //}  
 
         public ArrayList ReadDataBase(E_Table table, string query)
         {
