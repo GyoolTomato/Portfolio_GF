@@ -16,6 +16,7 @@ namespace Assets.DB
 
         public DbManager()
         {
+            
         }
 
         private void Awake()

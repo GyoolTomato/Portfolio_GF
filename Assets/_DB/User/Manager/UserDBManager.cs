@@ -40,7 +40,7 @@ namespace Assets.DB.User.Manager
         {
             get
             {
-                return "User.db";
+                return "UserData.db";
             }
         }
 
