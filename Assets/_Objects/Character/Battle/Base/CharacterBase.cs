@@ -44,7 +44,7 @@ namespace Assets.Character.Battle.Base
             StateMachine();
         }
 
-        public void Initialize(Team team, DB.User.UserDataBase_TDoll userStat)
+        public void Initialize(Team team, DB.User.Base.UserDataBase_TDoll userStat)
         {
             m_team = team;
             switch (m_team)

@@ -72,7 +72,7 @@ namespace Assets.Resources.Album
 
         }
 
-        public void Initialize(DB.User.UserDataBase_Equipment userData, ClickEvent clickEvent = null)
+        public void Initialize(DB.User.Base.UserDataBase_Equipment userData, ClickEvent clickEvent = null)
         {
             m_ownershipCode = userData.OwnershipCode;
             ApplyDataCode(m_dbManager.GetIndexDBController().Equipment(userData.DataCode));

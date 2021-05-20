@@ -9,7 +9,7 @@ namespace Assets.Common
     {
         private static ResourceManager m_instance;
 
-        private DB.User.UserDataBase_Stage m_userDataBaseStage;
+        private DB.User.Base.UserDataBase_Stage m_userDataBaseStage;
 
         private SpriteController m_spriteController;
         private ResourceContorller m_resourceContorller;   
@@ -52,7 +52,7 @@ namespace Assets.Common
             return m_spriteController;
         }
 
-        public DB.User.UserDataBase_Stage SelectedStage
+        public DB.User.Base.UserDataBase_Stage SelectedStage
         {
             get
             {
@@ -64,7 +64,7 @@ namespace Assets.Common
             }
         }
 
-        public void SetSelectedStage(DB.User.UserDataBase_Stage data)
+        public void SetSelectedStage(DB.User.Base.UserDataBase_Stage data)
         {
             m_userDataBaseStage = data;
         }

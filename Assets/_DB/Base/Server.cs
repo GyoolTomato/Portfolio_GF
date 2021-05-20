@@ -3,11 +3,10 @@ using System.IO;
 
 namespace Assets.DB
 {
-    public class Server
+    public static class Server
     {
-        private static readonly string Url = "http://gyooltomato.ipdisk.co.kr:8000/list/Project_GF/";
-        private static readonly string DbPath = Path.Combine(Url, "DB/");
-        public static readonly string GameData = Path.Combine(DbPath, "Game.db");
-        public static readonly string IndexData = Path.Combine(DbPath, "Index.db");
+        private static readonly string Url = "http://gyooltomato.ipdisk.co.kr:8000/list/HDD1/Project_GF/DB/";
+        public static readonly Uri GameDBUrl = new Uri(Path.Combine(Url, DbFile.GameDBFileName));
+        public static readonly Uri IndexDBUrl = new Uri(Path.Combine(Url, DbFile.IndexDBFileName));
     }
 }

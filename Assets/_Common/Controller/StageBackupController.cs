@@ -8,7 +8,7 @@ namespace Assets.Common.Controller
 {
     public class StageBackupController
     {
-        private DB.User.UserDataBase_Stage m_stage;
+        private DB.User.Base.UserDataBase_Stage m_stage;
         private List<Player> m_players;
         private List<Enemy> m_enemies;
         private List<OccupationPoint> m_occupationPoints;
@@ -22,7 +22,7 @@ namespace Assets.Common.Controller
 
         }
 
-        public void Backup(DB.User.UserDataBase_Stage stage, List<Player> players, List<Enemy> enemies, List<OccupationPoint> occupationPoints)
+        public void Backup(DB.User.Base.UserDataBase_Stage stage, List<Player> players, List<Enemy> enemies, List<OccupationPoint> occupationPoints)
         {
             m_stage = stage;
             m_players = players;
@@ -30,7 +30,7 @@ namespace Assets.Common.Controller
             m_occupationPoints = occupationPoints;
         }
 
-        public DB.User.UserDataBase_Stage GetStage()
+        public DB.User.Base.UserDataBase_Stage GetStage()
         {
             return m_stage;
         }

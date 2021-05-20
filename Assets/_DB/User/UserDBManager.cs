@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using Mono.Data.Sqlite;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.Networking;
 using Assets.DB.Common;
+using Assets.DB.User.Base;
 
-namespace Assets.DB.User.Manager
+namespace Assets.DB.User
 {
     public class UserDBManager
     {
@@ -36,29 +38,14 @@ namespace Assets.DB.User.Manager
             m_dbManager.StartCoroutine(DBCreate());
         }
 
-        private string DBName
-        {
-            get
-            {
-                return "UserData.db";
-            }
-        }
-
-        private string ReadDBFilePath
-        {
-            get
-            {
-                return "URI=file:" + m_dBFilePath;
-            }
-        }
-
+        // StreamingAssets에서 복사
         private IEnumerator DBCreate()
         {
-            var sourceFilePath = Path.Combine(Application.streamingAssetsPath, DBName);
+            var sourceFilePath = Path.Combine(Application.streamingAssetsPath, DbFile.UserDataDBFileName);
             var filePath = string.Empty;
             if (Application.platform == RuntimePlatform.Android)
             {
-                filePath = Path.Combine(Application.persistentDataPath, DBName);
+                filePath = Path.Combine(Application.persistentDataPath, DbFile.UserDataDBFileName);
                 if (!File.Exists(filePath))
                 {
                     var unityWebRequest = UnityWebRequest.Get(sourceFilePath);
@@ -80,7 +67,7 @@ namespace Assets.DB.User.Manager
             }
             else
             {
-                filePath = Path.Combine(Application.dataPath, DBName);
+                filePath = Path.Combine(Application.dataPath, DbFile.UserDataDBFileName);
                 if (!File.Exists(filePath))
                 {
                     File.Copy(sourceFilePath, filePath);
@@ -94,7 +81,7 @@ namespace Assets.DB.User.Manager
                 }
             }
 
-            m_dBFilePath = filePath;
+            m_dBFilePath = "URI=file:" + filePath;
         }
 
         public ArrayList ReadDataBase(E_Table table, string query)
@@ -110,7 +97,7 @@ namespace Assets.DB.User.Manager
                 var tempData_Platoon = new UserDataBase_Platoon();
                 var tempData_Stage = new UserDataBase_Stage();
 
-                var dbConnection = new SqliteConnection(ReadDBFilePath);
+                var dbConnection = new SqliteConnection(m_dBFilePath);
                 dbConnection.Open();
                 var dbCommand = dbConnection.CreateCommand();
                 dbCommand.CommandText = query;
@@ -190,7 +177,7 @@ namespace Assets.DB.User.Manager
             {
                 Debug.Log("ReadDataBase Fail");
                 Debug.Log("*Exception : " + e.ToString());
-                Debug.Log("*URL : " + ReadDBFilePath);
+                Debug.Log("*URL : " + m_dBFilePath);
                 Debug.Log("*Path : " + m_dBFilePath);
                 Debug.Log("*Exist : " + File.Exists(m_dBFilePath).ToString());
                 if (File.Exists(m_dBFilePath))
@@ -206,7 +193,7 @@ namespace Assets.DB.User.Manager
         {
             try
             {
-                var dbConnection = new SqliteConnection(ReadDBFilePath);
+                var dbConnection = new SqliteConnection(m_dBFilePath);
                 dbConnection.Open();
                 var dbCommand = dbConnection.CreateCommand();
 
@@ -225,7 +212,7 @@ namespace Assets.DB.User.Manager
             {
                 Debug.Log("SQL Fail");
                 Debug.Log("*Exception : " + e.ToString());
-                Debug.Log("*URL : " + ReadDBFilePath);
+                Debug.Log("*URL : " + m_dBFilePath);
                 Debug.Log("*Path : " + m_dBFilePath);
                 Debug.Log("*Exist : " + File.Exists(m_dBFilePath).ToString());
                 if (File.Exists(m_dBFilePath))
@@ -239,7 +226,7 @@ namespace Assets.DB.User.Manager
         {
             try
             {
-                var dbConnection = new SqliteConnection(ReadDBFilePath);
+                var dbConnection = new SqliteConnection(m_dBFilePath);
                 dbConnection.Open();
                 var dbCommand = dbConnection.CreateCommand();
 
@@ -255,7 +242,7 @@ namespace Assets.DB.User.Manager
             {
                 Debug.Log("SQL Fail");
                 Debug.Log("*Exception : " + e.ToString());
-                Debug.Log("*URL : " + ReadDBFilePath);
+                Debug.Log("*URL : " + m_dBFilePath);
                 Debug.Log("*Path : " + m_dBFilePath);
                 Debug.Log("*Exist : " + File.Exists(m_dBFilePath).ToString());
                 if (File.Exists(m_dBFilePath))

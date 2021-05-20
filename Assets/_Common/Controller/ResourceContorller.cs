@@ -5,8 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Assets.Common.Interface;
 using Assets.DB;
-//using Assets.DB.User.Manager;
-//using Assets.DB.Common;
+using Assets.DB.User.Base;
 
 namespace Assets.Common.Controller
 {
@@ -115,15 +114,15 @@ namespace Assets.Common.Controller
             var tempList = new ArrayList();
             var temp = new DB.Common.CommonDataBase_Resource();
 
-            tempList = m_dbManager.GetUserDBManager().ReadDataBase(DB.User.Manager.UserDBManager.E_Table.Resource, DB.User.Manager.QuerySupport_User.SelectResourcePassTicket);
+            tempList = m_dbManager.GetUserDBManager().ReadDataBase(DB.User.UserDBManager.E_Table.Resource, QuerySupport.SelectResourcePassTicket);
             temp = tempList[0] as DB.Common.CommonDataBase_Resource;
             m_passTicket.Amount = temp.Value;
 
-            tempList = m_dbManager.GetUserDBManager().ReadDataBase(DB.User.Manager.UserDBManager.E_Table.Resource, DB.User.Manager.QuerySupport_User.SelectResourceTDollTicket);
+            tempList = m_dbManager.GetUserDBManager().ReadDataBase(DB.User.UserDBManager.E_Table.Resource, QuerySupport.SelectResourceTDollTicket);
             temp = tempList[0] as DB.Common.CommonDataBase_Resource;
             m_tDollTicket.Amount = temp.Value;
 
-            tempList = m_dbManager.GetUserDBManager().ReadDataBase(DB.User.Manager.UserDBManager.E_Table.Resource, DB.User.Manager.QuerySupport_User.SelectResourceEquipmentTicket);
+            tempList = m_dbManager.GetUserDBManager().ReadDataBase(DB.User.UserDBManager.E_Table.Resource, QuerySupport.SelectResourceEquipmentTicket);
             temp = tempList[0] as DB.Common.CommonDataBase_Resource;
             m_equipmentTicket.Amount = temp.Value;
         }
@@ -220,13 +219,13 @@ namespace Assets.Common.Controller
                 switch (type)
                 {
                     case E_OthersResourceType.PassTicket:
-                        tempList = m_dbManager.GetUserDBManager().ReadDataBase(DB.User.Manager.UserDBManager.E_Table.Resource, DB.User.Manager.QuerySupport_User.SelectResourcePassTicket);
+                        tempList = m_dbManager.GetUserDBManager().ReadDataBase(DB.User.UserDBManager.E_Table.Resource, QuerySupport.SelectResourcePassTicket);
                         break;
                     case E_OthersResourceType.TDollTicket:
-                        tempList = m_dbManager.GetUserDBManager().ReadDataBase(DB.User.Manager.UserDBManager.E_Table.Resource, DB.User.Manager.QuerySupport_User.SelectResourceTDollTicket);
+                        tempList = m_dbManager.GetUserDBManager().ReadDataBase(DB.User.UserDBManager.E_Table.Resource, QuerySupport.SelectResourceTDollTicket);
                         break;
                     case E_OthersResourceType.EquipmentTicket:
-                        tempList = m_dbManager.GetUserDBManager().ReadDataBase(DB.User.Manager.UserDBManager.E_Table.Resource, DB.User.Manager.QuerySupport_User.SelectResourceEquipmentTicket);
+                        tempList = m_dbManager.GetUserDBManager().ReadDataBase(DB.User.UserDBManager.E_Table.Resource, QuerySupport.SelectResourceEquipmentTicket);
                         break;
                     default:
                         break;
@@ -237,7 +236,7 @@ namespace Assets.Common.Controller
                 {
                     temp.Value += amount;
 
-                    m_dbManager.GetUserDBManager().SQL(DB.User.Manager.QuerySupport_User.UpdateResource(temp));
+                    m_dbManager.GetUserDBManager().SQL(QuerySupport.UpdateResource(temp));
                     return true;
                 }
                 else

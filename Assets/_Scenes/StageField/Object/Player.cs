@@ -1,6 +1,6 @@
 ﻿ using UnityEngine;
 using System.Collections;
-using Assets.DB.User;
+using Assets.DB.User.Base;
 using Assets.Scenes.StageField.Board.Controller;
 using Assets.Character.Board;
 

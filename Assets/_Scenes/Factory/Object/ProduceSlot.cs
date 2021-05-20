@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.DB.User.Base;
 
 namespace Assets.Scenes.Factory.Object
 {
@@ -15,13 +16,13 @@ namespace Assets.Scenes.Factory.Object
             End,
         }
 
-        public delegate void CompleteListener(DB.User.UserDataBase_Produce produceData);
-        public delegate void OrderListener(DB.User.UserDataBase_Produce produceData, int steel, int flower, int food, int leather, out bool result);
+        public delegate void CompleteListener(UserDataBase_Produce produceData);
+        public delegate void OrderListener(UserDataBase_Produce produceData, int steel, int flower, int food, int leather, out bool result);
 
         private E_State m_state;
         private OrderListener m_order;
         private CompleteListener m_complete;
-        private DB.User.UserDataBase_Produce m_userDataBase_Produce;          
+        private UserDataBase_Produce m_userDataBase_Produce;          
         private TimeSpan m_diffTime;
 
         private GameObject m_orderState;
@@ -76,7 +77,7 @@ namespace Assets.Scenes.Factory.Object
             }
         }
 
-        public void Initialize(DB.User.UserDataBase_Produce userDataBase_Produce, OrderListener order, CompleteListener complete)
+        public void Initialize(UserDataBase_Produce userDataBase_Produce, OrderListener order, CompleteListener complete)
         {
             m_userDataBase_Produce = userDataBase_Produce;
             m_order = order;
@@ -92,7 +93,7 @@ namespace Assets.Scenes.Factory.Object
             }
         }
 
-        public DB.User.UserDataBase_Produce GetAppliedProduceData
+        public UserDataBase_Produce GetAppliedProduceData
         {
             get
             {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Assets.DB.User.Manager
+namespace Assets.DB.User.Base
 {
-    public static class QuerySupport_User
+    public static class QuerySupport
     {
         public static readonly string SelectTDoll_All = "SELECT * FROM TDoll";
         public static string SelectTDoll(int ownershipCode)

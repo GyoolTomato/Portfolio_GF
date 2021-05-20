@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.DB.User
+namespace Assets.DB.User.Base
 {
     public class UserDataBase_Produce
     {

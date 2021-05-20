@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Assets.Common;
-using Assets.DB.User;
+using Assets.DB.User.Base;
 using UnityEngine;
 
 namespace Assets.Scenes.Factory.Controller

@@ -42,7 +42,7 @@ namespace Assets.Scenes.Platoon.Controller
 
         private void Handle_ClickEvent(int ownershipCode)
         {
-            var temp = new DB.User.UserDataBase_TDoll();
+            var temp = new DB.User.Base.UserDataBase_TDoll();
             var tempList = m_dbManager.GetUserDBController().UserTDoll();
 
             foreach (var item in tempList)
@@ -67,7 +67,7 @@ namespace Assets.Scenes.Platoon.Controller
                 }
             }
 
-            temp = new DB.User.UserDataBase_TDoll();
+            temp = new DB.User.Base.UserDataBase_TDoll();
             foreach (var item in tempList)
             {
                 if (item.OwnershipCode == m_tDollOwnershipCode)

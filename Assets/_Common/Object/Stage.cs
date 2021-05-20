@@ -8,7 +8,7 @@ namespace Assets.Resources.Object
     public class Stage : MonoBehaviour
     {
         private Common.ResourceManager m_resourceManager;
-        private DB.User.UserDataBase_Stage m_userDataBase_Stage;
+        private DB.User.Base.UserDataBase_Stage m_userDataBase_Stage;
 
         private Button m_button;
         private Text m_stageNumber;
@@ -42,7 +42,7 @@ namespace Assets.Resources.Object
 
         }
 
-        public void ApplyValue(DB.User.UserDataBase_Stage data)
+        public void ApplyValue(DB.User.Base.UserDataBase_Stage data)
         {
             m_userDataBase_Stage = data;
 

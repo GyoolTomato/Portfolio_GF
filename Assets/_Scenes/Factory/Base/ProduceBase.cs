@@ -35,7 +35,7 @@ namespace Assets.Scenes.Factory.Base
             m_messagePanel = canvas.transform.Find("MessagePanel").gameObject;
         }
 
-        protected virtual void OrderReceive(DB.User.UserDataBase_Produce produceData, int steel, int flower, int food, int leather, out bool result)
+        protected virtual void OrderReceive(DB.User.Base.UserDataBase_Produce produceData, int steel, int flower, int food, int leather, out bool result)
         {
             if (m_resourceManager.GetResourceContorller().WorkResourceConsumption(steel, flower, food, leather))
             {
@@ -49,7 +49,7 @@ namespace Assets.Scenes.Factory.Base
                 result = false;
             }
         }
-        protected virtual void Complete(DB.User.UserDataBase_Produce produceData) { }
+        protected virtual void Complete(DB.User.Base.UserDataBase_Produce produceData) { }
 
         protected private IEnumerator OffMessagePanel()
         {

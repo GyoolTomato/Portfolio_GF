@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using Mono.Data.Sqlite;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.Networking;
 
-namespace Assets.DB.Index.Manager
+namespace Assets.DB.Index
 {
     public class IndexDBManager
     {
@@ -30,29 +31,50 @@ namespace Assets.DB.Index.Manager
             m_dbManager.StartCoroutine(DBCreate());
         }
 
-        private string DBName
-        {
-            get
-            {
-                return "Index.db";
-            }
-        }
+        //private IEnumerator DBCreate()
+        //{
+        //    m_dBFilePath = "URI=file:";
 
-        private string ReadDBFilePath
-        {
-            get
-            {
-                return "URI=file:" + m_dBFilePath;
-            }
-        }
+        //    if (Application.platform == RuntimePlatform.Android)
+        //    {
+        //        m_dBFilePath += DbFile.IndexDBPath_Android;
+        //        if (File.Exists(m_dBFilePath))
+        //            File.Delete(m_dBFilePath);
 
+        //        var unityWebRequest = UnityWebRequest.Get(Path.Combine(Application.streamingAssetsPath, DbFile.IndexDBFileName));
+        //        unityWebRequest.downloadedBytes.ToString();
+        //        yield return unityWebRequest.SendWebRequest().isDone;
+        //        File.WriteAllBytes(m_dBFilePath, unityWebRequest.downloadHandler.data);
+        //    }
+        //    else if (Application.platform == RuntimePlatform.IPhonePlayer)
+        //        m_dBFilePath += string.Empty;
+        //    else
+        //    {
+        //        m_dBFilePath += DbFile.IndexDBPath_PC;
+        //        if (File.Exists(m_dBFilePath))
+        //            File.Delete(m_dBFilePath);
+
+        //        var webClient = new WebClient();
+        //        webClient.DownloadFileAsync(Server.IndexDBUrl, m_dBFilePath);
+        //        webClient.DownloadFileCompleted += WebClient_DownloadFileCompleted;
+        //        yield return !webClient.IsBusy;
+        //        webClient.Dispose();
+        //    }           
+        //}
+
+        //private void WebClient_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)
+        //{
+        //    Debug.Log("IndexDB Download Complete");
+        //}
+
+        // StreamingAssets에서 복사
         private IEnumerator DBCreate()
         {
-            var sourceFilePath = Path.Combine(Application.streamingAssetsPath, DBName);
+            var sourceFilePath = Path.Combine(Application.streamingAssetsPath, "Index.db");
             var filePath = string.Empty;
             if (Application.platform == RuntimePlatform.Android)
             {
-                filePath = Path.Combine(Application.persistentDataPath, DBName);
+                filePath = Path.Combine(Application.persistentDataPath, "Index.db");
                 if (File.Exists(filePath))
                     File.Delete(filePath);
 
@@ -73,7 +95,7 @@ namespace Assets.DB.Index.Manager
             }
             else
             {
-                filePath = Path.Combine(Application.dataPath, DBName);
+                filePath = Path.Combine(Application.dataPath, "Index.db");
                 if (File.Exists(filePath))
                     File.Delete(filePath);
 
@@ -83,8 +105,8 @@ namespace Assets.DB.Index.Manager
                 Debug.Log("*Size : " + File.ReadAllBytes(filePath).Length);
             }
 
-            m_dBFilePath = filePath;
-        }  
+            m_dBFilePath = "URI=file:" + filePath;
+        }
 
         public ArrayList ReadDataBase(E_Table table, string query)
         {
@@ -95,7 +117,7 @@ namespace Assets.DB.Index.Manager
                 var tempData_TDoll = new IndexDataBase_TDoll();
                 var tempData_Equipment = new IndexDataBase_Equipment();
 
-                var dbConnection = new SqliteConnection(ReadDBFilePath);
+                var dbConnection = new SqliteConnection(m_dBFilePath);
                 dbConnection.Open();
                 var dbCommand = dbConnection.CreateCommand();
                 dbCommand.CommandText = query;

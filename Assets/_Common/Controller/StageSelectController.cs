@@ -14,7 +14,7 @@ namespace Assets.Common.Controller
 
         }
 
-        public void StageSelect(Assets.DB.User.UserDataBase_Stage data)
+        public void StageSelect(Assets.DB.User.Base.UserDataBase_Stage data)
         {
             SceneManager.LoadScene("StageField");
         }

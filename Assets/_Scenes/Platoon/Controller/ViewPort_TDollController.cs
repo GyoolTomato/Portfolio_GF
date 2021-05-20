@@ -45,7 +45,7 @@ namespace Assets.Scenes.Platoon.Controller
 
         private void Handle_ClickEvent(int ownershipCode)
         {
-            var temp = new DB.User.UserDataBase_Platoon();
+            var temp = new DB.User.Base.UserDataBase_Platoon();
             var tempList = m_dbManager.GetUserDBController().UserFormation();
 
             foreach (var item in tempList)
@@ -76,7 +76,7 @@ namespace Assets.Scenes.Platoon.Controller
                 }
             }
 
-            temp = new DB.User.UserDataBase_Platoon();
+            temp = new DB.User.Base.UserDataBase_Platoon();
             foreach (var item in tempList)
             {
                 if (item.Number == m_platoonNumber)

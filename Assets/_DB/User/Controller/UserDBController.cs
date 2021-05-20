@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.DB.Common;
-using Assets.DB.User.Manager;
+using Assets.DB.User.Base;
 
 namespace Assets.DB.User.Controller
 {
@@ -19,7 +19,7 @@ namespace Assets.DB.User.Controller
 
         private void SupplyStartPack()
         {
-            if (m_dBManager.ReadDataBase(UserDBManager.E_Table.TDoll, QuerySupport_User.SelectTDoll_All).Count == 0)
+            if (m_dBManager.ReadDataBase(UserDBManager.E_Table.TDoll, QuerySupport.SelectTDoll_All).Count == 0)
             {
                 var startMemeber0 = new UserDataBase_TDoll();
                 startMemeber0.DataCode = 4;
@@ -42,7 +42,7 @@ namespace Assets.DB.User.Controller
                 startPack.Add(startMemeber0);
                 startPack.Add(startMemeber1);
 
-                m_dBManager.SQL(QuerySupport_User.InsertTDoll(startPack));
+                m_dBManager.SQL(QuerySupport.InsertTDoll(startPack));
             }
         }
 
@@ -50,7 +50,7 @@ namespace Assets.DB.User.Controller
         {
             var result = new List<UserDataBase_TDoll>();
 
-            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.TDoll, QuerySupport_User.SelectTDoll_All))
+            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.TDoll, QuerySupport.SelectTDoll_All))
             {
                 result.Add(item as UserDataBase_TDoll);
             }
@@ -60,7 +60,7 @@ namespace Assets.DB.User.Controller
         public UserDataBase_TDoll UserTDoll(int ownershipCode)
         {
             var result = new UserDataBase_TDoll();
-            var temp = m_dBManager.ReadDataBase(UserDBManager.E_Table.TDoll, QuerySupport_User.SelectTDoll(ownershipCode));
+            var temp = m_dBManager.ReadDataBase(UserDBManager.E_Table.TDoll, QuerySupport.SelectTDoll(ownershipCode));
 
             if (temp.Count > 0)
             {
@@ -78,7 +78,7 @@ namespace Assets.DB.User.Controller
         {
             var result = new List<UserDataBase_Equipment>();
 
-            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Equipment, QuerySupport_User.SelectEquipment_All))
+            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Equipment, QuerySupport.SelectEquipment_All))
             {
                 result.Add(item as UserDataBase_Equipment);
             }
@@ -89,7 +89,7 @@ namespace Assets.DB.User.Controller
         public UserDataBase_Equipment UserEquipment(int ownershipCode)
         {
             var result = new UserDataBase_Equipment();
-            var temp = m_dBManager.ReadDataBase(UserDBManager.E_Table.Equipment, QuerySupport_User.SelectEquipment(ownershipCode));
+            var temp = m_dBManager.ReadDataBase(UserDBManager.E_Table.Equipment, QuerySupport.SelectEquipment(ownershipCode));
 
             if (temp.Count > 0)
             {
@@ -107,7 +107,7 @@ namespace Assets.DB.User.Controller
         {
             var result = new List<CommonDataBase_Resource>();
 
-            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport_User.SelectResource_All))
+            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Resource, QuerySupport.SelectResource_All))
             {
                 result.Add(item as CommonDataBase_Resource);
             }
@@ -119,7 +119,7 @@ namespace Assets.DB.User.Controller
         {
             var result = new List<UserDataBase_Produce>();
 
-            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Produce, QuerySupport_User.SelectProduceTDoll))
+            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Produce, QuerySupport.SelectProduceTDoll))
             {
                 result.Add(item as UserDataBase_Produce);
             }
@@ -131,7 +131,7 @@ namespace Assets.DB.User.Controller
         {
             var result = new List<UserDataBase_Produce>();
 
-            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Produce, QuerySupport_User.SelectProduceEquipment))
+            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Produce, QuerySupport.SelectProduceEquipment))
             {
                 result.Add(item as UserDataBase_Produce);
             }
@@ -142,7 +142,7 @@ namespace Assets.DB.User.Controller
         {
             var result = new List<UserDataBase_Platoon>();
 
-            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Platoon, QuerySupport_User.SelectPlatoon))
+            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Platoon, QuerySupport.SelectPlatoon))
             {
                 result.Add(item as UserDataBase_Platoon);
             }
@@ -153,7 +153,7 @@ namespace Assets.DB.User.Controller
         {
             var result = new List<UserDataBase_Stage>();
 
-            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Stage, QuerySupport_User.SelectStage))
+            foreach (var item in m_dBManager.ReadDataBase(UserDBManager.E_Table.Stage, QuerySupport.SelectStage))
             {
                 result.Add(item as UserDataBase_Stage);
             }
@@ -165,7 +165,7 @@ namespace Assets.DB.User.Controller
         {
             var result = 0;
 
-            var tempList = m_dBManager.ReadDataBase(UserDBManager.E_Table.Platoon, QuerySupport_User.SelectPlatoon);
+            var tempList = m_dBManager.ReadDataBase(UserDBManager.E_Table.Platoon, QuerySupport.SelectPlatoon);
             var temp = new UserDataBase_Platoon();
 
             foreach (var item in tempList)
@@ -197,7 +197,7 @@ namespace Assets.DB.User.Controller
             var tempData = new List<UserDataBase_TDoll>();
             tempData.Add(conversionData);
 
-            m_dBManager.SQL(QuerySupport_User.InsertTDoll(tempData));
+            m_dBManager.SQL(QuerySupport.InsertTDoll(tempData));
         }
 
         public void AddOwnership(DB.Index.IndexDataBase_Equipment data)
@@ -210,27 +210,27 @@ namespace Assets.DB.User.Controller
             var tempData = new List<UserDataBase_Equipment>();
             tempData.Add(conversionData);
 
-            m_dBManager.SQL(QuerySupport_User.InsertEquipment(tempData));
+            m_dBManager.SQL(QuerySupport.InsertEquipment(tempData));
         }
 
         public void ReleaseOwnership(List<UserDataBase_TDoll> data)
         {
-            m_dBManager.SQL(QuerySupport_User.DeleteTDoll(data));
+            m_dBManager.SQL(QuerySupport.DeleteTDoll(data));
         }
 
         public void ReleaseOwnership(List<UserDataBase_Equipment> data)
         {
-            m_dBManager.SQL(QuerySupport_User.DeleteEquipment(data));
+            m_dBManager.SQL(QuerySupport.DeleteEquipment(data));
         }
 
         public void UpdateOwnership(UserDataBase_TDoll data)
         {
-            m_dBManager.SQL(QuerySupport_User.UpdateTDoll(data));
+            m_dBManager.SQL(QuerySupport.UpdateTDoll(data));
         }
 
         public void UpdateOwnership(UserDataBase_Equipment data)
         {
-            m_dBManager.SQL(QuerySupport_User.UpdateEquipment(data));
+            m_dBManager.SQL(QuerySupport.UpdateEquipment(data));
         }
 
         public void UpdateResource(Assets.Common.Interface.WorkResource workResource)
@@ -240,34 +240,34 @@ namespace Assets.DB.User.Controller
             temp.Name = workResource.DBName;
             temp.Value = workResource.Amount;
 
-            m_dBManager.SQL(QuerySupport_User.UpdateResource(temp));
+            m_dBManager.SQL(QuerySupport.UpdateResource(temp));
         }
 
         public void UpdateProduceTDoll(UserDataBase_Produce data)
         {
-            m_dBManager.SQL(QuerySupport_User.UpdateProduceTDoll(data));
+            m_dBManager.SQL(QuerySupport.UpdateProduceTDoll(data));
         }
 
         public void UpdateProduceEquipment(UserDataBase_Produce data)
         {
-            m_dBManager.SQL(QuerySupport_User.UpdateProduceEquipment(data));
+            m_dBManager.SQL(QuerySupport.UpdateProduceEquipment(data));
         }
 
         public void UpdateItemAmount(UserDataBase_Item data)
         {
-            m_dBManager.SQL(QuerySupport_User.UpdateItem(data));
+            m_dBManager.SQL(QuerySupport.UpdateItem(data));
         }
 
         public void UpdatePlatoon(UserDataBase_Platoon data)
         {
-            m_dBManager.SQL(QuerySupport_User.UpdatePlatoon(data));
+            m_dBManager.SQL(QuerySupport.UpdatePlatoon(data));
         }
 
         public bool IsMounted(UserDataBase_Equipment data)
         {
             var result = false;
 
-            if (m_dBManager.ReadDataBase(UserDBManager.E_Table.TDoll, QuerySupport_User.SelectMountedCheck(data)).Count > 0)
+            if (m_dBManager.ReadDataBase(UserDBManager.E_Table.TDoll, QuerySupport.SelectMountedCheck(data)).Count > 0)
                 result = true;
 
             return result;
