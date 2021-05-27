@@ -6,6 +6,7 @@ using Mono.Data.Sqlite;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.Networking;
+using Assets.DB.Base;
 using Assets.DB.Common;
 using Assets.DB.User.Base;
 

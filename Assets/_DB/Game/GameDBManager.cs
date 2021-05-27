@@ -4,8 +4,7 @@ using System.IO;
 using System.Net;
 using Mono.Data.Sqlite;
 using UnityEngine;
-using UnityEngine.Android;
-using UnityEngine.Networking;
+using Assets.DB.Base;
 
 namespace Assets.DB.Game
 {

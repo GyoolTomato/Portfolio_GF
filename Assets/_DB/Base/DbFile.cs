@@ -2,7 +2,7 @@
 using System.IO;
 using UnityEngine;
 
-namespace Assets.DB
+namespace Assets.DB.Base
 {
     public static class DbFile
     {

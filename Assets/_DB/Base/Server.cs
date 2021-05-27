@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Assets.DB
+namespace Assets.DB.Base
 {
     public static class Server
     {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -9,11 +10,17 @@ namespace Assets.Scenes.Login
 {
     public class LoginManager : MonoBehaviour
     {
+        private Assets.Common.AndroidManager m_androidManager;
         private Button m_EnterButton;
         public Camera letterBox;
 
         private void Awake()
         {
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                m_androidManager = GameObject.Find("AndroidManager").GetComponent<Common.AndroidManager>();
+            }            
+
             var vLogin = GameObject.Find("Login");
             var vEnter = vLogin.transform.Find("Enter").gameObject;
             m_EnterButton = vEnter.GetComponent<Button>();
@@ -28,6 +35,8 @@ namespace Assets.Scenes.Login
             if (Application.platform == RuntimePlatform.Android)
             {
             }
+
+            
         }
 
         // Update is called once per frame
@@ -38,6 +47,10 @@ namespace Assets.Scenes.Login
 
         void AccountVerification()
         {
+            if (Application.platform == RuntimePlatform.Android)
+            {
+                m_androidManager.ShowToast("Guest 계정으로 로그인 하셨습니다.");
+            }
             SceneManager.LoadScene("Lobby");
         }
 
