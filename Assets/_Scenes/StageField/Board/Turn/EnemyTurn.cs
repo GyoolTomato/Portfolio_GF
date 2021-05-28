@@ -34,6 +34,8 @@ namespace Assets.Scenes.StageField.Board.Turn
         {
             if (m_stageFieldManager.GetPlayController().IsPlaying())
             {
+                m_stageFieldManager.GetBoardManager().GetPlayerPlatoonController().SelectedPlayerPlatoon = null;
+
                 m_turnStartBanner.SetActive(true);
                 m_turnStartBanner_Title.text = "적 차례";
                 m_turnStartBanner_Turn.text = turnNumber + "턴";

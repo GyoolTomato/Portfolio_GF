@@ -18,56 +18,38 @@ namespace Assets.Common
 
         private void Awake()
         {
-            if (Application.platform != RuntimePlatform.Android)
-            {
-                Destroy(this);
-                return;
-            }
+            //if (Application.platform != RuntimePlatform.Android)
+            //{
+            //    Destroy(this);
+            //    return;
+            //}
 
-            if (m_instance == null)
-                m_instance = this;
-            else
-                Destroy(gameObject);
+            //if (m_instance == null)
+            //    m_instance = this;
+            //else
+            //    Destroy(gameObject);
 
-            m_unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-            m_currentActivity = m_unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-            m_context = m_currentActivity.Call<AndroidJavaObject>("getApplicationContext");
+            //m_unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            //m_currentActivity = m_unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+            //m_context = m_currentActivity.Call<AndroidJavaObject>("getApplicationContext");
 
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
         }
 
         public void ShowToast(string message)
         {
-            m_currentActivity.Call(
-                "runOnUiThread",
-                new AndroidJavaRunnable(() =>
+            var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
+            var unityActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
+
+            if (unityActivity != null)
+            {
+                var toastClass = new AndroidJavaClass("android.widget.Toast");
+                unityActivity.Call("runOnUiThread", new AndroidJavaRunnable(() =>
                 {
-                    AndroidJavaClass Toast
-                    = new AndroidJavaClass("android.widget.Toast");
-
-                    AndroidJavaObject javaString
-                    = new AndroidJavaObject("java.lang.String", message);
-
-                    m_toast = Toast.CallStatic<AndroidJavaObject>
-                    (
-                        "makeText",
-                        m_context,
-                        javaString,
-                        Toast.GetStatic<int>("LENGTH_SHORT")
-                    );
-
-                    m_toast.Call("show");
-                })
-             );
-        }
-
-        public void CancelToast()
-        {
-            m_currentActivity.Call("runOnUiThread",
-                new AndroidJavaRunnable(() =>
-                {
-                    if (m_toast != null) m_toast.Call("cancel");
+                    var toastObject = toastClass.CallStatic<AndroidJavaObject>("makeText", unityActivity, message, 0);
+                    toastObject.Call("show");
                 }));
+            }
         }
     }
 }

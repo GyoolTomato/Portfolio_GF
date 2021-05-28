@@ -12,6 +12,7 @@ namespace Assets.Scenes.StageField.Object
         private TouchController m_touchController;
         private PlayerPlatoonController m_playerPlatoonController;
         private bool m_isMoving;
+        private bool m_isSelected;
         private float m_moveDistance;
         private Vector3 m_moveDirection;
         private OccupationPoint m_stayPoint;
@@ -29,14 +30,17 @@ namespace Assets.Scenes.StageField.Object
         // Update is called once per frame
         void Update()
         {
-            if (m_touchController.IsClick() && m_touchController.GetClickObject() == gameObject)
+            if (m_stageFieldManager.GetBoardManager().GetNowState() == Board.BoardManager.E_State.PlayerTurn)
             {
-                m_playerPlatoonController.SelectedPlayerPlatoon = this;
-            }
+                if (m_touchController.IsClick() && m_touchController.GetClickObject() == gameObject)
+                {
+                    m_playerPlatoonController.SelectedPlayerPlatoon = this;
+                }
 
-            if (m_isMoving)
-            {
-                Move();
+                if (m_isMoving)
+                {
+                    Move();
+                }
             }
         }
 
@@ -61,6 +65,23 @@ namespace Assets.Scenes.StageField.Object
         public bool IsMoving()
         {
             return m_isMoving;
+        }
+
+        public bool IsSelected
+        {
+            get
+            {
+                return m_isSelected;
+            }
+            set
+            {
+                m_isSelected = value;
+
+                if (m_isSelected)
+                    m_characterBase.SetAnim(CharacterBase.E_State.Run);
+                else
+                    m_characterBase.SetAnim(CharacterBase.E_State.Idle);
+            }
         }
 
         public void MovePoint(OccupationPoint point)

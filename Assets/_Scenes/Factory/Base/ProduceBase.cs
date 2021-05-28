@@ -8,7 +8,8 @@ namespace Assets.Scenes.Factory.Base
 {
     public class ProduceBase
     {
-        protected Assets.Common.ResourceManager m_resourceManager;
+        protected FactoryManager m_factoryManager;
+        protected Common.ResourceManager m_resourceManager;
         protected DB.DbManager m_dbManager;
         protected TicketResourceController m_ticketResourceController;
 
@@ -19,8 +20,9 @@ namespace Assets.Scenes.Factory.Base
         {
         }
 
-        public virtual void Initialize(Assets.Common.ResourceManager resourceManager, TicketResourceController ticketResourceController, string menuName)
+        public virtual void Initialize(FactoryManager factoryManager, Assets.Common.ResourceManager resourceManager, TicketResourceController ticketResourceController, string menuName)
         {
+            m_factoryManager = factoryManager;
             m_resourceManager = resourceManager;
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
             m_ticketResourceController = ticketResourceController;

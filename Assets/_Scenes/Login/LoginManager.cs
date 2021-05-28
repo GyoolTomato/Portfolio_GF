@@ -18,7 +18,7 @@ namespace Assets.Scenes.Login
         {
             if (Application.platform == RuntimePlatform.Android)
             {
-                m_androidManager = GameObject.Find("AndroidManager").GetComponent<Common.AndroidManager>();
+                m_androidManager = GameObject.Find("GameManager").GetComponent<Common.AndroidManager>();
             }            
 
             var vLogin = GameObject.Find("Login");

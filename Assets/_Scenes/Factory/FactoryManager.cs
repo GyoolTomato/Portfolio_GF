@@ -15,6 +15,7 @@ namespace Assets.Scenes.Factory
         private TicketResourceController m_ticketResourceController;
         private ProduceTDollController m_produceTDollController;
         private ProduceEquipmentController m_produceEquipmentController;
+        private SpawnPopupController m_spawnPopupController;
 
         private void Awake()
         {
@@ -34,32 +35,22 @@ namespace Assets.Scenes.Factory
             m_ticketResourceController = new TicketResourceController();
             m_ticketResourceController.Initialize(m_resourceManager, m_canvas);
             m_produceTDollController = new ProduceTDollController();
-            m_produceTDollController.Initialize(m_resourceManager, m_ticketResourceController, "ProduceTDoll");
+            m_produceTDollController.Initialize(this, m_resourceManager, m_ticketResourceController, "ProduceTDoll");
             m_produceEquipmentController = new ProduceEquipmentController();
-            m_produceEquipmentController.Initialize(m_resourceManager, m_ticketResourceController, "ProduceEquipment");
+            m_produceEquipmentController.Initialize(this, m_resourceManager, m_ticketResourceController, "ProduceEquipment");
+            m_spawnPopupController = new SpawnPopupController();
+            m_spawnPopupController.Initialize();
         }
 
         // Update is called once per frame
         void Update()
         {
-            //m_userMonitorController.ApplyData();
+            
         }
 
-        public ProduceTDollController ProduceTDollController
-        {
-            get
-            {
-                return m_produceTDollController;
-            }
-        }
-
-        public ProduceEquipmentController ProduceEquipmentController
-        {
-            get
-            {
-                return m_produceEquipmentController;
-            }
-        }
+        public ProduceTDollController GetProduceTDollController() => m_produceTDollController;
+        public ProduceEquipmentController GetProduceEquipmentController() => m_produceEquipmentController;
+        public SpawnPopupController GetSpawnPopupController() => m_spawnPopupController;
 
         private void BackAction()
         {

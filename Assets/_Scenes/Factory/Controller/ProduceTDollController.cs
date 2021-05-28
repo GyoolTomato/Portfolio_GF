@@ -13,9 +13,9 @@ namespace Assets.Scenes.Factory.Controller
         {
         }
 
-        public override void Initialize(ResourceManager resourceManager, TicketResourceController ticketResourceController, string menuName)
+        public override void Initialize(FactoryManager factoryManager, ResourceManager resourceManager, TicketResourceController ticketResourceController, string menuName)
         {
-            base.Initialize(resourceManager, ticketResourceController, menuName);
+            base.Initialize(factoryManager, resourceManager, ticketResourceController, menuName);
             var produceDBIndex = 0;
             foreach (var item in m_produceSlotList)
             {
@@ -118,6 +118,8 @@ namespace Assets.Scenes.Factory.Controller
 
             m_dbManager.GetUserDBController().AddOwnership(temp);
             m_dbManager.GetUserDBController().UpdateProduceTDoll(produceData);
-        }       
+
+            //m_factoryManager.GetSpawnPopupController().Open(temp);
+        }
     }
 }

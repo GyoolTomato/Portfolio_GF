@@ -28,6 +28,14 @@ namespace Assets.Scenes.StageField.Board.Controller
             set
             {
                 m_selectedPlayerPlatoon = value;
+
+                foreach (var item in GetPlayers())
+                    item.IsSelected = false;
+
+                if (value != null)
+                {
+                    m_selectedPlayerPlatoon.IsSelected = true;
+                }                
             }
         }
 
