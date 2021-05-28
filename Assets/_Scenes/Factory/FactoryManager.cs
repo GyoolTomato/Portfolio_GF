@@ -39,7 +39,7 @@ namespace Assets.Scenes.Factory
             m_produceEquipmentController = new ProduceEquipmentController();
             m_produceEquipmentController.Initialize(this, m_resourceManager, m_ticketResourceController, "ProduceEquipment");
             m_spawnPopupController = new SpawnPopupController();
-            m_spawnPopupController.Initialize();
+            m_spawnPopupController.Initialize(this);
         }
 
         // Update is called once per frame

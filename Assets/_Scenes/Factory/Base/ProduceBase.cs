@@ -52,6 +52,7 @@ namespace Assets.Scenes.Factory.Base
             }
         }
         protected virtual void Complete(DB.User.Base.UserDataBase_Produce produceData) { }
+        protected virtual void InsertData(int dataCode) { }
 
         protected private IEnumerator OffMessagePanel()
         {

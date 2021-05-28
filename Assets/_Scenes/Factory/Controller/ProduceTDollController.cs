@@ -28,7 +28,6 @@ namespace Assets.Scenes.Factory.Controller
         { 
             if (m_resourceManager.GetResourceContorller().TDollTicket().Amount >= 0)
             {
-                m_resourceManager.GetResourceContorller().OthersResourceAmountCal(Common.Controller.ResourceContorller.E_OthersResourceType.TDollTicket, -1);
                 m_ticketResourceController.UpdateValue();
                 base.OrderReceive(produceData, steel, flower, food, leather, out result);
 
@@ -92,6 +91,7 @@ namespace Assets.Scenes.Factory.Controller
                 }
                 produceData.DataCode = temp.DataCode;
                 produceData.CompleteTime = DateTime.Now.AddSeconds(temp.ManufacturingTime).ToString();
+                m_resourceManager.GetResourceContorller().OthersResourceAmountCal(Common.Controller.ResourceContorller.E_OthersResourceType.TDollTicket, -1);
 
                 m_dbManager.GetUserDBController().UpdateProduceTDoll(produceData);
             }
@@ -115,11 +115,30 @@ namespace Assets.Scenes.Factory.Controller
             }
             produceData.DataCode = 0;
             produceData.CompleteTime = string.Empty;
-
-            m_dbManager.GetUserDBController().AddOwnership(temp);
             m_dbManager.GetUserDBController().UpdateProduceTDoll(produceData);
 
-            //m_factoryManager.GetSpawnPopupController().Open(temp);
+            InsertData(temp.DataCode);
+        }
+
+        protected override void InsertData(int dataCode)
+        {
+            try
+            {
+                var data = new UserDataBase_TDoll();
+                data.DataCode = dataCode;
+                data.Level = 1;
+                data.DummyLink = UnityEngine.Random.Range(1, 6);
+                data.EquipmentOwnershipNumber0 = 0;
+                data.EquipmentOwnershipNumber1 = 0;
+                data.EquipmentOwnershipNumber2 = 0;
+
+                m_dbManager.GetUserDBController().AddOwnership(data);
+                m_factoryManager.GetSpawnPopupController().Open(data);
+            }
+            catch(Exception ex)
+            {
+                Debug.Log(ex);
+            }
         }
     }
 }

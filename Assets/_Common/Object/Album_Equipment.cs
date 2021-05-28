@@ -109,6 +109,9 @@ namespace Assets.Resources.Album
         {
             m_mountInformation.SetActive(false);
 
+            if (m_ownershipCode == 0)            
+                return;
+            
             var tempList = m_dbManager.GetUserDBController().UserTDoll();
             foreach (var item in tempList)
             {

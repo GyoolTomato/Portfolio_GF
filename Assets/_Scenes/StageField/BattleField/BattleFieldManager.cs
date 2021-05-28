@@ -20,10 +20,11 @@ namespace Assets.Scenes.StageField.BattleField
         }
 
         private DB.DbManager m_dbManager;
-
         private StageFieldManager m_stageFieldManager;
+        private Controller.PlatoonMonitorController m_platoonMonitorController;
         private Controller.SpawnController m_spawnController;
         private Base.BattleData m_battleData;
+        private GameObject m_title;
         private GameObject m_battleFieldUI;
         private GameObject m_battleField;
         private Transform m_battleField_Units;
@@ -44,8 +45,11 @@ namespace Assets.Scenes.StageField.BattleField
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
 
             m_stageFieldManager = stageFieldManager;
+            m_platoonMonitorController = new Controller.PlatoonMonitorController();
+            m_platoonMonitorController.Initialize();
             m_spawnController = new Controller.SpawnController();
             var canvas = GameObject.Find("Canvas");
+            m_title = canvas.transform.Find("Title").gameObject ;
             m_battleFieldUI = canvas.transform.Find("BattleFieldUI").gameObject;
             m_battleField = GameObject.Find("BattleField");
             m_battleField_Units = m_battleField.transform.Find("Units");
@@ -69,28 +73,31 @@ namespace Assets.Scenes.StageField.BattleField
 
         public void OpenBattleField(Base.BattleData battleData)
         {
-             ClearBattleField();
+            ClearBattleField();
 
             m_battleData = battleData;
             m_isFinishCreatingPlayer = false;
             m_isFinishCreatingEnemy = false;
             m_isFinishBattle = false;
+            m_title.SetActive(false);
             m_battleFieldUI.SetActive(true);
             m_battleField.SetActive(true);
             m_boardUI.SetActive(false);
             m_board.SetActive(false);
+            m_platoonMonitorController.ApplyData(battleData);
 
             m_isFinishCreatingPlayer = false;
             m_isFinishCreatingEnemy = false;
             m_stageFieldManager.StartCoroutine(CreatePlayer(battleData.Player));
             m_stageFieldManager.StartCoroutine(CreateEnemy(battleData.Enemy));
-            m_stageFieldManager.StartCoroutine(BattleFinishCheck());
+            m_stageFieldManager.StartCoroutine(BattleFinishCheck());            
         }
 
         public IEnumerator CloseBattleField()
         {
             yield return new WaitForSeconds(2);
 
+            m_title.SetActive(true);
             m_battleFieldUI.SetActive(false);
             m_battleField.SetActive(false);
             m_boardUI.SetActive(true);
@@ -232,8 +239,7 @@ namespace Assets.Scenes.StageField.BattleField
         }
 
         private IEnumerator FinishBanner()
-        {
-            
+        {           
 
             yield return null;
         }

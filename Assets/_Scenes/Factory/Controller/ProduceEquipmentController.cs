@@ -114,9 +114,20 @@ namespace Assets.Scenes.Factory.Controller
             }
             produceData.DataCode = 0;            
             produceData.CompleteTime = string.Empty;
-
-            m_dbManager.GetUserDBController().AddOwnership(temp);
             m_dbManager.GetUserDBController().UpdateProduceEquipment(produceData);
+
+            InsertData(temp.DataCode);            
+        }
+
+        protected override void InsertData(int dataCode)
+        {
+            var data = new UserDataBase_Equipment();
+            data.DataCode = dataCode;
+            data.Level = 1;
+            data.LimitedPower = UnityEngine.Random.Range(10, 101);
+
+            m_dbManager.GetUserDBController().AddOwnership(data);
+            m_factoryManager.GetSpawnPopupController().Open(data);
         }
     }
 }

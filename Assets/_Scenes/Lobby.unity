@@ -2253,7 +2253,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Test Account
+  m_Text: Guest
 --- !u!222 &1902917591
 CanvasRenderer:
   m_ObjectHideFlags: 0

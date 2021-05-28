@@ -102,7 +102,7 @@ namespace Assets.Resources.Album
         {
             var tempNumber = m_dbManager.GetUserDBController().FormationNumber(m_ownershipCode);
 
-            if (tempNumber == 0)
+            if (tempNumber == 0 || m_ownershipCode == 0)
             {
                 m_platoon.SetActive(false);
             }

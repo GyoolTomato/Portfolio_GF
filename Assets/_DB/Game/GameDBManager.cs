@@ -26,23 +26,25 @@ namespace Assets.DB.Game
 
         private IEnumerator DBCreate()
         {
-            m_dBFilePath = "URI=file:";
+            var writePath = string.Empty;
 
             if (Application.platform == RuntimePlatform.Android)
-                m_dBFilePath += DbFile.GameDBPath_Android;
+                writePath = DbFile.GameDBPath_Android;
             else if (Application.platform == RuntimePlatform.IPhonePlayer)
-                m_dBFilePath += string.Empty;
+                writePath = string.Empty;
             else
-                m_dBFilePath += DbFile.GameDBPath_PC;
+                writePath = DbFile.GameDBPath_PC;
 
             if (File.Exists(m_dBFilePath))
                 File.Delete(m_dBFilePath);
 
             var webClient = new WebClient();
-            webClient.DownloadFileAsync(Server.GameDBUrl, m_dBFilePath);
+            webClient.DownloadFileAsync(Server.GameDBUrl, writePath);
             webClient.DownloadFileCompleted += WebClient_DownloadFileCompleted;
             yield return !webClient.IsBusy;
             webClient.Dispose();
+
+            m_dBFilePath = "URI=file:" + writePath;
         }
 
         private void WebClient_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)

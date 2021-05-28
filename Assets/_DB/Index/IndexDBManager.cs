@@ -32,23 +32,25 @@ namespace Assets.DB.Index
 
         private IEnumerator DBCreate()
         {
-            m_dBFilePath = "URI=file:";
+            var writePath = string.Empty;            
 
             if (Application.platform == RuntimePlatform.Android)
-                m_dBFilePath += DbFile.IndexDBPath_Android;
+                writePath = DbFile.IndexDBPath_Android;
             else if (Application.platform == RuntimePlatform.IPhonePlayer)
-                m_dBFilePath += string.Empty;
+                writePath = string.Empty;
             else
-                m_dBFilePath += DbFile.IndexDBPath_PC;
+                writePath = DbFile.IndexDBPath_PC;
 
             if (File.Exists(m_dBFilePath))
                 File.Delete(m_dBFilePath);
 
             var webClient = new WebClient();
-            webClient.DownloadFileAsync(Server.IndexDBUrl, m_dBFilePath);
+            webClient.DownloadFileAsync(Server.IndexDBUrl, writePath);
             webClient.DownloadFileCompleted += WebClient_DownloadFileCompleted;
             yield return !webClient.IsBusy;
             webClient.Dispose();
+
+            m_dBFilePath = "URI=file:" + writePath;
         }
 
         private void WebClient_DownloadFileCompleted(object sender, System.ComponentModel.AsyncCompletedEventArgs e)

@@ -1336,6 +1336,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 43644737514027953, guid: 3bfecdfadacb8405981cce6b95af0bdf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1839148399628931795, guid: 3bfecdfadacb8405981cce6b95af0bdf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2499052482258112094, guid: 3bfecdfadacb8405981cce6b95af0bdf, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1425,6 +1433,10 @@ PrefabInstance:
       value: Canvas
       objectReference: {fileID: 0}
     - target: {fileID: 2499052482258112098, guid: 3bfecdfadacb8405981cce6b95af0bdf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5148856249096462480, guid: 3bfecdfadacb8405981cce6b95af0bdf, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}

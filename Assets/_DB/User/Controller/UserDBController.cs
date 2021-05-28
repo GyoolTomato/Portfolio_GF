@@ -184,31 +184,18 @@ namespace Assets.DB.User.Controller
             return result;
         }
 
-        public void AddOwnership(DB.Index.IndexDataBase_TDoll data)
+        public void AddOwnership(UserDataBase_TDoll data)
         {
-            var conversionData = new UserDataBase_TDoll();
-            conversionData.DataCode = data.DataCode;
-            conversionData.Level = 1;
-            conversionData.DummyLink = Random.Range(1, 6);
-            conversionData.EquipmentOwnershipNumber0 = 0;
-            conversionData.EquipmentOwnershipNumber1 = 0;
-            conversionData.EquipmentOwnershipNumber2 = 0;
-
             var tempData = new List<UserDataBase_TDoll>();
-            tempData.Add(conversionData);
+            tempData.Add(data);
 
             m_dBManager.SQL(QuerySupport.InsertTDoll(tempData));
         }
 
-        public void AddOwnership(DB.Index.IndexDataBase_Equipment data)
-        {
-            var conversionData = new UserDataBase_Equipment();
-            conversionData.DataCode = data.DataCode;
-            conversionData.Level = 1;
-            conversionData.LimitedPower = Random.Range(10, 101);           
-
+        public void AddOwnership(UserDataBase_Equipment data)
+        {      
             var tempData = new List<UserDataBase_Equipment>();
-            tempData.Add(conversionData);
+            tempData.Add(data);
 
             m_dBManager.SQL(QuerySupport.InsertEquipment(tempData));
         }
