@@ -26,7 +26,7 @@ namespace Assets.DB.User.Base
         {
             var result = string.Empty;
 
-            result = "SELECT * FROM TDoll WHERE"
+            result = "S="
                 + " EquipmentOwnershipNumber0=" + data.OwnershipCode
                 + " EquipmentOwnershipNumber1=" + data.OwnershipCode
                 + " EquipmentOwnershipNumber2=" + data.OwnershipCode;
