@@ -29,16 +29,18 @@ namespace Assets.Scenes.StageField.BattleField.Controller
             var canvas = GameObject.Find("Canvas");
             var battleFieldUI = canvas.transform.Find("BattleFieldUI");
             var playerTeam = battleFieldUI.Find("PlayerTeam");
-            m_playerPlatoon1 = playerTeam.Find("Platoon1").GetComponent<SmallAlbum_TDoll>();
-            m_playerPlatoon2 = playerTeam.Find("Platoon2").GetComponent<SmallAlbum_TDoll>();
-            m_playerPlatoon3 = playerTeam.Find("Platoon3").GetComponent<SmallAlbum_TDoll>();
-            m_playerPlatoon4 = playerTeam.Find("Platoon4").GetComponent<SmallAlbum_TDoll>();
+            var playerPlatoons = playerTeam.Find("Platoons");
+            m_playerPlatoon1 = playerPlatoons.Find("Platoon1").GetComponent<SmallAlbum_TDoll>();
+            m_playerPlatoon2 = playerPlatoons.Find("Platoon2").GetComponent<SmallAlbum_TDoll>();
+            m_playerPlatoon3 = playerPlatoons.Find("Platoon3").GetComponent<SmallAlbum_TDoll>();
+            m_playerPlatoon4 = playerPlatoons.Find("Platoon4").GetComponent<SmallAlbum_TDoll>();
 
             var enemyTeam = battleFieldUI.Find("EnemyTeam");
-            m_enemyPlatoon1 = enemyTeam.Find("Platoon1").GetComponent<SmallAlbum_TDoll>();
-            m_enemyPlatoon2 = enemyTeam.Find("Platoon2").GetComponent<SmallAlbum_TDoll>();
-            m_enemyPlatoon3 = enemyTeam.Find("Platoon3").GetComponent<SmallAlbum_TDoll>();
-            m_enemyPlatoon4 = enemyTeam.Find("Platoon4").GetComponent<SmallAlbum_TDoll>();
+            var enemyPlatoons = enemyTeam.Find("Platoons");
+            m_enemyPlatoon1 = enemyPlatoons.Find("Platoon1").GetComponent<SmallAlbum_TDoll>();
+            m_enemyPlatoon2 = enemyPlatoons.Find("Platoon2").GetComponent<SmallAlbum_TDoll>();
+            m_enemyPlatoon3 = enemyPlatoons.Find("Platoon3").GetComponent<SmallAlbum_TDoll>();
+            m_enemyPlatoon4 = enemyPlatoons.Find("Platoon4").GetComponent<SmallAlbum_TDoll>();
         }
 
         public void ApplyData(Base.BattleData battleData)
