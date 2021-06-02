@@ -16,7 +16,7 @@ namespace Assets.Character.Board
             End,
         }
 
-        private Animator m_animator;
+    private Animator m_animator;
         private string m_stringIsIdle;
         private string m_stringIsWalk;
         private string m_stringIsRun;
