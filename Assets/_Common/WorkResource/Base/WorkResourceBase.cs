@@ -2,9 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Common.Interface
+namespace Assets.Common.WorkResource.Base
 {
-    public class WorkResource
+    public class WorkResourceBase
     {
         public Image Image { get; set; }
         public string Title { get; set; }

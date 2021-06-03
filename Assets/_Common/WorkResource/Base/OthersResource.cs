@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 
-namespace Assets.Common.Interface
+namespace Assets.Common.WorkResource.Base
 {
     public class OthersResource
     {

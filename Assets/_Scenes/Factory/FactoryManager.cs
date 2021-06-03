@@ -29,15 +29,15 @@ namespace Assets.Scenes.Factory
             m_canvas = GameObject.Find("Canvas");
 
             m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Objects.UI.Title>();
-            m_title.Initialize(m_graphicManager, "공장", BackAction);
+            m_title.Initialize("공장", BackAction);
             m_menuController = new MenuController();
             m_menuController.Initialize(m_canvas);
             m_ticketResourceController = new TicketResourceController();
             m_ticketResourceController.Initialize(m_graphicManager, m_canvas);
             m_produceTDollController = new ProduceTDollController();
-            m_produceTDollController.Initialize(this, m_graphicManager, m_ticketResourceController, "ProduceTDoll");
+            m_produceTDollController.Initialize(this, m_ticketResourceController, "ProduceTDoll");
             m_produceEquipmentController = new ProduceEquipmentController();
-            m_produceEquipmentController.Initialize(this, m_graphicManager, m_ticketResourceController, "ProduceEquipment");
+            m_produceEquipmentController.Initialize(this, m_ticketResourceController, "ProduceEquipment");
             m_spawnPopupController = new SpawnPopupController();
             m_spawnPopupController.Initialize(this);
         }

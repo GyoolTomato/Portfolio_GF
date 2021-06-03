@@ -220,12 +220,12 @@ namespace Assets.DB.User.Controller
             m_dBManager.SQL(QuerySupport.UpdateEquipment(data));
         }
 
-        public void UpdateResource(Assets.Common.Interface.WorkResource workResource)
+        public void UpdateResource(Assets.Common.WorkResource.Base.WorkResourceBase workResourceBase)
         {
             var temp = new CommonDataBase_Resource();
 
-            temp.Name = workResource.DBName;
-            temp.Value = workResource.Amount;
+            temp.Name = workResourceBase.DBName;
+            temp.Value = workResourceBase.Amount;
 
             m_dBManager.SQL(QuerySupport.UpdateResource(temp));
         }

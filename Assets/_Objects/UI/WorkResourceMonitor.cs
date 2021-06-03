@@ -37,7 +37,7 @@ namespace Assets.Objects.UI
 
         }
 
-        public void ApplyData(Assets.Common.Interface.WorkResource in_WorkResourceInformation)
+        public void ApplyData(Assets.Common.WorkResource.Base.WorkResourceBase in_WorkResourceInformation)
         {
             m_image.sprite = m_resourceManager.GetSpriteController().GetWorkResource(in_WorkResourceInformation.DBName);
             m_title.text = in_WorkResourceInformation.Title;

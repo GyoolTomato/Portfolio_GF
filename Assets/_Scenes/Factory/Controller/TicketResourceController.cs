@@ -8,6 +8,7 @@ namespace Assets.Scenes.Factory.Controller
     public class TicketResourceController
     {
         GraphicManager m_graphicManager;
+        Common.WorkResource.WorkResourceManager m_workResourceManager;
         FactoryResourceMonitor m_passTicket;
         FactoryResourceMonitor m_tDollTicket;
         FactoryResourceMonitor m_equipmentTicket;
@@ -19,6 +20,7 @@ namespace Assets.Scenes.Factory.Controller
         public void Initialize(GraphicManager graphicManager, GameObject canvas)
         {
             m_graphicManager = graphicManager;
+            m_workResourceManager = GameObject.Find("GameManager").GetComponent<Common.WorkResource.WorkResourceManager>();
             var factoryResourceInformation = canvas.transform.Find("FactoryResourceInformation");
             m_passTicket = factoryResourceInformation.Find("PassTicket").GetComponent<FactoryResourceMonitor>();
             m_tDollTicket = factoryResourceInformation.Find("TDollTicket").GetComponent<FactoryResourceMonitor>();
@@ -30,10 +32,10 @@ namespace Assets.Scenes.Factory.Controller
 
         public void UpdateValue()
         {
-            m_graphicManager.GetResourceContorller().ReadOthersResource();
-            m_passTicket.ApplyData(m_graphicManager.GetResourceContorller().PassTicket());
-            m_tDollTicket.ApplyData(m_graphicManager.GetResourceContorller().TDollTicket());
-            m_equipmentTicket.ApplyData(m_graphicManager.GetResourceContorller().EquipmentTicket());
+            m_workResourceManager.ReadOthersResource();
+            m_passTicket.ApplyData(m_workResourceManager.PassTicket());
+            m_tDollTicket.ApplyData(m_workResourceManager.TDollTicket());
+            m_equipmentTicket.ApplyData(m_workResourceManager.EquipmentTicket());
         }
     }
 }

@@ -6,7 +6,6 @@ namespace Assets.Scenes.Battle
 {
     public class BattleManager : MonoBehaviour
     {
-        private Assets.Graphic.GraphicManager m_graphicManager;
         private GameObject m_canvas;
 
         private Assets.Objects.UI.Title m_title;
@@ -26,11 +25,10 @@ namespace Assets.Scenes.Battle
 
         private void Start()
         {
-            m_graphicManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Graphic.GraphicManager>();
             m_canvas = GameObject.Find("Canvas");
 
             m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Objects.UI.Title>();
-            m_title.Initialize(m_graphicManager, "전투", BackAction);
+            m_title.Initialize("전투", BackAction);
 
 
             m_viewPort_TDollController.Load();

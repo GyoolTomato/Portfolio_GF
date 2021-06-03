@@ -5,11 +5,9 @@ namespace Assets.Scenes.Restore
 {
     public class RestoreManager : MonoBehaviour
     {
-        private Assets.Graphic.GraphicManager m_graphicManager;
         private GameObject m_canvas;
 
         private Assets.Objects.UI.Title m_title;
-        //private MenuController m_menuController;
 
         public RestoreManager()
         {
@@ -22,13 +20,10 @@ namespace Assets.Scenes.Restore
 
         private void Start()
         {
-            m_graphicManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Graphic.GraphicManager>();
             m_canvas = GameObject.Find("Canvas");
 
             m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Objects.UI.Title>();
-            m_title.Initialize(m_graphicManager, "수복", BackAction);
-            //m_menuController = new Controller.MenuController();
-            //m_menuController.Initialize(m_gameManager, m_canvas);
+            m_title.Initialize("수복", BackAction);
         }
 
         private void Update()

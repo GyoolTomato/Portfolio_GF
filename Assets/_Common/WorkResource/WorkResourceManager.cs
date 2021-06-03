@@ -3,13 +3,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Assets.Common.Interface;
+using Assets.Graphic;
 using Assets.DB;
 using Assets.DB.User.Base;
+using Assets.Common.WorkResource.Base;
 
-namespace Assets.Graphic.Controller
+namespace Assets.Common.WorkResource
 {
-    public class ResourceContorller
+    public class WorkResourceManager : MonoBehaviour
     {
         public enum E_OthersResourceType
         {
@@ -19,51 +20,56 @@ namespace Assets.Graphic.Controller
             End,
         }
 
-        private GraphicManager m_resourceManager;
+        private GraphicManager m_graphicManager;
         private DbManager m_dbManager;
 
         private bool m_collecting;
-        private WorkResource m_steel;
-        private WorkResource m_flower;
-        private WorkResource m_food;
-        private WorkResource m_leather;
+        private WorkResourceBase m_steel;
+        private WorkResourceBase m_flower;
+        private WorkResourceBase m_food;
+        private WorkResourceBase m_leather;
 
         private OthersResource m_passTicket;
         private OthersResource m_tDollTicket;
         private OthersResource m_equipmentTicket;
 
-        public ResourceContorller()
+        public WorkResourceManager()
         {
 
         }
 
-        public void Initialize(GraphicManager resourceManager)
+        private void Awake()
         {
-            m_resourceManager = resourceManager;
-            m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
+            
+        }
 
-            m_steel = new WorkResource();
+        private void Start()
+        {
+            m_graphicManager = GameObject.Find("GameManager").GetComponent<GraphicManager>();
+            m_dbManager = GameObject.Find("GameManager").GetComponent<DbManager>();
+
+            m_steel = new WorkResourceBase();
             m_steel.Title = "강철";
             m_steel.DBName = "Steel";
             m_steel.Amount = 0;
             m_steel.ChargingVolume_Time = 3.0f;
             m_steel.ChargingVolume_Amount = 120;
 
-            m_flower = new WorkResource();
+            m_flower = new WorkResourceBase();
             m_flower.Title = "약초";
             m_flower.DBName = "Flower";
             m_flower.Amount = 0;
             m_flower.ChargingVolume_Time = 3.0f;
             m_flower.ChargingVolume_Amount = 120;
 
-            m_food = new WorkResource();
+            m_food = new WorkResourceBase();
             m_food.Title = "식량";
             m_food.DBName = "Food";
             m_food.Amount = 0;
             m_food.ChargingVolume_Time = 3.0f;
             m_food.ChargingVolume_Amount = 120;
 
-            m_leather = new WorkResource();
+            m_leather = new WorkResourceBase();
             m_leather.Title = "가죽";
             m_leather.DBName = "Leather";
             m_leather.Amount = 0;
@@ -71,19 +77,24 @@ namespace Assets.Graphic.Controller
             m_leather.ChargingVolume_Amount = 40;
 
             m_passTicket = new OthersResource();
-            m_passTicket.ImageSprite = m_resourceManager.GetSpriteController().GetWorkResource("PassTicket");
+            m_passTicket.ImageSprite = m_graphicManager.GetSpriteController().GetWorkResource("PassTicket");
             m_passTicket.Title = "쾌속 제조권";
             m_passTicket.Amount = 0;
 
             m_tDollTicket = new OthersResource();
-            m_tDollTicket.ImageSprite = m_resourceManager.GetSpriteController().GetWorkResource("TDollTicket");
+            m_tDollTicket.ImageSprite = m_graphicManager.GetSpriteController().GetWorkResource("TDollTicket");
             m_tDollTicket.Title = "인형 제조권";
             m_tDollTicket.Amount = 0;
 
             m_equipmentTicket = new OthersResource();
-            m_equipmentTicket.ImageSprite = m_resourceManager.GetSpriteController().GetWorkResource("EquipmentTicket");
+            m_equipmentTicket.ImageSprite = m_graphicManager.GetSpriteController().GetWorkResource("EquipmentTicket");
             m_equipmentTicket.Title = "장비 제조권";
             m_equipmentTicket.Amount = 0;
+        }
+
+        private void Update()
+        {
+            
         }
 
         private void ReadUserWorkResource()
@@ -131,10 +142,10 @@ namespace Assets.Graphic.Controller
         {
             if (!m_collecting)
             {
-                m_resourceManager.StartCoroutine(SteelCharger());
-                m_resourceManager.StartCoroutine(FlowerCharger());
-                m_resourceManager.StartCoroutine(FoodCharger());
-                m_resourceManager.StartCoroutine(LeatherCharger());
+                StartCoroutine(SteelCharger());
+                StartCoroutine(FlowerCharger());
+                StartCoroutine(FoodCharger());
+                StartCoroutine(LeatherCharger());
                 m_collecting = true;
             }
         }        
@@ -250,22 +261,22 @@ namespace Assets.Graphic.Controller
             }
         }
 
-        public WorkResource Steel()
+        public WorkResourceBase Steel()
         {
             return m_steel;
         }
 
-        public WorkResource Flower()
+        public WorkResourceBase Flower()
         {
             return m_flower;
         }
 
-        public WorkResource Food()
+        public WorkResourceBase Food()
         {
             return m_food;
         }
 
-        public WorkResource Leather()
+        public WorkResourceBase Leather()
         {
             return m_leather;
         }

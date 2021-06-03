@@ -6,7 +6,6 @@ namespace Assets.Scenes.SelectStage
 {
     public class SelectStageManager : MonoBehaviour
     {
-        private Assets.Graphic.GraphicManager m_graphicManager;
         private GameObject m_canvas;
 
         private Title m_title;
@@ -23,12 +22,11 @@ namespace Assets.Scenes.SelectStage
         }
 
         private void Start()
-        {
-            m_graphicManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Graphic.GraphicManager>();
+        {            
             m_canvas = GameObject.Find("Canvas");
 
             m_title = m_canvas.transform.Find("Title").GetComponent<Title>();
-            m_title.Initialize(m_graphicManager, "스테이지 선택", BackAction);
+            m_title.Initialize("스테이지 선택", BackAction);
 
             m_viewPortController = new Controller.ViewPortController();
             m_viewPortController.Initialize();

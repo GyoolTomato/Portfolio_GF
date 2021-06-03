@@ -9,6 +9,7 @@ namespace Assets.Scenes.Lobby
     public class LobbyManager : MonoBehaviour
     {
         private Assets.Graphic.GraphicManager m_graphicManager;
+        private Common.WorkResource.WorkResourceManager m_workResourceManager;
         private GameObject m_canvas;
 
         private BackgroundController m_backgroundController;
@@ -31,18 +32,19 @@ namespace Assets.Scenes.Lobby
         void Start()
         {
             m_graphicManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Graphic.GraphicManager>();
+            m_workResourceManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Common.WorkResource.WorkResourceManager>();
             m_canvas = GameObject.Find("Canvas");
 
             m_backgroundController = new BackgroundController();
-            m_backgroundController.Initialize(m_graphicManager, m_canvas);
+            m_backgroundController.Initialize(m_canvas);
             m_userMonitorController = new UserMonitorController();
-            m_userMonitorController.Initialize(m_graphicManager, m_canvas);
+            m_userMonitorController.Initialize(m_canvas);
             m_menuController = new MenuController();
             m_menuController.Initialize(m_canvas);
             m_adController = new AdController();
-            m_adController.Initialize(m_graphicManager, m_canvas);
+            m_adController.Initialize(m_canvas);
 
-            m_graphicManager.GetResourceContorller().StartCollectWorkResource();
+            m_workResourceManager.StartCollectWorkResource();
         }
 
         // Update is called once per frame

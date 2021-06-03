@@ -17,8 +17,6 @@ namespace Assets.Scenes.StageField
             End,
         }
 
-        private Assets.Graphic.GraphicManager m_graphicManager;
-
         private E_State m_state;
         private PlayController m_playController;
         private BoardManager m_boardManager;
@@ -42,7 +40,6 @@ namespace Assets.Scenes.StageField
 
         private void Awake()
         {
-            m_graphicManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Graphic.GraphicManager>();
             m_state = E_State.End;
             m_playController = new PlayController();
             m_playController.Initialize(this);
@@ -63,7 +60,7 @@ namespace Assets.Scenes.StageField
             m_exitAnswer_Yes = m_exitAnswer.transform.Find("Yes").GetComponent<Button>();
             m_exitAnswer_Yes.onClick.AddListener(Handle_Exit);
             m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Objects.UI.Title>();
-            m_title.Initialize(m_graphicManager, "스테이지", BackAction);            
+            m_title.Initialize("스테이지", BackAction);            
         }
 
         private void Start()

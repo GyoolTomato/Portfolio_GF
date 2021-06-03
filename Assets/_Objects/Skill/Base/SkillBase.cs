@@ -95,7 +95,7 @@ namespace Assets.Skill.Base
         {
             var characterBase = collision.gameObject.GetComponent<CharacterBase>();
 
-            if (characterBase != null && characterBase == m_target)
+            if (characterBase != null && characterBase.GetTeam() != m_master.GetTeam())
             {
                 //if (collision.gameObject == m_target || transform.tag != collision.transform.tag)
                 //{

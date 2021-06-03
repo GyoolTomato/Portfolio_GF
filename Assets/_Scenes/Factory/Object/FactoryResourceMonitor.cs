@@ -31,7 +31,7 @@ namespace Assets.Scenes.Factory.Object
 
         }
 
-        public void ApplyData(Assets.Common.Interface.OthersResource othersResource)
+        public void ApplyData(Assets.Common.WorkResource.Base.OthersResource othersResource)
         {
             m_image.sprite = othersResource.ImageSprite;
             m_title.text = othersResource.Title;

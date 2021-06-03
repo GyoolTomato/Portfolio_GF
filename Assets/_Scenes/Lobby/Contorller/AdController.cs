@@ -12,9 +12,9 @@ namespace Assets.Scenes.Lobby.Controller
         {
         }
 
-        public void Initialize(Assets.Graphic.GraphicManager graphicManager, GameObject canvas)
+        public void Initialize(GameObject canvas)
         {
-            m_graphicManager = graphicManager;
+
         }
     }
 }

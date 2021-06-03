@@ -12,7 +12,6 @@ namespace Assets.Graphic
         private DB.User.Base.UserDataBase_Stage m_userDataBaseStage;
 
         private SpriteController m_spriteController;
-        private ResourceContorller m_resourceContorller;   
 
         private void Awake()
         {
@@ -25,9 +24,7 @@ namespace Assets.Graphic
             m_instance = this;
             DontDestroyOnLoad(gameObject);           
 
-            m_spriteController = new SpriteController();
-            m_resourceContorller = new ResourceContorller();
-            m_resourceContorller.Initialize(this);                    
+            m_spriteController = new SpriteController();                 
         }
 
         // Start is called before the first frame update
@@ -40,11 +37,6 @@ namespace Assets.Graphic
         void Update()
         {
 
-        }
-
-        public ResourceContorller GetResourceContorller()
-        {
-            return m_resourceContorller;
         }
 
         public SpriteController GetSpriteController()
