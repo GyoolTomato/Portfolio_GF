@@ -93,21 +93,13 @@ namespace Assets.Skill.Base
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            var characterBase = collision.gameObject.GetComponent<CharacterBase>();
+            var collisionCharacterBase = collision.gameObject.GetComponent<CharacterBase>();
 
-            if (characterBase != null && characterBase.GetTeam() != m_master.GetTeam())
+            if (collisionCharacterBase != null && collisionCharacterBase.GetTeam() != m_master.GetTeam())
             {
-                //if (collision.gameObject == m_target || transform.tag != collision.transform.tag)
-                //{
+                collisionCharacterBase.ApplyDamage(m_damage);
 
-                //    if (characterBase != null)
-                //    {
-
-                        characterBase.ApplyDamage(m_damage);
-
-                        Boom(collision.transform);
-                //    }
-                //}
+                Boom(collision.transform);
             }
         }
 

@@ -8,7 +8,7 @@ namespace Assets.Scenes.StageField.BattleField.Controller
     {
         GameObject m_finishMessage;
         Text m_text;
-        Animation m_animation;
+        Animation m_textAnimation;
 
         public BattleFinishMessageController()
         {
@@ -19,8 +19,8 @@ namespace Assets.Scenes.StageField.BattleField.Controller
             var canvas = GameObject.Find("Canvas");
             var battleFieldUI = canvas.transform.Find("BattleFieldUI");
             m_finishMessage = battleFieldUI.Find("FinishMessage").gameObject;
-            m_text = m_finishMessage.GetComponent<Text>();
-            m_animation = m_finishMessage.GetComponent<Animation>();            
+            m_text = m_finishMessage.transform.Find("Text").GetComponent<Text>();
+            m_textAnimation = m_finishMessage.transform.Find("Text").GetComponent<Animation>();            
         }
 
         public void Ready()
@@ -46,7 +46,7 @@ namespace Assets.Scenes.StageField.BattleField.Controller
                     break;
             }
 
-            m_animation.Play();            
+            m_textAnimation.Play();            
         }
     }
 }
