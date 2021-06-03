@@ -97,10 +97,10 @@ namespace Assets.Scenes.StageField.Object
             switch (m_owner)
             {
                 case E_Owner.Player:
-                    StartCoroutine(UpdateOwnerAnimation(Common.Interface.CustomColor.PlayerPoint));
+                    StartCoroutine(UpdateOwnerAnimation(Graphic.CustomColor.PlayerPoint));
                     break;
                 case E_Owner.Enemy:
-                    StartCoroutine(UpdateOwnerAnimation(Common.Interface.CustomColor.EnemyPoint));
+                    StartCoroutine(UpdateOwnerAnimation(Graphic.CustomColor.EnemyPoint));
                     break;
                 case E_Owner.End:
                     break;

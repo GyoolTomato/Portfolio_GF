@@ -144,12 +144,12 @@ namespace Assets.Scenes.Factory.Object
 
         private void SetResource()
         {
-            var gameManager = GameObject.Find("GameManager").GetComponent<Common.ResourceManager>();
+            var graphicManager = GameObject.Find("GameManager").GetComponent<Graphic.GraphicManager>();
             
-            m_steel.SetImage(gameManager.GetSpriteController().GetWorkResource("Steel"));
-            m_flower.SetImage(gameManager.GetSpriteController().GetWorkResource("Flower"));
-            m_food.SetImage(gameManager.GetSpriteController().GetWorkResource("Food"));
-            m_leather.SetImage(gameManager.GetSpriteController().GetWorkResource("Leather"));
+            m_steel.SetImage(graphicManager.GetSpriteController().GetWorkResource("Steel"));
+            m_flower.SetImage(graphicManager.GetSpriteController().GetWorkResource("Flower"));
+            m_food.SetImage(graphicManager.GetSpriteController().GetWorkResource("Food"));
+            m_leather.SetImage(graphicManager.GetSpriteController().GetWorkResource("Leather"));
         }
     }
 }

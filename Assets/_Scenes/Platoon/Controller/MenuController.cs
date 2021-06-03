@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scenes.Platoon.Controller
 {
-    public class MenuController : Assets.Common.Base.MenuBase
+    public class MenuController : Assets.Objects.Menu.Base.MenuBase
     {
         private GameObject m_selectPlatoon;
 

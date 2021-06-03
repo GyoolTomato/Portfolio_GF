@@ -39,7 +39,7 @@ namespace Assets.Scenes.StageField.Board.Controller
         {            
             m_boardManager = boardManager;
 
-            var gameManager = GameObject.Find("GameManager").GetComponent<Assets.Common.ResourceManager>();
+            var gameManager = GameObject.Find("GameManager").GetComponent<Assets.Graphic.GraphicManager>();
             var selectedStage = gameManager.SelectedStage;            
             m_board = GameObject.Find("Board");
 

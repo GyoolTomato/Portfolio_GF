@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Common.Interface
+namespace Assets.Graphic
 {
     public static class CustomColor
     {

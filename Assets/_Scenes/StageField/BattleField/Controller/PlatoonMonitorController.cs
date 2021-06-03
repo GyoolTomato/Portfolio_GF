@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-using Assets.Resources.Album;
+using Assets.Objects.Album;
 
 namespace Assets.Scenes.StageField.BattleField.Controller
 {

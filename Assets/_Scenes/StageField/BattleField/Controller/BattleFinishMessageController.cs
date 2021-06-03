@@ -35,11 +35,11 @@ namespace Assets.Scenes.StageField.BattleField.Controller
             switch (winner)
             {
                 case BattleFieldManager.E_Winner.Player:
-                    m_text.color = Common.Interface.CustomColor.PlayerPoint;
+                    m_text.color = Graphic.CustomColor.PlayerPoint;
                     m_text.text = "- 승리 -";
                     break;
                 case BattleFieldManager.E_Winner.Enemy:
-                    m_text.color = Common.Interface.CustomColor.EnemyPoint;
+                    m_text.color = Graphic.CustomColor.EnemyPoint;
                     m_text.text = "- 패E_Winner -";
                     break;
                 default:

@@ -7,7 +7,7 @@ namespace Assets.Character.Battle.Base
 {
     public class CharacterBase : MonoBehaviour
     {
-        protected Assets.Common.ResourceManager m_resourceManager;
+        protected Assets.Graphic.GraphicManager m_graphicManager;
         protected DB.DbManager m_dbManager;
         private bool m_isInit;
         protected CharacterStat m_characterStat;
@@ -21,7 +21,7 @@ namespace Assets.Character.Battle.Base
 
         protected virtual void Awake()
         {
-            m_resourceManager = GameObject.Find("GameManager").GetComponent<Common.ResourceManager>();
+            m_graphicManager = GameObject.Find("GameManager").GetComponent<Graphic.GraphicManager>();
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
             m_characterStat = new CharacterStat();
 

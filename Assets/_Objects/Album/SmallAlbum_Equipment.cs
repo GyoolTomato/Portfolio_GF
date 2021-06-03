@@ -2,13 +2,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Resources.Album
+namespace Assets.Objects.Album
 {
     public class SmallAlbum_Equipment : MonoBehaviour
     {
         public delegate void SelectEquipment(int tDollOwnershipCode, int sequence);
 
-        private Assets.Common.ResourceManager m_resourceManager;
+        private Assets.Graphic.GraphicManager m_graphicManager;
         private DB.DbManager m_dbManager;
 
         private SelectEquipment m_selectEquipment;
@@ -36,7 +36,7 @@ namespace Assets.Resources.Album
 
         public void Initialize(SelectEquipment selectEquipment)
         {
-            m_resourceManager = GameObject.Find("GameManager").GetComponent<Assets.Common.ResourceManager>();
+            m_graphicManager = GameObject.Find("GameManager").GetComponent<Assets.Graphic.GraphicManager>();
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
 
             m_selectEquipment = selectEquipment;            
@@ -59,7 +59,7 @@ namespace Assets.Resources.Album
 
                 if (data != null)
                 {
-                    m_image.sprite = m_resourceManager.GetSpriteController().GetEquipmentImage(data.DataCode);
+                    m_image.sprite = m_graphicManager.GetSpriteController().GetEquipmentImage(data.DataCode);
                     m_limitedPower.text = data.LimitedPower + "%";
                     SetCurtain(false);
                 }

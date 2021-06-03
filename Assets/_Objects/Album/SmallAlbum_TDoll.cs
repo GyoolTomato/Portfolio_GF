@@ -2,13 +2,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Resources.Album
+namespace Assets.Objects.Album
 {
     public class SmallAlbum_TDoll : MonoBehaviour
     {
         public delegate void ClickEvent(int ownershipCode);
 
-        private Common.ResourceManager m_resourceManager;
+        private Graphic.GraphicManager m_graphicManager;
         private DB.DbManager m_dbManager;
 
         private Image m_character;
@@ -17,7 +17,7 @@ namespace Assets.Resources.Album
 
         private void Awake()
         {
-            m_resourceManager = GameObject.Find("GameManager").GetComponent<Common.ResourceManager>();
+            m_graphicManager = GameObject.Find("GameManager").GetComponent<Graphic.GraphicManager>();
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
 
             m_character = transform.Find("Character").GetComponent<Image>();
@@ -71,7 +71,7 @@ namespace Assets.Resources.Album
 
         private void ApplyDataCode(DB.Index.IndexDataBase_TDoll dBData)
         {
-            m_character.sprite = m_resourceManager.GetSpriteController().GetCharacterImage(dBData.DataCode);
+            m_character.sprite = m_graphicManager.GetSpriteController().GetCharacterImage(dBData.DataCode);
         }
 
         private void ApplyLevel(int level)

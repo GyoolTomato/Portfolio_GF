@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Common
+namespace Assets.Common.Android
 {
     public class AndroidManager : MonoBehaviour
     {
@@ -18,22 +18,7 @@ namespace Assets.Common
 
         private void Awake()
         {
-            //if (Application.platform != RuntimePlatform.Android)
-            //{
-            //    Destroy(this);
-            //    return;
-            //}
 
-            //if (m_instance == null)
-            //    m_instance = this;
-            //else
-            //    Destroy(gameObject);
-
-            //m_unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-            //m_currentActivity = m_unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
-            //m_context = m_currentActivity.Call<AndroidJavaObject>("getApplicationContext");
-
-            //DontDestroyOnLoad(this.gameObject);
         }
 
         public void ShowToast(string message)

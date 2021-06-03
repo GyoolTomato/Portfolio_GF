@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Resources.Album
+namespace Assets.Objects.Album
 {
     public class Album_Equipment : MonoBehaviour
     {
         public delegate void ClickEvent(int ownershipCode);
 
-        private Common.ResourceManager m_resourceManager;
+        private Graphic.GraphicManager m_graphicManager;
         private DB.DbManager m_dbManager;
         private ClickEvent m_clickEvent;
 
@@ -32,7 +32,7 @@ namespace Assets.Resources.Album
 
         private void Awake()
         {
-            m_resourceManager = GameObject.Find("GameManager").GetComponent<Common.ResourceManager>();
+            m_graphicManager = GameObject.Find("GameManager").GetComponent<Graphic.GraphicManager>();
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
 
             m_button = this.GetComponent<Button>();
@@ -93,9 +93,9 @@ namespace Assets.Resources.Album
             for (int i = 0; i < dBData.Star; i++)
                 tempStar += "★";
 
-            m_typeImage.sprite = m_resourceManager.GetSpriteController().GetTypeImage(dBData.Type);
+            m_typeImage.sprite = m_graphicManager.GetSpriteController().GetTypeImage(dBData.Type);
             m_star.text = tempStar;
-            m_character.sprite = m_resourceManager.GetSpriteController().GetEquipmentImage(dBData.DataCode);
+            m_character.sprite = m_graphicManager.GetSpriteController().GetEquipmentImage(dBData.DataCode);
             m_name.text = dBData.Name;
             m_subName.text = dBData.Type;
 

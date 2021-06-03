@@ -8,7 +8,7 @@ namespace Assets.Scenes.Lobby
 {
     public class LobbyManager : MonoBehaviour
     {
-        private Assets.Common.ResourceManager m_resourceManager;
+        private Assets.Graphic.GraphicManager m_graphicManager;
         private GameObject m_canvas;
 
         private BackgroundController m_backgroundController;
@@ -18,7 +18,7 @@ namespace Assets.Scenes.Lobby
 
         private void Awake()
         {
-            m_resourceManager = null;
+            m_graphicManager = null;
             m_canvas = null;
 
             m_backgroundController = null;
@@ -30,19 +30,19 @@ namespace Assets.Scenes.Lobby
         // Start is called before the first frame update
         void Start()
         {
-            m_resourceManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Common.ResourceManager>();
+            m_graphicManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Graphic.GraphicManager>();
             m_canvas = GameObject.Find("Canvas");
 
             m_backgroundController = new BackgroundController();
-            m_backgroundController.Initialize(m_resourceManager, m_canvas);
+            m_backgroundController.Initialize(m_graphicManager, m_canvas);
             m_userMonitorController = new UserMonitorController();
-            m_userMonitorController.Initialize(m_resourceManager, m_canvas);
+            m_userMonitorController.Initialize(m_graphicManager, m_canvas);
             m_menuController = new MenuController();
             m_menuController.Initialize(m_canvas);
             m_adController = new AdController();
-            m_adController.Initialize(m_resourceManager, m_canvas);
+            m_adController.Initialize(m_graphicManager, m_canvas);
 
-            m_resourceManager.GetResourceContorller().StartCollectWorkResource();
+            m_graphicManager.GetResourceContorller().StartCollectWorkResource();
         }
 
         // Update is called once per frame

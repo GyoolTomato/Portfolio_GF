@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Common.Controller
+namespace Assets.Graphic.Controller
 {
     public class SpriteController
     {

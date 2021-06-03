@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using Assets.Common;
+using Assets.Graphic;
 using Assets.DB.User.Base;
 using UnityEngine;
 
@@ -13,9 +13,9 @@ namespace Assets.Scenes.Factory.Controller
         {
         }
 
-        public override void Initialize(FactoryManager factoryManager, ResourceManager resourceManager, TicketResourceController ticketResourceController, string menuName)
+        public override void Initialize(FactoryManager factoryManager, GraphicManager graphicManager, TicketResourceController ticketResourceController, string menuName)
         {
-            base.Initialize(factoryManager, resourceManager, ticketResourceController, menuName);
+            base.Initialize(factoryManager, graphicManager, ticketResourceController, menuName);
             var produceDBIndex = 0;
             foreach (var item in m_produceSlotList)
             {
@@ -26,7 +26,7 @@ namespace Assets.Scenes.Factory.Controller
 
         protected override void OrderReceive(UserDataBase_Produce produceData, int steel, int flower, int food, int leather, out bool result)
         { 
-            if (m_resourceManager.GetResourceContorller().TDollTicket().Amount >= 0)
+            if (m_graphicManager.GetResourceContorller().TDollTicket().Amount >= 0)
             {
                 m_ticketResourceController.UpdateValue();
                 base.OrderReceive(produceData, steel, flower, food, leather, out result);
@@ -91,7 +91,7 @@ namespace Assets.Scenes.Factory.Controller
                 }
                 produceData.DataCode = temp.DataCode;
                 produceData.CompleteTime = DateTime.Now.AddSeconds(temp.ManufacturingTime).ToString();
-                m_resourceManager.GetResourceContorller().OthersResourceAmountCal(Common.Controller.ResourceContorller.E_OthersResourceType.TDollTicket, -1);
+                m_graphicManager.GetResourceContorller().OthersResourceAmountCal(Graphic.Controller.ResourceContorller.E_OthersResourceType.TDollTicket, -1);
 
                 m_dbManager.GetUserDBController().UpdateProduceTDoll(produceData);
             }

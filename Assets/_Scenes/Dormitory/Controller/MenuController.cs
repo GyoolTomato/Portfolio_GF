@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace Assets.Scenes.Dormitory.Controller
 {
-    public class MenuController : Assets.Common.Base.MenuBase
+    public class MenuController : Assets.Objects.Menu.Base.MenuBase
     {
         public MenuController()
         {

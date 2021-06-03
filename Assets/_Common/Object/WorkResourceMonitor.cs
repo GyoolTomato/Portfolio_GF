@@ -7,7 +7,7 @@ namespace Assets.Resources.Object
 {
     public class WorkResourceMonitor : MonoBehaviour
     {
-        private Common.ResourceManager m_resourceManager;
+        private Graphic.GraphicManager m_resourceManager;
         private Image m_image;
         private Text m_title;
         private Text m_amount;
@@ -16,7 +16,7 @@ namespace Assets.Resources.Object
 
         private void Awake()
         {
-            m_resourceManager = GameObject.Find("GameManager").GetComponent<Common.ResourceManager>();
+            m_resourceManager = GameObject.Find("GameManager").GetComponent<Graphic.GraphicManager>();
             m_image = transform.Find("Image").GetComponent<Image>();
             m_title = transform.Find("Title").GetComponent<Text>();
             m_amount = transform.Find("Amount").GetComponent<Text>();

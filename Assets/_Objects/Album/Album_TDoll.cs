@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Resources.Album
+namespace Assets.Objects.Album
 {
     public class Album_TDoll : MonoBehaviour
     {
         public delegate void ClickEvent(int ownershipCode);
 
-        private Common.ResourceManager m_resourceManager;
+        private Graphic.GraphicManager m_graphicManager;
         private DB.DbManager m_dbManager;
         private ClickEvent m_clickEvent;
 
@@ -27,7 +27,7 @@ namespace Assets.Resources.Album
 
         private void Awake()
         {
-            m_resourceManager = GameObject.Find("GameManager").GetComponent<Common.ResourceManager>();
+            m_graphicManager = GameObject.Find("GameManager").GetComponent<Graphic.GraphicManager>();
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
 
             m_button = this.GetComponent<Button>();
@@ -76,8 +76,8 @@ namespace Assets.Resources.Album
 
         private void ApplyDataCode(DB.Index.IndexDataBase_TDoll dBData)
         {
-            m_character.sprite = m_resourceManager.GetSpriteController().GetCharacterImage(dBData.DataCode);
-            m_typeImage.sprite = m_resourceManager.GetSpriteController().GetTypeImage(dBData.Type);
+            m_character.sprite = m_graphicManager.GetSpriteController().GetCharacterImage(dBData.DataCode);
+            m_typeImage.sprite = m_graphicManager.GetSpriteController().GetTypeImage(dBData.Type);
 
             var tempStar = string.Empty;
             for (int i = 0; i < dBData.Star; i++)

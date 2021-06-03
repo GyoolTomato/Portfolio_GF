@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.DB.User.Base;
-using Assets.Resources.Album;
+using Assets.Objects.Album;
 
 namespace Assets.Scenes.Factory.Controller
 {

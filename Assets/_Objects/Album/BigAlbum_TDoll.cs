@@ -2,13 +2,13 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Resources.Album
+namespace Assets.Objects.Album
 {
     public class BigAlbum_TDoll : MonoBehaviour
     {
         public delegate void Handle_SelectPlatoon(int platoonNumber, int sequence);
 
-        private Assets.Common.ResourceManager m_resourceManager;
+        private Assets.Graphic.GraphicManager m_graphicManager;
         private DB.DbManager m_dbManager;
 
         private Handle_SelectPlatoon m_selectTDoll;
@@ -47,7 +47,7 @@ namespace Assets.Resources.Album
 
         public void Initialize(int platoonNumber, int sequence, Handle_SelectPlatoon selectTDoll, SmallAlbum_Equipment.SelectEquipment selectEquipment)
         {
-            m_resourceManager = GameObject.Find("GameManager").GetComponent<Assets.Common.ResourceManager>();
+            m_graphicManager = GameObject.Find("GameManager").GetComponent<Assets.Graphic.GraphicManager>();
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
 
             m_selectTDoll = selectTDoll;
@@ -97,8 +97,8 @@ namespace Assets.Resources.Album
 
                     m_name.text = indexDB.Name;
 
-                    m_typeImage.sprite = m_resourceManager.GetSpriteController().GetTypeImage(indexDB.Type);
-                    m_character.sprite = m_resourceManager.GetSpriteController().GetCharacterImage(userDB.DataCode);
+                    m_typeImage.sprite = m_graphicManager.GetSpriteController().GetTypeImage(indexDB.Type);
+                    m_character.sprite = m_graphicManager.GetSpriteController().GetCharacterImage(userDB.DataCode);
                     ApplyDummyLink(userDB.DummyLink);
                     ApplyLevel(userDB.Level);
                     

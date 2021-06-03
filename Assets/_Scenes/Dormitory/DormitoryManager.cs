@@ -6,7 +6,7 @@ namespace Assets.Scenes.Dormitory
 {
     public class DormitoryManager : MonoBehaviour
     {
-        private Assets.Common.ResourceManager m_resourceManager;
+        private Assets.Graphic.GraphicManager m_graphicManager;
         private GameObject m_canvas;
 
         private Assets.Resources.Object.Title m_title;
@@ -26,11 +26,11 @@ namespace Assets.Scenes.Dormitory
 
         private void Start()
         {
-            m_resourceManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Common.ResourceManager>();
+            m_graphicManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Graphic.GraphicManager>();
             m_canvas = GameObject.Find("Canvas");
 
             m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Resources.Object.Title>();
-            m_title.Initialize(m_resourceManager, "숙소", BackAction);
+            m_title.Initialize(m_graphicManager, "숙소", BackAction);
             m_menuController = new Controller.MenuController();
             m_menuController.Initialize(m_canvas);
             m_viewPort_TDollController = new ViewPort_TDollController();

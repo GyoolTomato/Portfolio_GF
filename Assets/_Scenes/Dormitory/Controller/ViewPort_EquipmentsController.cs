@@ -16,7 +16,7 @@ namespace Assets.Scenes.Dormitory.Controller
                 var result = GameObject.Instantiate(m_album, Vector3.zero, Quaternion.identity);
                 result.transform.parent = m_viewPortContent.transform;
 
-                var albumScript = result.GetComponent<Assets.Resources.Album.Album_Equipment>();
+                var albumScript = result.GetComponent<Assets.Objects.Album.Album_Equipment>();
                 albumScript.Initialize(item);
             }
         }

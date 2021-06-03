@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Common;
+using Assets.Graphic;
 
 namespace Assets.Scenes.Platoon.Base
 {
     public class SelectPlatoonBase
     {
-        protected ResourceManager m_resourceManager;
+        protected GraphicManager m_graphicManager;
         protected DB.DbManager m_dbManager;
 
         protected Controller.PlatoonController m_platoonController;
@@ -23,7 +23,7 @@ namespace Assets.Scenes.Platoon.Base
 
         public void Initialize(Controller.PlatoonController platoonController, string viewName, string albumName)
         {
-            m_resourceManager = GameObject.Find("GameManager").GetComponent<ResourceManager>();
+            m_graphicManager = GameObject.Find("GameManager").GetComponent<GraphicManager>();
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
 
             m_platoonController = platoonController;

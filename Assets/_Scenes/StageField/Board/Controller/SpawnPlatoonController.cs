@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Common;
+using Assets.Graphic;
 using Assets.Resources.Object;
 using Assets.Scenes.StageField.Board.SpawnPlatoon;
 using Assets.Character;
@@ -12,7 +12,7 @@ namespace Assets.Scenes.StageField.Board.Controller
 {
     public class SpawnPlatoonController
     {
-        private ResourceManager m_resourceManager;
+        private GraphicManager m_graphicManager;
         private DB.DbManager m_dbManager;
 
         private MenuController m_menuController;
@@ -28,7 +28,7 @@ namespace Assets.Scenes.StageField.Board.Controller
             var board = canvas.transform.Find("BoardUI");
             var spawnPlatoon = board.Find("SpawnPlatoon").gameObject;
 
-            m_resourceManager = GameObject.Find("GameManager").GetComponent<ResourceManager>();
+            m_graphicManager = GameObject.Find("GameManager").GetComponent<GraphicManager>();
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();
 
             m_menuController = new MenuController();
@@ -54,7 +54,7 @@ namespace Assets.Scenes.StageField.Board.Controller
             {
                 if (item == m_menuController.GetSelectedPlatoonNumber())
                 {
-                    m_resourceManager.StartCoroutine(AlertMessage());
+                    m_graphicManager.StartCoroutine(AlertMessage());
                     return;
                 }
             }

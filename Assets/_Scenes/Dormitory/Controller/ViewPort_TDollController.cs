@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEditor;
-using Assets.Resources.Album;
+using Assets.Objects.Album;
 
 namespace Assets.Scenes.Dormitory.Controller
 {

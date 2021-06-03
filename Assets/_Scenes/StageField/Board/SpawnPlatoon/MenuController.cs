@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scenes.StageField.Board.SpawnPlatoon
 {
-    public class MenuController : Assets.Common.Base.MenuBase
+    public class MenuController : Assets.Objects.Menu.Base.MenuBase
     {
         public delegate void Listener();
 

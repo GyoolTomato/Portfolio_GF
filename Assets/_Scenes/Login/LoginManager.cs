@@ -10,7 +10,7 @@ namespace Assets.Scenes.Login
 {
     public class LoginManager : MonoBehaviour
     {
-        private Assets.Common.AndroidManager m_androidManager;
+        private Assets.Common.Android.AndroidManager m_androidManager;
         private Button m_EnterButton;
         public Camera letterBox;
 
@@ -18,7 +18,7 @@ namespace Assets.Scenes.Login
         {
             if (Application.platform == RuntimePlatform.Android)
             {
-                m_androidManager = GameObject.Find("GameManager").GetComponent<Common.AndroidManager>();
+                m_androidManager = GameObject.Find("GameManager").GetComponent<Common.Android.AndroidManager>();
             }            
 
             var vLogin = GameObject.Find("Login");

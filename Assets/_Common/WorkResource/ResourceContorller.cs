@@ -7,7 +7,7 @@ using Assets.Common.Interface;
 using Assets.DB;
 using Assets.DB.User.Base;
 
-namespace Assets.Common.Controller
+namespace Assets.Graphic.Controller
 {
     public class ResourceContorller
     {
@@ -19,7 +19,7 @@ namespace Assets.Common.Controller
             End,
         }
 
-        private ResourceManager m_resourceManager;
+        private GraphicManager m_resourceManager;
         private DbManager m_dbManager;
 
         private bool m_collecting;
@@ -37,7 +37,7 @@ namespace Assets.Common.Controller
 
         }
 
-        public void Initialize(ResourceManager resourceManager)
+        public void Initialize(GraphicManager resourceManager)
         {
             m_resourceManager = resourceManager;
             m_dbManager = GameObject.Find("GameManager").GetComponent<DB.DbManager>();

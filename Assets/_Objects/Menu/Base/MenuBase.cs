@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using Assets.Common.Interface;
+using Assets.Graphic;
 
-namespace Assets.Common.Base
+namespace Assets.Objects.Menu.Base
 {
     public class MenuBase
     {

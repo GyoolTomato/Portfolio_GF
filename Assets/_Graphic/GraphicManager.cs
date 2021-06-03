@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Assets.Common.Controller;
+using Assets.Graphic.Controller;
 
-namespace Assets.Common
+namespace Assets.Graphic
 {
-    public class ResourceManager : MonoBehaviour
+    public class GraphicManager : MonoBehaviour
     {
-        private static ResourceManager m_instance;
+        private static GraphicManager m_instance;
 
         private DB.User.Base.UserDataBase_Stage m_userDataBaseStage;
 

@@ -9,7 +9,7 @@ namespace Assets.Resources.Object
     {
         public delegate void BackAction();
 
-        private Assets.Common.ResourceManager m_resourceManager;
+        private Assets.Graphic.GraphicManager m_graphicManager;
         private BackAction m_backAction;
 
         private Button m_buttonBack;
@@ -24,7 +24,7 @@ namespace Assets.Resources.Object
 
         public Title()
         {
-            m_resourceManager = null;
+            m_graphicManager = null;
             m_buttonBack = null;
             m_name = null;
             m_workResourceInformation = null;
@@ -34,9 +34,9 @@ namespace Assets.Resources.Object
             m_leather = null;
         }
 
-        public void Initialize(Assets.Common.ResourceManager resourceManager, string name, BackAction backAction)
+        public void Initialize(Assets.Graphic.GraphicManager graphicManager, string name, BackAction backAction)
         {
-            m_resourceManager = resourceManager;
+            m_graphicManager = graphicManager;
 
             var canvas = GameObject.Find("Canvas");
             var title = canvas.transform.Find("Title");
@@ -63,10 +63,10 @@ namespace Assets.Resources.Object
 
         private void ApplyWorkResourceData()
         {
-            m_steel.ApplyData(m_resourceManager.GetResourceContorller().Steel());
-            m_flower.ApplyData(m_resourceManager.GetResourceContorller().Flower());
-            m_food.ApplyData(m_resourceManager.GetResourceContorller().Food());
-            m_leather.ApplyData(m_resourceManager.GetResourceContorller().Leather());
+            m_steel.ApplyData(m_graphicManager.GetResourceContorller().Steel());
+            m_flower.ApplyData(m_graphicManager.GetResourceContorller().Flower());
+            m_food.ApplyData(m_graphicManager.GetResourceContorller().Food());
+            m_leather.ApplyData(m_graphicManager.GetResourceContorller().Leather());
         }
 
         private void Handle_Back()
