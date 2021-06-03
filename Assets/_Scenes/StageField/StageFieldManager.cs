@@ -33,7 +33,7 @@ namespace Assets.Scenes.StageField
         private GameObject m_exitAnswer;
         private Button m_exitAnswer_No;
         private Button m_exitAnswer_Yes;      
-        private Assets.Resources.Object.Title m_title;
+        private Assets.Objects.UI.Title m_title;
 
         public StageFieldManager()
         {
@@ -62,7 +62,7 @@ namespace Assets.Scenes.StageField
             m_exitAnswer_No.onClick.AddListener(Handle_ExitCanel);
             m_exitAnswer_Yes = m_exitAnswer.transform.Find("Yes").GetComponent<Button>();
             m_exitAnswer_Yes.onClick.AddListener(Handle_Exit);
-            m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Resources.Object.Title>();
+            m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Objects.UI.Title>();
             m_title.Initialize(m_graphicManager, "스테이지", BackAction);            
         }
 

@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-using Assets.Resources.Object;
+using Assets.Objects.UI;
 
 namespace Assets.Scenes.StageField.Board.SpawnPlatoon
 {

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-namespace Assets.Resources.Object
+namespace Assets.Objects.UI
 {
     public class Title : MonoBehaviour
     {

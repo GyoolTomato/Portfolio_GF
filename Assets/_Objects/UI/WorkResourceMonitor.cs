@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Resources.Object
+namespace Assets.Objects.UI
 {
     public class WorkResourceMonitor : MonoBehaviour
     {

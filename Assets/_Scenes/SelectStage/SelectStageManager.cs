@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using Assets.Objects.UI;
 
 namespace Assets.Scenes.SelectStage
 {
@@ -8,7 +9,7 @@ namespace Assets.Scenes.SelectStage
         private Assets.Graphic.GraphicManager m_graphicManager;
         private GameObject m_canvas;
 
-        private Assets.Resources.Object.Title m_title;
+        private Title m_title;
         private Controller.ViewPortController m_viewPortController;
 
         public SelectStageManager()
@@ -26,7 +27,7 @@ namespace Assets.Scenes.SelectStage
             m_graphicManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Graphic.GraphicManager>();
             m_canvas = GameObject.Find("Canvas");
 
-            m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Resources.Object.Title>();
+            m_title = m_canvas.transform.Find("Title").GetComponent<Title>();
             m_title.Initialize(m_graphicManager, "스테이지 선택", BackAction);
 
             m_viewPortController = new Controller.ViewPortController();

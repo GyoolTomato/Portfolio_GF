@@ -8,7 +8,7 @@ namespace Assets.Scenes.Platoon.Controller
         private Assets.Graphic.GraphicManager m_graphicManager;
         private GameObject m_canvas;
 
-        private Assets.Resources.Object.Title m_title;
+        private Assets.Objects.UI.Title m_title;
         private MenuController m_menuController;
         private PlatoonController m_platoonController;
 
@@ -26,7 +26,7 @@ namespace Assets.Scenes.Platoon.Controller
             m_graphicManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Graphic.GraphicManager>();
             m_canvas = GameObject.Find("Canvas");
 
-            m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Resources.Object.Title>();
+            m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Objects.UI.Title>();
             m_title.Initialize(m_graphicManager, "편성", BackAction);
             m_menuController = new MenuController();
             m_menuController.Initialize(m_canvas);

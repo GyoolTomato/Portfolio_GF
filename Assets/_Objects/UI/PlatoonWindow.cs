@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Assets.Objects.Album;
 
-namespace Assets.Resources.Object
+namespace Assets.Objects.UI
 {
     public class PlatoonWindow : MonoBehaviour
     {

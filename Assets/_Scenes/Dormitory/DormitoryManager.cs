@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using Assets.Scenes.Dormitory.Controller;
+using Assets.Objects.UI;
 
 namespace Assets.Scenes.Dormitory
 {
@@ -9,7 +10,7 @@ namespace Assets.Scenes.Dormitory
         private Assets.Graphic.GraphicManager m_graphicManager;
         private GameObject m_canvas;
 
-        private Assets.Resources.Object.Title m_title;
+        private Title m_title;
         private MenuController m_menuController;
         private ViewPort_TDollController m_viewPort_TDollController;
         private ViewPort_EquipmentsController m_viewPort_EquipmentsController;
@@ -29,7 +30,7 @@ namespace Assets.Scenes.Dormitory
             m_graphicManager = GameObject.Find("GameManager").gameObject.GetComponent<Assets.Graphic.GraphicManager>();
             m_canvas = GameObject.Find("Canvas");
 
-            m_title = m_canvas.transform.Find("Title").GetComponent<Assets.Resources.Object.Title>();
+            m_title = m_canvas.transform.Find("Title").GetComponent<Title>();
             m_title.Initialize(m_graphicManager, "숙소", BackAction);
             m_menuController = new Controller.MenuController();
             m_menuController.Initialize(m_canvas);

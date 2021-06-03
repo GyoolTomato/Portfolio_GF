@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
-using Assets.Resources.Object;
+using Assets.Objects.UI;
 
 namespace Assets.Scenes.Lobby.Controller
 {
